@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Bold.otf">
+            <string>SFProText-Bold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="NationalityTableViewCell" customModule="CoachCulture" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eNh-23-JGv">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lnB-kM-WhD">
+                                <rect key="frame" x="30" y="8" width="290" height="19.5"/>
+                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="16"/>
+                                <color key="textColor" name="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="II0-Pv-LfR">
+                                <rect key="frame" x="0.0" y="33" width="320" height="2"/>
+                                <color key="backgroundColor" red="0.32156862745098036" green="0.37647058823529411" blue="0.4392156862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="2" id="xwc-cn-8cC"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="II0-Pv-LfR" secondAttribute="trailing" id="BVH-De-TV8"/>
+                            <constraint firstItem="lnB-kM-WhD" firstAttribute="leading" secondItem="eNh-23-JGv" secondAttribute="leading" constant="30" id="Ee9-sP-sW9"/>
+                            <constraint firstAttribute="trailing" secondItem="lnB-kM-WhD" secondAttribute="trailing" id="Hw1-VM-0Z7"/>
+                            <constraint firstItem="II0-Pv-LfR" firstAttribute="leading" secondItem="eNh-23-JGv" secondAttribute="leading" id="NEG-mK-JaC"/>
+                            <constraint firstItem="lnB-kM-WhD" firstAttribute="top" secondItem="eNh-23-JGv" secondAttribute="top" constant="8" id="dSj-E5-IUz"/>
+                            <constraint firstItem="II0-Pv-LfR" firstAttribute="top" secondItem="lnB-kM-WhD" secondAttribute="bottom" constant="5.5" id="psa-PO-9DT"/>
+                            <constraint firstAttribute="bottom" secondItem="II0-Pv-LfR" secondAttribute="bottom" id="wQZ-PM-KmB"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" name="viewBGColor"/>
+                <constraints>
+                    <constraint firstItem="eNh-23-JGv" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="I7F-GF-UQq"/>
+                    <constraint firstAttribute="trailing" secondItem="eNh-23-JGv" secondAttribute="trailing" id="QJA-xy-NeF"/>
+                    <constraint firstItem="eNh-23-JGv" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="kLp-GQ-7Fn"/>
+                    <constraint firstAttribute="bottom" secondItem="eNh-23-JGv" secondAttribute="bottom" id="xoJ-6H-YMx"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="lblName" destination="lnB-kM-WhD" id="CVj-TR-dVe"/>
+            </connections>
+            <point key="canvasLocation" x="132" y="94"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <namedColor name="textColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="viewBGColor">
+            <color red="0.17299999296665192" green="0.22400000691413879" blue="0.28600001335144043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

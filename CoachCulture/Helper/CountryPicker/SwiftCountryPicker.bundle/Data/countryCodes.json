@@ -1,0 +1,52 @@
+[
+{
+"name": "Algeria",
+"dial_code": "+213",
+"code": "DZ"
+},
+{
+"name": "Canada",
+"dial_code": "+1",
+"code": "CA"
+},
+{
+"name": "Germany",
+"dial_code": "+49",
+"code": "DE"
+},
+{
+"name": "Italy",
+"dial_code": "+39",
+"code": "IT"
+},
+{
+"name": "Morocco",
+"dial_code": "+212",
+"code": "MA"
+},
+{
+"name": "Spain",
+"dial_code": "+34",
+"code": "ES"
+},
+{
+"name": "Tunisia",
+"dial_code": "+216",
+"code": "TN"
+},
+{
+"name": "United Arab Emirates",
+"dial_code": "+971",
+"code": "AE"
+},
+{
+"name": "United Kingdom",
+"dial_code": "+44",
+"code": "GB"
+},
+{
+"name": "United States",
+"dial_code": "+1",
+"code": "US"
+}
+]

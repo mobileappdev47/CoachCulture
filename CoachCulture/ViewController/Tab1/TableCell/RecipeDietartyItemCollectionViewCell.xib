@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SFProText-Semibold.otf">
+            <string>SFProText-Semibold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="RecipeDietartyItemCollectionViewCell" customModule="CoachCulture" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="60" height="25"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="60" height="25"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZvO-OD-pmw" userLabel="Neck">
+                        <rect key="frame" x="0.0" y="0.0" width="60" height="25"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdq-hG-BwI">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="25"/>
+                                <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="9"/>
+                                <color key="textColor" name="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.26666666666666666" green="0.30588235294117649" blue="0.3529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="hdq-hG-BwI" firstAttribute="top" secondItem="ZvO-OD-pmw" secondAttribute="top" id="3yO-zK-L66"/>
+                            <constraint firstAttribute="bottom" secondItem="hdq-hG-BwI" secondAttribute="bottom" id="C6X-oF-hOq"/>
+                            <constraint firstAttribute="trailing" secondItem="hdq-hG-BwI" secondAttribute="trailing" id="IcX-XP-6Hz"/>
+                            <constraint firstItem="hdq-hG-BwI" firstAttribute="centerY" secondItem="ZvO-OD-pmw" secondAttribute="centerY" id="IqX-kZ-hkG"/>
+                            <constraint firstItem="hdq-hG-BwI" firstAttribute="leading" secondItem="ZvO-OD-pmw" secondAttribute="leading" id="kA7-tL-xuk"/>
+                            <constraint firstItem="hdq-hG-BwI" firstAttribute="centerX" secondItem="ZvO-OD-pmw" secondAttribute="centerX" id="lY3-om-ENV"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                <real key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="ZvO-OD-pmw" secondAttribute="trailing" id="32m-RA-HYz"/>
+                <constraint firstItem="ZvO-OD-pmw" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="CRk-Ug-ibQ"/>
+                <constraint firstAttribute="bottom" secondItem="ZvO-OD-pmw" secondAttribute="bottom" id="LcZ-ew-HG5"/>
+                <constraint firstItem="ZvO-OD-pmw" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="THq-Kk-F5d"/>
+            </constraints>
+            <size key="customSize" width="171" height="50"/>
+            <connections>
+                <outlet property="lblTitle" destination="hdq-hG-BwI" id="QdP-Bc-3gk"/>
+                <outlet property="viwContainer" destination="ZvO-OD-pmw" id="xM0-U6-CXJ"/>
+            </connections>
+            <point key="canvasLocation" x="219.56521739130437" y="91.741071428571431"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <namedColor name="textColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+</document>

@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Heavy.otf">
+            <string>SFProText-Heavy</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="PopularTrainerCollectionViewCell" customModule="CoachCulture" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="110" height="165"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="110" height="165"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hbo-ZZ-5JB">
+                        <rect key="frame" x="0.0" y="0.0" width="110" height="165"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="Gk0-Pl-Wet">
+                                <rect key="frame" x="0.0" y="0.0" width="110" height="165"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="ie1-Gd-wDK"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtq-wE-Yx9">
+                                <rect key="frame" x="0.0" y="96.5" width="110" height="53.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@timnorton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJd-wP-3wf">
+                                        <rect key="frame" x="0.0" y="10" width="110" height="18"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="15"/>
+                                        <color key="textColor" name="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22.5k Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYb-Bl-cE1">
+                                        <rect key="frame" x="0.0" y="29" width="110" height="14.5"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="12"/>
+                                        <color key="textColor" name="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="jYb-Bl-cE1" secondAttribute="bottom" constant="10" id="6is-F3-j4p"/>
+                                    <constraint firstItem="FJd-wP-3wf" firstAttribute="top" secondItem="qtq-wE-Yx9" secondAttribute="top" constant="10" id="FSA-7Y-xZa"/>
+                                    <constraint firstItem="jYb-Bl-cE1" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" id="PdN-x0-yak"/>
+                                    <constraint firstAttribute="trailing" secondItem="FJd-wP-3wf" secondAttribute="trailing" id="X20-z0-MsN"/>
+                                    <constraint firstItem="jYb-Bl-cE1" firstAttribute="top" secondItem="FJd-wP-3wf" secondAttribute="bottom" constant="1" id="gBH-Qe-5ep"/>
+                                    <constraint firstItem="FJd-wP-3wf" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" id="pED-mL-NXP"/>
+                                    <constraint firstAttribute="trailing" secondItem="jYb-Bl-cE1" secondAttribute="trailing" id="vsG-8J-YPr"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Gk0-Pl-Wet" firstAttribute="top" secondItem="hbo-ZZ-5JB" secondAttribute="top" id="7V0-BL-amq"/>
+                            <constraint firstAttribute="bottom" secondItem="Gk0-Pl-Wet" secondAttribute="bottom" id="Bxt-kf-HNv"/>
+                            <constraint firstAttribute="bottom" secondItem="qtq-wE-Yx9" secondAttribute="bottom" constant="15" id="fOI-QT-7QH"/>
+                            <constraint firstAttribute="trailing" secondItem="qtq-wE-Yx9" secondAttribute="trailing" id="h8W-E0-7Yi"/>
+                            <constraint firstAttribute="trailing" secondItem="Gk0-Pl-Wet" secondAttribute="trailing" id="n7R-um-LyN"/>
+                            <constraint firstItem="qtq-wE-Yx9" firstAttribute="leading" secondItem="hbo-ZZ-5JB" secondAttribute="leading" id="t25-mz-ywE"/>
+                            <constraint firstItem="Gk0-Pl-Wet" firstAttribute="leading" secondItem="hbo-ZZ-5JB" secondAttribute="leading" id="wUq-sG-Z7n"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                <real key="value" value="5"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <color key="backgroundColor" name="themeColor"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="hbo-ZZ-5JB" secondAttribute="trailing" id="4Kh-Yl-xrA"/>
+                <constraint firstAttribute="bottom" secondItem="hbo-ZZ-5JB" secondAttribute="bottom" id="ApJ-AS-4fR"/>
+                <constraint firstItem="hbo-ZZ-5JB" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="JLI-kr-fxj"/>
+                <constraint firstItem="hbo-ZZ-5JB" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="hAh-CG-aPy"/>
+            </constraints>
+            <size key="customSize" width="250" height="167"/>
+            <connections>
+                <outlet property="imgUser" destination="Gk0-Pl-Wet" id="2F1-Ou-0cZ"/>
+                <outlet property="lblFollower" destination="jYb-Bl-cE1" id="Dul-Mw-k1W"/>
+                <outlet property="lblName" destination="FJd-wP-3wf" id="Oek-vb-UXq"/>
+            </connections>
+            <point key="canvasLocation" x="214" y="-87"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_img" width="123" height="190"/>
+        <namedColor name="textColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="themeColor">
+            <color red="0.024000000208616257" green="0.078000001609325409" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

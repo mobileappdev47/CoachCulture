@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="23" height="25" viewBox="0 0 23 25">
+  <g id="Profile" transform="translate(6.46 1.5)">
+    <g id="icon" transform="translate(-4.96)">
+      <path id="line" d="M10,5.824V5.176A5.091,5.091,0,0,0,5,0,5.091,5.091,0,0,0,0,5.176v.647a9.173,9.173,0,0,0,3.5,7.247,2.433,2.433,0,0,0,3,0A9.173,9.173,0,0,0,10,5.824Z" transform="translate(5)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
+      <path id="line-2" data-name="line" d="M13.085,0l.386,1.6a2.575,2.575,0,0,0,1.307,1.689l1.914.99a5.143,5.143,0,0,1,2.615,3.375L20,10.52H0L.692,7.653A5.143,5.143,0,0,1,3.308,4.278l1.914-.99A2.575,2.575,0,0,0,6.529,1.6L6.915,0" transform="translate(0 11.48)" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="3"/>
+    </g>
+  </g>
+</svg>
