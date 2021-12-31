@@ -28,6 +28,9 @@ class ManageSubscriptionListViewController: BaseViewController {
     
     var dataRequest: DataRequest?
     
+    
+    var cancelSubScription: CancelSubScription!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,8 +46,23 @@ class ManageSubscriptionListViewController: BaseViewController {
         tblManageSubscription.dataSource = self
         txtSearch.delegate = self
         
+        cancelSubScription = Bundle.main.loadNibNamed("CancelSubScription", owner: nil, options: nil)?.first as? CancelSubScription
+        cancelSubScription.tapToBtnYes {
+            
+        }
+        
+        cancelSubScription.tapToBtnNo {
+            self.cancelSubScription.removeFromSuperview()
+        }
+        
         getCoachSubscriptionList()
         
+    }
+    
+    func setCancelSubScription() {
+        
+        cancelSubScription.frame.size = self.view.frame.size
+        self.view.addSubview(cancelSubScription)
     }
     
     func resetAll() {

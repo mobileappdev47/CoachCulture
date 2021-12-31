@@ -35,6 +35,14 @@ class SearchFollowersViewController: BaseViewController {
         setUpUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        txtSearch.text = ""
+        clickToBtnFollowerAll(btnFollower)
+        getAllCoachesListWithSearch(str: "")
+    }
+    
     func setUpUI() {
         hideTabBar()
         txtSearch.delegate = self
@@ -42,10 +50,7 @@ class SearchFollowersViewController: BaseViewController {
         tblSearchFollowers.delegate = self
         tblSearchFollowers.dataSource = self
         viwNoDataFound.isHidden = true
-        
-        clickToBtnFollowerAll(btnFollower)
-        getAllCoachesListWithSearch(str: "")
-       
+            
     }
     
     //MARK: - CLICK EVENTS

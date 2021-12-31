@@ -10,6 +10,7 @@ import UIKit
 class PopularClassesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgThumbnail : UIImageView!
 
     @IBOutlet weak var viwTopStatusContainer : UIView!
     
@@ -41,6 +42,8 @@ class PopularClassesCollectionViewCell: UICollectionViewCell {
             viwTopStatusContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
         }
         imgUser.setImageFromURL(imgUrl: obj.thumbnail_url, placeholderImage: nil)
+        imgThumbnail.setImageFromURL(imgUrl: obj.thumbnail_url, placeholderImage: nil)
+        imgThumbnail.blurImage()
     }
 
 }

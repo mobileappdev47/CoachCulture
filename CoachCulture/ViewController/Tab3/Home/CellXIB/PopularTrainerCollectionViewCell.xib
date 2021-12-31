@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SF-Pro-Text-Heavy.otf">
+        <array key="SFProText-Heavy.otf">
             <string>SFProText-Heavy</string>
         </array>
     </customFonts>
@@ -30,6 +30,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="Gk0-Pl-Wet">
                                 <rect key="frame" x="0.0" y="0.0" width="110" height="165"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="165" id="FbC-Lm-zOE"/>
                                     <constraint firstAttribute="width" constant="110" id="ie1-Gd-wDK"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -39,16 +40,24 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtq-wE-Yx9">
-                                <rect key="frame" x="0.0" y="96.5" width="110" height="53.5"/>
+                                <rect key="frame" x="0.0" y="106.5" width="110" height="43.5"/>
                                 <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="zxD-e7-D3X">
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="43.5"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@timnorton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJd-wP-3wf">
-                                        <rect key="frame" x="0.0" y="10" width="110" height="18"/>
+                                        <rect key="frame" x="0.0" y="5" width="110" height="18"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="15"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22.5k Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYb-Bl-cE1">
-                                        <rect key="frame" x="0.0" y="29" width="110" height="14.5"/>
+                                        <rect key="frame" x="0.0" y="24" width="110" height="14.5"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="12"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -56,14 +65,24 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.5" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="jYb-Bl-cE1" secondAttribute="bottom" constant="10" id="6is-F3-j4p"/>
-                                    <constraint firstItem="FJd-wP-3wf" firstAttribute="top" secondItem="qtq-wE-Yx9" secondAttribute="top" constant="10" id="FSA-7Y-xZa"/>
+                                    <constraint firstAttribute="bottom" secondItem="jYb-Bl-cE1" secondAttribute="bottom" constant="5" id="6is-F3-j4p"/>
+                                    <constraint firstItem="FJd-wP-3wf" firstAttribute="top" secondItem="qtq-wE-Yx9" secondAttribute="top" constant="5" id="FSA-7Y-xZa"/>
+                                    <constraint firstAttribute="trailing" secondItem="zxD-e7-D3X" secondAttribute="trailing" id="IQB-z5-009"/>
+                                    <constraint firstItem="zxD-e7-D3X" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" id="M3t-bD-21u"/>
                                     <constraint firstItem="jYb-Bl-cE1" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" id="PdN-x0-yak"/>
                                     <constraint firstAttribute="trailing" secondItem="FJd-wP-3wf" secondAttribute="trailing" id="X20-z0-MsN"/>
+                                    <constraint firstAttribute="height" constant="43.5" id="ZUF-hO-jBT"/>
+                                    <constraint firstItem="zxD-e7-D3X" firstAttribute="top" secondItem="qtq-wE-Yx9" secondAttribute="top" id="ba4-t4-ALN"/>
                                     <constraint firstItem="jYb-Bl-cE1" firstAttribute="top" secondItem="FJd-wP-3wf" secondAttribute="bottom" constant="1" id="gBH-Qe-5ep"/>
+                                    <constraint firstAttribute="bottom" secondItem="zxD-e7-D3X" secondAttribute="bottom" id="mBD-G1-Ova"/>
                                     <constraint firstItem="FJd-wP-3wf" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" id="pED-mL-NXP"/>
                                     <constraint firstAttribute="trailing" secondItem="jYb-Bl-cE1" secondAttribute="trailing" id="vsG-8J-YPr"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -94,6 +113,7 @@
             </constraints>
             <size key="customSize" width="250" height="167"/>
             <connections>
+                <outlet property="imgThumbnail" destination="zxD-e7-D3X" id="iJV-3I-DpT"/>
                 <outlet property="imgUser" destination="Gk0-Pl-Wet" id="2F1-Ou-0cZ"/>
                 <outlet property="lblFollower" destination="jYb-Bl-cE1" id="Dul-Mw-k1W"/>
                 <outlet property="lblName" destination="FJd-wP-3wf" id="Oek-vb-UXq"/>
@@ -107,7 +127,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeColor">
-            <color red="0.024000000208616257" green="0.078000001609325409" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.023529411764705882" green="0.074509803921568626" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

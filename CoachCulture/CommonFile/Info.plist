@@ -8,8 +8,8 @@
 	<array>
 		<string>Karla-Bold.ttf</string>
 		<string>Karla-Regular.ttf</string>
-        <string>SFProText-Bold.otf</string>
-        <string>SFProText-Heavy.otf</string>
+		<string>SFProText-Bold.otf</string>
+		<string>SFProText-Heavy.otf</string>
 		<string>SFProText-Medium.otf</string>
 		<string>SFProText-Regular.otf</string>
 		<string>SFProText-Semibold.otf</string>
@@ -78,31 +78,25 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
-    
-    
-    
-    <key>CFBundleURLTypes</key>
-     <array>
-       <dict>
-         <key>CFBundleURLSchemes</key>
-         <array>
-           <string>fb{your-app-id}</string>
-         </array>
-       </dict>
-     </array>
-     <key>FacebookAppID</key>
-     <string>{your-app-id}</string>
-     <key>FacebookDisplayName</key>
-     <string>{your-app-name}</string>
-     <key>LSApplicationQueriesSchemes</key>
-     <array>
-       <string>fbapi</string>
-       <string>fb-messenger-share-api</string>
-       <string>fbauth2</string>
-       <string>fbshareextension</string>
-     </array>
-    
-    
-    
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb{your-app-id}</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>{your-app-id}</string>
+	<key>FacebookDisplayName</key>
+	<string>{your-app-name}</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>

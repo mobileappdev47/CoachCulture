@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SF-Pro-Text-Bold.otf">
+        <array key="SFProText-Bold.otf">
             <string>SFProText-Bold</string>
         </array>
-        <array key="SF-Pro-Text-Heavy.otf">
+        <array key="SFProText-Heavy.otf">
             <string>SFProText-Heavy</string>
         </array>
     </customFonts>
@@ -45,6 +45,9 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bZq-cl-epQ">
                                 <rect key="frame" x="0.0" y="135" width="155" height="55"/>
                                 <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uFr-I8-hUN">
+                                        <rect key="frame" x="0.0" y="0.0" width="155" height="55"/>
+                                    </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OR5-VY-BB6">
                                         <rect key="frame" x="76.5" y="8" width="2" height="39"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -107,19 +110,23 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.31764705882352939" green="0.74901960784313726" blue="0.50588235294117645" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="uFr-I8-hUN" secondAttribute="bottom" id="1Ey-ns-CKh"/>
                                     <constraint firstItem="tno-ao-6n5" firstAttribute="leading" secondItem="bZq-cl-epQ" secondAttribute="leading" constant="5" id="3tZ-2d-poO"/>
                                     <constraint firstAttribute="height" constant="55" id="4oe-8N-nAQ"/>
                                     <constraint firstItem="1L9-nx-y9S" firstAttribute="centerY" secondItem="bZq-cl-epQ" secondAttribute="centerY" id="B5p-9m-N3U"/>
                                     <constraint firstItem="1L9-nx-y9S" firstAttribute="width" secondItem="tno-ao-6n5" secondAttribute="width" id="Dwf-Uz-Baa"/>
+                                    <constraint firstItem="uFr-I8-hUN" firstAttribute="leading" secondItem="bZq-cl-epQ" secondAttribute="leading" id="Mjg-iN-u7g"/>
                                     <constraint firstItem="OR5-VY-BB6" firstAttribute="top" secondItem="bZq-cl-epQ" secondAttribute="top" constant="8" id="Qcw-Pd-J5Q"/>
+                                    <constraint firstAttribute="trailing" secondItem="uFr-I8-hUN" secondAttribute="trailing" id="THT-Fl-MoZ"/>
                                     <constraint firstItem="OR5-VY-BB6" firstAttribute="centerX" secondItem="bZq-cl-epQ" secondAttribute="centerX" id="Tou-fM-lmE"/>
                                     <constraint firstAttribute="bottom" secondItem="OR5-VY-BB6" secondAttribute="bottom" constant="8" id="V3Y-iM-Imz"/>
                                     <constraint firstItem="1L9-nx-y9S" firstAttribute="leading" secondItem="OR5-VY-BB6" secondAttribute="trailing" constant="5" id="XXq-tm-ewY"/>
                                     <constraint firstItem="tno-ao-6n5" firstAttribute="centerY" secondItem="bZq-cl-epQ" secondAttribute="centerY" id="fKk-ec-w9L"/>
                                     <constraint firstItem="OR5-VY-BB6" firstAttribute="leading" secondItem="tno-ao-6n5" secondAttribute="trailing" constant="5" id="hgh-FB-WLg"/>
                                     <constraint firstAttribute="trailing" secondItem="1L9-nx-y9S" secondAttribute="trailing" constant="5" id="r0W-FG-FQB"/>
+                                    <constraint firstItem="uFr-I8-hUN" firstAttribute="top" secondItem="bZq-cl-epQ" secondAttribute="top" id="rcn-JZ-kBx"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yiv-DG-1eI">
@@ -190,6 +197,7 @@
             </constraints>
             <size key="customSize" width="117" height="147"/>
             <connections>
+                <outlet property="imgThumbnail" destination="uFr-I8-hUN" id="Nxw-CD-kfr"/>
                 <outlet property="imgUser" destination="Jgh-Fn-xeP" id="4D1-Nv-Rrd"/>
                 <outlet property="lblClassSubTitle" destination="Lry-e9-74w" id="w3B-qm-T6V"/>
                 <outlet property="lblClassType" destination="fA7-6w-vxf" id="78S-wS-bmT"/>
@@ -208,7 +216,7 @@
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="themeColor">
-            <color red="0.024000000208616257" green="0.078000001609325409" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.023529411764705882" green="0.074509803921568626" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

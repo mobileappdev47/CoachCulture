@@ -113,7 +113,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView == clvPopularClasses {
             return CGSize(width: 155, height: 190)
         } else {
-            return CGSize(width: 110, height: collectionView.frame.height)
+            return CGSize(width: 110, height: 165)
         }
         
         

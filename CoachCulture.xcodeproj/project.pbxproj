@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		512ABB922717FD72008CB198 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB912717FD72008CB198 /* AppDelegate.swift */; };
-		512ABB942717FD72008CB198 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB932717FD72008CB198 /* SceneDelegate.swift */; };
 		512ABB962717FD72008CB198 /* LoginSignUpVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB952717FD72008CB198 /* LoginSignUpVc.swift */; };
 		512ABB992717FD73008CB198 /* Coach.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 512ABB972717FD73008CB198 /* Coach.storyboard */; };
 		512ABB9E2717FD74008CB198 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 512ABB9C2717FD74008CB198 /* LaunchScreen.storyboard */; };
@@ -97,6 +96,12 @@
 		D47C3B0D2771B21D007ACF96 /* RecipeDietartyItemCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D47C3B0B2771B21D007ACF96 /* RecipeDietartyItemCollectionViewCell.xib */; };
 		D485B17A276C5F5D00EC101E /* LiveClassRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D485B179276C5F5D00EC101E /* LiveClassRatingViewController.swift */; };
 		D4860EA0276B996600C9F6EB /* GiveRecipeRattingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4860E9F276B996600C9F6EB /* GiveRecipeRattingViewController.swift */; };
+		D48AC8C9277D9B8600D1D370 /* CancelSubScription.xib in Resources */ = {isa = PBXBuildFile; fileRef = D48AC8C8277D9B8600D1D370 /* CancelSubScription.xib */; };
+		D48AC8CB277D9B9A00D1D370 /* CancelSubScription.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AC8CA277D9B9A00D1D370 /* CancelSubScription.swift */; };
+		D48AC8CE277DB43C00D1D370 /* PreviousUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AC8CD277DB43C00D1D370 /* PreviousUploadViewController.swift */; };
+		D48AC8D2277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AC8D0277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.swift */; };
+		D48AC8D3277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D48AC8D1277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.xib */; };
+		D48AC8D5277DC79B00D1D370 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48AC8D4277DC79B00D1D370 /* SceneDelegate.swift */; };
 		D48AEAF427587A5E00896B0B /* SF-Pro-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D48AEAE227587A5D00896B0B /* SF-Pro-Text-RegularItalic.otf */; };
 		D48AEAF627587A5E00896B0B /* SF-Pro-Text-ThinItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D48AEAE427587A5E00896B0B /* SF-Pro-Text-ThinItalic.otf */; };
 		D48AEAF727587A5E00896B0B /* SF-Pro-Text-BlackItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = D48AEAE527587A5E00896B0B /* SF-Pro-Text-BlackItalic.otf */; };
@@ -469,7 +474,6 @@
 		5121A5E92718248000B15581 /* Karla-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Light.ttf"; sourceTree = "<group>"; };
 		512ABB8E2717FD72008CB198 /* CoachCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoachCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		512ABB912717FD72008CB198 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		512ABB932717FD72008CB198 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		512ABB952717FD72008CB198 /* LoginSignUpVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpVc.swift; sourceTree = "<group>"; };
 		512ABB982717FD73008CB198 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Coach.storyboard; sourceTree = "<group>"; };
 		512ABB9D2717FD74008CB198 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -561,6 +565,12 @@
 		D47C3B0B2771B21D007ACF96 /* RecipeDietartyItemCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeDietartyItemCollectionViewCell.xib; sourceTree = "<group>"; };
 		D485B179276C5F5D00EC101E /* LiveClassRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveClassRatingViewController.swift; sourceTree = "<group>"; };
 		D4860E9F276B996600C9F6EB /* GiveRecipeRattingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GiveRecipeRattingViewController.swift; sourceTree = "<group>"; };
+		D48AC8C8277D9B8600D1D370 /* CancelSubScription.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CancelSubScription.xib; sourceTree = "<group>"; };
+		D48AC8CA277D9B9A00D1D370 /* CancelSubScription.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelSubScription.swift; sourceTree = "<group>"; };
+		D48AC8CD277DB43C00D1D370 /* PreviousUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousUploadViewController.swift; sourceTree = "<group>"; };
+		D48AC8D0277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrevoisUploadItemTableViewCell.swift; sourceTree = "<group>"; };
+		D48AC8D1277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrevoisUploadItemTableViewCell.xib; sourceTree = "<group>"; };
+		D48AC8D4277DC79B00D1D370 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D48AEAE227587A5D00896B0B /* SF-Pro-Text-RegularItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-RegularItalic.otf"; sourceTree = "<group>"; };
 		D48AEAE327587A5D00896B0B /* SFProText-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SFProText-Bold.otf"; sourceTree = "<group>"; };
 		D48AEAE427587A5E00896B0B /* SF-Pro-Text-ThinItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Text-ThinItalic.otf"; sourceTree = "<group>"; };
@@ -1009,7 +1019,7 @@
 			isa = PBXGroup;
 			children = (
 				512ABB912717FD72008CB198 /* AppDelegate.swift */,
-				512ABB932717FD72008CB198 /* SceneDelegate.swift */,
+				D48AC8D4277DC79B00D1D370 /* SceneDelegate.swift */,
 				D4CE25572769CC2A00743FFC /* Assets.xcassets */,
 				D4CE25542769CC2A00743FFC /* Base.lproj */,
 				512ABB9C2717FD74008CB198 /* LaunchScreen.storyboard */,
@@ -1156,6 +1166,7 @@
 		D40136C12758D74400E36A39 /* Tab5 */ = {
 			isa = PBXGroup;
 			children = (
+				D48AC8CC277DB42100D1D370 /* PreviousUpload */,
 				D49B186F2776EA8C004CE00D /* Download Class */,
 				D4E6FA41277329F000E3593C /* Payment Methods */,
 				D4E6FA3A2772DE9E00E3593C /* Previous Classes */,
@@ -1366,6 +1377,33 @@
 				D4860E9F276B996600C9F6EB /* GiveRecipeRattingViewController.swift */,
 			);
 			path = RecipeRating;
+			sourceTree = "<group>";
+		};
+		D48AC8C7277D9B3F00D1D370 /* PopUp */ = {
+			isa = PBXGroup;
+			children = (
+				D48AC8C8277D9B8600D1D370 /* CancelSubScription.xib */,
+				D48AC8CA277D9B9A00D1D370 /* CancelSubScription.swift */,
+			);
+			path = PopUp;
+			sourceTree = "<group>";
+		};
+		D48AC8CC277DB42100D1D370 /* PreviousUpload */ = {
+			isa = PBXGroup;
+			children = (
+				D48AC8CD277DB43C00D1D370 /* PreviousUploadViewController.swift */,
+				D48AC8CF277DBCA400D1D370 /* Cell */,
+			);
+			path = PreviousUpload;
+			sourceTree = "<group>";
+		};
+		D48AC8CF277DBCA400D1D370 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D48AC8D0277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.swift */,
+				D48AC8D1277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D48F451D2770893500B0EAD8 /* CoachViseOnDemandClass */ = {
@@ -1681,6 +1719,7 @@
 				D4F3C71427746412001EDDE1 /* ManageSubscriptionListViewController.swift */,
 				D4F3C70D27745B7E001EDDE1 /* AccountBalanceListViewController.swift */,
 				D42928842775918300712055 /* PaymentModel.swift */,
+				D48AC8C7277D9B3F00D1D370 /* PopUp */,
 				D4F3C70F27745E21001EDDE1 /* Tableview cell */,
 				D4E6FA4427732A2900E3593C /* Cell */,
 			);
@@ -2189,6 +2228,7 @@
 				F19639F2272BB78600D19373 /* HK.png in Resources */,
 				F1963A63272BB78600D19373 /* SS.png in Resources */,
 				F1963A8D272BB78600D19373 /* ZM.png in Resources */,
+				D48AC8C9277D9B8600D1D370 /* CancelSubScription.xib in Resources */,
 				F1963A2E272BB78600D19373 /* MV.png in Resources */,
 				F1963A58272BB78600D19373 /* SE.png in Resources */,
 				F1963A02272BB78600D19373 /* JE.png in Resources */,
@@ -2228,6 +2268,7 @@
 				F1963A35272BB78600D19373 /* NE.png in Resources */,
 				F1963A27272BB78600D19373 /* MO.png in Resources */,
 				D41DB054277056BE007FC5F7 /* SearchFollowerItemTableViewCell.xib in Resources */,
+				D48AC8D3277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.xib in Resources */,
 				F1963A49272BB78600D19373 /* PR.png in Resources */,
 				F19639DE272BB78600D19373 /* FX.png in Resources */,
 				F19639C5272BB78600D19373 /* CU.png in Resources */,
@@ -2498,11 +2539,13 @@
 				512ABDA227180D08008CB198 /* Delegate.swift in Sources */,
 				512ABC13271804B3008CB198 /* String+LocalizeTableName.swift in Sources */,
 				512ABDA827180D08008CB198 /* BasicTransitionAnimator.swift in Sources */,
+				D48AC8CB277D9B9A00D1D370 /* CancelSubScription.swift in Sources */,
 				D4D2864127587C1600970987 /* CustomTabBarController.swift in Sources */,
 				D4E54BE4275F695F00D6A80F /* ClassDuration.swift in Sources */,
 				D4078987275E623C003FBE1E /* OnDemandVideoUploadModel.swift in Sources */,
 				D4677F6C27577CC300DD7E70 /* DataMapClass.swift in Sources */,
 				D41DB04F2770560D007FC5F7 /* SearchFollowersViewController.swift in Sources */,
+				D48AC8D5277DC79B00D1D370 /* SceneDelegate.swift in Sources */,
 				D4F3C71827746D38001EDDE1 /* SubscriptionItemTableViewCell.swift in Sources */,
 				D48F4527277096C700B0EAD8 /* CoachViseRecipeItemTableViewCell.swift in Sources */,
 				D417984E27630FF7001FA192 /* CreateRecipeModel.swift in Sources */,
@@ -2517,6 +2560,7 @@
 				D417985227631793001FA192 /* AddStepOfRecipeTableViewCell.swift in Sources */,
 				D417985527632512001FA192 /* AddIngredientsForRecipeViewController.swift in Sources */,
 				F196388D272BABBB00D19373 /* SignupUserModel.swift in Sources */,
+				D48AC8CE277DB43C00D1D370 /* PreviousUploadViewController.swift in Sources */,
 				D4D49ED3275B890F009221EE /* NationalityTableViewCell.swift in Sources */,
 				D442AD2927707C270061DA91 /* CoachFollowerModel.swift in Sources */,
 				D4F3C71227745E41001EDDE1 /* TransactionItemTableViewCell.swift in Sources */,
@@ -2535,7 +2579,7 @@
 				D4F3C70C27743B7E001EDDE1 /* AddPaymentMethodViewController.swift in Sources */,
 				512ABECE27180E7E008CB198 /* LandingVC.swift in Sources */,
 				D4CE255D2769E7AA00743FFC /* LiveClassEquipmentItemTableViewCell.swift in Sources */,
-				512ABB942717FD72008CB198 /* SceneDelegate.swift in Sources */,
+				D48AC8D2277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.swift in Sources */,
 				D4156CF92764868400328E4F /* DropDown.swift in Sources */,
 				F18BF9B527285174007BB3CB /* SignupCoachViewController.swift in Sources */,
 				D4613B10276B3C3A00D05ABE /* LiveClassDetailModel.swift in Sources */,

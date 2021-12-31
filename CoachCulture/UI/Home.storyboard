@@ -39,10 +39,10 @@
                                 <rect key="frame" x="0.0" y="82" width="375" height="818"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Fb-r3-soe">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="702"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="696"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VrI-eL-8yU" userLabel="PopTrainer">
-                                                <rect key="frame" x="20" y="248" width="335" height="200"/>
+                                                <rect key="frame" x="20" y="248" width="335" height="194"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Trainers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAi-Jy-mTF">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
@@ -51,18 +51,20 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nXE-95-bKK">
-                                                        <rect key="frame" x="0.0" y="29" width="335" height="171"/>
+                                                        <rect key="frame" x="0.0" y="29" width="335" height="165"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="165" id="411-xf-6Rc"/>
+                                                        </constraints>
                                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Qiu-2M-71C">
                                                             <size key="itemSize" width="135" height="133"/>
-                                                            <size key="estimatedItemSize" width="110" height="165"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
                                                         </collectionViewFlowLayout>
                                                         <cells>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="ShW-j4-Hc4">
-                                                                <rect key="frame" x="0.0" y="19" width="135" height="133"/>
+                                                                <rect key="frame" x="0.0" y="16" width="135" height="133"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="OQa-lt-3vL">
                                                                     <rect key="frame" x="0.0" y="0.0" width="135" height="133"/>
@@ -71,7 +73,7 @@
                                                                 <size key="customSize" width="135" height="133"/>
                                                             </collectionViewCell>
                                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="5LZ-V0-Kkp">
-                                                                <rect key="frame" x="145" y="19" width="135" height="133"/>
+                                                                <rect key="frame" x="145" y="16" width="135" height="133"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="PCn-R8-X2j">
                                                                     <rect key="frame" x="0.0" y="0.0" width="135" height="133"/>
@@ -87,7 +89,6 @@
                                                     <constraint firstItem="nXE-95-bKK" firstAttribute="leading" secondItem="VrI-eL-8yU" secondAttribute="leading" id="8Wr-EA-0Y8"/>
                                                     <constraint firstAttribute="trailing" secondItem="nXE-95-bKK" secondAttribute="trailing" id="BHk-HQ-vhV"/>
                                                     <constraint firstItem="nXE-95-bKK" firstAttribute="top" secondItem="hAi-Jy-mTF" secondAttribute="bottom" constant="5" id="CXJ-cL-8Io"/>
-                                                    <constraint firstAttribute="height" constant="200" id="FNK-o9-CCC"/>
                                                     <constraint firstItem="hAi-Jy-mTF" firstAttribute="top" secondItem="VrI-eL-8yU" secondAttribute="top" id="Gkf-Cb-Gdz"/>
                                                     <constraint firstAttribute="bottom" secondItem="nXE-95-bKK" secondAttribute="bottom" id="Oos-YS-Iq5"/>
                                                     <constraint firstItem="hAi-Jy-mTF" firstAttribute="leading" secondItem="VrI-eL-8yU" secondAttribute="leading" id="dVY-7m-w7j"/>
@@ -320,7 +321,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbC-iX-8TS" userLabel="PopClass">
-                                                <rect key="frame" x="20" y="463" width="335" height="219"/>
+                                                <rect key="frame" x="20" y="457" width="335" height="219"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Classes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joj-m7-K1B">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
@@ -423,6 +424,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="4G8-aM-mhO" secondAttribute="trailing" id="o6l-Hd-WnZ"/>
                         </constraints>
                     </view>
+                    <extendedEdge key="edgesForExtendedLayout" top="YES"/>
                     <navigationItem key="navigationItem" id="2AM-bL-vAS"/>
                     <size key="freeformSize" width="375" height="900"/>
                     <connections>
