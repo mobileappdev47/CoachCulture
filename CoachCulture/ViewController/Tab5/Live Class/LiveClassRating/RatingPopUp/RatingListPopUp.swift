@@ -53,7 +53,7 @@ class RatingListPopUp: UIView {
     func setData(title : String,SubTitle : String,rateValue : String) {
         lblTitle.text = title
         lblSubTitle.text = SubTitle
-        lblRateValue.text = "\(round(Double(rateValue)! * 10) / 10.0)"
+        lblRateValue.text = "\(round(Double(rateValue) ?? 0.0 * 10) / 10.0)"
 
     }
     

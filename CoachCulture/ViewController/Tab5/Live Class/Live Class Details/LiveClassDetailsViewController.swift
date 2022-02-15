@@ -263,7 +263,7 @@ class LiveClassDetailsViewController: BaseViewController {
             let resObj = classDetailDataObj.responseDic
             arrLocalCoachClassData.append(resObj)
             AppPrefsManager.sharedInstance.saveClassData(classData: arrLocalCoachClassData)
-            downloadClassVideoImage(fileName: URL(string: classDetailDataObj.thumbnail_image_path)!.lastPathComponent, downloadUrl: classDetailDataObj.thumbnail_image)
+            downloadClassVideoImage(fileName: URL(string: classDetailDataObj.thumbnail_image_path)?.lastPathComponent ?? "", downloadUrl: classDetailDataObj.thumbnail_image)
             
         }
         
@@ -288,12 +288,13 @@ class LiveClassDetailsViewController: BaseViewController {
             destinationFileUrl = directoryUrl.appendingPathComponent(classDetailDataObj.thumbnail_video_file).absoluteString
         }
         
-        let videoURL = URL(string: destinationFileUrl)
-        let player = AVPlayer(url: videoURL!)
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        self.present(playerViewController, animated: true) {
-            playerViewController.player!.play()
+        if let videoURL = URL(string: destinationFileUrl) {
+            let player = AVPlayer(url: videoURL)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            self.present(playerViewController, animated: true) {
+                playerViewController.player!.play()
+            }
         }
     }
     
@@ -435,36 +436,30 @@ extension LiveClassDetailsViewController {
         let destinationFileUrl = directoryUrl.appendingPathComponent( fileName)
         
         //Create URL to the source file you want to download
-        let fileURL = URL(string: downloadUrl)!
-        
-        let sessionConfig = URLSessionConfiguration.default
-        let session = URLSession(configuration: sessionConfig)
-        
-        
-        let task = session.dataTask(with: fileURL) { (data, response, error) in
+        if let fileURL = URL(string: downloadUrl) {
+            let sessionConfig = URLSessionConfiguration.default
+            let session = URLSession(configuration: sessionConfig)
             
-            DispatchQueue.main.async {
-                if error == nil {
-                    
-                    do {
-                        try data?.write(to: destinationFileUrl)
-                        
-                    } catch {
-                        print("Error", error)
-                        return
-                    }
-                    
-                }
+            let task = session.dataTask(with: fileURL) { (data, response, error) in
                 
-                self.hideLoader()
-                self.isClassDownloaded = true
-                self.imgDownload.image = UIImage(named: "Download Progress")
+                DispatchQueue.main.async {
+                    if error == nil {
+                        
+                        do {
+                            try data?.write(to: destinationFileUrl)
+                            
+                        } catch {
+                            print("Error", error)
+                            return
+                        }
+                        
+                    }
+                    self.hideLoader()
+                    self.isClassDownloaded = true
+                    self.imgDownload.image = UIImage(named: "Download Progress")
+                }
             }
+            task.resume()
         }
-        
-        task.resume()
-        
-        
-        
     }
 }

@@ -119,10 +119,16 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
-        
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if collectionView == clvPopularClasses {
+            let vc = LiveClassDetailsViewController.viewcontroller()
+            vc.selectedId = arrPopularTrainerList[indexPath.row].coach_id
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let vc = CoachViseOnDemandClassViewController.viewcontroller()
+            vc.selectedCoachId = arrPopularClassList[indexPath.row].coach_class_id
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 

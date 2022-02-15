@@ -82,8 +82,18 @@ struct API {
 
 // MARK: - PARAMS KEYS
 
-struct PARAMS {
-    
+struct Params {
+    struct Login {
+        static let google_id = "google_id"
+        static let login_type = "login_type"
+        static let facebook_id = "facebook_id"
+    }
+}
+
+struct LoginType {
+    static let Facebook = 2
+    static let Google = 1
+    static let Standard = 0
 }
 
 // MARK: - RESPONSE CODE

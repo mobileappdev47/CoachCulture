@@ -27,7 +27,6 @@ class LoginSignUpVc: BaseViewController {
     @IBOutlet weak var viewRetypePasswordSignUp: UIView!
     @IBOutlet weak var imgSubmitArrowLogin: UIImageView!
     @IBOutlet weak var imgSubmitArrowSignUp: UIImageView!
-    @IBOutlet weak var viewTwitter: UIView!
     @IBOutlet weak var viewInstagram: UIView!
     @IBOutlet weak var viewFB: UIView!
     @IBOutlet weak var imgAcceptTerms: UIImageView!
@@ -47,7 +46,7 @@ class LoginSignUpVc: BaseViewController {
     
     @IBOutlet weak var txtUsernameLogin: UITextField!
     @IBOutlet weak var txtPasswordLogin: UITextField!
-
+    
     //MARK: - VARIABLE
     
     var isRememberMe = false
@@ -57,6 +56,7 @@ class LoginSignUpVc: BaseViewController {
     var countryCodeDesc = ""
     
     let txtPlaceholders = ["Username", "Password", "Username", "Email", "", "Phone", "Password", "Retype Password"]
+    var loginParams = [String:Any]()
 
     //MARK: - VIEW CONTROLLER LIFE CYCLE
     
@@ -83,7 +83,7 @@ class LoginSignUpVc: BaseViewController {
          txtPhone,
          txtPassword,
          txtRePassword
-         ].enumerated().forEach { index, txt in
+        ].enumerated().forEach { index, txt in
             let place = txtPlaceholders[index]
             txt?.attributedPlaceholder = NSAttributedString(string: place, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .bold), .foregroundColor: COLORS.TEXT_COLOR])
             txt?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
@@ -107,7 +107,7 @@ class LoginSignUpVc: BaseViewController {
     
     func initialSetupUI() {
         self.manageLoginSignUpView(isLogin: isFromLogin)
-
+        
         self.viewUserNameLogin.addCornerRadius(10.0)
         self.viewPasswordLogin.addCornerRadius(10.0)
         self.viewUserNameSignUp.addCornerRadius(10.0)
@@ -118,18 +118,17 @@ class LoginSignUpVc: BaseViewController {
         self.viewLoginMain.addCornerRadius(10.0)
         self.viewSignUpMain.addCornerRadius(10.0)
         self.viewMainBg.addCornerRadius(10.0)
-        self.viewTwitter.addCornerRadius(self.viewTwitter.frame.height / 2)
         self.viewFB.addCornerRadius(self.viewFB.frame.height / 2)
         self.viewInstagram.addCornerRadius(self.viewInstagram.frame.height / 2)
         viewEmailSignup.addCornerRadius(10.0)
-
+        
         self.btnLogin.setTitle("Login".localized(), for: .normal)
         self.btnSignUp.setTitle("SignUp".localized(), for: .normal)
         
         let underlineAttriString = NSMutableAttributedString(string: lblTermsAndConditions.text ?? "")
         let range1 = ((lblTermsAndConditions.text ?? "") as NSString).range(of: "Terms & Conditions".localized())
-             underlineAttriString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range1)
-                
+        underlineAttriString.addAttribute(NSAttributedString.Key.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: range1)
+        
         underlineAttriString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.white, range: range1)
         
         lblTermsAndConditions.attributedText = underlineAttriString
@@ -150,11 +149,11 @@ class LoginSignUpVc: BaseViewController {
     func changeRememberMeStatus(flag: Bool) {
         imgRememberMe.image = flag ? UIImage(named: "ic_checked") : UIImage(named: "ic_unchecked")
     }
-
+    
     func changeAcceptTermsAndConditionStatus(flag: Bool) {
         imgAcceptTerms.image = flag ? UIImage(named: "ic_checked") : UIImage(named: "ic_unchecked")
     }
-
+    
     func manageLoginSignUpView(isLogin: Bool = false) {
         if isLogin {
             self.imgSubmitArrowLogin.isHidden = false
@@ -179,7 +178,7 @@ class LoginSignUpVc: BaseViewController {
         isRememberMe = !isRememberMe
         self.changeRememberMeStatus(flag: isRememberMe)
     }
-
+    
     @IBAction func btnAcceptTermsAndConditionClick(_ sender: Any) {
         isAcceptTermsAndCondition = !isAcceptTermsAndCondition
         self.changeAcceptTermsAndConditionStatus(flag: isAcceptTermsAndCondition)
@@ -201,92 +200,75 @@ class LoginSignUpVc: BaseViewController {
     
     @objc func btnLoginTappedClick(_ sender: UIButton) {
         if validationLogin() {
+            loginParams = [
+                "username": txtUsernameLogin.text!,
+                "password": txtPasswordLogin.text!,
+                "login_type": 0
+            ]
             loginAPI()
         }
     }
     
     @objc func btnSignupTappedClick(_ sender: UIButton) {
         if validationSignup() {
-//            let vc = OTPViewController.viewcontroller()
-//            vc.phoneNo = txtPhone.text!
-//            vc.verifiedCallback = { [weak self] in
-//                guard self != nil else {return}
-                print("SingupAPI")
-                self.signupAPI()
-//            }
-//            self.navigationController?.pushViewController(vc, animated: true)
+            //            let vc = OTPViewController.viewcontroller()
+            //            vc.phoneNo = txtPhone.text!
+            //            vc.verifiedCallback = { [weak self] in
+            //                guard self != nil else {return}
+            print("SingupAPI")
+            self.signupAPI()
+            //            }
+            //            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
     @IBAction func clickToBtnGoogleSignIn( _ sender : UIButton) {
-        
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-
-        // Create Google Sign In configuration object.
         let config = GIDConfiguration(clientID: clientID)
-
-        // Start the sign in flow!
         GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [unowned self] user, error in
-
-          if let error = error {
-            // ...
-            return
-          }
-
-          guard
-            let authentication = user?.authentication,
-            let idToken = authentication.idToken
-          else {
-            return
-          }
-
-          let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-                                                         accessToken: authentication.accessToken)
-
-          // ...
+            if let error = error {
+                Utility.shared.showToast(error.localizedDescription)
+                return
+            }
+            guard
+                let authentication = user?.authentication,
+                let idToken = authentication.idToken
+            else {
+                return
+            }
+            //let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
+            loginParams = [
+                Params.Login.google_id: idToken,
+                Params.Login.login_type: LoginType.Google,
+            ]
+            loginAPI()
         }
     }
     
     @IBAction func clickToBtnFacebookLogin ( _ sender: UIButton) {
         let loginManager = LoginManager()
-            
-            if let _ = AccessToken.current {
-                // Access token available -- user already logged in
-                // Perform log out
-                
-                // 2
-                loginManager.logOut()
-                
-                
-            } else {
-                // Access token not available -- user already logged out
-                // Perform log in
-                
-                // 3
-                loginManager.logIn(permissions: [], from: self) { [weak self] (result, error) in
-                    
-                    // 4
-                    // Check for error
-                    guard error == nil else {
-                        // Error occurred
-                        print(error!.localizedDescription)
-                        return
-                    }
-                    
-                    // 5
-                    // Check for cancel
-                    guard let result = result, !result.isCancelled else {
-                        print("User cancelled login")
-                        return
-                    }
-                   
-                    Profile.loadCurrentProfile { (profile, error) in
-                        print(Profile.current?.name)
-                    }
+        if let _ = AccessToken.current {
+            loginManager.logOut()
+        } else {
+            loginManager.logIn(permissions: [], from: self) { [weak self] (result, error) in
+                guard error == nil else {
+                    Utility.shared.showToast(error?.localizedDescription ?? "Something went wrong!")
+                    return
+                }
+                guard let result = result, !result.isCancelled else {
+                    return
+                }
+                Profile.loadCurrentProfile { (profile, error) in
+                    self?.loginParams = [
+                        Params.Login.facebook_id: result.token ?? "",
+                        Params.Login.login_type: LoginType.Facebook,
+                    ]
+                    self?.loginAPI()
+                    //print(Profile.current?.name)
                 }
             }
+        }
     }
-    
     
     func validationSignup() -> Bool {
         
@@ -393,44 +375,31 @@ extension LoginSignUpVc {
     }
     
     func loginAPI() {
-        
         showLoader()
-        
-        let param = [
-            "username": txtUsernameLogin.text!,
-            "password": txtPasswordLogin.text!,
-            "login_type": 0
-        ] as [String : Any]
-                
-      _ =  ApiCallManager.requestApi(method: .post, urlString: API.LOGIN, parameters: param, headers: nil) { responseObj in
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.LOGIN, parameters: loginParams, headers: nil) { responseObj in
             let resObj = responseObj as? [String:Any] ?? [String:Any]()
-          print(resObj)
-          
-          let responseModel = ResponseDataModel(responseObj: resObj)
-          
-          if responseModel.success {
-              
-              let dataObj = resObj["data"] as? [String:Any] ?? [String:Any]()
-              AppPrefsManager.sharedInstance.saveUserAccessToken(token: dataObj["access_token"] as? String ?? "")
-              AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: true)
-              
-              let userObj = dataObj["user"] as? [String:Any] ?? [String:Any]()
-              AppPrefsManager.sharedInstance.saveUserData(userData: userObj)
-              let role = userObj["role"] as? String ?? ""
-              AppPrefsManager.sharedInstance.saveUserRole(role: role)
-              self.goToTabBar()
-          }
-          
-          Utility.shared.showToast(responseModel.message)
-          self.hideLoader()
-         
+            print(resObj)
             
+            let responseModel = ResponseDataModel(responseObj: resObj)
+            
+            if responseModel.success {
+                
+                let dataObj = resObj["data"] as? [String:Any] ?? [String:Any]()
+                AppPrefsManager.sharedInstance.saveUserAccessToken(token: dataObj["access_token"] as? String ?? "")
+                AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: true)
+                
+                let userObj = dataObj["user"] as? [String:Any] ?? [String:Any]()
+                AppPrefsManager.sharedInstance.saveUserData(userData: userObj)
+                let role = userObj["role"] as? String ?? ""
+                AppPrefsManager.sharedInstance.saveUserRole(role: role)
+                self.goToTabBar()
+            }
+            Utility.shared.showToast(responseModel.message)
+            self.hideLoader()
         } failure: { (error) in
             self.hideLoader()
             return true
         }
-
-        
     }
     
 }
