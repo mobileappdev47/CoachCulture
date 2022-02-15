@@ -23,6 +23,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     @IBOutlet weak var imgClassCover: UIImageView!
     @IBOutlet weak var imgThumbnail: UIImageView!
     @IBOutlet weak var imgSubscription: UIImageView!
+    @IBOutlet weak var imgMovieIcon: UIImageView!
     
     @IBOutlet weak var viwUserProfileContainer: UIView!
     @IBOutlet weak var viwUSubscriber: UIView!
@@ -30,6 +31,8 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     @IBOutlet weak var viwLiveLine: UIView!
     @IBOutlet weak var viwRecipeLine: UIView!
     @IBOutlet weak var viwNoDataFound: UIView!
+    @IBOutlet weak var viwCoachProfile: UIView!
+    @IBOutlet weak var viwOtherCoachProfile: UIView!
     
     @IBOutlet weak var btnOnDemand: UIButton!
     @IBOutlet weak var btnLive: UIButton!
@@ -62,6 +65,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     // MARK: - Methods
     private func setUpUI() {
         viwNoDataFound.isHidden = false
+        viwCoachProfile.isHidden = true
         viwUserProfileContainer.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936")) //#81747E
         clickToBtnClassTypeForCoach(btnOnDemand)
         
@@ -97,6 +101,13 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     
     func setData() {
         
+        if selectedCoachId == AppPrefsManager.sharedInstance.getUserData().id {
+            viwCoachProfile.isHidden = false
+            viwOtherCoachProfile.isHidden = true
+            viwUserProfileContainer.applyBorder(3, borderColor: hexStringToUIColor(hex: "#81747E")) //
+            imgMovieIcon.image = UIImage(named: "grayMovieIcon")
+        }
+        
         lblFees.text =  coachInfoDataObj.monthly_subscription_fee
         lblUserName.text = "@" + coachInfoDataObj.username
         lblFollowers.text =  coachInfoDataObj.total_followers + " Followers"
@@ -122,10 +133,11 @@ class CoachViseOnDemandClassViewController: BaseViewController {
             viwNoDataFound.isHidden = arrCoachRecipe.count > 0
         }
         
-        
         self.tblOndemand.layoutIfNeeded()
         self.tblOndemand.reloadData()
         self.lctOndemandTableHeight.constant = self.tblOndemand.contentSize.height
+        
+        
     }
     
     // MARK: - CLICK EVENTS
@@ -156,6 +168,11 @@ class CoachViseOnDemandClassViewController: BaseViewController {
 
     @IBAction func clickToBtnAddFollow( _ sender : UIButton) {
         addRemoveFollowers()
+    }
+    
+    @IBAction func clickToBtnCoachProfile( _ sender : UIButton) {
+        let vc = CoachClassProfileViewController.viewcontroller()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

@@ -19,7 +19,7 @@ struct DEFAULTS_KEY {
 }
 
 struct API {
-    static let BASE_URL                      = "http://admin.coachculture.com/"
+    static let BASE_URL                      = "http://52.73.206.37/"
     
     static let REGISTER_USER                 = BASE_URL + "api/auth/register"
     static let LOGIN                         = BASE_URL + "api/auth/login"

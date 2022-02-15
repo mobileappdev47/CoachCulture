@@ -69,7 +69,7 @@ class LoginSignUpVc: BaseViewController {
             self.txtCountryCode.text = "+\(strPhoneCode)"
             self.countryCodeDesc = countryCode
         }
-        txtUsernameLogin.text = "user"
+        txtUsernameLogin.text = "devuser"
         txtPasswordLogin.text = "Test@123"
         
     }

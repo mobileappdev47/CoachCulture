@@ -10,6 +10,9 @@ PODS:
   - AWSCore (2.19.1)
   - AWSS3 (2.19.1):
     - AWSCore (= 2.19.1)
+  - Charts (3.6.0):
+    - Charts/Core (= 3.6.0)
+  - Charts/Core (3.6.0)
   - DPOTPView (1.5.12)
   - FacebookCore (0.9.0):
     - FBSDKCoreKit (~> 5.0)
@@ -190,6 +193,7 @@ DEPENDENCIES:
   - AWSCognito
   - AWSCore
   - AWSS3
+  - Charts
   - DPOTPView
   - FacebookCore
   - FacebookLogin
@@ -220,6 +224,7 @@ SPEC REPOS:
     - AWSCognito
     - AWSCore
     - AWSS3
+    - Charts
     - DPOTPView
     - FacebookCore
     - FacebookLogin
@@ -263,6 +268,7 @@ SPEC CHECKSUMS:
   AWSCognito: f50de600804941d083af37a7568905f31a774727
   AWSCore: 55c154ae27efc5c98bdc30a0eeea5a35d10a2ab5
   AWSS3: 2272253b098d07803af8dd20ce6ce7302bcffb47
+  Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   DPOTPView: 28d8a0a84a2ff4b1e4a7712065aba1cbb14e2704
   FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
   FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
@@ -300,6 +306,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 0d3ef254e2f4f7a9269702d2e656df19ff8bc856
+PODFILE CHECKSUM: d6da56b1dd6690b938e7416f84f7bc1fbddb8cf5
 
 COCOAPODS: 1.11.2

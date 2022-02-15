@@ -41,15 +41,7 @@ class SettingsViewController: BaseViewController {
             self.removeCountryView()
             AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: false)
             let Login = LandingVC.viewcontroller()
-           
             self.navigationController?.pushViewController(Login, animated: false)
-
-            
-//            let redViewController = LandingVC.viewcontroller()
-//            let navigationController = UINavigationController(rootViewController: redViewController)
-//            navigationController.isNavigationBarHidden = true
-//            AppDelegate.shared().window?.rootViewController = navigationController
-            
         }
     }
     

@@ -138,6 +138,7 @@
 		D492C555276DF269007CE556 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D492C554276DF269007CE556 /* Search.storyboard */; };
 		D492C559276E1144007CE556 /* MainSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492C558276E1144007CE556 /* MainSearchViewController.swift */; };
 		D492C55B276E3ACD007CE556 /* SearchResultViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D492C55A276E3ACD007CE556 /* SearchResultViewController.swift */; };
+		D495BC872782D9890013C292 /* CoachClassProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D495BC862782D9890013C292 /* CoachClassProfileViewController.swift */; };
 		D49B18712776EABB004CE00D /* DownloadedClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49B18702776EABB004CE00D /* DownloadedClassViewController.swift */; };
 		D4A54A292757AF6800B8E566 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A54A282757AF6800B8E566 /* ResetPasswordViewController.swift */; };
 		D4C887A72759DA480068F7A9 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4C887A62759DA480068F7A9 /* HomeViewModel.swift */; };
@@ -608,6 +609,7 @@
 		D492C554276DF269007CE556 /* Search.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Search.storyboard; sourceTree = "<group>"; };
 		D492C558276E1144007CE556 /* MainSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSearchViewController.swift; sourceTree = "<group>"; };
 		D492C55A276E3ACD007CE556 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
+		D495BC862782D9890013C292 /* CoachClassProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachClassProfileViewController.swift; sourceTree = "<group>"; };
 		D49B18702776EABB004CE00D /* DownloadedClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadedClassViewController.swift; sourceTree = "<group>"; };
 		D4A54A282757AF6800B8E566 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		D4C887A62759DA480068F7A9 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
@@ -1315,6 +1317,7 @@
 		D41DB04A2770538A007FC5F7 /* Tab2 */ = {
 			isa = PBXGroup;
 			children = (
+				D495BC852782D93E0013C292 /* CoachClassProfile */,
 				D48F451D2770893500B0EAD8 /* CoachViseOnDemandClass */,
 				D41DB04D277055EE007FC5F7 /* SearchFollowers */,
 				D41DB05527705B33007FC5F7 /* YourCoachesViewController.swift */,
@@ -1519,6 +1522,14 @@
 				D41DB043277038B7007FC5F7 /* Cell */,
 			);
 			path = Search;
+			sourceTree = "<group>";
+		};
+		D495BC852782D93E0013C292 /* CoachClassProfile */ = {
+			isa = PBXGroup;
+			children = (
+				D495BC862782D9890013C292 /* CoachClassProfileViewController.swift */,
+			);
+			path = CoachClassProfile;
 			sourceTree = "<group>";
 		};
 		D49B186F2776EA8C004CE00D /* Download Class */ = {
@@ -2465,6 +2476,7 @@
 				F18BF9B727286B74007BB3CB /* PopupViewController.swift in Sources */,
 				D4E6FA4C27732E7A00E3593C /* PaymentCardItemCollectionViewCell.swift in Sources */,
 				512ABC092718020C008CB198 /* DateExtension.swift in Sources */,
+				D495BC872782D9890013C292 /* CoachClassProfileViewController.swift in Sources */,
 				D4677F5F27577BC300DD7E70 /* ApiCallManager.swift in Sources */,
 				D4F3C70E27745B7F001EDDE1 /* AccountBalanceListViewController.swift in Sources */,
 				D4CE254E2769B1D700743FFC /* UserMusclesForLiveClassViewController.swift in Sources */,
