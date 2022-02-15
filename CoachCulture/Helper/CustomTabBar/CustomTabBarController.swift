@@ -76,14 +76,12 @@ class CustomTabBarController: UITabBarController
         let navController3: UINavigationController = HomeViewController.viewcontrollerNav()
         let navController4: UINavigationController = MainSearchViewController.viewcontrollerNav()
         let navController5: UINavigationController = SettingsViewController.viewcontrollerNav()
-        
-        
-        
+                
         viewControllers = [navController1, navController2, navController3, navController4, navController5]
         
         self.viewControllers = viewControllers as? [UIViewController];
         
-        customTabBarView.selectTabAt(index: 0)
+        customTabBarView.selectTabAt(index: 2)
     }
     
     func tabBarHidden() -> Bool

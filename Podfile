@@ -29,6 +29,7 @@ pod 'FacebookShare'
 pod 'iOSDropDown'
 pod 'HCSStarRatingView'
 pod 'FormTextField'
+pod 'Charts'
 
 
   # Comment the next line if you don't want to use dynamic frameworks

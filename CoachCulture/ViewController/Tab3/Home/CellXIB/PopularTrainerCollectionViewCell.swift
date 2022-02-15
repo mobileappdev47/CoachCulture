@@ -12,6 +12,7 @@ class PopularTrainerCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblName : UILabel!
     @IBOutlet weak var lblFollower : UILabel!
     @IBOutlet weak var imgUser : UIImageView!
+    @IBOutlet weak var imgThumbnail : UIImageView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,6 +23,8 @@ class PopularTrainerCollectionViewCell: UICollectionViewCell {
         lblName.text = "@" + obj.username
         imgUser.setImageFromURL(imgUrl: obj.user_image, placeholderImage: nil)
         lblFollower.text = obj.total_followers + " Followers"
+        imgThumbnail.setImageFromURL(imgUrl: obj.user_image, placeholderImage: nil)
+        imgThumbnail.blurImage()
     }
 
 }

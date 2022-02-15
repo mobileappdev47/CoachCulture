@@ -11,6 +11,8 @@ extension UIView {
             layer.mask = mask
         }
     
+    
+    
     func dropShadow(scale: Bool = true) {
         layer.masksToBounds = false
         layer.shadowColor = UIColor.black.cgColor
