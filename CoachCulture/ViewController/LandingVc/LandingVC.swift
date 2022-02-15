@@ -37,6 +37,7 @@ class LandingVC: BaseViewController {
         self.initialSetupUI()
     }
     
+   
     //MARK: - OTHER FUNCTION
     
     func initialSetupUI() {

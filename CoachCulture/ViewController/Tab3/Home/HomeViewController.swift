@@ -111,9 +111,9 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         if collectionView == clvPopularClasses {
-            return CGSize(width: 155, height: 190)
+            return CGSize(width: 130, height: 190)
         } else {
-            return CGSize(width: 110, height: collectionView.frame.height)
+            return CGSize(width: 110, height: 165)
         }
         
         

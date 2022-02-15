@@ -35,14 +35,12 @@ class SettingsViewController: BaseViewController {
     
     func setUpUI() {
         hideTabBar()
+        
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         logOutView.tapToBtnLogOut {
             self.removeCountryView()
             AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: false)
             let Login = LandingVC.viewcontroller()
-            //        let customNavigation = UINavigationController(rootViewController: Login)
-            //        AppDelegate.shared().window?.rootViewController = customNavigation
-            
             self.navigationController?.pushViewController(Login, animated: false)
         }
     }

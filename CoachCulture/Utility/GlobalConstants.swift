@@ -19,7 +19,7 @@ struct DEFAULTS_KEY {
 }
 
 struct API {
-    static let BASE_URL                      = "http://admin.coachculture.com/"
+    static let BASE_URL                      = "http://52.73.206.37/"
     
     static let REGISTER_USER                 = BASE_URL + "api/auth/register"
     static let LOGIN                         = BASE_URL + "api/auth/login"
@@ -73,6 +73,9 @@ struct API {
     static let GET_MULTIPLE_CLASS_DETAILS                         = BASE_URL + "api/get-multiple-class-detail"
     static let GET_COACH_CLASS_RATING                         = BASE_URL + "api/coach-class/get-rating"
     static let GET_COACH_WISE_CLASS_LIST                         = BASE_URL + "api/coach/get-coach-wise-class-list"
+    static let GET_COACH_WISE_RECIPE_LIST                         = BASE_URL + "api/coach/get-coach-wise-recipe-list"
+    static let GET_COACH_SEARCH_HISTORY                         = BASE_URL + "api/coach/add-coach-search-history"
+    static let ADD_REMOVE_FOLLOWERS                         = BASE_URL + "api/coach/add-remove-followers"
 
 
 }

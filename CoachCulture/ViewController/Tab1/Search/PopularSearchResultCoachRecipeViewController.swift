@@ -81,7 +81,7 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
         cell.lblUserName.text = obj.username
         cell.lblTitle.text = obj.title
         cell.lblRecipeType.text = obj.meal_type_name
-        cell.lblDuration.text = obj.username
+        cell.lblDuration.text = obj.duration
         cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
         cell.imgUser.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
         cell.imgThumbnail.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)

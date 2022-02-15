@@ -238,7 +238,7 @@ class EditProfileViewController: BaseViewController {
             let vc = CreateMealRecipeViewController.viewcontroller()
             self.navigationController?.pushViewController(vc, animated: true)
         } else if sender.tag == 3 {
-            let vc = LiveClassDetailsViewController.viewcontroller()
+            let vc = PreviousUploadViewController.viewcontroller()
             self.navigationController?.pushViewController(vc, animated: true)
         } else if sender.tag == 4 {
             let vc = RecipeDetailsViewController.viewcontroller()

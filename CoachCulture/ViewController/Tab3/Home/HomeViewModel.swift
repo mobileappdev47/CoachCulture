@@ -64,7 +64,9 @@ class PopularClassList {
     var thumbnail_url = ""
     var username = ""
     var total_viewers = ""
-    
+    var thumbnail_image = ""
+    var thumbnail_video = ""
+
     
     init() {}
     
@@ -81,6 +83,9 @@ class PopularClassList {
         thumbnail_url += map.value("thumbnail_url") ?? ""
         username = map.value("username") ?? ""
         total_viewers = map.value("total_viewers") ?? ""
+        
+        thumbnail_image = map.value("thumbnail_image") ?? ""
+        thumbnail_video = map.value("thumbnail_video") ?? ""
        
     }
     
