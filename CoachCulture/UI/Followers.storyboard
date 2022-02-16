@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -41,7 +41,6 @@
                                 </constraints>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="Search"/>
                                 <connections>
                                     <action selector="clickToBtnSearch:" destination="RxD-Me-Qd5" eventType="touchUpInside" id="QpB-Sb-KyQ"/>
                                 </connections>
@@ -69,16 +68,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vNj-Pd-aX2">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4D-1o-usK">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="29.5"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouP-1W-zRp">
-                                        <rect key="frame" x="20" y="38" width="22" height="22"/>
+                                        <rect key="frame" x="20" y="37.5" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ouP-1W-zRp" secondAttribute="height" multiplier="1:1" id="oWQ-8t-u5h"/>
                                         </constraints>
@@ -100,7 +99,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMm-Aj-Jp0">
-                                <rect key="frame" x="0.0" y="80" width="375" height="520"/>
+                                <rect key="frame" x="0.0" y="79.5" width="375" height="520.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NmJ-uA-KIL">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="495"/>
@@ -111,27 +110,30 @@
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="coverBG" translatesAutoresizingMaskIntoConstraints="NO" id="xsT-91-XX5">
                                                         <rect key="frame" x="0.0" y="0.0" width="375" height="290"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="290" id="3PO-ju-VYI"/>
+                                                        </constraints>
                                                     </imageView>
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="haA-3e-9mL" userLabel="Profile">
                                                         <rect key="frame" x="127.5" y="10" width="120" height="180"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="Kad-a2-wLX">
-                                                                <rect key="frame" x="0.0" y="0.0" width="120" height="180"/>
+                                                                <rect key="frame" x="5" y="5" width="110" height="170"/>
                                                             </imageView>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RvO-ac-U77">
-                                                                <rect key="frame" x="0.0" y="136.5" width="120" height="43.5"/>
+                                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RvO-ac-U77">
+                                                                <rect key="frame" x="5" y="131.5" width="110" height="43.5"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="Nhh-kI-N2e">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="43.5"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="110" height="43.5"/>
                                                                     </imageView>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@timnorton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qz-S1-51T">
-                                                                        <rect key="frame" x="0.0" y="5" width="120" height="18"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="@timnorton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qz-S1-51T">
+                                                                        <rect key="frame" x="0.0" y="5" width="110" height="18"/>
                                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="15"/>
                                                                         <color key="textColor" name="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22.5k Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsA-Ba-FhB">
-                                                                        <rect key="frame" x="0.0" y="24" width="120" height="14.5"/>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="22.5k Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EsA-Ba-FhB">
+                                                                        <rect key="frame" x="0.0" y="24" width="110" height="14.5"/>
                                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="12"/>
                                                                         <color key="textColor" name="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -154,7 +156,7 @@
                                                                 </constraints>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U2S-fT-fJY" userLabel="subscriber">
-                                                                <rect key="frame" x="95" y="111.5" width="20" height="20"/>
+                                                                <rect key="frame" x="95" y="106.5" width="20" height="20"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="subscriber" translatesAutoresizingMaskIntoConstraints="NO" id="SJ7-o0-LMx">
                                                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -173,16 +175,16 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstItem="Kad-a2-wLX" firstAttribute="leading" secondItem="haA-3e-9mL" secondAttribute="leading" id="7wp-Dx-NoC"/>
+                                                            <constraint firstItem="Kad-a2-wLX" firstAttribute="leading" secondItem="haA-3e-9mL" secondAttribute="leading" constant="5" id="7wp-Dx-NoC"/>
                                                             <constraint firstAttribute="trailing" secondItem="U2S-fT-fJY" secondAttribute="trailing" constant="5" id="DLV-DR-mgz"/>
-                                                            <constraint firstAttribute="trailing" secondItem="Kad-a2-wLX" secondAttribute="trailing" id="NhW-hA-sSV"/>
-                                                            <constraint firstAttribute="bottom" secondItem="Kad-a2-wLX" secondAttribute="bottom" id="Or0-24-hNT"/>
-                                                            <constraint firstAttribute="bottom" secondItem="RvO-ac-U77" secondAttribute="bottom" id="Rls-7p-3iv"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Kad-a2-wLX" secondAttribute="trailing" constant="5" id="NhW-hA-sSV"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Kad-a2-wLX" secondAttribute="bottom" constant="5" id="Or0-24-hNT"/>
+                                                            <constraint firstAttribute="bottom" secondItem="RvO-ac-U77" secondAttribute="bottom" constant="5" id="Rls-7p-3iv"/>
                                                             <constraint firstAttribute="height" constant="180" id="Xhr-US-z0k"/>
-                                                            <constraint firstItem="Kad-a2-wLX" firstAttribute="top" secondItem="haA-3e-9mL" secondAttribute="top" id="aAb-y8-EY8"/>
+                                                            <constraint firstItem="Kad-a2-wLX" firstAttribute="top" secondItem="haA-3e-9mL" secondAttribute="top" constant="5" id="aAb-y8-EY8"/>
                                                             <constraint firstItem="RvO-ac-U77" firstAttribute="top" secondItem="U2S-fT-fJY" secondAttribute="bottom" constant="5" id="d7H-Xn-kJ9"/>
-                                                            <constraint firstItem="RvO-ac-U77" firstAttribute="leading" secondItem="haA-3e-9mL" secondAttribute="leading" id="gWA-Hd-Qx4"/>
-                                                            <constraint firstAttribute="trailing" secondItem="RvO-ac-U77" secondAttribute="trailing" id="gzg-eq-n8x"/>
+                                                            <constraint firstItem="RvO-ac-U77" firstAttribute="leading" secondItem="haA-3e-9mL" secondAttribute="leading" constant="5" id="gWA-Hd-Qx4"/>
+                                                            <constraint firstAttribute="trailing" secondItem="RvO-ac-U77" secondAttribute="trailing" constant="5" id="gzg-eq-n8x"/>
                                                             <constraint firstAttribute="width" constant="120" id="mYa-JC-Qa2"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
@@ -225,13 +227,13 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$9.99" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Y7S-vL-zKS">
-                                                                                <rect key="frame" x="38.5" y="9" width="43.5" height="17"/>
+                                                                                <rect key="frame" x="38.5" y="9.5" width="43.5" height="16.5"/>
                                                                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="14"/>
                                                                                 <color key="textColor" name="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" name="themeRedColor"/>
+                                                                        <color key="backgroundColor" red="0.17254901959999999" green="0.2274509804" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="trailing" secondItem="Y7S-vL-zKS" secondAttribute="trailing" constant="10" id="PPG-hf-H6u"/>
                                                                             <constraint firstItem="Y7S-vL-zKS" firstAttribute="centerY" secondItem="fMM-bM-R3k" secondAttribute="centerY" id="cpo-yz-cZd"/>
@@ -255,13 +257,12 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="90" height="35"/>
                                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <state key="normal" title="Button"/>
-                                                                                <buttonConfiguration key="configuration" style="plain"/>
                                                                                 <connections>
                                                                                     <action selector="clickToBtnAddFollow:" destination="hgy-cn-j0V" eventType="touchUpInside" id="bFJ-rv-gLY"/>
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" name="themeRedColor"/>
+                                                                        <color key="backgroundColor" red="0.17254901960784313" green="0.22745098039215686" blue="0.29019607843137252" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="bottom" secondItem="C0E-F2-fh4" secondAttribute="bottom" id="0z9-Ug-uJB"/>
                                                                             <constraint firstItem="stg-eV-lJg" firstAttribute="centerY" secondItem="fqU-ke-Ta6" secondAttribute="centerY" id="39n-xH-RpU"/>
@@ -331,7 +332,7 @@
                                                                                 </constraints>
                                                                             </imageView>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VwO-S7-psG">
-                                                                                <rect key="frame" x="38.5" y="7.5" width="101.5" height="20.5"/>
+                                                                                <rect key="frame" x="38.5" y="7.5" width="101.5" height="20"/>
                                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="17"/>
                                                                                 <color key="textColor" name="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -340,7 +341,6 @@
                                                                                 <rect key="frame" x="0.0" y="0.0" width="150" height="35"/>
                                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <state key="normal" title="Button"/>
-                                                                                <buttonConfiguration key="configuration" style="plain"/>
                                                                                 <connections>
                                                                                     <action selector="clickToBtnCoachProfile:" destination="hgy-cn-j0V" eventType="touchUpInside" id="Aaa-EB-JAH"/>
                                                                                 </connections>
@@ -395,26 +395,25 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQH-cK-ns7">
-                                                <rect key="frame" x="20" y="300" width="105.5" height="35"/>
+                                                <rect key="frame" x="20" y="300" width="100.5" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON DEMAND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5P-lV-Usb">
-                                                        <rect key="frame" x="5" y="0.0" width="95.5" height="28"/>
+                                                        <rect key="frame" x="5" y="0.0" width="90.5" height="28"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xnQ-FZ-K5K">
-                                                        <rect key="frame" x="0.0" y="0.0" width="105.5" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="100.5" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
                                                             <action selector="clickToBtnClassTypeForCoach:" destination="hgy-cn-j0V" eventType="touchUpInside" id="5ls-bd-pMU"/>
                                                             <action selector="clickToBtnFollowerAll:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Ro9-mO-Jle"/>
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LKj-mt-6fw">
-                                                        <rect key="frame" x="0.0" y="28" width="105.5" height="2"/>
+                                                        <rect key="frame" x="0.0" y="28" width="100.5" height="2"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="2" id="NOc-hh-c05"/>
@@ -438,26 +437,25 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KOu-oY-F30">
-                                                <rect key="frame" x="165.5" y="300" width="44" height="35"/>
+                                                <rect key="frame" x="164.5" y="300" width="46" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIVE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n4W-dN-DgC">
-                                                        <rect key="frame" x="5" y="0.0" width="34" height="28"/>
+                                                        <rect key="frame" x="5" y="0.0" width="36" height="28"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Wb-qd-hou">
-                                                        <rect key="frame" x="0.0" y="0.0" width="44" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="46" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
                                                             <action selector="clickToBtnClassTypeForCoach:" destination="hgy-cn-j0V" eventType="touchUpInside" id="8RP-Vb-0D0"/>
                                                             <action selector="clickToBtnFollowerAll:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Jc4-BM-rql"/>
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="45M-ih-Rdy">
-                                                        <rect key="frame" x="0.0" y="28" width="44" height="2"/>
+                                                        <rect key="frame" x="0.0" y="28" width="46" height="2"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="2" id="S8o-nv-YC2"/>
@@ -481,26 +479,25 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CaL-Tc-4Lw">
-                                                <rect key="frame" x="289.5" y="300" width="65.5" height="35"/>
+                                                <rect key="frame" x="291.5" y="300" width="63.5" height="35"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8S1-hl-1vy">
-                                                        <rect key="frame" x="5" y="0.0" width="55.5" height="28"/>
+                                                        <rect key="frame" x="5" y="0.0" width="53.5" height="28"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EPw-mh-nAG">
-                                                        <rect key="frame" x="0.0" y="0.0" width="65.5" height="35"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="63.5" height="35"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
                                                             <action selector="clickToBtnClassTypeForCoach:" destination="hgy-cn-j0V" eventType="touchUpInside" id="qYg-i3-F6k"/>
                                                             <action selector="clickToBtnFollowerAll:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="7yU-0T-RHK"/>
                                                         </connections>
                                                     </button>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qz5-u2-TyN">
-                                                        <rect key="frame" x="0.0" y="28" width="65.5" height="2"/>
+                                                        <rect key="frame" x="0.0" y="28" width="63.5" height="2"/>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="2" id="bsI-fS-qFL"/>
@@ -535,7 +532,7 @@
                                                 <rect key="frame" x="20" y="355" width="335" height="120"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No demand class found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU4-JP-KaL">
-                                                        <rect key="frame" x="50" y="48" width="235" height="24"/>
+                                                        <rect key="frame" x="61" y="48.5" width="213.5" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -594,9 +591,11 @@
                     </view>
                     <size key="freeformSize" width="375" height="600"/>
                     <connections>
+                        <outlet property="bottomConstantViewUserProfile" destination="dqD-sy-iBi" id="ZCd-6O-cbF"/>
                         <outlet property="btnLive" destination="8Wb-qd-hou" id="Cdk-Mt-BW6"/>
                         <outlet property="btnOnDemand" destination="xnQ-FZ-K5K" id="rhW-ct-ddE"/>
                         <outlet property="btnRecipe" destination="EPw-mh-nAG" id="hlL-ur-pWs"/>
+                        <outlet property="heightConstantImgBanner" destination="3PO-ju-VYI" id="wyd-ey-0Sx"/>
                         <outlet property="imgClassCover" destination="xsT-91-XX5" id="26W-42-3Wd"/>
                         <outlet property="imgMovieIcon" destination="Ucd-RQ-UzB" id="AFd-Ot-Xim"/>
                         <outlet property="imgSubscription" destination="SJ7-o0-LMx" id="a4C-uf-aQ5"/>
@@ -608,6 +607,8 @@
                         <outlet property="lblUserName" destination="2Qz-S1-51T" id="dWK-gV-AWs"/>
                         <outlet property="lctOndemandTableHeight" destination="zaO-Yz-lbQ" id="EYw-D1-EnO"/>
                         <outlet property="tblOndemand" destination="iEv-jx-WRa" id="dwF-SI-K6g"/>
+                        <outlet property="viewFollow" destination="fqU-ke-Ta6" id="VId-hs-qaY"/>
+                        <outlet property="viewUserProfileBottom" destination="RvO-ac-U77" id="4IN-qV-09C"/>
                         <outlet property="viwCoachProfile" destination="PPB-7Y-oen" id="Oua-70-YYv"/>
                         <outlet property="viwLiveLine" destination="45M-ih-Rdy" id="7Pm-bt-pOa"/>
                         <outlet property="viwNoDataFound" destination="FzZ-A4-YuA" id="Kzs-6M-YJm"/>
@@ -634,7 +635,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mXq-tf-phb">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -773,7 +774,7 @@
                                                 <rect key="frame" x="195" y="-5" width="20" height="20"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0a-3d-qoS">
-                                                        <rect key="frame" x="4.5" y="5" width="11" height="10"/>
+                                                        <rect key="frame" x="5.5" y="5" width="9" height="10"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="8"/>
                                                         <color key="textColor" name="textfeildBGColor"/>
@@ -924,25 +925,24 @@
                                 <rect key="frame" x="20" y="315" width="335" height="35"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xlr-Hc-dLd" userLabel="On">
-                                        <rect key="frame" x="0.0" y="0.0" width="105.5" height="35"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="100.5" height="35"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON DEMAND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cqt-OQ-0ZR">
-                                                <rect key="frame" x="5" y="0.0" width="95.5" height="28"/>
+                                                <rect key="frame" x="5" y="0.0" width="90.5" height="28"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTb-jY-O32">
-                                                <rect key="frame" x="0.0" y="0.0" width="105.5" height="35"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="100.5" height="35"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
                                                     <action selector="clickToBtnClassTypeForCoach:" destination="a7g-ut-xrg" eventType="touchUpInside" id="9Ip-Bz-qLZ"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CQr-uu-xOF">
-                                                <rect key="frame" x="0.0" y="28" width="105.5" height="2"/>
+                                                <rect key="frame" x="0.0" y="28" width="100.5" height="2"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="2HM-u4-A2M"/>
@@ -966,25 +966,24 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HtO-EN-oSD">
-                                        <rect key="frame" x="145.5" y="0.0" width="44" height="35"/>
+                                        <rect key="frame" x="144.5" y="0.0" width="46" height="35"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIVE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p9X-yw-e5b">
-                                                <rect key="frame" x="5" y="0.0" width="34" height="28"/>
+                                                <rect key="frame" x="5" y="0.0" width="36" height="28"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6au-GG-HjI">
-                                                <rect key="frame" x="0.0" y="0.0" width="44" height="35"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="46" height="35"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
                                                     <action selector="clickToBtnClassTypeForCoach:" destination="a7g-ut-xrg" eventType="touchUpInside" id="Bo5-aJ-lJx"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j0d-uw-aZw">
-                                                <rect key="frame" x="0.0" y="28" width="44" height="2"/>
+                                                <rect key="frame" x="0.0" y="28" width="46" height="2"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="mnn-jb-PbT"/>
@@ -1008,25 +1007,24 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nWU-rI-Phh">
-                                        <rect key="frame" x="269.5" y="0.0" width="65.5" height="35"/>
+                                        <rect key="frame" x="271.5" y="0.0" width="63.5" height="35"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFP-ao-eOw">
-                                                <rect key="frame" x="5" y="0.0" width="55.5" height="28"/>
+                                                <rect key="frame" x="5" y="0.0" width="53.5" height="28"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0He-3O-rwr">
-                                                <rect key="frame" x="0.0" y="0.0" width="65.5" height="35"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="63.5" height="35"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
                                                     <action selector="clickToBtnClassTypeForCoach:" destination="a7g-ut-xrg" eventType="touchUpInside" id="Wmg-cJ-eOg"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PzG-Jv-lu7">
-                                                <rect key="frame" x="0.0" y="28" width="65.5" height="2"/>
+                                                <rect key="frame" x="0.0" y="28" width="63.5" height="2"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="tb2-JQ-3Am"/>
@@ -1073,7 +1071,7 @@
                                 <rect key="frame" x="20" y="370" width="335" height="277"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No demand class found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ur6-JY-rFg">
-                                        <rect key="frame" x="50" y="126.5" width="235" height="24"/>
+                                        <rect key="frame" x="61" y="126.5" width="213.5" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1139,7 +1137,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bM0-mP-sMs">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -1207,7 +1205,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="157.5" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="FOLLOWINGS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nSH-pJ-elW">
-                                                <rect key="frame" x="27.5" y="16" width="103" height="18"/>
+                                                <rect key="frame" x="30" y="16" width="98" height="18"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1216,7 +1214,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="157.5" height="50"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
                                                     <action selector="clickToBtnFollowerAll:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="5me-Jm-wWx"/>
                                                 </connections>
@@ -1246,7 +1243,7 @@
                                         <rect key="frame" x="177.5" y="0.0" width="157.5" height="50"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ALL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C3J-cn-dMs">
-                                                <rect key="frame" x="64.5" y="16" width="29" height="18"/>
+                                                <rect key="frame" x="65.5" y="16" width="26.5" height="18"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1262,7 +1259,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="157.5" height="43"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
                                                     <action selector="clickToBtnFollowerAll:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Bj2-8j-UFO"/>
                                                 </connections>
@@ -1308,7 +1304,7 @@
                                 <rect key="frame" x="20" y="185" width="335" height="462"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No search history found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-Gb-S14">
-                                        <rect key="frame" x="47" y="219" width="241" height="24"/>
+                                        <rect key="frame" x="60.5" y="219" width="214" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1392,7 +1388,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="55" height="55"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
                                         <connections>
                                             <action selector="clickToBtnSearch:" destination="cOU-fu-Ad3" eventType="touchUpInside" id="5V6-w7-puw"/>
                                         </connections>
@@ -1414,7 +1409,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymw-DK-V09">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -1437,7 +1432,7 @@
                                                 <rect key="frame" x="20" y="0.0" width="335" height="224"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Recipes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="561-Na-5u0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="147.5" height="24"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1480,7 +1475,7 @@
                                                 <rect key="frame" x="20" y="244" width="335" height="184"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Coach’s Recipes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrF-lp-CUy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="223" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="196" height="24"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1563,7 +1558,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HEh-Zj-CDk">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -1636,7 +1631,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
                                         <connections>
                                             <action selector="clicToBtnFilter:" destination="hK2-30-mHz" eventType="touchUpInside" id="s1B-4y-BMB"/>
                                         </connections>
@@ -1702,7 +1696,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QB9-KX-bZB">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -1734,7 +1728,7 @@
                                 <rect key="frame" x="20" y="100" width="335" height="270"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lqC-f2-yUv">
-                                        <rect key="frame" x="0.0" y="0.0" width="66" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="30"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="25"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1776,7 +1770,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
                                                     <action selector="clickToBtnMyCoachOnly:" destination="xCP-PB-2At" eventType="touchUpInside" id="YyX-4x-SAw"/>
                                                 </connections>
@@ -1836,13 +1829,13 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minimum Class Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpF-nN-i7k">
-                                                <rect key="frame" x="30" y="15.5" width="195.5" height="19"/>
+                                                <rect key="frame" x="30" y="15.5" width="175.5" height="19"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="16"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wk8-PZ-JZm">
-                                                <rect key="frame" x="276" y="16.5" width="44" height="17"/>
+                                                <rect key="frame" x="278" y="16.5" width="42" height="17"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -1851,7 +1844,6 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain"/>
                                                 <connections>
                                                     <action selector="clickToBtnRecipeDuration:" destination="xCP-PB-2At" eventType="touchUpInside" id="s27-yc-xd4"/>
                                                 </connections>
@@ -1901,7 +1893,7 @@
                                 <rect key="frame" x="0.0" y="607" width="375" height="60"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Apply Filters" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u5l-5G-Rxn">
-                                        <rect key="frame" x="123.5" y="18" width="128" height="24"/>
+                                        <rect key="frame" x="132" y="18" width="111" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1910,7 +1902,6 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
                                         <connections>
                                             <action selector="clickToBtnApplyFilter:" destination="xCP-PB-2At" eventType="touchUpInside" id="GZV-GI-BdM"/>
                                         </connections>
@@ -1986,7 +1977,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="26" height="26"/>
         <image name="Switch" width="17" height="18.5"/>
-        <image name="Trainers Icon" width="42" height="36"/>
+        <image name="Trainers Icon" width="29.5" height="24"/>
         <image name="chatting" width="23.5" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.5"/>

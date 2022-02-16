@@ -14,6 +14,10 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewFollow: UIView!
+    @IBOutlet weak var viewUserProfileBottom: UIView!
+    @IBOutlet weak var heightConstantImgBanner: NSLayoutConstraint!
+    @IBOutlet weak var bottomConstantViewUserProfile: NSLayoutConstraint!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblFollowers: UILabel!
     @IBOutlet weak var lblFees: UILabel!
@@ -55,6 +59,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     var continueLoadingDataRecipe = true
     var pageNoRecipe = 1
     var perPageCountRecipe = 10
+    var userDataObj : UserData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,8 +72,13 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     private func setUpUI() {
         hideTabBar()
         viwNoDataFound.isHidden = false
+        self.bottomConstantViewUserProfile.constant = 10.0
         viwCoachProfile.isHidden = true
+        heightConstantImgBanner.constant = 290 - 35
         viwUserProfileContainer.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936")) //#81747E
+        viewUserProfileBottom.addCornerRadius(3)
+        viewUserProfileBottom.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
+
         clickToBtnClassTypeForCoach(btnOnDemand)
         
         tblOndemand.register(UINib(nibName: "CoachViseOnDemandClassItemTableViewCell", bundle: nil), forCellReuseIdentifier: "CoachViseOnDemandClassItemTableViewCell")
@@ -78,7 +88,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         tblOndemand.register(UINib(nibName: "CoachViseRecipeItemTableViewCell", bundle: nil), forCellReuseIdentifier: "CoachViseRecipeItemTableViewCell")
         tblOndemand.delegate = self
         tblOndemand.dataSource = self
-        
+        getUserProfile()
         getCoachesWiseClassList()
         getCoacheSearchHistory()
         
@@ -104,23 +114,26 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     func setData() {
         
         if selectedCoachId == AppPrefsManager.sharedInstance.getUserData().id {
+            heightConstantImgBanner.constant = 290.0
+            self.bottomConstantViewUserProfile.constant = 20.0
             viwCoachProfile.isHidden = false
             viwOtherCoachProfile.isHidden = true
             viwUserProfileContainer.applyBorder(3, borderColor: hexStringToUIColor(hex: "#81747E")) //
             imgMovieIcon.image = UIImage(named: "grayMovieIcon")
+        } else {
+            heightConstantImgBanner.constant = 290 - 35
         }
         
         lblFees.text =  coachInfoDataObj.monthly_subscription_fee
         lblUserName.text = "@" + coachInfoDataObj.username
         lblFollowers.text =  coachInfoDataObj.total_followers + " Followers"
-        imgUserProfile.setImageFromURL(imgUrl: coachInfoDataObj.user_image, placeholderImage: nil)
-        imgThumbnail.setImageFromURL(imgUrl: coachInfoDataObj.user_image, placeholderImage: nil)
-        imgThumbnail.blurImage()
         if coachInfoDataObj.user_subscribed == "no" {
-            imgSubscription.isHidden = true
+            self.imgSubscription.isHidden = true
         } else {
-            imgSubscription.isHidden = false
+            self.imgSubscription.isHidden = false
         }
+        imgUserProfile.addCornerRadius(3)
+        imgThumbnail.blurImage()
         if viwOnDemandLine.isHidden == false  {
             lblNoDataFound.text = "No demand class found"
             viwNoDataFound.isHidden = arrCoachClassInfoList.count > 0
@@ -310,6 +323,34 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
 
 
 extension CoachViseOnDemandClassViewController {
+    
+    func getUserProfile() {
+        showLoader()
+        let api = "\(API.GET_PROFILE)?coach_id=\(selectedCoachId)"
+        
+        _ =  ApiCallManager.requestApi(method: .get, urlString: api, parameters: nil, headers: nil) { responseObj in
+            
+            let responseModel = ResponseDataModel(responseObj: responseObj)
+            
+            if responseModel.success {
+                let dataObj = responseObj["data"] as? [String:Any] ?? [String:Any]()
+                self.userDataObj = UserData(responseObj: dataObj)
+                self.imgClassCover.setImageFromURL(imgUrl: self.userDataObj?.coach_banner_file ?? "", placeholderImage: nil)
+                self.imgMovieIcon.isHidden = (self.userDataObj?.coach_trailer_file.isEmpty ?? false) ? true : false
+                
+                self.imgUserProfile.setImageFromURL(imgUrl: self.userDataObj?.user_image ?? "", placeholderImage: nil)
+                self.imgThumbnail.setImageFromURL(imgUrl: self.userDataObj?.user_image ?? "", placeholderImage: nil)
+                self.viewFollow.backgroundColor = (self.userDataObj?.is_followed ?? false) ? COLORS.THEME_RED : COLORS.BLUR_COLOR
+            }
+            
+            self.hideLoader()
+            
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
+    
     func getCoachesWiseClassList() {
         
         if(isDataLoading || !continueLoadingData){
@@ -403,7 +444,7 @@ extension CoachViseOnDemandClassViewController {
     func addRemoveFollowers() {
         showLoader()
         let param = [ "coach_id" : selectedCoachId,
-                      "status" : "yes",
+                      "status" : (userDataObj?.is_followed ?? false) ? "no" : "yes",
                       
         ] as [String : Any]
         
@@ -412,6 +453,7 @@ extension CoachViseOnDemandClassViewController {
             
             let responseObj = ResponseDataModel(responseObj: responseObj)
             Utility.shared.showToast(responseObj.message)
+            self.getUserProfile()
             self.hideLoader()
             
         } failure: { (error) in

@@ -29,6 +29,7 @@ class UserData {
     var user_image = ""
     var username = ""
     var base_currency = ""
+    var is_followed = false
     
     init() {}
     
@@ -37,6 +38,7 @@ class UserData {
         coach_banner_file = map.value("coach_banner_file") ?? ""
         
         coach_trailer_file = map.value("coach_trailer_file") ?? ""
+        is_followed = map.value("is_followed") ?? false
         lastName = map.value("lastName") ?? ""
         countrycode = map.value("countrycode") ?? ""
         date_of_birth = map.value("date_of_birth") ?? ""

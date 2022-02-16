@@ -124,6 +124,7 @@ struct COLORS {
     static let VIEW_BG_COLOR = hexStringToUIColor(hex: "#2C3949")
     static let THEME_RED = hexStringToUIColor(hex: "#CC2936")
     static let TABBAR_COLOR = hexStringToUIColor(hex: "#828990")
+    static let BLUR_COLOR = hexStringToUIColor(hex: "#2C3A4A")
 }
 
 // MARK: - ALERT TITLE
