@@ -9,7 +9,7 @@ import UIKit
 
 class CoachViseRecipeItemTableViewCell: UITableViewCell {
     
-   
+    
     @IBOutlet weak var lbltitle : UILabel!
     @IBOutlet weak var lblRecipeType : UILabel!
     @IBOutlet weak var lblDuration : UILabel!
@@ -22,7 +22,10 @@ class CoachViseRecipeItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var clvDietaryRestriction: UICollectionView!
     
+    //MARK: - VARIABLE AND OBJECT
+    
     var arrDietaryRestriction = [String]()
+    var didTapBookmarkButton : (() -> Void)!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -33,6 +36,14 @@ class CoachViseRecipeItemTableViewCell: UITableViewCell {
         clvDietaryRestriction.register(UINib(nibName: "RecipeDietartyItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "RecipeDietartyItemCollectionViewCell")
         clvDietaryRestriction.delegate = self
         clvDietaryRestriction.dataSource = self
+    }
+    
+    //MARK: - ACTION
+    
+    @IBAction func btnBookmarkClick(_ sender: Any) {
+        if didTapBookmarkButton != nil {
+            didTapBookmarkButton()
+        }
     }
     
 }
@@ -51,7 +62,7 @@ extension CoachViseRecipeItemTableViewCell: UICollectionViewDataSource, UICollec
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeDietartyItemCollectionViewCell", for: indexPath) as!  RecipeDietartyItemCollectionViewCell
         
         cell.lblTitle.text = arrDietaryRestriction[indexPath.row]
-    
+        
         
         return cell
         

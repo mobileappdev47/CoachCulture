@@ -62,7 +62,7 @@ class ApiCallManager {
         return apiSessionManager.request(request)
             .responseString { response in
                 
-               // DLog( "Response String: \(String(describing: response.value))")
+                DLog( "Response String: \(String(describing: response.value))")
                 
             }
             .responseJSON { response in

@@ -23,7 +23,10 @@ class CoachViseOnDemandClassItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var btnBookMark : UIButton!
     
-
+    //MARK: - VARIABLE AND OBJECT
+    
+    var didTapBookmarkButton : (() -> Void)!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -35,4 +38,11 @@ class CoachViseOnDemandClassItemTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    //MARK: - ACTION
+    
+    @IBAction func btnBookmarkClick(_ sender: Any) {
+        if didTapBookmarkButton != nil {
+            didTapBookmarkButton()
+        }
+    }
 }

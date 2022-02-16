@@ -69,9 +69,10 @@ class LoginSignUpVc: BaseViewController {
             self.txtCountryCode.text = "+\(strPhoneCode)"
             self.countryCodeDesc = countryCode
         }
+        
+        //comment code - comment the static cred
         txtUsernameLogin.text = "devuser"
         txtPasswordLogin.text = "Test@123"
-        
     }
     
     fileprivate func setupViews() {

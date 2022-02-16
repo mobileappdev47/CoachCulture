@@ -88,6 +88,17 @@ struct Params {
         static let login_type = "login_type"
         static let facebook_id = "facebook_id"
     }
+    
+    struct AddRemoveBookmark {
+        static let coach_recipe_id = "coach_recipe_id"
+        static let bookmark = "bookmark"
+        static let coach_class_id = "coach_class_id"
+    }
+}
+
+struct BookmarkType {
+    static let Yes = "yes"
+    static let No = "no"
 }
 
 struct LoginType {

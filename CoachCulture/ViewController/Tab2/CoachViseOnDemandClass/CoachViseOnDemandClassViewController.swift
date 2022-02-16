@@ -63,7 +63,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     }
     
     // MARK: - Methods
+    
     private func setUpUI() {
+        hideTabBar()
         viwNoDataFound.isHidden = false
         viwCoachProfile.isHidden = true
         viwUserProfileContainer.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936")) //#81747E
@@ -76,7 +78,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         tblOndemand.register(UINib(nibName: "CoachViseRecipeItemTableViewCell", bundle: nil), forCellReuseIdentifier: "CoachViseRecipeItemTableViewCell")
         tblOndemand.delegate = self
         tblOndemand.dataSource = self
-                
+        
         getCoachesWiseClassList()
         getCoacheSearchHistory()
         
@@ -122,7 +124,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         if viwOnDemandLine.isHidden == false  {
             lblNoDataFound.text = "No demand class found"
             viwNoDataFound.isHidden = arrCoachClassInfoList.count > 0
-       }
+        }
         if viwLiveLine.isHidden == false {
             lblNoDataFound.text = "No live class found"
             viwNoDataFound.isHidden = arrCoachClassInfoList.count > 0
@@ -163,9 +165,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
             resetVariable()
             getCoachesWiseClassList()
         }
-       
+        
     }
-
+    
     @IBAction func clickToBtnAddFollow( _ sender : UIButton) {
         addRemoveFollowers()
     }
@@ -182,8 +184,8 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         if viwOnDemandLine.isHidden == false || viwLiveLine.isHidden == false {
-             return arrCoachClassInfoList.count
+        if viwOnDemandLine.isHidden == false || viwLiveLine.isHidden == false {
+            return arrCoachClassInfoList.count
         }
         return arrCoachRecipe.count
     }
@@ -197,12 +199,17 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
             let obj = arrCoachClassInfoList[indexPath.row]
             cell.lblDuration.text = obj.duration
+            cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lbltitle.text = obj.class_type_name
-            cell.lbltitle.text = obj.class_subtitle
             cell.lblClassDate.text = obj.created_atFormated
             cell.lblClassTime.text = obj.total_viewers + " Views"
-            
+            cell.didTapBookmarkButton = {
+                var param = [String:Any]()
+                param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+                param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, sender: self.btnOnDemand)
+            }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
             } else {
@@ -210,22 +217,27 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             }
             
             if arrCoachClassInfoList.count - 1 == indexPath.row {
-               
+                
                 getCoachesWiseClassList()
             }
-
+            
             
             return cell
         } else if viwLiveLine.isHidden == false {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseOnDemandClassItemTableViewCell", for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
             cell.lblClassType.text = "Live".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#CC2936")
-            
             let obj = arrCoachClassInfoList[indexPath.row]
+            cell.didTapBookmarkButton = {
+                var param = [String:Any]()
+                param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+                param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, sender: self.btnLive)
+            }
             cell.lblDuration.text = obj.duration
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
+            cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.lbltitle.text = obj.class_type_name
-            cell.lbltitle.text = obj.class_subtitle
             cell.lblClassDate.text = obj.created_atFormated
             cell.lblClassTime.text = obj.total_viewers + " Views"
             
@@ -236,28 +248,38 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             }
             
             if arrCoachClassInfoList.count - 1 == indexPath.row {
-               
+                
                 getCoachesWiseClassList()
             }
-
-
+            
+            
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseRecipeItemTableViewCell", for: indexPath) as! CoachViseRecipeItemTableViewCell
             let obj = arrCoachRecipe[indexPath.row]
+            cell.didTapBookmarkButton = {
+                var param = [String:Any]()
+                param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
+                param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, sender: self.btnRecipe)
+            }
             cell.lbltitle.text = obj.title
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
             cell.arrDietaryRestriction = obj.arrdietary_restriction
             cell.clvDietaryRestriction.reloadData()
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
-            
+            if obj.bookmark == "no" {
+                cell.imgBookMark.image = UIImage(named: "BookmarkLight")
+            } else {
+                cell.imgBookMark.image = UIImage(named: "Bookmark")
+            }
             if arrCoachRecipe.count - 1 == indexPath.row {
-               
+                
                 getCoachesWiseRecipeList()
             }
-
+            
             return cell
         }
         
@@ -272,7 +294,17 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        if viwOnDemandLine.isHidden == false || viwLiveLine.isHidden == false {
+            let vc = LiveClassDetailsViewController.viewcontroller()
+            let obj = arrCoachClassInfoList[indexPath.row]
+            vc.selectedId = obj.id
+            self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let vc = RecipeDetailsViewController.viewcontroller()
+            let obj = arrCoachRecipe[indexPath.row]
+            vc.recipeID = obj.id
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
@@ -288,7 +320,7 @@ extension CoachViseOnDemandClassViewController {
         
         showLoader()
         let param = [ "coach_id" : selectedCoachId,
-                      "type" : viwOnDemandLine.isHidden == false ? "on_demand" : "live",
+                      "class_type" : viwOnDemandLine.isHidden == false ? "on_demand" : "live",
                       "page_no" : pageNo,
                       "per_page" : perPageCount,
         ] as [String : Any]
@@ -310,7 +342,7 @@ extension CoachViseOnDemandClassViewController {
             }
             self.isDataLoading = false
             self.pageNo += 1
-           
+            
             self.hideLoader()
             
         } failure: { (error) in
@@ -346,7 +378,7 @@ extension CoachViseOnDemandClassViewController {
             }
             self.isDataLoadingRecipe = false
             self.pageNoRecipe += 1
-           
+            
             self.hideLoader()
             
         } failure: { (error) in
@@ -355,13 +387,13 @@ extension CoachViseOnDemandClassViewController {
     }
     
     func getCoacheSearchHistory() {
-                        let param = [ "search_coach_id" : selectedCoachId,
+        let param = [ "search_coach_id" : selectedCoachId,
                       
         ] as [String : Any]
         
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_COACH_SEARCH_HISTORY, parameters: param, headers: nil) { responseObj in
-           
+            
             
         } failure: { (error) in
             return true
@@ -369,7 +401,7 @@ extension CoachViseOnDemandClassViewController {
     }
     
     func addRemoveFollowers() {
-                showLoader()
+        showLoader()
         let param = [ "coach_id" : selectedCoachId,
                       "status" : "yes",
                       
@@ -377,12 +409,24 @@ extension CoachViseOnDemandClassViewController {
         
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.ADD_REMOVE_FOLLOWERS, parameters: param, headers: nil) { responseObj in
-           
+            
             let responseObj = ResponseDataModel(responseObj: responseObj)
             Utility.shared.showToast(responseObj.message)
             self.hideLoader()
             
         } failure: { (error) in
+            return true
+        }
+    }
+    
+    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], sender : UIButton) {
+        showLoader()
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
+            self.clickToBtnClassTypeForCoach(sender)
+            self.hideLoader()
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
             return true
         }
     }

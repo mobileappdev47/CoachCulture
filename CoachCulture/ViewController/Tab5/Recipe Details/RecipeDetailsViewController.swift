@@ -42,6 +42,7 @@ class RecipeDetailsViewController: BaseViewController {
     
     var recipeDetailDataObj = RecipeDetailData()
     var dropDown = DropDown()
+    var recipeID = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -222,7 +223,7 @@ extension RecipeDetailsViewController : UITableViewDelegate, UITableViewDataSour
 extension RecipeDetailsViewController {
     func getRecipeDetails() {
         showLoader()
-        let param = ["id" : "9"]
+        let param = ["id" : self.recipeID]
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.RECIPE_DETAILS, parameters: param, headers: nil) { responseObj in
             

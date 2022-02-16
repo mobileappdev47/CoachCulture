@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -41,10 +41,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vuv-VE-1oN">
-                                        <rect key="frame" x="10" y="10" width="42.5" height="16"/>
+                                        <rect key="frame" x="10" y="10" width="40.5" height="16"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON DEMAND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rng-Gz-0hQ">
-                                                <rect key="frame" x="5" y="5" width="32.5" height="6"/>
+                                                <rect key="frame" x="5" y="5" width="30.5" height="6"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="5"/>
                                                 <color key="textColor" name="textColor"/>
@@ -96,16 +96,16 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SMY-Va-FiV">
-                                <rect key="frame" x="140" y="15" width="79.5" height="31"/>
+                                <rect key="frame" x="140" y="15" width="70" height="31"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HIIT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8HX-ws-5Lh">
-                                        <rect key="frame" x="0.0" y="0.0" width="79.5" height="18"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="18"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ak1-DE-r2W">
-                                        <rect key="frame" x="0.0" y="19" width="79.5" height="12"/>
+                                        <rect key="frame" x="0.0" y="19" width="70" height="12"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="10"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -140,7 +140,9 @@
                                         </constraints>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="btnBookmarkClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yAr-je-kMi"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -154,16 +156,16 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CdM-Rz-vAu">
-                                <rect key="frame" x="140" y="56" width="79.5" height="39"/>
+                                <rect key="frame" x="140" y="56" width="70" height="39"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26 May 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uc0-0n-O73">
-                                        <rect key="frame" x="0.0" y="0.0" width="79.5" height="14"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="14"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="12"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cOo-WJ-cVY">
-                                        <rect key="frame" x="0.0" y="15" width="79.5" height="24"/>
+                                        <rect key="frame" x="0.0" y="15" width="70" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>

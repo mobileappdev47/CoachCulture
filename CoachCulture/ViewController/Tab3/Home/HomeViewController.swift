@@ -50,6 +50,12 @@ class HomeViewController: BaseViewController {
         setUpUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        showTabBar()
+    }
+    
     // MARK: - Methods
     func setUpUI() {
         clvPopularTrainer.register(UINib(nibName: "PopularTrainerCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PopularTrainerCollectionViewCell")
@@ -122,11 +128,11 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == clvPopularClasses {
             let vc = LiveClassDetailsViewController.viewcontroller()
-            vc.selectedId = arrPopularTrainerList[indexPath.row].coach_id
+            vc.selectedId = arrPopularClassList[indexPath.row].coach_class_id
             self.navigationController?.pushViewController(vc, animated: true)
         } else {
             let vc = CoachViseOnDemandClassViewController.viewcontroller()
-            vc.selectedCoachId = arrPopularClassList[indexPath.row].coach_class_id
+            vc.selectedCoachId = arrPopularTrainerList[indexPath.row].coach_id
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
