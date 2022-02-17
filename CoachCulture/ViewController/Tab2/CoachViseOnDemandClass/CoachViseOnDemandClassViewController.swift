@@ -7,6 +7,8 @@
 
 import UIKit
 
+var isFromSelectedType = "onDemand"
+
 class CoachViseOnDemandClassViewController: BaseViewController {
     
     static func viewcontroller() -> CoachViseOnDemandClassViewController {
@@ -14,6 +16,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewNavbar: UIView!
+    @IBOutlet weak var viewTableHeader: UIView!
+    @IBOutlet weak var viewContentBG: UIView!
     @IBOutlet weak var viewFollow: UIView!
     @IBOutlet weak var viewUserProfileBottom: UIView!
     @IBOutlet weak var heightConstantImgBanner: NSLayoutConstraint!
@@ -31,19 +36,13 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     
     @IBOutlet weak var viwUserProfileContainer: UIView!
     @IBOutlet weak var viwUSubscriber: UIView!
-    @IBOutlet weak var viwOnDemandLine: UIView!
-    @IBOutlet weak var viwLiveLine: UIView!
-    @IBOutlet weak var viwRecipeLine: UIView!
     @IBOutlet weak var viwNoDataFound: UIView!
     @IBOutlet weak var viwCoachProfile: UIView!
     @IBOutlet weak var viwOtherCoachProfile: UIView!
     
-    @IBOutlet weak var btnOnDemand: UIButton!
-    @IBOutlet weak var btnLive: UIButton!
-    @IBOutlet weak var btnRecipe: UIButton!
-    
     @IBOutlet weak var tblOndemand: UITableView!
     @IBOutlet weak var lctOndemandTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     var arrCoachClassInfoList = [CoachClassInfoList]()
     var coachInfoDataObj = CoachInfoData()
@@ -60,6 +59,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     var pageNoRecipe = 1
     var perPageCountRecipe = 10
     var userDataObj : UserData?
+    let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,8 +78,8 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         viwUserProfileContainer.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936")) //#81747E
         viewUserProfileBottom.addCornerRadius(3)
         viewUserProfileBottom.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
-
-        clickToBtnClassTypeForCoach(btnOnDemand)
+        
+        tblOndemand.register(UINib(nibName: "HeaderTableView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HeaderTableView")
         
         tblOndemand.register(UINib(nibName: "CoachViseOnDemandClassItemTableViewCell", bundle: nil), forCellReuseIdentifier: "CoachViseOnDemandClassItemTableViewCell")
         tblOndemand.delegate = self
@@ -134,51 +134,60 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         }
         imgUserProfile.addCornerRadius(3)
         imgThumbnail.blurImage()
-        if viwOnDemandLine.isHidden == false  {
+        
+        lblNoDataFound.text = "No demand class found"
+        viwNoDataFound.isHidden = arrCoachClassInfoList.count > 0
+        
+        switch isFromSelectedType {
+        case SelectedDemandClass.onDemand:
+            if arrCoachClassInfoList.count > 0 {
+                if safeAreaTop > 20 {
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop + 14))
+                } else {
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop))
+                }
+            } else {
+                lctOndemandTableHeight.constant = 200.0
+            }
             lblNoDataFound.text = "No demand class found"
+            scrollView.isScrollEnabled = arrCoachClassInfoList.count > 0
             viwNoDataFound.isHidden = arrCoachClassInfoList.count > 0
-        }
-        if viwLiveLine.isHidden == false {
+        case SelectedDemandClass.live:
+            if arrCoachClassInfoList.count > 0 {
+                if safeAreaTop > 20 {
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop + 14))
+                } else {
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop))
+                }
+            } else {
+                lctOndemandTableHeight.constant = 200.0
+            }
+            scrollView.isScrollEnabled = arrCoachClassInfoList.count > 0
             lblNoDataFound.text = "No live class found"
             viwNoDataFound.isHidden = arrCoachClassInfoList.count > 0
-        }
-        
-        if viwRecipeLine.isHidden == false {
+        case SelectedDemandClass.recipe:
+            if arrCoachRecipe.count > 0 {
+                if safeAreaTop > 20 {
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop + 14))
+                } else {
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop))
+                }
+            } else {
+                lctOndemandTableHeight.constant = 200.0
+            }
+            scrollView.isScrollEnabled = arrCoachRecipe.count > 0
             lblNoDataFound.text = "No recipe class found"
             viwNoDataFound.isHidden = arrCoachRecipe.count > 0
+        default:
+            lctOndemandTableHeight.constant = 200.0
         }
         
-        self.tblOndemand.layoutIfNeeded()
         self.tblOndemand.reloadData()
-        self.lctOndemandTableHeight.constant = self.tblOndemand.contentSize.height
+        //self.lctOndemandTableHeight.constant = self.tblOndemand.contentSize.height
         
-        
-    }
-    
-    // MARK: - CLICK EVENTS
-    @IBAction func clickToBtnClassTypeForCoach( _ sender : UIButton) {
-        viwOnDemandLine.isHidden = true
-        viwLiveLine.isHidden = true
-        viwRecipeLine.isHidden = true
-        
-        if sender == btnLive {
-            viwLiveLine.isHidden = false
-            resetVariable()
-            getCoachesWiseClassList()
-        }
-        
-        if sender == btnRecipe {
-            viwRecipeLine.isHidden = false
-            resetRecipeVariable()
-            getCoachesWiseRecipeList()
-        }
-        
-        if sender == btnOnDemand {
-            viwOnDemandLine.isHidden = false
-            resetVariable()
-            getCoachesWiseClassList()
-        }
-        
+        self.tblOndemand.isScrollEnabled = false
+        self.scrollView.delegate = self
+        self.tblOndemand.layoutIfNeeded()
     }
     
     @IBAction func clickToBtnAddFollow( _ sender : UIButton) {
@@ -193,11 +202,51 @@ class CoachViseOnDemandClassViewController: BaseViewController {
 
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableViewDataSource {
+extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == self.scrollView {
+            print(self.scrollView.contentOffset.y)
+            if safeAreaTop > 20 {
+                tblOndemand.isScrollEnabled = (self.scrollView.contentOffset.y >= 280)
+            } else {
+                tblOndemand.isScrollEnabled = (self.scrollView.contentOffset.y >= 250)
+            }
+        }
+        
+        if scrollView == self.tblOndemand {
+            self.tblOndemand.isScrollEnabled = (tblOndemand.contentOffset.y > 0)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableView") as! HeaderTableView
+        headerView.didTapButton = { recdType in
+            switch recdType {
+            case SelectedDemandClass.onDemand, SelectedDemandClass.live:
+                self.resetVariable()
+                self.getCoachesWiseClassList()
+            case SelectedDemandClass.recipe:
+                self.resetRecipeVariable()
+                self.getCoachesWiseRecipeList()
+            default:
+                self.resetVariable()
+                self.getCoachesWiseClassList()
+            }
+        }
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if viwOnDemandLine.isHidden == false || viwLiveLine.isHidden == false {
+        if isFromSelectedType == SelectedDemandClass.onDemand || isFromSelectedType == SelectedDemandClass.live {
             return arrCoachClassInfoList.count
         }
         return arrCoachRecipe.count
@@ -205,7 +254,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if viwOnDemandLine.isHidden == false {
+        if isFromSelectedType == SelectedDemandClass.onDemand {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseOnDemandClassItemTableViewCell", for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
             
             cell.lblClassType.text = "On demand".uppercased()
@@ -221,7 +270,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, sender: self.btnOnDemand)
+                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand)
             }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -236,7 +285,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             
             
             return cell
-        } else if viwLiveLine.isHidden == false {
+        } else if isFromSelectedType == SelectedDemandClass.live {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseOnDemandClassItemTableViewCell", for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
             cell.lblClassType.text = "Live".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#CC2936")
@@ -245,7 +294,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, sender: self.btnLive)
+                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live)
             }
             cell.lblDuration.text = obj.duration
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
@@ -275,12 +324,22 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, sender: self.btnRecipe)
+                self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe)
             }
             cell.lbltitle.text = obj.title
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
-            cell.arrDietaryRestriction = obj.arrdietary_restriction
+            
+            var arrFilteredDietaryRestriction = [String]()
+            
+            if obj.arrdietary_restriction.count > 2 {
+                arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[0])
+                arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[1])
+                cell.arrDietaryRestriction = arrFilteredDietaryRestriction
+            } else {
+                cell.arrDietaryRestriction = obj.arrdietary_restriction
+            }
+            
             cell.clvDietaryRestriction.reloadData()
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
             if obj.bookmark == "no" {
@@ -307,7 +366,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if viwOnDemandLine.isHidden == false || viwLiveLine.isHidden == false {
+        if isFromSelectedType == SelectedDemandClass.onDemand || isFromSelectedType == SelectedDemandClass.live {
             let vc = LiveClassDetailsViewController.viewcontroller()
             let obj = arrCoachClassInfoList[indexPath.row]
             vc.selectedId = obj.id
@@ -361,7 +420,7 @@ extension CoachViseOnDemandClassViewController {
         
         showLoader()
         let param = [ "coach_id" : selectedCoachId,
-                      "class_type" : viwOnDemandLine.isHidden == false ? "on_demand" : "live",
+                      "class_type" : isFromSelectedType == SelectedDemandClass.onDemand ? "on_demand" : "live",
                       "page_no" : pageNo,
                       "per_page" : perPageCount,
         ] as [String : Any]
@@ -411,6 +470,11 @@ extension CoachViseOnDemandClassViewController {
             let recipe_info = dataObj["recipe_info"] as? [ Any] ?? [ Any]()
             
             self.arrCoachRecipe.append(contentsOf: PopularRecipeData.getData(data: recipe_info))
+            
+            self.arrCoachRecipe.forEach { (model) in
+                model.arrdietary_restriction.sort()
+            }
+            
             self.setData()
             
             if recipe_info.count < self.perPageCountRecipe
@@ -461,10 +525,22 @@ extension CoachViseOnDemandClassViewController {
         }
     }
     
-    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], sender : UIButton) {
+    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], recdType : String) {
         showLoader()
         _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
-            self.clickToBtnClassTypeForCoach(sender)
+            
+            switch recdType {
+            case SelectedDemandClass.onDemand, SelectedDemandClass.live:
+                self.resetVariable()
+                self.getCoachesWiseClassList()
+            case SelectedDemandClass.recipe:
+                self.resetRecipeVariable()
+                self.getCoachesWiseRecipeList()
+            default:
+                self.resetVariable()
+                self.getCoachesWiseClassList()
+            }
+            
             self.hideLoader()
         } failure: { (error) in
             self.hideLoader()
@@ -472,4 +548,91 @@ extension CoachViseOnDemandClassViewController {
             return true
         }
     }
+}
+
+class TagsLayout: UICollectionViewFlowLayout {
+    
+    required override init() {super.init(); common()}
+    required init?(coder aDecoder: NSCoder) {super.init(coder: aDecoder); common()}
+    
+    private func common() {
+        estimatedItemSize = UICollectionViewFlowLayout.automaticSize
+        minimumLineSpacing = 10
+        minimumInteritemSpacing = 10
+    }
+    
+    override func layoutAttributesForElements(
+        in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
+        
+        guard let att = super.layoutAttributesForElements(in:rect) else {return []}
+        var x: CGFloat = sectionInset.left
+        var y: CGFloat = -1.0
+        
+        for a in att {
+            if a.representedElementCategory != .cell { continue }
+            
+            if a.frame.origin.y >= y { x = sectionInset.left }
+            a.frame.origin.x = x
+            x += a.frame.width + minimumInteritemSpacing
+            y = a.frame.maxY
+        }
+        return att
+    }
+}
+
+class HeaderTableView: UITableViewHeaderFooterView {
+    
+    // MARK: - OUTLET
+    
+    @IBOutlet weak var viwOnDemandLine: UIView!
+    @IBOutlet weak var viwLiveLine: UIView!
+    @IBOutlet weak var viwRecipeLine: UIView!
+    
+    @IBOutlet weak var btnOnDemand: UIButton!
+    @IBOutlet weak var btnLive: UIButton!
+    @IBOutlet weak var btnRecipe: UIButton!
+    
+    // MARK: - VARIABLE AND OBJECT
+    
+    var didTapButton : ((_ recdType: String) -> Void)!
+    
+    // MARK: - CLICK EVENTS
+    
+    @IBAction func clickToBtnClassTypeForCoach( _ sender : UIButton) {
+        viwOnDemandLine.isHidden = true
+        viwLiveLine.isHidden = true
+        viwRecipeLine.isHidden = true
+        
+        switch sender {
+        case btnOnDemand:
+            viwOnDemandLine.isHidden = false
+            isFromSelectedType = SelectedDemandClass.onDemand
+            didTapButton(SelectedDemandClass.onDemand)
+        case btnLive:
+            viwLiveLine.isHidden = false
+            isFromSelectedType = SelectedDemandClass.live
+            didTapButton(SelectedDemandClass.live)
+        case btnRecipe:
+            viwRecipeLine.isHidden = false
+            isFromSelectedType = SelectedDemandClass.recipe
+            didTapButton(SelectedDemandClass.recipe)
+        default:
+            viwOnDemandLine.isHidden = false
+            didTapButton(SelectedDemandClass.onDemand)
+        }
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        DispatchQueue.main.async {
+            self.clickToBtnClassTypeForCoach(self.btnOnDemand)
+        }
+    }
+}
+
+struct SelectedDemandClass {
+    static let onDemand = "onDemand"
+    static let live = "live"
+    static let recipe = "recipe"
 }

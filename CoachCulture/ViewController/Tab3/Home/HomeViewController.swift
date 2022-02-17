@@ -71,7 +71,6 @@ class HomeViewController: BaseViewController {
             getPopularTrainerList()
             getPopularClassList()
         }
-        
     }
     
     func setData() {
@@ -82,7 +81,12 @@ class HomeViewController: BaseViewController {
         lblClassTime.text = upCommingLiveClassObj.classTimeFormated
     }
     
+    //MARK: - ACTION
     
+    @IBAction func clickToBtnSearch( _ sender : UIButton) {
+        let vc = SearchFollowersViewController.viewcontroller()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 

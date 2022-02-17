@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		510C1D9427BE6C2F007228E9 /* HeaderTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */; };
 		512ABB922717FD72008CB198 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB912717FD72008CB198 /* AppDelegate.swift */; };
 		512ABB962717FD72008CB198 /* LoginSignUpVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB952717FD72008CB198 /* LoginSignUpVc.swift */; };
 		512ABB992717FD73008CB198 /* Coach.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 512ABB972717FD73008CB198 /* Coach.storyboard */; };
@@ -470,6 +471,7 @@
 /* Begin PBXFileReference section */
 		2797DA3766B97BEE907AE49E /* Pods-CoachCulture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.debug.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE6240B202CBFA8415C8744 /* Pods_CoachCulture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoachCulture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTableView.xib; sourceTree = "<group>"; };
 		5121A5E72718247F00B15581 /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-SemiBold.ttf"; sourceTree = "<group>"; };
 		5121A5E82718247F00B15581 /* Karla-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Medium.ttf"; sourceTree = "<group>"; };
 		5121A5E92718248000B15581 /* Karla-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Light.ttf"; sourceTree = "<group>"; };
@@ -1425,6 +1427,7 @@
 				D48F45222770921C00B0EAD8 /* CoachViseOnDemandClassItemTableViewCell.xib */,
 				D48F4525277096C700B0EAD8 /* CoachViseRecipeItemTableViewCell.swift */,
 				D48F4526277096C700B0EAD8 /* CoachViseRecipeItemTableViewCell.xib */,
+				510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2105,6 +2108,7 @@
 				F1963A12272BB78600D19373 /* LB.png in Resources */,
 				F19639F9272BB78600D19373 /* IE.png in Resources */,
 				F19639EB272BB78600D19373 /* GQ.png in Resources */,
+				510C1D9427BE6C2F007228E9 /* HeaderTableView.xib in Resources */,
 				D41DB04C277053F9007FC5F7 /* Followers.storyboard in Resources */,
 				F1963A88272BB78600D19373 /* XK.png in Resources */,
 				F19639A1272BB78600D19373 /* AX.png in Resources */,

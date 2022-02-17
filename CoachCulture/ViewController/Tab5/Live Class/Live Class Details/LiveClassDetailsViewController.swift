@@ -68,6 +68,7 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     private func setUpUI() {
+        hideTabBar()
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
         
         dropDown.anchorView = btnMore

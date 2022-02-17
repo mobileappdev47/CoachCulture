@@ -36,6 +36,7 @@ class CoachViseRecipeItemTableViewCell: UITableViewCell {
         clvDietaryRestriction.register(UINib(nibName: "RecipeDietartyItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "RecipeDietartyItemCollectionViewCell")
         clvDietaryRestriction.delegate = self
         clvDietaryRestriction.dataSource = self
+        clvDietaryRestriction.collectionViewLayout = TagsLayout()
     }
     
     //MARK: - ACTION
@@ -62,18 +63,10 @@ extension CoachViseRecipeItemTableViewCell: UICollectionViewDataSource, UICollec
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeDietartyItemCollectionViewCell", for: indexPath) as!  RecipeDietartyItemCollectionViewCell
         
         cell.lblTitle.text = arrDietaryRestriction[indexPath.row]
-        
+        cell.lblTitle.sizeToFit()
         
         return cell
         
         
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        
-        return CGSize(width: 55, height: 22)
-    }
-    
-    
 }
