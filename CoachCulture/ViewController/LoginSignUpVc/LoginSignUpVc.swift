@@ -54,6 +54,7 @@ class LoginSignUpVc: BaseViewController {
     var isFromLogin = false
     let apimanager = ApiManager()
     var countryCodeDesc = ""
+    var base_currency = ""
     
     let txtPlaceholders = ["Username", "Password", "Username", "Email", "", "Phone", "Password", "Retype Password"]
     var loginParams = [String:Any]()
@@ -276,6 +277,9 @@ class LoginSignUpVc: BaseViewController {
         if txtUsername.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             Utility.shared.showToast("Username is mandatory field")
             return false
+        } else if txtUsername.text?.contains(" ") ?? false {
+            Utility.shared.showToast("Space not allowed")
+            return false
         }
         else  if txtEmail.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             Utility.shared.showToast("Email is mandatory field")
@@ -289,6 +293,9 @@ class LoginSignUpVc: BaseViewController {
             return false
         }  else  if txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             Utility.shared.showToast("Password is mandatory field")
+            return false
+        } else  if txtPassword.text?.isValidPassword ?? false {
+            Utility.shared.showToast("Password must be contain uppercase, lowercase, digit, sign letter")
             return false
         } else  if txtRePassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             Utility.shared.showToast("Re-Type password is mandatory field")
@@ -322,9 +329,28 @@ extension LoginSignUpVc: countryPickDelegate {
         txtCountryCode.text = selectedCountry?.phoneCode
         self.imgCountryCode.image = selectedCountry?.flag
         countryCodeDesc = selectedCountry?.code ?? ""
+        
+        let continentObj = Utility.shared.readLocalFile(forName: "continent")
+    
+        let filteredCountry = continentObj?.filter({ (dict) -> Bool in
+            if selectedCountry?.code == "AX" {
+                return dict.key == "FI"
+            } else {
+                return dict.key == selectedCountry?.code
+            }
+        })
+    
+        if filteredCountry?.count ?? 0 > 0 {
+            switch selectedCountry?.currencyCode {
+            case BaseCurrencyList.SGD:
+                base_currency = BaseCurrencyList.SGD
+            case BaseCurrencyList.EUR:
+                base_currency = BaseCurrencyList.EUR
+            default:
+                base_currency = BaseCurrencyList.USD
+            }
+        }
     }
-    
-    
 }
 
 //MARK: - EXTENSION API CALL
@@ -336,6 +362,7 @@ extension LoginSignUpVc {
             "username": txtUsername.text!,
             "password": txtPassword.text!,
             "countrycode":countryCodeDesc,
+            "base_currency":base_currency,
             "phonecode":txtCountryCode.text!,
             "phoneno":txtPhone.text!,
             "email":txtEmail.text!

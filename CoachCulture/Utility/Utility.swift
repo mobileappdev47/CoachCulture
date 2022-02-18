@@ -355,6 +355,23 @@ class Utility {
                      
     ]
     
+    public func readLocalFile(forName name: String) -> [String:Any]? {
+        do {
+            if let bundlePath = Bundle.main.path(forResource: name, ofType: "json") {
+                guard let jsonData = try String(contentsOfFile: bundlePath).data(using: .utf8) else { return [:] }
+                do {
+                    let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [String:Any]
+                    return jsonObject
+                } catch  {
+                    
+                }
+                
+            }
+        } catch {
+            print(error)
+        }
+        return nil
+    }
 }
 
 // MARK: PRINT LOG

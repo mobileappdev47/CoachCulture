@@ -18,7 +18,8 @@ class OTPViewController: BaseViewController {
     @IBOutlet weak var lblDesc: UILabel!
     @IBOutlet weak var btnResend: UIButton!
     @IBOutlet weak var btnChangeNumber: UIButton!
-    @IBOutlet weak var lblCounter: UILabel!
+    @IBOutlet weak var btnCounter: UIButton!
+
     @IBOutlet var btnDigits: [UIButton]!
     @IBOutlet var txtOtps: [UILabel]!
     var countryCode = ""
@@ -30,7 +31,7 @@ class OTPViewController: BaseViewController {
     var verifiedCallback: (() -> Void)?
     var verifyotp = "1234"
     let apimanager = ApiManager()
-    var counter = 50
+    var counter = 60
     var timer = Timer()
     var isFromForgotPassword = false
     var emaiOrPhone = ""
@@ -61,8 +62,9 @@ class OTPViewController: BaseViewController {
     }
     
     fileprivate func tapResendTimer() {
+        btnCounter.isHidden = false
         self.btnResend.isEnabled = false
-        lblCounter.text = "00:50"
+        btnCounter.setTitle("00:60", for: .normal)
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
     
@@ -71,14 +73,14 @@ class OTPViewController: BaseViewController {
             let minutes = String(counter / 60)
             let seconds = String(counter % 60)
             if Int(seconds)! < 10 {
-                lblCounter.text = "0\(minutes)" + ":" + "0\(seconds)"
+                btnCounter.setTitle("0\(minutes)" + ":" + "0\(seconds)", for: .normal)
             } else {
-                lblCounter.text = "0\(minutes)" + ":" + seconds
+                btnCounter.setTitle("0\(minutes)" + ":" + seconds, for: .normal)
             }
             counter -= 1
         } else {
             self.timer.invalidate()
-            self.lblCounter.isHidden = true
+            self.btnCounter.isHidden = true
             self.btnResend.isEnabled = true
         }
     }
