@@ -123,7 +123,7 @@
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="Nhh-kI-N2e">
                                                                 <rect key="frame" x="0.0" y="0.0" width="110" height="43.5"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@timnorton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qz-S1-51T">
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="@timnorton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Qz-S1-51T">
                                                                 <rect key="frame" x="0.0" y="5" width="110" height="17.5"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="15"/>
                                                                 <color key="textColor" name="textColor"/>
@@ -399,10 +399,10 @@
                                         </constraints>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzZ-A4-YuA">
-                                        <rect key="frame" x="20" y="360" width="335" height="150"/>
+                                        <rect key="frame" x="20" y="360" width="335" height="227.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No demand class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU4-JP-KaL">
-                                                <rect key="frame" x="61" y="63.5" width="213.5" height="23.5"/>
+                                                <rect key="frame" x="61" y="102" width="213.5" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -427,7 +427,6 @@
                                     <constraint firstAttribute="bottom" secondItem="iEv-jx-WRa" secondAttribute="bottom" constant="20" id="hrX-DO-7jp"/>
                                     <constraint firstItem="FzZ-A4-YuA" firstAttribute="top" secondItem="iEv-jx-WRa" secondAttribute="top" constant="50" id="mXf-X9-uKA"/>
                                     <constraint firstItem="abc-nT-VvD" firstAttribute="top" secondItem="ZMm-Aj-Jp0" secondAttribute="top" id="pSo-69-L3F"/>
-                                    <constraint firstItem="FzZ-A4-YuA" firstAttribute="bottom" secondItem="iEv-jx-WRa" secondAttribute="bottom" id="qgK-2L-YuH"/>
                                     <constraint firstAttribute="trailing" secondItem="abc-nT-VvD" secondAttribute="trailing" id="v4M-2d-Ruf"/>
                                 </constraints>
                             </scrollView>
@@ -436,6 +435,7 @@
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="vNj-Pd-aX2" secondAttribute="trailing" id="8tH-hG-IJj"/>
+                            <constraint firstItem="SDx-iJ-FEr" firstAttribute="bottom" secondItem="FzZ-A4-YuA" secondAttribute="bottom" id="TG3-Ip-Vt1"/>
                             <constraint firstItem="vNj-Pd-aX2" firstAttribute="leading" secondItem="SDx-iJ-FEr" secondAttribute="leading" id="Yud-0e-TfM"/>
                             <constraint firstItem="ZMm-Aj-Jp0" firstAttribute="top" secondItem="vNj-Pd-aX2" secondAttribute="bottom" id="aCk-Eo-90n"/>
                             <constraint firstItem="SDx-iJ-FEr" firstAttribute="bottom" secondItem="ZMm-Aj-Jp0" secondAttribute="bottom" id="fzj-Ce-JNK"/>

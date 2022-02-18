@@ -133,7 +133,7 @@ class EditProfileViewController: BaseViewController {
     }
     
     func setData() {
-        self.selectedCurrency = userDataObj.base_currency
+        self.selectedCurrency = self.userDataObj.base_currency
         txtUserName.text = userDataObj.username
         txtEmail.text = userDataObj.email
         txtPhone.text = userDataObj.phoneno

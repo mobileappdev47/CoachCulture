@@ -71,6 +71,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     
     private func setUpUI() {
         hideTabBar()
+        imgThumbnail.blurImage()
         viwNoDataFound.isHidden = false
         self.bottomConstantViewUserProfile.constant = 10.0
         viwCoachProfile.isHidden = true
@@ -89,9 +90,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         tblOndemand.delegate = self
         tblOndemand.dataSource = self
         getUserProfile()
-        getCoachesWiseClassList()
         getCoacheSearchHistory()
-        
     }
     
     func resetVariable() {
@@ -124,16 +123,15 @@ class CoachViseOnDemandClassViewController: BaseViewController {
             heightConstantImgBanner.constant = 290 - 35
         }
         
-        lblFees.text =  coachInfoDataObj.monthly_subscription_fee
-        lblUserName.text = "@" + coachInfoDataObj.username
-        lblFollowers.text =  coachInfoDataObj.total_followers + " Followers"
+        //lblFees.text =  coachInfoDataObj.monthly_subscription_fee
+        //lblUserName.text = "@" + coachInfoDataObj.username
+        //lblFollowers.text =  coachInfoDataObj.total_followers + " Followers"
         if coachInfoDataObj.user_subscribed == "no" {
             self.imgSubscription.isHidden = true
         } else {
             self.imgSubscription.isHidden = false
         }
         imgUserProfile.addCornerRadius(3)
-        imgThumbnail.blurImage()
         
         lblNoDataFound.text = "No demand class found"
         viwNoDataFound.isHidden = arrCoachClassInfoList.count > 0
@@ -400,8 +398,24 @@ extension CoachViseOnDemandClassViewController {
                 self.imgUserProfile.setImageFromURL(imgUrl: self.userDataObj?.user_image ?? "", placeholderImage: nil)
                 self.imgThumbnail.setImageFromURL(imgUrl: self.userDataObj?.user_image ?? "", placeholderImage: nil)
                 self.viewFollow.backgroundColor = (self.userDataObj?.is_followed ?? false) ? COLORS.THEME_RED : COLORS.BLUR_COLOR
+                
+                self.lblFollowers.text =  "\(self.userDataObj?.total_followers ?? "") Followers"
+                let recdCurrency = self.userDataObj?.feesDataObj.fee_regional_currency
+                var currencySybmol = ""
+                
+                switch recdCurrency {
+                case BaseCurrencyList.SGD:
+                    currencySybmol = BaseCurrencySymbol.SGD
+                case BaseCurrencyList.USD:
+                    currencySybmol = BaseCurrencySymbol.USD
+                case BaseCurrencyList.EUR:
+                    currencySybmol = BaseCurrencySymbol.EUR
+                default:
+                    currencySybmol = ""
+                }
+                self.lblFees.text =  "\(currencySybmol)\(self.userDataObj?.feesDataObj.subscriber_fee ?? "")"
+                self.lblUserName.text = "@ \(self.userDataObj?.username ?? "")"
             }
-            
             self.hideLoader()
             
         } failure: { (error) in
@@ -635,4 +649,16 @@ struct SelectedDemandClass {
     static let onDemand = "onDemand"
     static let live = "live"
     static let recipe = "recipe"
+}
+
+struct BaseCurrencyList {
+    static let SGD = "SGD"
+    static let USD = "USD"
+    static let EUR = "EUR"
+}
+
+struct BaseCurrencySymbol {
+    static let SGD = "S$"
+    static let USD = "US$"
+    static let EUR = "€"
 }

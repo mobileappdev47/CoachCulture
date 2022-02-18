@@ -25,7 +25,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MkA-H2-ly8" userLabel="Viewondemand">
-                            <rect key="frame" x="20" y="5" width="100.5" height="35"/>
+                            <rect key="frame" x="10" y="5" width="100.5" height="35"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON DEMAND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvQ-7v-kPE">
                                     <rect key="frame" x="5" y="0.0" width="90.5" height="28"/>
@@ -107,7 +107,7 @@
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kpf-X4-9E5" userLabel="Viewrecepi">
-                            <rect key="frame" x="291.5" y="5" width="63.5" height="35"/>
+                            <rect key="frame" x="301.5" y="5" width="63.5" height="35"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SCY-5s-1nG">
                                     <rect key="frame" x="5" y="0.0" width="53.5" height="28"/>
@@ -152,9 +152,9 @@
                     <color key="backgroundColor" name="themeColor"/>
                     <constraints>
                         <constraint firstItem="Kpf-X4-9E5" firstAttribute="top" secondItem="4eb-kN-jOm" secondAttribute="top" constant="5" id="Hwu-Pg-h7u"/>
-                        <constraint firstItem="MkA-H2-ly8" firstAttribute="leading" secondItem="4eb-kN-jOm" secondAttribute="leading" constant="20" id="S7a-ft-1Zi"/>
+                        <constraint firstItem="MkA-H2-ly8" firstAttribute="leading" secondItem="4eb-kN-jOm" secondAttribute="leading" constant="10" id="S7a-ft-1Zi"/>
                         <constraint firstItem="MkA-H2-ly8" firstAttribute="top" secondItem="4eb-kN-jOm" secondAttribute="top" constant="5" id="ZOY-uY-MoY"/>
-                        <constraint firstAttribute="trailing" secondItem="Kpf-X4-9E5" secondAttribute="trailing" constant="20" id="ZbZ-Bf-Ast"/>
+                        <constraint firstAttribute="trailing" secondItem="Kpf-X4-9E5" secondAttribute="trailing" constant="10" id="ZbZ-Bf-Ast"/>
                         <constraint firstItem="dW4-zY-rsa" firstAttribute="centerX" secondItem="4eb-kN-jOm" secondAttribute="centerX" id="aWV-dF-hx9"/>
                         <constraint firstItem="dW4-zY-rsa" firstAttribute="centerY" secondItem="MkA-H2-ly8" secondAttribute="centerY" id="hkZ-sT-9gc"/>
                         <constraint firstItem="Kpf-X4-9E5" firstAttribute="centerY" secondItem="dW4-zY-rsa" secondAttribute="centerY" id="nom-HI-Pbm"/>
