@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -36,7 +36,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zkx-nl-5ga">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -66,7 +66,7 @@
                                 <rect key="frame" x="0.0" y="80" width="375" height="620"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4v-f5-oid">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="607.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="609"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Methods" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cup-xa-vZu">
                                                 <rect key="frame" x="10" y="10" width="355" height="30"/>
@@ -115,13 +115,13 @@
                                                 </cells>
                                             </collectionView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hdf-wn-cMO">
-                                                <rect key="frame" x="69.5" y="246" width="236" height="22.5"/>
+                                                <rect key="frame" x="81" y="246" width="213.5" height="22.5"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rightWhite" translatesAutoresizingMaskIntoConstraints="NO" id="eh4-8v-XgH">
                                                         <rect key="frame" x="0.0" y="0.0" width="22.5" height="22.5"/>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Preferred Payment Method" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QRS-Ju-MFx">
-                                                        <rect key="frame" x="32.5" y="2.5" width="203.5" height="18"/>
+                                                        <rect key="frame" x="32.5" y="2.5" width="181" height="18"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -138,10 +138,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyh-0L-4Lq" userLabel="pager">
-                                                <rect key="frame" x="109.5" y="278.5" width="156" height="26"/>
+                                                <rect key="frame" x="126.5" y="278.5" width="122.5" height="27.5"/>
                                                 <subviews>
                                                     <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="BIH-B8-6Je">
-                                                        <rect key="frame" x="0.0" y="0.0" width="156" height="26"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="122.5" height="27.5"/>
                                                         <color key="pageIndicatorTintColor" name="textColor"/>
                                                         <color key="currentPageIndicatorTintColor" red="0.1647058824" green="0.59607843140000005" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </pageControl>
@@ -155,17 +155,17 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g02-JC-SWJ" userLabel="Add Payment">
-                                                <rect key="frame" x="30" y="324.5" width="315" height="54"/>
+                                                <rect key="frame" x="30" y="326" width="315" height="54"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" translatesAutoresizingMaskIntoConstraints="NO" id="tF3-hr-hMK">
-                                                        <rect key="frame" x="16" y="14.5" width="25" height="25"/>
+                                                        <rect key="frame" x="24.5" y="14.5" width="25" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="RRO-WI-IYw"/>
                                                             <constraint firstAttribute="width" constant="25" id="qsS-rF-uxa"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add Payment Method" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UoL-W3-aG0">
-                                                        <rect key="frame" x="61" y="16.5" width="193.5" height="21"/>
+                                                        <rect key="frame" x="69.5" y="16.5" width="176.5" height="21"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="18"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -174,7 +174,6 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="54"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
                                                             <action selector="clickTobtnAddPaymentMethod:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="7zC-TF-eZ4"/>
                                                         </connections>
@@ -199,26 +198,26 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="163-To-uwX" userLabel="Balance">
-                                                <rect key="frame" x="30" y="388.5" width="315" height="125"/>
+                                                <rect key="frame" x="30" y="390" width="315" height="125"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Wallet Button" translatesAutoresizingMaskIntoConstraints="NO" id="qgm-GN-MMS">
-                                                        <rect key="frame" x="38.5" y="38" width="49" height="49"/>
+                                                        <rect key="frame" x="42.5" y="38" width="49" height="49"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="49" id="738-dh-hfr"/>
                                                             <constraint firstAttribute="height" constant="49" id="YiZ-ZS-dtG"/>
                                                         </constraints>
                                                     </imageView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a9G-kF-bxl">
-                                                        <rect key="frame" x="97.5" y="27.5" width="160" height="70"/>
+                                                        <rect key="frame" x="101.5" y="28" width="152.5" height="69"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Balance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="14R-7X-uZo">
-                                                                <rect key="frame" x="0.0" y="0.0" width="160" height="24"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="152.5" height="24"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="20"/>
                                                                 <color key="textColor" name="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 1,224.52" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dSb-yV-Lbc">
-                                                                <rect key="frame" x="0.0" y="34" width="160" height="36"/>
+                                                                <rect key="frame" x="0.0" y="34" width="152.5" height="35"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="30"/>
                                                                 <color key="textColor" name="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -239,7 +238,6 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="125"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
                                                             <action selector="clickTobtnAccountBalance:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="piK-6x-QFV"/>
                                                         </connections>
@@ -265,17 +263,17 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FC4-oF-Enx" userLabel="Add Payment">
-                                                <rect key="frame" x="30" y="533.5" width="315" height="54"/>
+                                                <rect key="frame" x="30" y="535" width="315" height="54"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Trainers Icon" translatesAutoresizingMaskIntoConstraints="NO" id="VLC-Ow-Sex">
-                                                        <rect key="frame" x="11.5" y="14.5" width="25" height="25"/>
+                                                        <rect key="frame" x="22" y="14.5" width="25" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="25" id="RAB-Fk-XVc"/>
                                                             <constraint firstAttribute="width" constant="25" id="k5V-UH-PSC"/>
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Manage Subscriptions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wrL-uj-xvo">
-                                                        <rect key="frame" x="56.5" y="16.5" width="202" height="21"/>
+                                                        <rect key="frame" x="67" y="16.5" width="181" height="21"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="18"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -284,7 +282,6 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="54"/>
                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain"/>
                                                         <connections>
                                                             <action selector="clickTobtnManageSubscription:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="adP-uV-WEl"/>
                                                         </connections>
@@ -435,7 +432,6 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain"/>
                                                                 <connections>
                                                                     <action selector="clickTobtnAddPaymentMethod:" destination="evP-Rm-OAe" eventType="touchUpInside" id="UeR-ns-2Tn"/>
                                                                 </connections>
@@ -475,7 +471,6 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain"/>
                                                                 <connections>
                                                                     <action selector="clickTobtnAddPaymentMethod:" destination="evP-Rm-OAe" eventType="touchUpInside" id="XAm-zf-U7u"/>
                                                                 </connections>
@@ -662,7 +657,6 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain"/>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" name="themeRedColor"/>
@@ -766,7 +760,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Nx-hV-gtW">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -800,25 +794,25 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="260"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Ns-s3-Tza">
-                                        <rect key="frame" x="97.5" y="41" width="180" height="178"/>
+                                        <rect key="frame" x="107" y="41.5" width="161.5" height="177"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Balance" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maq-Sc-u3A">
-                                                <rect key="frame" x="0.0" y="0.0" width="180" height="24"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="161.5" height="24"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="20"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S$ 1,224.52" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ELX-pP-Lbo">
-                                                <rect key="frame" x="0.0" y="34" width="180" height="36"/>
+                                                <rect key="frame" x="0.0" y="34" width="161.5" height="35"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="30"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sendAccoiunt" translatesAutoresizingMaskIntoConstraints="NO" id="Jbk-wJ-hRT">
-                                                <rect key="frame" x="65" y="90" width="50" height="50"/>
+                                                <rect key="frame" x="55.5" y="89" width="50" height="50"/>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transfer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QUC-Ix-mLf">
-                                                <rect key="frame" x="0.0" y="160" width="180" height="18"/>
+                                                <rect key="frame" x="0.0" y="159" width="161.5" height="18"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="15"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -919,7 +913,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B06-rO-mVf">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -992,6 +986,22 @@
                                 <rect key="frame" x="20" y="200" width="335" height="447"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CN0-gj-ud4">
+                                <rect key="frame" x="20" y="200" width="335" height="447"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No subscribed found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qc-1P-MQK">
+                                        <rect key="frame" x="73.5" y="211.5" width="188" height="24"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="themeColor"/>
+                                <constraints>
+                                    <constraint firstItem="4qc-1P-MQK" firstAttribute="centerX" secondItem="CN0-gj-ud4" secondAttribute="centerX" id="Ljc-QC-4xr"/>
+                                    <constraint firstItem="4qc-1P-MQK" firstAttribute="centerY" secondItem="CN0-gj-ud4" secondAttribute="centerY" id="Zib-xE-kXI"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="ctF-mP-XNi"/>
                         <color key="backgroundColor" name="themeColor"/>
@@ -1000,8 +1010,12 @@
                             <constraint firstItem="ctF-mP-XNi" firstAttribute="trailing" secondItem="M27-tX-Emv" secondAttribute="trailing" id="CN2-FE-ikv"/>
                             <constraint firstItem="M27-tX-Emv" firstAttribute="top" secondItem="ctF-mP-XNi" secondAttribute="top" id="Ktu-Au-4Dq"/>
                             <constraint firstItem="seu-JE-Hxl" firstAttribute="top" secondItem="M27-tX-Emv" secondAttribute="bottom" constant="20" id="QvD-Lv-4Nb"/>
+                            <constraint firstItem="CN0-gj-ud4" firstAttribute="leading" secondItem="eS6-ae-c0z" secondAttribute="leading" id="TAn-x6-4F3"/>
                             <constraint firstItem="ctF-mP-XNi" firstAttribute="trailing" secondItem="XI2-9p-qt6" secondAttribute="trailing" constant="20" id="TS1-aF-y0a"/>
+                            <constraint firstItem="CN0-gj-ud4" firstAttribute="top" secondItem="eS6-ae-c0z" secondAttribute="top" id="Ujo-qV-Hnl"/>
                             <constraint firstItem="seu-JE-Hxl" firstAttribute="leading" secondItem="ctF-mP-XNi" secondAttribute="leading" constant="20" id="WXt-mW-tR3"/>
+                            <constraint firstItem="CN0-gj-ud4" firstAttribute="trailing" secondItem="eS6-ae-c0z" secondAttribute="trailing" id="Z8l-7e-8FQ"/>
+                            <constraint firstItem="CN0-gj-ud4" firstAttribute="bottom" secondItem="eS6-ae-c0z" secondAttribute="bottom" id="ZVC-tR-UZO"/>
                             <constraint firstItem="ctF-mP-XNi" firstAttribute="bottom" secondItem="eS6-ae-c0z" secondAttribute="bottom" constant="20" id="d7t-0c-S3N"/>
                             <constraint firstItem="eS6-ae-c0z" firstAttribute="leading" secondItem="ctF-mP-XNi" secondAttribute="leading" constant="20" id="dDV-yY-z1g"/>
                             <constraint firstItem="ctF-mP-XNi" firstAttribute="trailing" secondItem="seu-JE-Hxl" secondAttribute="trailing" constant="20" id="hAc-JE-cZb"/>
@@ -1014,6 +1028,7 @@
                     <connections>
                         <outlet property="tblManageSubscription" destination="eS6-ae-c0z" id="Svt-rZ-NNr"/>
                         <outlet property="txtSearch" destination="ksN-YP-Os3" id="S7s-M2-rdd"/>
+                        <outlet property="viewNoDataFound" destination="CN0-gj-ud4" id="9Sv-PL-tds"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ldq-zw-R0Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1023,18 +1038,18 @@
     </scenes>
     <designables>
         <designable name="7Mw-7k-n0C">
-            <size key="intrinsicContentSize" width="41.5" height="19"/>
+            <size key="intrinsicContentSize" width="31.5" height="19"/>
         </designable>
         <designable name="bhX-39-zdH">
-            <size key="intrinsicContentSize" width="85" height="20.5"/>
+            <size key="intrinsicContentSize" width="75" height="20.5"/>
         </designable>
         <designable name="klO-Fd-9ov">
-            <size key="intrinsicContentSize" width="107" height="20.5"/>
+            <size key="intrinsicContentSize" width="97" height="20.5"/>
         </designable>
     </designables>
     <resources>
         <image name="Searchicon" width="22.5" height="23"/>
-        <image name="Trainers Icon" width="42" height="36"/>
+        <image name="Trainers Icon" width="29.5" height="24"/>
         <image name="Wallet Button" width="49" height="49"/>
         <image name="accountListHeader" width="716" height="368"/>
         <image name="credit-card" width="31.5" height="23"/>

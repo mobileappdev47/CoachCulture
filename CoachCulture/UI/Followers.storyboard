@@ -229,13 +229,25 @@
                                                                         <color key="textColor" name="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GBK-2i-idf">
+                                                                        <rect key="frame" x="1" y="0.0" width="90" height="35"/>
+                                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <connections>
+                                                                            <action selector="btnSubscribeClick:" destination="hgy-cn-j0V" eventType="touchUpInside" id="ptk-1K-SOg"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" red="0.17254901959999999" green="0.2274509804" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                 <constraints>
+                                                                    <constraint firstItem="GBK-2i-idf" firstAttribute="leading" secondItem="rjN-PM-8io" secondAttribute="leading" constant="1" id="AqR-JT-Eon"/>
                                                                     <constraint firstAttribute="trailing" secondItem="Y7S-vL-zKS" secondAttribute="trailing" constant="10" id="PPG-hf-H6u"/>
                                                                     <constraint firstItem="Y7S-vL-zKS" firstAttribute="centerY" secondItem="fMM-bM-R3k" secondAttribute="centerY" id="cpo-yz-cZd"/>
+                                                                    <constraint firstItem="GBK-2i-idf" firstAttribute="top" secondItem="rjN-PM-8io" secondAttribute="top" id="fEp-j2-lKY"/>
                                                                     <constraint firstItem="fMM-bM-R3k" firstAttribute="leading" secondItem="rjN-PM-8io" secondAttribute="leading" constant="10" id="ps4-te-FPx"/>
                                                                     <constraint firstItem="fMM-bM-R3k" firstAttribute="centerY" secondItem="rjN-PM-8io" secondAttribute="centerY" id="rqQ-qB-0lJ"/>
+                                                                    <constraint firstAttribute="trailing" secondItem="GBK-2i-idf" secondAttribute="trailing" constant="1" id="sps-Vz-qrU"/>
+                                                                    <constraint firstAttribute="bottom" secondItem="GBK-2i-idf" secondAttribute="bottom" id="vuI-IY-V8G"/>
                                                                     <constraint firstItem="Y7S-vL-zKS" firstAttribute="leading" secondItem="fMM-bM-R3k" secondAttribute="trailing" constant="10" id="w4w-Kf-l7q"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
@@ -461,6 +473,7 @@
                         <outlet property="tblOndemand" destination="iEv-jx-WRa" id="dwF-SI-K6g"/>
                         <outlet property="viewFollow" destination="fqU-ke-Ta6" id="VId-hs-qaY"/>
                         <outlet property="viewNavbar" destination="vNj-Pd-aX2" id="3Tk-Rn-R4u"/>
+                        <outlet property="viewSubscription" destination="rjN-PM-8io" id="XFL-2z-av0"/>
                         <outlet property="viewUserProfileBottom" destination="RvO-ac-U77" id="4IN-qV-09C"/>
                         <outlet property="viwCoachProfile" destination="PPB-7Y-oen" id="Oua-70-YYv"/>
                         <outlet property="viwNoDataFound" destination="FzZ-A4-YuA" id="Kzs-6M-YJm"/>
@@ -1827,7 +1840,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="26" height="26"/>
         <image name="Switch" width="17" height="18.5"/>
-        <image name="Trainers Icon" width="42" height="36"/>
+        <image name="Trainers Icon" width="29.5" height="24"/>
         <image name="chatting" width="23.5" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.5"/>

@@ -77,6 +77,8 @@ struct API {
     static let GET_COACH_SEARCH_HISTORY                         = BASE_URL + "api/coach/add-coach-search-history"
     static let ADD_REMOVE_FOLLOWERS                         = BASE_URL + "api/coach/add-remove-followers"
 
+    static let ADD_USER_TO_COACH = BASE_URL + "api/subscription/add-user-to-coach"
+    static let UNSUBSCRIBE_TO_COACH = BASE_URL + "api/subscription/unsubscribe-to-coach"
 
 }
 
