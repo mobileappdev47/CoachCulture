@@ -61,7 +61,8 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     var perPageCountRecipe = 10
     var userDataObj : UserData?
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
-    
+    var logOutView:LogOutView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -71,6 +72,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     // MARK: - Methods
     
     private func setUpUI() {
+        logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         hideTabBar()
         imgThumbnail.blurImage()
         viwNoDataFound.isHidden = false
@@ -112,16 +114,12 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     
     
     func setData() {
-        
         if selectedCoachId == AppPrefsManager.sharedInstance.getUserData().id {
-            heightConstantImgBanner.constant = 290.0
             self.bottomConstantViewUserProfile.constant = 20.0
             viwCoachProfile.isHidden = false
             viwOtherCoachProfile.isHidden = true
             viwUserProfileContainer.applyBorder(3, borderColor: hexStringToUIColor(hex: "#81747E")) //
             imgMovieIcon.image = UIImage(named: "grayMovieIcon")
-        } else {
-            heightConstantImgBanner.constant = 290 - 35
         }
         
         //lblFees.text =  coachInfoDataObj.monthly_subscription_fee
@@ -189,12 +187,35 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         self.tblOndemand.layoutIfNeeded()
     }
     
+    func setupConfirmationView() {
+        logOutView.lblTitle.text = "Join the CoachCulture"
+        logOutView.lblMessage.text = "Do you want to subscribe to \(self.lblUserName.text ?? "") for monthly subscription fee of \(self.lblFees.text ?? "")"
+        logOutView.btnLeft.setTitle("Confirm", for: .normal)
+        logOutView.btnRight.setTitle("Cancel", for: .normal)
+        logOutView.tapToBtnLogOut {
+            self.callAddUserToCoachAPI()
+            self.removeConfirmationView()
+        }
+    }
+    
+    func addConfirmationView() {
+        logOutView.frame.size = self.view.frame.size
+        self.view.addSubview(logOutView)
+    }
+    
+    func removeConfirmationView() {
+        if logOutView != nil{
+            logOutView.removeFromSuperview()
+        }
+    }
+
     @IBAction func btnSubscribeClick(_ sender: UIButton) {
         if self.userDataObj?.is_coach_subscribed ?? false {
             let nextVc = ManageSubscriptionListViewController.viewcontroller()
             self.pushVC(To: nextVc, animated: true)
         } else {
-            self.callAddUserToCoachAPI()
+            self.addConfirmationView()
+            self.setupConfirmationView()
         }
     }
     
@@ -204,6 +225,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     
     @IBAction func clickToBtnCoachProfile( _ sender : UIButton) {
         let vc = CoachClassProfileViewController.viewcontroller()
+        vc.selectedCoachId = self.selectedCoachId
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -273,12 +295,13 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lbltitle.text = obj.class_type_name
             cell.lblClassDate.text = obj.created_atFormated
+            cell.selectedIndex = indexPath.row
             cell.lblClassTime.text = obj.total_viewers + " Views"
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand)
+                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
             }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -298,11 +321,12 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             cell.lblClassType.text = "Live".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             let obj = arrCoachClassInfoList[indexPath.row]
+            cell.selectedIndex = indexPath.row
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live)
+                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
             }
             cell.lblDuration.text = obj.duration
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
@@ -328,11 +352,12 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseRecipeItemTableViewCell", for: indexPath) as! CoachViseRecipeItemTableViewCell
             let obj = arrCoachRecipe[indexPath.row]
+            cell.selectedIndex = indexPath.row
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe)
+                self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
             }
             cell.lbltitle.text = obj.title
             cell.lblDuration.text = obj.duration
@@ -367,10 +392,10 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 122
+        return 105
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 122
+        return 105
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -448,7 +473,7 @@ extension CoachViseOnDemandClassViewController {
         let param = [ "coach_id" : selectedCoachId,
                       "class_type" : isFromSelectedType == SelectedDemandClass.onDemand ? "on_demand" : "live",
                       "page_no" : pageNo,
-                      "per_page" : perPageCount,
+                      "per_page" : perPageCount
         ] as [String : Any]
         
         
@@ -563,7 +588,9 @@ extension CoachViseOnDemandClassViewController {
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.ADD_REMOVE_FOLLOWERS, parameters: param, headers: nil) { responseObj in
             
             let responseObj = ResponseDataModel(responseObj: responseObj)
-            Utility.shared.showToast(responseObj.message)
+            if isShowLoader {
+                Utility.shared.showToast(responseObj.message)
+            }
             self.getUserProfile()
             self.hideLoader()
             
@@ -572,17 +599,33 @@ extension CoachViseOnDemandClassViewController {
         }
     }
     
-    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], recdType : String) {
+    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], recdType : String, selectedIndex: Int) {
         showLoader()
         _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
             
             switch recdType {
             case SelectedDemandClass.onDemand, SelectedDemandClass.live:
-                self.resetVariable()
-                self.getCoachesWiseClassList()
+                for (index, model) in self.arrCoachClassInfoList.enumerated() {
+                    if selectedIndex == index {
+                        model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                        self.arrCoachClassInfoList[index] = model
+                        DispatchQueue.main.async {
+                            self.tblOndemand.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                        }
+                        break
+                    }
+                }
             case SelectedDemandClass.recipe:
-                self.resetRecipeVariable()
-                self.getCoachesWiseRecipeList()
+                for (index, model) in self.arrCoachRecipe.enumerated() {
+                    if selectedIndex == index {
+                        model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                        self.arrCoachRecipe[index] = model
+                        DispatchQueue.main.async {
+                            self.tblOndemand.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                        }
+                        break
+                    }
+                }
             default:
                 self.resetVariable()
                 self.getCoachesWiseClassList()

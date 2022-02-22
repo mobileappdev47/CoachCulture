@@ -26,12 +26,10 @@ class ManageSubscriptionListViewController: BaseViewController {
     private var pageNo = 1
     private var perPageCount = 10
     var searchString = ""
-
     var dataRequest: DataRequest?
-    
-    
     var cancelSubScription: CancelSubScription!
-    
+    var logOutView:LogOutView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +39,9 @@ class ManageSubscriptionListViewController: BaseViewController {
     
     // MARK: - Methods
     func setUpUI() {
-        
+        logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
+
+        hideTabBar()
         tblManageSubscription.register(UINib(nibName: "SubscriptionItemTableViewCell", bundle: nil), forCellReuseIdentifier: "SubscriptionItemTableViewCell")
         tblManageSubscription.delegate = self
         tblManageSubscription.dataSource = self
@@ -109,21 +109,46 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
         cell.lblPrice.text =  "\(currencySybmol)\(obj.feesDataObj.subscriber_fee)"
 
         cell.didTapUnsubscribeClick = {
-            self.callUnsubscribeToCoachAPI(selectedIndex: cell.selectedIndex, id: obj.id)
+            self.addConfirmationView()
+            DispatchQueue.main.async {
+                self.setupConfirmationView(selectedIndex: cell.selectedIndex, obj: obj)
+            }
         }
+        
         cell.lblUserName.text = "@" + obj.username
         cell.lblDate.text = "end " +  obj.endDate
         cell.imgUser.setImageFromURL(imgUrl: obj.user_image, placeholderImage: nil)
         if arrSubsciptionList.count - 1 == indexPath.row {
             isDataLoading = false
             continueLoadingData = true
-            self.getCoachSubscriptionList(isShowLoader: true)
+            self.getCoachSubscriptionList(isShowLoader: false)
         }
         cell.layoutIfNeeded()
         return cell
-        
     }
     
+    func setupConfirmationView(selectedIndex: Int, obj: SubsciptionList) {
+        logOutView.lblTitle.text = "Leave the CoachCulture"
+        logOutView.lblMessage.text = "Are you sure that you want to cancel the subscription with coach @\(obj.username)?\nIf you cancel your subscription it will end on \(obj.endDate)."
+        logOutView.btnLeft.setTitle("Yes", for: .normal)
+        logOutView.btnRight.setTitle("No", for: .normal)
+        logOutView.tapToBtnLogOut {
+            self.callUnsubscribeToCoachAPI(selectedIndex: selectedIndex, id: obj.id)
+            self.removeConfirmationView()
+        }
+    }
+    
+    func addConfirmationView() {
+        logOutView.frame.size = self.view.frame.size
+        self.view.addSubview(logOutView)
+    }
+    
+    func removeConfirmationView() {
+        if logOutView != nil{
+            logOutView.removeFromSuperview()
+        }
+    }
+
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
@@ -225,8 +250,10 @@ extension ManageSubscriptionListViewController : UITextFieldDelegate {
     
   
     func textFieldDidEndEditing(_ textField: UITextField) {
-        self.resetAll()
-        getCoachSubscriptionList(isShowLoader: true)
+        if arrSubsciptionList.count > 0 {
+            self.resetAll()
+            getCoachSubscriptionList(isShowLoader: true)
+        }
     }
 
 }

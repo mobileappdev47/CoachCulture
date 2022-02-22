@@ -9,6 +9,10 @@ import UIKit
 
 class LogOutView: UIView {
     
+    @IBOutlet weak var lblTitle: UILabel!
+    @IBOutlet weak var lblMessage: UILabel!
+    @IBOutlet weak var btnLeft: UIButton!
+    @IBOutlet weak var btnRight: UIButton!
     
     
     

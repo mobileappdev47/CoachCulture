@@ -75,7 +75,7 @@ class CustomTabBarController: UITabBarController
         let navController2: UINavigationController = YourCoachesViewController.viewcontrollerNav()
         let navController3: UINavigationController = HomeViewController.viewcontrollerNav()
         let navController4: UINavigationController = MainSearchViewController.viewcontrollerNav()
-        let navController5: UINavigationController = SettingsViewController.viewcontrollerNav()
+        let navController5: UINavigationController = CoachClassProfileViewController.viewcontrollerNav()
                 
         viewControllers = [navController1, navController2, navController3, navController4, navController5]
         
