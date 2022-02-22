@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class OTPViewController: BaseViewController {
     
@@ -18,7 +19,7 @@ class OTPViewController: BaseViewController {
     @IBOutlet weak var lblDesc: UILabel!
     @IBOutlet weak var btnResend: UIButton!
     @IBOutlet weak var btnChangeNumber: UIButton!
-    @IBOutlet weak var btnCounter: UIButton!
+    @IBOutlet weak var lblCounter: UILabel!
 
     @IBOutlet var btnDigits: [UIButton]!
     @IBOutlet var txtOtps: [UILabel]!
@@ -37,10 +38,13 @@ class OTPViewController: BaseViewController {
     var emaiOrPhone = ""
     
     var paramDic = [String:Any]()
+    var isFromInitial = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        isFromInitial = true
+        tapResendTimer()
         btnResend.addTarget(self, action: #selector(didTapResend(_:)), for: .touchUpInside)
         btnChangeNumber.addTarget(self, action: #selector(didTapChangeNumber(_:)), for: .touchUpInside)
         btnDigits.forEach { btn in
@@ -51,20 +55,26 @@ class OTPViewController: BaseViewController {
         btnChangeNumber.setTitle("Change Number", for: .normal)
         btnResend.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         btnChangeNumber.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        
+        let count = phoneNo.count
+        phoneNo.removeAll()
+        for _ in 0..<count {
+            phoneNo.append("x")
+        }
+        
         if isFromForgotPassword {
             lblDesc.text = "Please type the verification code sent to \(emaiOrPhone)"
         } else {
-            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneNo)"
+            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneNo)."
         }
-        
-        
-        tapResendTimer()
     }
     
     fileprivate func tapResendTimer() {
-        btnCounter.isHidden = false
+        update()
+        counter = 60
+        lblCounter.isHidden = false
         self.btnResend.isEnabled = false
-        btnCounter.setTitle("00:60", for: .normal)
+        lblCounter.text = "in 00:60"
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
     
@@ -73,14 +83,20 @@ class OTPViewController: BaseViewController {
             let minutes = String(counter / 60)
             let seconds = String(counter % 60)
             if Int(seconds)! < 10 {
-                btnCounter.setTitle("0\(minutes)" + ":" + "0\(seconds)", for: .normal)
+                if !isFromInitial {
+                    lblCounter.text = "in 0\(minutes)" + ":" + "0\(seconds)"
+                } else {
+                    lblCounter.text = "in 00:60"
+                }
             } else {
-                btnCounter.setTitle("0\(minutes)" + ":" + seconds, for: .normal)
+                lblCounter.text = "in 0\(minutes)" + ":" + seconds
+                isFromInitial = false
             }
             counter -= 1
         } else {
+            isFromInitial = true
             self.timer.invalidate()
-            self.btnCounter.isHidden = true
+            self.lblCounter.isHidden = true
             self.btnResend.isEnabled = true
         }
     }
@@ -131,7 +147,7 @@ class OTPViewController: BaseViewController {
     }
     
     @objc func didTapResend(_ sender: UIButton) {
-        tapResendTimer()
+        self.resendOtpAPI()
     }
 }
 
@@ -192,22 +208,23 @@ extension OTPViewController {
     }
     
     func resendOtpAPI() {
-        
+        SVProgressHUD.show()
         let param = [
-            "username": username,
-            "password": password,
             "countrycode":countryCode,
             "phonecode":phoneCode,
             "phoneno":phoneNo,
-            "verification_code": otp
+            "type":"phone"
         ]
         
-        apimanager.callMultiPartDataWebServiceNew(type: SignupUserModel.self, image: nil, to: API.VERIFY_USER, params: param) { userModel, statusCode in
+        apimanager.callMultiPartDataWebServiceNew(type: ReSendOTPBaseModel.self, image: nil, to: API.VERIFY_USER, params: param) { userModel, statusCode in
+            SVProgressHUD.dismiss()
             print("statusCode == == ",statusCode)
             print(userModel)
             if statusCode != 201 && statusCode != 200 {
                 self.showAlert(withTitle: "Error!", message: userModel?.message ?? "")
             } else {
+                
+                self.tapResendTimer()
                 print(userModel)
             }
         } failure: { error, statusCode in
@@ -246,5 +263,39 @@ extension OTPViewController {
         
         
 
+    }
+}
+
+struct ReSendOTPBaseModel: Codable {
+
+    let data : DataModel?
+    let success : Bool?
+    let message : String?
+
+    enum CodingKeys: String, CodingKey {
+        case message = "message"
+        case success = "success"
+        case data = "data"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        message = try values.decodeIfPresent(String.self, forKey: .message)
+        success = try values.decodeIfPresent(Bool.self, forKey: .success)
+        data = try values.decodeIfPresent(DataModel.self, forKey: .data)
+    }
+}
+
+struct DataModel: Codable {
+
+    let verification_code : String?
+
+    enum CodingKeys: String, CodingKey {
+        case verification_code = "verification_code"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        verification_code = try values.decodeIfPresent(String.self, forKey: .verification_code)
     }
 }

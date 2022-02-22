@@ -16,6 +16,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewSubscription: UIView!
     @IBOutlet weak var viewNavbar: UIView!
     @IBOutlet weak var viewTableHeader: UIView!
     @IBOutlet weak var viewContentBG: UIView!
@@ -188,8 +189,17 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         self.tblOndemand.layoutIfNeeded()
     }
     
+    @IBAction func btnSubscribeClick(_ sender: UIButton) {
+        if self.userDataObj?.is_coach_subscribed ?? false {
+            let nextVc = ManageSubscriptionListViewController.viewcontroller()
+            self.pushVC(To: nextVc, animated: true)
+        } else {
+            self.callAddUserToCoachAPI()
+        }
+    }
+    
     @IBAction func clickToBtnAddFollow( _ sender : UIButton) {
-        addRemoveFollowers()
+        addRemoveFollowers(isShowLoader: true)
     }
     
     @IBAction func clickToBtnCoachProfile( _ sender : UIButton) {
@@ -397,7 +407,7 @@ extension CoachViseOnDemandClassViewController {
                 
                 self.imgUserProfile.setImageFromURL(imgUrl: self.userDataObj?.user_image ?? "", placeholderImage: nil)
                 self.imgThumbnail.setImageFromURL(imgUrl: self.userDataObj?.user_image ?? "", placeholderImage: nil)
-                self.viewFollow.backgroundColor = (self.userDataObj?.is_followed ?? false) ? COLORS.THEME_RED : COLORS.BLUR_COLOR
+                self.viewFollow.backgroundColor = (self.userDataObj?.is_followed ?? false) ? COLORS.BLUR_COLOR : COLORS.THEME_RED
                 
                 self.lblFollowers.text =  "\(self.userDataObj?.total_followers ?? "") Followers"
                 let recdCurrency = self.userDataObj?.feesDataObj.fee_regional_currency
@@ -415,6 +425,8 @@ extension CoachViseOnDemandClassViewController {
                 }
                 self.lblFees.text =  "\(currencySybmol)\(self.userDataObj?.feesDataObj.subscriber_fee ?? "")"
                 self.lblUserName.text = "@ \(self.userDataObj?.username ?? "")"
+                
+                self.viewSubscription.backgroundColor = (self.userDataObj?.is_coach_subscribed ?? false) ? COLORS.BLUR_COLOR : COLORS.THEME_RED
             }
             self.hideLoader()
             
@@ -519,8 +531,29 @@ extension CoachViseOnDemandClassViewController {
         }
     }
     
-    func addRemoveFollowers() {
+    func callAddUserToCoachAPI() {
         showLoader()
+        let param = [ "coach_id" : selectedCoachId,
+                      "transaction_id" : "1",
+                      
+        ] as [String : Any]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.ADD_USER_TO_COACH, parameters: param, headers: nil) { responseObj in
+            
+            let responseObj = ResponseDataModel(responseObj: responseObj)
+            Utility.shared.showToast(responseObj.message)
+            self.addRemoveFollowers(isShowLoader: false)
+            
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
+    
+    func addRemoveFollowers(isShowLoader: Bool) {
+        if isShowLoader {
+            showLoader()
+        }
         let param = [ "coach_id" : selectedCoachId,
                       "status" : (userDataObj?.is_followed ?? false) ? "no" : "yes",
                       

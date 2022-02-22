@@ -15,6 +15,7 @@ class ManageSubscriptionListViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var tblManageSubscription: UITableView!
     
     @IBOutlet weak var txtSearch: UITextField!
@@ -25,7 +26,7 @@ class ManageSubscriptionListViewController: BaseViewController {
     private var pageNo = 1
     private var perPageCount = 10
     var searchString = ""
-    
+
     var dataRequest: DataRequest?
     
     
@@ -55,7 +56,7 @@ class ManageSubscriptionListViewController: BaseViewController {
             self.cancelSubScription.removeFromSuperview()
         }
         
-        getCoachSubscriptionList()
+        getCoachSubscriptionList(isShowLoader: true)
         
     }
     
@@ -66,10 +67,10 @@ class ManageSubscriptionListViewController: BaseViewController {
     }
     
     func resetAll() {
-       isDataLoading = false
-       continueLoadingData = true
-       pageNo = 1
-       perPageCount = 10
+        isDataLoading = false
+        continueLoadingData = true
+        pageNo = 1
+        perPageCount = 10
         arrSubsciptionList.removeAll()
     }
 }
@@ -88,9 +89,37 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionItemTableViewCell", for: indexPath) as! SubscriptionItemTableViewCell
         let obj = arrSubsciptionList[indexPath.row]
+        cell.selectedIndex = indexPath.row
+        cell.viwUnsubscribe.isHidden = obj.unsubscribe_status ? true : false
+        cell.viwSubscribe.isHidden = obj.unsubscribe_status ? false : true
+        
+        let recdCurrency = obj.feesDataObj.fee_regional_currency
+        var currencySybmol = ""
+        
+        switch recdCurrency {
+        case BaseCurrencyList.SGD:
+            currencySybmol = BaseCurrencySymbol.SGD
+        case BaseCurrencyList.USD:
+            currencySybmol = BaseCurrencySymbol.USD
+        case BaseCurrencyList.EUR:
+            currencySybmol = BaseCurrencySymbol.EUR
+        default:
+            currencySybmol = ""
+        }
+        cell.lblPrice.text =  "\(currencySybmol)\(obj.feesDataObj.subscriber_fee)"
+
+        cell.didTapUnsubscribeClick = {
+            self.callUnsubscribeToCoachAPI(selectedIndex: cell.selectedIndex, id: obj.id)
+        }
         cell.lblUserName.text = "@" + obj.username
         cell.lblDate.text = "end " +  obj.endDate
         cell.imgUser.setImageFromURL(imgUrl: obj.user_image, placeholderImage: nil)
+        if arrSubsciptionList.count - 1 == indexPath.row {
+            isDataLoading = false
+            continueLoadingData = true
+            self.getCoachSubscriptionList(isShowLoader: true)
+        }
+        cell.layoutIfNeeded()
         return cell
         
     }
@@ -109,17 +138,19 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
 
 extension ManageSubscriptionListViewController {
     
-    func getCoachSubscriptionList() {
+    func getCoachSubscriptionList(isShowLoader: Bool) {
         
         dataRequest?.cancel()
         
-        if(isDataLoading || !continueLoadingData){
+        if isDataLoading || !continueLoadingData{
             return
         }
         
         isDataLoading = true
         
-        showLoader()
+        if isShowLoader {
+            showLoader()
+        }
         let param = [ "search" : searchString,
                       "page_no" : "\(pageNo)",
                       "per_page" : "\(perPageCount)"]
@@ -129,19 +160,53 @@ extension ManageSubscriptionListViewController {
             
             let dataObj = responseObj["coach_list"] as? [Any] ?? [Any]()
             let arr = SubsciptionList.getData(data: dataObj)
-            self.arrSubsciptionList.append(contentsOf: arr)
-            self.tblManageSubscription.reloadData()
+            
+            if arr.count > 0 {
+                self.arrSubsciptionList.append(contentsOf: arr)
+                self.tblManageSubscription.reloadData()
+            }
             
             if arr.count < self.perPageCount
             {
                 self.continueLoadingData = false
             }
             self.isDataLoading = false
+            self.pageNo += 1
+
+            if self.arrSubsciptionList.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+            }
             
             self.hideLoader()
             
             
         } failure: { (error) in
+            return true
+        }
+    }
+    
+    func callUnsubscribeToCoachAPI(selectedIndex: Int, id: String) {
+        showLoader()
+        let param = [ "coach_id" : id]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.UNSUBSCRIBE_TO_COACH, parameters: param, headers: nil) { responseObj in
+            
+            self.hideLoader()
+            for (index, model) in self.arrSubsciptionList.enumerated() {
+                if selectedIndex == index {
+                    model.unsubscribe_status = true
+                    self.arrSubsciptionList[index] = model
+                    DispatchQueue.main.async {
+                        self.tblManageSubscription.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                    }
+                    break
+                }
+            }
+            
+        } failure: { (error) in
+            self.hideLoader()
             return true
         }
     }
@@ -161,7 +226,7 @@ extension ManageSubscriptionListViewController : UITextFieldDelegate {
   
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.resetAll()
-        getCoachSubscriptionList()
+        getCoachSubscriptionList(isShowLoader: true)
     }
 
 }

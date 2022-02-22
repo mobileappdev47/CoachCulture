@@ -19,20 +19,23 @@ class SubsciptionList {
     var coach_status = ""
     var followers = ""
     var endDate = ""
-   
+    var unsubscribe_status = false
+    var feesDataObj = FeesData()
+    
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
         id = map.value("id") ?? ""
         username = map.value("username") ?? ""
+        unsubscribe_status = map.value("unsubscribe_status") ?? false
         user_image = map.value("user_image") ?? ""
         monthly_subscription_fee = map.value("monthly_subscription_fee") ?? ""
         start_subscription_date = map.value("start_subscription_date") ?? ""
         end_subscription_date = map.value("end_subscription_date") ?? ""
         coach_status = map.value("coach_status") ?? ""
         followers = map.value("followers") ?? ""
-        
+        feesDataObj = FeesData(responseObj: responseObj["fees"] as? [String : Any] ?? [String : Any]())
         if !end_subscription_date.isEmpty {
             let nsDate = end_subscription_date.getDateWithFormate(formate: "yyyy-MM-dd hh:mm:ss", timezone: "UTC")
             endDate = nsDate.getDateStringWithFormate("MMM dd, yyyy", timezone: "UTC")

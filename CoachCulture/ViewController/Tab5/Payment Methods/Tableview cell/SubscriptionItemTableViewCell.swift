@@ -18,6 +18,9 @@ class SubscriptionItemTableViewCell: UITableViewCell {
     @IBOutlet weak var viwUnsubscribe: UIView!
     @IBOutlet weak var viwSubscribe: UIView!
 
+    var didTapUnsubscribeClick : (() -> Void)!
+    var selectedIndex = 0
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -31,4 +34,9 @@ class SubscriptionItemTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func btnUnsubscribeClick() {
+        if didTapUnsubscribeClick != nil {
+            didTapUnsubscribeClick()
+        }
+    }
 }

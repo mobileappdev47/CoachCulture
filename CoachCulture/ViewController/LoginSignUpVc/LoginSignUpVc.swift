@@ -4,7 +4,7 @@ import SVProgressHUD
 import Firebase
 import GoogleSignIn
 import FBSDKLoginKit
-
+import PhoneNumberKit
 
 class LoginSignUpVc: BaseViewController {
     
@@ -274,6 +274,18 @@ class LoginSignUpVc: BaseViewController {
     
     func validationSignup() -> Bool {
         
+        var phoneNo = ""
+        var dialCode = ""
+
+        let phoneNumberKit = PhoneNumberKit()
+        do {
+            let phoneNumber = try phoneNumberKit.parse(txtPhone.text ?? "")
+            phoneNo = "\(phoneNumber.nationalNumber)"
+            dialCode = phoneNumber.regionID ?? ""
+        } catch {
+            print("Generic parser error")
+        }
+
         if txtUsername.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             Utility.shared.showToast("Username is mandatory field")
             return false
@@ -287,11 +299,13 @@ class LoginSignUpVc: BaseViewController {
         } else if !(txtEmail.text!.isValidEmail) {
             Utility.shared.showToast("Wrong formate for email address")
             return false
-        }
-        else  if txtPhone.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        } else  if txtPhone.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             Utility.shared.showToast("Mobile number is mandatory field")
             return false
-        }  else  if txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        } else if !(txtPhone.text?.isEmpty ?? false) && !Utility.shared.checkPhoneNumberValidation(number: phoneNo, countryCodeStr: dialCode) {
+            Utility.shared.showToast("Please enter a valid phone")
+            return false
+        } else  if txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             Utility.shared.showToast("Password is mandatory field")
             return false
         } else  if txtPassword.text?.isValidPassword ?? false {

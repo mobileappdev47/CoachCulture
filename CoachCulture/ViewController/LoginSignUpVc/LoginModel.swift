@@ -32,6 +32,7 @@ class UserData {
     var is_followed = false
     var total_followers = ""
     var feesDataObj = FeesData()
+    var is_coach_subscribed = false
     
     init() {}
     
@@ -57,6 +58,7 @@ class UserData {
         phoneno = map.value("phoneno") ?? ""
         base_currency = map.value("base_currency") ?? ""
         total_followers = map.value("total_followers") ?? ""
+        is_coach_subscribed = map.value("is_coach_subscribed") ?? false
         feesDataObj = FeesData(responseObj: responseObj["fees"] as? [String : Any] ?? [String : Any]())
     }
 }
