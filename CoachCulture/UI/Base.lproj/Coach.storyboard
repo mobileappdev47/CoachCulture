@@ -1525,6 +1525,7 @@ to +65 xxxx xxxx.</string>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ec-ML-aBD">
                                 <rect key="frame" x="45" y="315" width="285" height="50"/>
+                                <constraints>
                                     <constraint firstAttribute="height" constant="50" id="KK6-iC-VUn"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
