@@ -25,7 +25,7 @@ class EditCoachProfileViewController: BaseViewController {
     @IBOutlet weak var btnEditProfile: UIButton!
     @IBOutlet weak var btnEditUserPhoto: UIButton!
     @IBOutlet weak var btnUploadPasswordIDPhoto: UIButton!
-
+    @IBOutlet weak var btnCurrency: UIButton!
     
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
@@ -39,12 +39,14 @@ class EditCoachProfileViewController: BaseViewController {
     @IBOutlet weak var txtProfilePassword: UITextField!
     @IBOutlet weak var txtProfileRetypePassword: UITextField!
     @IBOutlet weak var txtProfileCountryCode: UITextField!
+    @IBOutlet weak var txtMonthlySubFee: UITextField!
     
     @IBOutlet weak var lblDate: UILabel!
     @IBOutlet weak var lblMonth: UILabel!
     @IBOutlet weak var lblYear: UILabel!
     @IBOutlet weak var lblPassportImageName: UILabel!
     @IBOutlet weak var lblNationality: UILabel!
+    @IBOutlet weak var lblCurrency: UILabel!
     
     @IBOutlet weak var imgTermsCondition: UIImageView!
     @IBOutlet weak var imgUserProfile: UIImageView!
@@ -55,6 +57,7 @@ class EditCoachProfileViewController: BaseViewController {
     
     var addPhotoPopUp:AddPhotoPopUp!
     var nationalityView : NationalityView!
+//    var nationalityView1 : NationalityView!
     var successPopUpForCoachProfieView : SuccessPopUpForCoachProfieView!
 
     var photoData:Data!
@@ -64,9 +67,8 @@ class EditCoachProfileViewController: BaseViewController {
     var selectedButton = UIButton()
     var user_image = ""
     var userDataObj = UserData()
-
-
-    
+    var baseCurrency = ""
+    let currency = ["USD", "SGD", "EUR"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +112,8 @@ class EditCoachProfileViewController: BaseViewController {
         nationalityView = Bundle.main.loadNibNamed("NationalityView", owner: nil, options: nil)?.first as? NationalityView
         nationalityView.tapToBtnSelectItem { obj in
             self.lblNationality.text = obj.country_nationality
+            self.lblCurrency.text = obj.currency + obj.currency_symbol
+            self.baseCurrency = "USD"
         }
         
         successPopUpForCoachProfieView = Bundle.main.loadNibNamed("SuccessPopUpForCoachProfieView", owner: nil, options: nil)?.first as? SuccessPopUpForCoachProfieView
@@ -198,6 +202,10 @@ class EditCoachProfileViewController: BaseViewController {
         imgTermsCondition.isHighlighted = !imgTermsCondition.isHighlighted
     }
     
+    @IBAction func clickTobBtnCurrency(_ sender: UIButton) {
+        setNationalityView()
+    }
+    
     @IBAction func clickTobBtnSubmit(_ sender: UIButton) {
         if txtFirstName.text!.isEmpty {
             Utility.shared.showToast("First name is required.")
@@ -261,13 +269,13 @@ extension EditCoachProfileViewController: UIImagePickerControllerDelegate, UINav
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        var editedImage:UIImage?
+        var editedImage:UIImage!
         editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         if editedImage == nil {
             editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
         
-        photoData = editedImage!.jpegData(compressionQuality: 1.0)
+        photoData = editedImage.jpegData(compressionQuality: 1.0)
         
         if selectedButton == btnEditUserPhoto {
             self.imgUserProfile.image = editedImage
@@ -373,6 +381,8 @@ extension EditCoachProfileViewController {
                      "date_of_birth" : dateOfBirth,
                      "nationality" : lblNationality.text!,
                      "passport_number" : txtPasswordIdNUmber.text!,
+                     "base_currency" : baseCurrency,
+                     "monthly_subscription_fee" : txtMonthlySubFee.text?.description
                      
         ]
         

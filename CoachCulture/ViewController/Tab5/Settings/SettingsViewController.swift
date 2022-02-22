@@ -29,7 +29,7 @@ class SettingsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        showTabBar()
+        
     }
     
     
@@ -83,6 +83,9 @@ class SettingsViewController: BaseViewController {
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
+    @IBAction func clickToBtnBack(_ sender: UIButton) {
+        showTabBar()
+    }
     
     @IBAction func clickToBtnPreviousClasses(_ sender: UIButton) {
         let vc = PreviousClassesViewController.viewcontroller()

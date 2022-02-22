@@ -313,9 +313,17 @@ class LoginSignUpVc: BaseViewController {
     }
     
     func validationLogin() -> Bool {
-        if txtUsernameLogin.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 ||
-            txtPasswordLogin.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            self.showAlert(withTitle: "Empty Field", message: "Please enter all field")
+        if txtUsernameLogin.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            Utility.shared.showToast("Email is mandatory field")
+            return false
+        } else if txtUsernameLogin.text?.contains(" ") ?? false {
+            Utility.shared.showToast("Space not allowed")
+            return false
+        } else if txtPasswordLogin.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            Utility.shared.showToast("Password is mandatory field")
+            return false
+        } else if txtPasswordLogin.text?.isValidPassword ?? false {
+            Utility.shared.showToast("Password must be contain uppercase, lowercase, digit, sign letter")
             return false
         } else {
             return true

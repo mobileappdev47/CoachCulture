@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SF-Pro-Text-Heavy.otf">
+        <array key="SFProText-Heavy.otf">
             <string>SFProText-Heavy</string>
         </array>
     </customFonts>
@@ -21,13 +21,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jiq-mc-INj">
-                    <rect key="frame" x="30" y="151.5" width="315" height="364.5"/>
+                    <rect key="frame" x="30" y="183" width="315" height="301.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="successRight" translatesAutoresizingMaskIntoConstraints="NO" id="QJZ-9g-Sat">
                             <rect key="frame" x="112.5" y="15" width="90" height="90"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWK-f4-Xhn">
-                            <rect key="frame" x="10" y="115" width="295" height="162.5"/>
+                            <rect key="frame" x="10" y="115" width="295" height="99.5"/>
                             <string key="text">We are excited that you want to be 
 a part of the CoachCulture family.
 We are reviewing your documents
@@ -38,7 +38,7 @@ email within 24hrs.</string>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BZ-1q-7lE">
-                            <rect key="frame" x="107.5" y="297.5" width="100" height="47"/>
+                            <rect key="frame" x="107.5" y="234.5" width="100" height="47"/>
                             <color key="backgroundColor" name="themeRedColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="47" id="62I-I0-C4K"/>
@@ -46,9 +46,6 @@ email within 24hrs.</string>
                             </constraints>
                             <color key="tintColor" name="textColor"/>
                             <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="plain" title="OK">
-                                <fontDescription key="titleFontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="18"/>
-                            </buttonConfiguration>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
                                     <real key="value" value="10"/>
