@@ -1986,16 +1986,16 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OaH-vM-JnR" userLabel="Upload passpoert">
                                                                 <rect key="frame" x="0.0" y="524" width="335" height="50"/>
                                                                 <subviews>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFO-Cr-Yr2">
+                                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eFO-Cr-Yr2">
                                                                         <rect key="frame" x="0.0" y="0.0" width="57" height="50"/>
                                                                         <subviews>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfy-Mj-Der">
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US$" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfy-Mj-Der">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="57" height="50"/>
                                                                                 <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="16"/>
                                                                                 <color key="textColor" name="textColor"/>
                                                                                 <nil key="highlightedColor"/>
                                                                             </label>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n18-40-cmk">
+                                                                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n18-40-cmk">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="57" height="50"/>
                                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                                 <state key="normal" title="Button"/>
@@ -2020,6 +2020,11 @@
                                                                             <constraint firstItem="Rfy-Mj-Der" firstAttribute="bottom" secondItem="n18-40-cmk" secondAttribute="bottom" id="pFX-Dc-zWx"/>
                                                                             <constraint firstItem="Rfy-Mj-Der" firstAttribute="top" secondItem="n18-40-cmk" secondAttribute="top" id="qaD-eK-TEn"/>
                                                                         </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                                                <real key="value" value="12"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
                                                                     </view>
                                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Monthly Subscription Fee" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jt9-ww-1Uj">
                                                                         <rect key="frame" x="67" y="8" width="258" height="34"/>
@@ -2050,12 +2055,30 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0SK-bW-oI0">
+                                                                <rect key="frame" x="320" y="514" width="25" height="25"/>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" secondItem="0SK-bW-oI0" secondAttribute="height" id="7QR-Lb-9Wf"/>
+                                                                    <constraint firstAttribute="height" constant="25" id="xxh-En-D7K"/>
+                                                                </constraints>
+                                                                <state key="normal" image="ic_question"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                                        <real key="value" value="12"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="didTapFeeQue:" destination="EsD-6N-yGF" eventType="touchUpInside" id="er1-D4-tCe"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstItem="eC3-gO-WMm" firstAttribute="top" secondItem="7TU-lC-2q7" secondAttribute="bottom" constant="15" id="35o-a4-1gR"/>
                                                             <constraint firstItem="8Nn-cJ-CQc" firstAttribute="top" secondItem="ppF-rA-tCs" secondAttribute="top" id="4Ro-Jv-7Tf"/>
                                                             <constraint firstItem="BYP-d9-UC4" firstAttribute="top" secondItem="KvE-15-IRw" secondAttribute="bottom" constant="15" id="4Wh-uL-KRy"/>
+                                                            <constraint firstItem="0SK-bW-oI0" firstAttribute="trailing" secondItem="OaH-vM-JnR" secondAttribute="trailing" constant="10" id="6HW-lV-z4V"/>
                                                             <constraint firstItem="fEg-gg-ySQ" firstAttribute="leading" secondItem="ppF-rA-tCs" secondAttribute="leading" id="A2Z-d0-mgf"/>
                                                             <constraint firstItem="Hcf-QU-Iie" firstAttribute="leading" secondItem="ppF-rA-tCs" secondAttribute="leading" id="AKi-Qc-jrR"/>
                                                             <constraint firstAttribute="trailing" secondItem="OaH-vM-JnR" secondAttribute="trailing" id="Ae6-lO-skg"/>
@@ -2071,6 +2094,7 @@
                                                             <constraint firstItem="KvE-15-IRw" firstAttribute="leading" secondItem="ppF-rA-tCs" secondAttribute="leading" id="Ukg-Eq-Pdf"/>
                                                             <constraint firstItem="c0P-sc-eDn" firstAttribute="leading" secondItem="ppF-rA-tCs" secondAttribute="leading" id="YGj-Tj-pE2"/>
                                                             <constraint firstAttribute="bottom" secondItem="eC3-gO-WMm" secondAttribute="bottom" constant="20" id="bAW-z9-TMo"/>
+                                                            <constraint firstItem="OaH-vM-JnR" firstAttribute="top" secondItem="0SK-bW-oI0" secondAttribute="bottom" constant="-15" id="bbF-rg-FMn"/>
                                                             <constraint firstItem="8Nn-cJ-CQc" firstAttribute="leading" secondItem="ppF-rA-tCs" secondAttribute="leading" id="cx1-f2-Vjx"/>
                                                             <constraint firstAttribute="trailing" secondItem="Hcf-QU-Iie" secondAttribute="trailing" id="eVx-Rp-dav"/>
                                                             <constraint firstItem="Hcf-QU-Iie" firstAttribute="top" secondItem="4om-eF-9lv" secondAttribute="bottom" constant="15" id="grL-yS-P8w"/>
@@ -2523,6 +2547,7 @@
                         <outlet property="btnCurrency" destination="n18-40-cmk" id="Rwx-Po-thD"/>
                         <outlet property="btnEditProfile" destination="xjt-32-Fq2" id="NkW-PB-f91"/>
                         <outlet property="btnEditUserPhoto" destination="4jz-Ng-AxF" id="h2q-AX-Q8B"/>
+                        <outlet property="btnMonthlyFeeQue" destination="0SK-bW-oI0" id="bdU-Kr-AuA"/>
                         <outlet property="btnSignUpAsCoach" destination="aoE-9W-IRx" id="7TZ-fy-oR7"/>
                         <outlet property="btnUploadPasswordIDPhoto" destination="Eju-ZS-KAb" id="ml7-Xp-iMN"/>
                         <outlet property="imgCountryCode" destination="951-bg-zQN" id="Qgn-bc-Iqz"/>
@@ -5255,6 +5280,7 @@
         <image name="ic_img" width="123" height="190"/>
         <image name="ic_password" width="14" height="18"/>
         <image name="ic_payment_methods" width="26" height="18.5"/>
+        <image name="ic_question" width="10" height="15"/>
         <image name="ic_unchecked" width="16" height="16"/>
         <image name="ic_username" width="16" height="17"/>
         <image name="movieAction" width="22" height="22"/>

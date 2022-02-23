@@ -26,6 +26,7 @@ class EditCoachProfileViewController: BaseViewController {
     @IBOutlet weak var btnEditUserPhoto: UIButton!
     @IBOutlet weak var btnUploadPasswordIDPhoto: UIButton!
     @IBOutlet weak var btnCurrency: UIButton!
+    @IBOutlet var btnMonthlyFeeQue: UIButton!
     
     @IBOutlet weak var txtFirstName: UITextField!
     @IBOutlet weak var txtLastName: UITextField!
@@ -59,7 +60,7 @@ class EditCoachProfileViewController: BaseViewController {
     var nationalityView : NationalityView!
 //    var nationalityView1 : NationalityView!
     var successPopUpForCoachProfieView : SuccessPopUpForCoachProfieView!
-
+    var dropDown = DropDown()
     var photoData:Data!
     var arrNationalityData = [NationalityData]()
     var dateOfBirth = ""
@@ -67,8 +68,7 @@ class EditCoachProfileViewController: BaseViewController {
     var selectedButton = UIButton()
     var user_image = ""
     var userDataObj = UserData()
-    var baseCurrency = ""
-    let currency = ["USD", "SGD", "EUR"]
+    var baseCurrency = "USD"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +81,27 @@ class EditCoachProfileViewController: BaseViewController {
         
         imgUserProfile.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936"))
         imgUserProfile.addCornerRadius(5)
+        
+        dropDown.anchorView = btnCurrency
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if item.lowercased() == "US$".lowercased() {
+                lblCurrency.text = item
+                baseCurrency = "USD"
+            }
+            
+            if item.lowercased() == "S$".lowercased() {
+                lblCurrency.text = item
+                baseCurrency = "SGD"
+            }
+            
+            if item.lowercased() == "€".lowercased() {
+                lblCurrency.text = item
+                baseCurrency = "EUR"
+            }
+        }
+        dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+        dropDown.textColor = UIColor.white
+        dropDown.selectionBackgroundColor = .clear
         
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
             let strPhoneCode = getCountryPhonceCode(countryCode)
@@ -112,8 +133,6 @@ class EditCoachProfileViewController: BaseViewController {
         nationalityView = Bundle.main.loadNibNamed("NationalityView", owner: nil, options: nil)?.first as? NationalityView
         nationalityView.tapToBtnSelectItem { obj in
             self.lblNationality.text = obj.country_nationality
-            self.lblCurrency.text = obj.currency + obj.currency_symbol
-            self.baseCurrency = "USD"
         }
         
         successPopUpForCoachProfieView = Bundle.main.loadNibNamed("SuccessPopUpForCoachProfieView", owner: nil, options: nil)?.first as? SuccessPopUpForCoachProfieView
@@ -128,6 +147,7 @@ class EditCoachProfileViewController: BaseViewController {
     }
     
     func setData() {
+        dropDown.dataSource  = ["US$", "S$", "€"]
         txtProfileUserName.text = userDataObj.username
         txtProfileEmail.text = userDataObj.email
         txtProfilePhone.text = userDataObj.phoneno
@@ -203,7 +223,8 @@ class EditCoachProfileViewController: BaseViewController {
     }
     
     @IBAction func clickTobBtnCurrency(_ sender: UIButton) {
-        setNationalityView()
+//        setNationalityView()
+        dropDown.show()
     }
     
     @IBAction func clickTobBtnSubmit(_ sender: UIButton) {
@@ -224,15 +245,30 @@ class EditCoachProfileViewController: BaseViewController {
             Utility.shared.showToast("Passport/Id number is required.")
         } else if photoData == nil {
             Utility.shared.showToast("Upload passport image/ID  is required.")
+        } else if txtMonthlySubFee.text!.isEmpty {
+            Utility.shared.showToast("Enter your monthly subscription fee")
         } else if imgTermsCondition.isHighlighted == false {
             Utility.shared.showToast("Accept terms and condition")
         } else {
             checkEmail()
         }
-        
     }
     
+    @IBAction func didTapFeeQue(_ sender: UIButton) {
+        let vc = PopupViewController.viewcontroller()
+        vc.isHide = true
+        vc.message = """
+                    Monthly Subscription Fee
 
+                    Users will pay a monthly subscription fee to access your classes at a different rate than users who did not subscribe.
+
+                    For every “On Demand” and “Live” Class, you will be able toset a different fee for users who subscribed and users who did not subscribe.
+
+                    The monthly subscription fee can be changed at any time in your profile settings.
+                    """
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     @IBAction func didTapCountryCode(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CountryPickerVC") as! CountryPickerVC
         vc.delegate = self
@@ -482,6 +518,7 @@ extension EditCoachProfileViewController {
           self.hideLoader()
             
         } failure: { (error) in
+            print(error.localizedDescription)
             self.hideLoader()
             return true
         }

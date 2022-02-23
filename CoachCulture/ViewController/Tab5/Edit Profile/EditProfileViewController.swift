@@ -388,6 +388,7 @@ extension EditProfileViewController {
             self.hideLoader()
             
         } failure: { (error) in
+            print(error.localizedDescription)
             self.hideLoader()
             return true
         }

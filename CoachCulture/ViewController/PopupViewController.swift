@@ -17,6 +17,7 @@ class PopupViewController: UIViewController {
     }
     
     @IBOutlet weak var lblMessage: UILabel!
+    @IBOutlet weak var doneImg: UIImageView!
     @IBOutlet weak var btnOk: UIButton! {
         didSet {
             btnOk.addTarget(self, action: #selector(didTapOK(_:)), for: .touchUpInside)
@@ -24,10 +25,11 @@ class PopupViewController: UIViewController {
     }
     var message = ""
     var dismissHandler: (() -> Void)?
+    var isHide = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        doneImg.isHidden = isHide
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 8
         paragraphStyle.alignment = .center
