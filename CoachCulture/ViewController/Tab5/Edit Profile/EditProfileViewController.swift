@@ -26,13 +26,16 @@ class EditProfileViewController: BaseViewController {
     
     @IBOutlet weak var lblSubscriptionCurrentSym: UILabel!
     @IBOutlet weak var lblCoachTrailer: UILabel!
-
+    @IBOutlet weak var lblAcCurrency: UILabel!    
     
     @IBOutlet weak var btnCoachContent: UIButton!
     @IBOutlet weak var btnEditProfile: UIButton!
     @IBOutlet weak var btnUploadCoachBanner: UIButton!
     @IBOutlet weak var btnEditUserPhoto: UIButton!
     @IBOutlet weak var btnCoachTrailer: UIButton!
+    @IBOutlet weak var btnSubfee: UIButton!
+    @IBOutlet weak var btnAcCurrency: UIButton!
+    
     
     @IBOutlet weak var imgCoachBanner: UIImageView!
     @IBOutlet weak var imgUserProfile: UIImageView!
@@ -49,9 +52,13 @@ class EditProfileViewController: BaseViewController {
     var countryCodeDesc = ""
     var addPhotoPopUp:AddPhotoPopUp!
     var userDataObj = UserData()
+    var dropDown = DropDown()
     var photoData:Data!
     var selectedButton = UIButton()
     var user_image = ""
+    var accountCurrency = "USD"
+    var baseCurrency = "USD"
+    var fromCurrency = true
     var coach_banner_file = ""
     var coach_trailer_file = ""
     var nationalityView : NationalityView!
@@ -81,6 +88,39 @@ class EditProfileViewController: BaseViewController {
             self.txtCountryCode.text = "+\(strPhoneCode)"
             self.countryCodeDesc = countryCode
         }
+        
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if fromCurrency {
+                if item.lowercased() == "US$".lowercased() {
+                    lblSubscriptionCurrentSym.text = item
+                    baseCurrency = "USD"
+                }
+                if item.lowercased() == "S$".lowercased() {
+                    lblSubscriptionCurrentSym.text = item
+                    baseCurrency = "SGD"
+                }
+                if item.lowercased() == "€".lowercased() {
+                    lblSubscriptionCurrentSym.text = item
+                    baseCurrency = "EUR"
+                }
+            } else {
+                if item.lowercased() == "US$".lowercased() {
+                    lblAcCurrency.text = item
+                    accountCurrency = "USD"
+                }
+                if item.lowercased() == "S$".lowercased() {
+                    lblAcCurrency.text = item
+                    accountCurrency = "SGD"
+                }
+                if item.lowercased() == "€".lowercased() {
+                    lblAcCurrency.text = item
+                    accountCurrency = "EUR"
+                }
+            }
+        }
+        dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+        dropDown.textColor = UIColor.white
+        dropDown.selectionBackgroundColor = .clear
         
         addPhotoPopUp = Bundle.main.loadNibNamed("AddPhotoPopUp", owner: nil, options: nil)?.first as? AddPhotoPopUp
         addPhotoPopUp.tapToBtnCamera {
@@ -133,6 +173,7 @@ class EditProfileViewController: BaseViewController {
     }
     
     func setData() {
+        dropDown.dataSource  = ["US$", "S$", "€"]
         self.selectedCurrency = self.userDataObj.base_currency
         txtUserName.text = userDataObj.username
         txtEmail.text = userDataObj.email
@@ -199,9 +240,17 @@ class EditProfileViewController: BaseViewController {
     }
     
     @IBAction func didTapCountryCode(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "CountryPickerVC") as! CountryPickerVC
+        let storyboard = UIStoryboard(name: "Coach", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "CountryPickerVC") as! CountryPickerVC
         vc.delegate = self
         self.present(vc, animated: true, completion: nil)
+    }
+    
+    @IBAction func didTapAcCurrency(_ sender: UIButton) {
+        dropDown.show()
+        dropDown.anchorView = btnAcCurrency
+        fromCurrency = false
+        dropDown.width = sender.frame.width
     }
     
     @IBAction func clickTobBtnEditPhoto(_ sender: UIButton) {
@@ -247,7 +296,10 @@ class EditProfileViewController: BaseViewController {
     }
     
     @IBAction func clickTobBtnSelectSubscriptionCurrency(_ sender: UIButton) {
-        setNationalityView()
+        dropDown.show()
+        dropDown.anchorView = btnSubfee
+        fromCurrency = true
+        dropDown.width = sender.frame.width
     }
     
 }
@@ -368,7 +420,8 @@ extension EditProfileViewController {
             "first_name" : self.userDataObj.first_name,
             "last_name" : self.userDataObj.last_name,
             "monthly_subscription_fee" : txtMonthlySubscriptionFees.text!,
-            "base_currency" : selectedCurrency,
+            "base_currency" : baseCurrency,
+            "account_currency" : accountCurrency,
             "coach_trailer_file" : coach_trailer_file
 
         ] as [String : Any]
