@@ -44,6 +44,10 @@
 		512ABEC727180D31008CB198 /* Karla-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 512ABEC327180D30008CB198 /* Karla-Bold.ttf */; };
 		512ABEC827180D31008CB198 /* Karla-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 512ABEC427180D31008CB198 /* Karla-BoldItalic.ttf */; };
 		512ABECE27180E7E008CB198 /* LandingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABECD27180E7E008CB198 /* LandingVC.swift */; };
+		512BBE6927C5F01B002AF2B8 /* NewClassesTBLViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BBE6727C5F01B002AF2B8 /* NewClassesTBLViewCell.swift */; };
+		512BBE6A27C5F01B002AF2B8 /* NewClassesTBLViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */; };
+		512BBE6D27C6143A002AF2B8 /* HomeNewClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */; };
+		512BBE7027C615DF002AF2B8 /* HomeNewClassHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */; };
 		CB1E71A1284B181035DB2C88 /* Pods_CoachCulture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE6240B202CBFA8415C8744 /* Pods_CoachCulture.framework */; };
 		D40136C42758D78600E36A39 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40136C32758D78600E36A39 /* SettingsViewController.swift */; };
 		D40136C72758DCE000E36A39 /* LogOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40136C62758DCDF00E36A39 /* LogOutView.xib */; };
@@ -515,6 +519,10 @@
 		512ABEC327180D30008CB198 /* Karla-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Bold.ttf"; sourceTree = "<group>"; };
 		512ABEC427180D31008CB198 /* Karla-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-BoldItalic.ttf"; sourceTree = "<group>"; };
 		512ABECD27180E7E008CB198 /* LandingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingVC.swift; sourceTree = "<group>"; };
+		512BBE6727C5F01B002AF2B8 /* NewClassesTBLViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewClassesTBLViewCell.swift; sourceTree = "<group>"; };
+		512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewClassesTBLViewCell.xib; sourceTree = "<group>"; };
+		512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeNewClassHeaderView.xib; sourceTree = "<group>"; };
+		512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewClassHeaderView.swift; sourceTree = "<group>"; };
 		8D2B8E0B4D497DEC5D11191E /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
 		D40136C32758D78600E36A39 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D40136C62758DCDF00E36A39 /* LogOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogOutView.xib; sourceTree = "<group>"; };
@@ -1635,6 +1643,10 @@
 				D4D286502758841A00970987 /* PopularTrainerCollectionViewCell.xib */,
 				D4D286532758884C00970987 /* PopularClassesCollectionViewCell.swift */,
 				D4D286542758884C00970987 /* PopularClassesCollectionViewCell.xib */,
+				512BBE6727C5F01B002AF2B8 /* NewClassesTBLViewCell.swift */,
+				512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */,
+				512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */,
+				512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */,
 			);
 			path = CellXIB;
 			sourceTree = "<group>";
@@ -2178,6 +2190,7 @@
 				F19639AD272BB78600D19373 /* BM.png in Resources */,
 				F1963A39272BB78600D19373 /* NL.png in Resources */,
 				F19639AE272BB78600D19373 /* BN.png in Resources */,
+				512BBE6D27C6143A002AF2B8 /* HomeNewClassHeaderView.xib in Resources */,
 				F19639B1272BB78600D19373 /* BR.png in Resources */,
 				F1963A7D272BB78600D19373 /* UY.png in Resources */,
 				D4E54BEC275F846800D6A80F /* MuscleItemCollectionViewCell.xib in Resources */,
@@ -2261,6 +2274,7 @@
 				F19639B9272BB78600D19373 /* CC.png in Resources */,
 				F1963A53272BB78600D19373 /* RW.png in Resources */,
 				F1963A2A272BB78600D19373 /* MR.png in Resources */,
+				512BBE6A27C5F01B002AF2B8 /* NewClassesTBLViewCell.xib in Resources */,
 				F1963A82272BB78600D19373 /* VG.png in Resources */,
 				F1963A09272BB78600D19373 /* KI.png in Resources */,
 				F1963A0A272BB78600D19373 /* KM.png in Resources */,
@@ -2553,6 +2567,7 @@
 				D4F3C71527746412001EDDE1 /* ManageSubscriptionListViewController.swift in Sources */,
 				D48F452B2770A6F400B0EAD8 /* PopularCoachRecipeViewController.swift in Sources */,
 				512ABDA227180D08008CB198 /* Delegate.swift in Sources */,
+				512BBE6927C5F01B002AF2B8 /* NewClassesTBLViewCell.swift in Sources */,
 				512ABC13271804B3008CB198 /* String+LocalizeTableName.swift in Sources */,
 				512ABDA827180D08008CB198 /* BasicTransitionAnimator.swift in Sources */,
 				D48AC8CB277D9B9A00D1D370 /* CancelSubScription.swift in Sources */,
@@ -2593,6 +2608,7 @@
 				D48F45232770921C00B0EAD8 /* CoachViseOnDemandClassItemTableViewCell.swift in Sources */,
 				D4D286512758841A00970987 /* PopularTrainerCollectionViewCell.swift in Sources */,
 				D4F3C70C27743B7E001EDDE1 /* AddPaymentMethodViewController.swift in Sources */,
+				512BBE7027C615DF002AF2B8 /* HomeNewClassHeaderView.swift in Sources */,
 				512ABECE27180E7E008CB198 /* LandingVC.swift in Sources */,
 				D4CE255D2769E7AA00743FFC /* LiveClassEquipmentItemTableViewCell.swift in Sources */,
 				D48AC8D2277DBCF000D1D370 /* PrevoisUploadItemTableViewCell.swift in Sources */,
