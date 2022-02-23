@@ -81,6 +81,7 @@ struct API {
     static let UNSUBSCRIBE_TO_COACH = BASE_URL + "api/subscription/unsubscribe-to-coach"
     static let FOLLOWING_COACH_CLASS_LIST = BASE_URL + "api/coach-class/following-coach-class-list"
     static let FOLLOWING_COACH_RECIPE_LIST = BASE_URL + "api/recipe/following-coach-recipe-list"
+    static let GET_MY_COACH_CLASS_LIST = BASE_URL + "api/get-my-coach-class-list"
 }
 
 // MARK: - PARAMS KEYS
@@ -96,6 +97,11 @@ struct Params {
         static let coach_recipe_id = "coach_recipe_id"
         static let bookmark = "bookmark"
         static let coach_class_id = "coach_class_id"
+    }
+    
+    struct GetMyCoachClassList {
+        static let page_no = "page_no"
+        static let per_page = "per_page"
     }
 }
 

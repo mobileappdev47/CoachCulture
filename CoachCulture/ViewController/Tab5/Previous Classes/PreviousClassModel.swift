@@ -25,13 +25,14 @@ class CoachClassPrevious {
     var class_difficulty_name = ""
     var coachDetailsObj = CoachDetailsData()
     var userRatingObj = UserRating()
-
+    var username = ""
    
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
         id = map.value("id") ?? ""
+        username = map.value("username") ?? ""
         thumbnail_image = map.value("thumbnail_image") ?? ""
         coach_class_type = map.value("coach_class_type") ?? ""
         class_subtitle = map.value("class_subtitle") ?? ""

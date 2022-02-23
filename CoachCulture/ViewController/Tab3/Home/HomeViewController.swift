@@ -21,6 +21,8 @@ class HomeViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewNoDataFoundNewClass: UIView!
+    @IBOutlet weak var tblNewClass: UITableView!
     @IBOutlet weak var lblPopularTitle : UILabel!
     @IBOutlet weak var lblNavTitle : UILabel!
     @IBOutlet weak var lblPopularClassesTitle : UILabel!
@@ -29,20 +31,25 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var lblUserName : UILabel!
     @IBOutlet weak var lblClassDate : UILabel!
     @IBOutlet weak var lblClassTime : UILabel!
-        
     @IBOutlet weak var btnClassbookMark : UIButton!
-    
     @IBOutlet weak var imgUser : UIImageView!
-    
-    
     @IBOutlet weak var clvPopularTrainer : UICollectionView!
     @IBOutlet weak var clvPopularClasses : UICollectionView!
-    
+    @IBOutlet weak var lctOndemandTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
+
     var upCommingLiveClassObj = UpCommingLiveClass()
     var arrPopularClassList = [PopularClassList]()
     var arrPopularTrainerList = [PopularTrainerList]()
+    var kNewClassesTBLViewCellID = "NewClassesTBLViewCell"
+    var kHomeNewClassHeaderViewID = "HomeNewClassHeaderView"
+    var isDataLoading = false
+    var continueLoadingData = true
+    var pageNo = 1
+    var perPageCount = 10
+    var arrNewClass = [CoachClassPrevious]()
+    let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
 
-    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,6 +65,11 @@ class HomeViewController: BaseViewController {
     
     // MARK: - Methods
     func setUpUI() {
+        tblNewClass.register(UINib(nibName: kHomeNewClassHeaderViewID, bundle: nil), forHeaderFooterViewReuseIdentifier: kHomeNewClassHeaderViewID)
+        tblNewClass.register(UINib(nibName: kNewClassesTBLViewCellID, bundle: nil), forCellReuseIdentifier: kNewClassesTBLViewCellID)
+        tblNewClass.delegate = self
+        tblNewClass.dataSource = self
+        
         clvPopularTrainer.register(UINib(nibName: "PopularTrainerCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PopularTrainerCollectionViewCell")
         clvPopularTrainer.delegate = self
         clvPopularTrainer.dataSource = self
@@ -67,12 +79,23 @@ class HomeViewController: BaseViewController {
         clvPopularClasses.dataSource = self
         
         if Reachability.isConnectedToNetwork(){
-            getUpComingLiveClass()
+            callGetMyCoachClassListAPI()
             getPopularTrainerList()
             getPopularClassList()
         }
+        
+        self.tblNewClass.isScrollEnabled = false
+        self.scrollView.delegate = self
     }
     
+    func resetVariable() {
+        arrNewClass.removeAll()
+        isDataLoading = false
+        continueLoadingData = true
+        pageNo = 1
+        perPageCount = 10
+    }
+
     func setData() {
         lblDuration.text = upCommingLiveClassObj.duration
         lblCoachClassType.text = upCommingLiveClassObj.coach_class_type
@@ -147,16 +170,43 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 //MARK: - API call
 
 extension HomeViewController {
-    func getUpComingLiveClass() {
+    func callGetMyCoachClassListAPI() {
         showLoader()
         
-        _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_UPCOMMING_LIVE_CLASS_LIST, parameters: nil, headers: nil) { responseObj in
+        var params = [String:Any]()
+        params[Params.GetMyCoachClassList.page_no] = pageNo
+        params[Params.GetMyCoachClassList.per_page] = perPageCount
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_MY_COACH_CLASS_LIST, parameters: params, headers: nil) { responseObj in
             
-            let dataObj = responseObj["upcoming_live_class"] as? [String:Any] ?? [String:Any]()
-            self.upCommingLiveClassObj = UpCommingLiveClass(responseObj: dataObj)
-            self.setData()
+            let dataObj = responseObj["coach_class_list"] as? [Any] ?? [Any]()
+            let arr = CoachClassPrevious.getData(data: dataObj)
+            
+            if arr.count > 0 {
+                self.arrNewClass.append(contentsOf: arr)
+                self.tblNewClass.reloadData()
+            }
+            
+            if self.arrNewClass.count > 0 {
+                if self.safeAreaTop > 20 {
+                    self.lctOndemandTableHeight.constant = (self.view.frame.height - (45) - (35.0 + self.safeAreaTop + 14))
+                } else {
+                    self.lctOndemandTableHeight.constant = (self.view.frame.height - 20)
+                }
+            } else {
+                self.lctOndemandTableHeight.constant = 200.0
+            }
+            
+            self.viewNoDataFoundNewClass.isHidden = self.arrNewClass.count > 0 ? true : false
+            
+            if arr.count < self.perPageCount {
+                self.continueLoadingData = false
+            }
+            self.isDataLoading = false
+            self.pageNo += 1
+            
             self.hideLoader()
-            
+
         } failure: { (error) in
             return true
         }
@@ -190,5 +240,92 @@ extension HomeViewController {
         } failure: { (error) in
             return true
         }
+    }
+}
+
+extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == self.scrollView {
+            print(self.scrollView.contentOffset.y)
+            if safeAreaTop > 20 {
+                tblNewClass.isScrollEnabled = (self.scrollView.contentOffset.y >= 280)
+            } else {
+                tblNewClass.isScrollEnabled = (self.scrollView.contentOffset.y >= 500)
+            }
+        }
+        if scrollView == self.tblNewClass {
+            self.tblNewClass.isScrollEnabled = (tblNewClass.contentOffset.y > 0)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: kHomeNewClassHeaderViewID) as? HomeNewClassHeaderView {
+            return headerView
+        }
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrNewClass.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: kNewClassesTBLViewCellID, for: indexPath) as? NewClassesTBLViewCell else { return UITableViewCell() }
+        
+        let model = arrNewClass[indexPath.row]
+        
+        if cell.imgBlurThumbnail.image == nil {
+            cell.imgBlurThumbnail.blurImage()
+        }
+        
+        cell.viewTime.addCornerRadius(5)
+        cell.viewUsername.addCornerRadius(5)
+        cell.viewClassType.addCornerRadius(5)
+        cell.viewUserImage.addCornerRadius(cell.viewUserImage.bounds.height / 2)
+        
+        cell.viewBG.addCornerRadius(10)
+        cell.viewBG.backgroundColor = COLORS.APP_THEME_COLOR
+                
+        cell.imgUser.setImageFromURL(imgUrl: model.coachDetailsObj.user_image, placeholderImage: "")
+        cell.imgBanner.setImageFromURL(imgUrl: model.thumbnail_image, placeholderImage: "")
+        
+        cell.imgBookmark.image = model.bookmark == BookmarkType.No ? UIImage(named: "BookmarkLight") : UIImage(named: "Bookmark")
+        cell.didTapBookmarkButton = {
+            var param = [String:Any]()
+            param[Params.AddRemoveBookmark.coach_class_id] = model.id
+            param[Params.AddRemoveBookmark.bookmark] = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+            //self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+        }
+        cell.lblTitle.text = model.class_type_name
+        cell.lblSubTitle.text = model.class_subtitle
+        cell.lblDateTime.text = model.class_time
+        cell.lblDate.text = model.class_date
+        cell.lblClassType.text = model.coach_class_type.uppercased()
+        cell.lblTime.text = model.duration
+        cell.lblUsername.text = "@\(model.coachDetailsObj.username)"
+                
+        if arrNewClass.count - 1 == indexPath.row {
+            callGetMyCoachClassListAPI()
+        }
+        
+        cell.layoutIfNeeded()
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 170
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
     }
 }
