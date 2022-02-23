@@ -85,7 +85,7 @@ class SettingsViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnBack(_ sender: UIButton) {
-        showTabBar()
+        self.popVC(animated: true)
     }
     
     @IBAction func clickToBtnPreviousClasses(_ sender: UIButton) {

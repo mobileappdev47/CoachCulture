@@ -14,18 +14,22 @@ class CoachViseRecipeItemTableViewCell: UITableViewCell {
     @IBOutlet weak var lblRecipeType : UILabel!
     @IBOutlet weak var lblDuration : UILabel!
     @IBOutlet weak var lblFoodType : UILabel!
-    
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var imgBookMark : UIImageView!
-    
     @IBOutlet weak var btnBookMark : UIButton!
-    
     @IBOutlet weak var clvDietaryRestriction: UICollectionView!
+    
+    @IBOutlet weak var imgProfileBottom: UIImageView!
+    @IBOutlet weak var viewProfileBottom: UIView!
+    @IBOutlet weak var viewProfile: UIView!
+    @IBOutlet weak var imgProfileBanner: UIImageView!
+    @IBOutlet weak var lblUsername: UILabel!
     
     //MARK: - VARIABLE AND OBJECT
     
     var arrDietaryRestriction = [String]()
     var didTapBookmarkButton : (() -> Void)!
+    var selectedIndex = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()

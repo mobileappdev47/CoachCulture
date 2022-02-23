@@ -79,7 +79,8 @@ struct API {
 
     static let ADD_USER_TO_COACH = BASE_URL + "api/subscription/add-user-to-coach"
     static let UNSUBSCRIBE_TO_COACH = BASE_URL + "api/subscription/unsubscribe-to-coach"
-
+    static let FOLLOWING_COACH_CLASS_LIST = BASE_URL + "api/coach-class/following-coach-class-list"
+    static let FOLLOWING_COACH_RECIPE_LIST = BASE_URL + "api/recipe/following-coach-recipe-list"
 }
 
 // MARK: - PARAMS KEYS

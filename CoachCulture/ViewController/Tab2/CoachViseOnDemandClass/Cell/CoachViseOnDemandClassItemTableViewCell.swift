@@ -16,16 +16,21 @@ class CoachViseOnDemandClassItemTableViewCell: UITableViewCell {
     @IBOutlet weak var lblDuration : UILabel!
     @IBOutlet weak var lblClassType : UILabel!
    
-    @IBOutlet weak var viwClassTypeContainer : UIView!
+    @IBOutlet weak var imgProfileBottom: UIImageView!
+    @IBOutlet weak var viewProfileBottom: UIView!
+    @IBOutlet weak var viewProfile: UIView!
+    @IBOutlet weak var imgProfileBanner: UIImageView!
+    @IBOutlet weak var lblUsername: UILabel!
     
+    @IBOutlet weak var viwClassTypeContainer : UIView!
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var imgBookMark : UIImageView!
-    
     @IBOutlet weak var btnBookMark : UIButton!
     
     //MARK: - VARIABLE AND OBJECT
     
     var didTapBookmarkButton : (() -> Void)!
+    var selectedIndex = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
