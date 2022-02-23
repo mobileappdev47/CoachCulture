@@ -184,14 +184,16 @@ extension HomeViewController {
             
             if arr.count > 0 {
                 self.arrNewClass.append(contentsOf: arr)
-                self.tblNewClass.reloadData()
+                DispatchQueue.main.async {
+                    self.tblNewClass.reloadData()
+                }
             }
             
             if self.arrNewClass.count > 0 {
                 if self.safeAreaTop > 20 {
-                    self.lctOndemandTableHeight.constant = (self.view.frame.height - (45) - (35.0 + self.safeAreaTop + 14))
+                    self.lctOndemandTableHeight.constant = (self.view.frame.height - (30) - (35.0 + self.safeAreaTop + 14))
                 } else {
-                    self.lctOndemandTableHeight.constant = (self.view.frame.height - 20)
+                    self.lctOndemandTableHeight.constant = (self.view.frame.height - (self.safeAreaTop + 30 + 40))
                 }
             } else {
                 self.lctOndemandTableHeight.constant = 200.0
@@ -206,7 +208,7 @@ extension HomeViewController {
             self.pageNo += 1
             
             self.hideLoader()
-
+            self.view.layoutIfNeeded()
         } failure: { (error) in
             return true
         }
@@ -249,7 +251,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
         if scrollView == self.scrollView {
             print(self.scrollView.contentOffset.y)
             if safeAreaTop > 20 {
-                tblNewClass.isScrollEnabled = (self.scrollView.contentOffset.y >= 280)
+                tblNewClass.isScrollEnabled = (self.scrollView.contentOffset.y >= 490)
             } else {
                 tblNewClass.isScrollEnabled = (self.scrollView.contentOffset.y >= 500)
             }
@@ -297,7 +299,8 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
                 
         cell.imgUser.setImageFromURL(imgUrl: model.coachDetailsObj.user_image, placeholderImage: "")
         cell.imgBanner.setImageFromURL(imgUrl: model.thumbnail_image, placeholderImage: "")
-        
+        cell.imgBlurThumbnail.setImageFromURL(imgUrl: model.thumbnail_image, placeholderImage: "")
+
         cell.imgBookmark.image = model.bookmark == BookmarkType.No ? UIImage(named: "BookmarkLight") : UIImage(named: "Bookmark")
         cell.didTapBookmarkButton = {
             var param = [String:Any]()
@@ -309,10 +312,17 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
         cell.lblSubTitle.text = model.class_subtitle
         cell.lblDateTime.text = model.class_time
         cell.lblDate.text = model.class_date
-        cell.lblClassType.text = model.coach_class_type.uppercased()
         cell.lblTime.text = model.duration
         cell.lblUsername.text = "@\(model.coachDetailsObj.username)"
-                
+
+        if model.coach_class_type == CoachClassType.live {
+            cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#CC2936")
+            cell.lblClassType.text = "LIVE"
+        } else if model.coach_class_type == CoachClassType.onDemand {
+            cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
+            cell.lblClassType.text = "ON DEMAND"
+        }
+        
         if arrNewClass.count - 1 == indexPath.row {
             callGetMyCoachClassListAPI()
         }
@@ -326,6 +336,9 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let model = arrNewClass[indexPath.row]
+        let vc = LiveClassDetailsViewController.viewcontroller()
+        vc.selectedId = model.id
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

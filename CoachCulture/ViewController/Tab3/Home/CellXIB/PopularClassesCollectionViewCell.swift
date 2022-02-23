@@ -48,8 +48,10 @@ class PopularClassesCollectionViewCell: UICollectionViewCell {
             lblStatus.text = "ON DEMAND"
         }
         imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
+        if imgThumbnail.image == nil {
+            imgThumbnail.blurImage()
+        }
         imgThumbnail.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
-        imgThumbnail.blurImage()
     }
     
 }

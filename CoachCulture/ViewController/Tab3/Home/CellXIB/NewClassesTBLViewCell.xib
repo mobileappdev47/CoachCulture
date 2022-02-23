@@ -113,36 +113,36 @@
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="Qcg-vX-ezW" userLabel="leftStack">
-                                        <rect key="frame" x="10" y="2.5" width="139" height="39.5"/>
+                                        <rect key="frame" x="10" y="2.5" width="144" height="39.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stretch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iU-6E-7v1">
-                                                <rect key="frame" x="0.0" y="0.0" width="139" height="26"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stretch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8iU-6E-7v1">
+                                                <rect key="frame" x="0.0" y="0.0" width="144" height="26"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="22"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stretch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DO9-My-Z6F" userLabel="Koojj">
-                                                <rect key="frame" x="0.0" y="23" width="139" height="16.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stretch" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DO9-My-Z6F" userLabel="Koojj">
+                                                <rect key="frame" x="0.0" y="23" width="144" height="16.5"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="14"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="7oB-18-8O9" userLabel="rightStack">
-                                        <rect key="frame" x="171" y="4.5" width="139" height="35"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7oB-18-8O9" userLabel="rightStack">
+                                        <rect key="frame" x="166" y="4.5" width="144" height="35"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="oi8-YV-LgO">
-                                                <rect key="frame" x="0.0" y="0.0" width="101" height="35"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="109" height="35"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stretch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szT-wW-oak">
-                                                        <rect key="frame" x="0.0" y="0.0" width="101" height="19.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stretch" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szT-wW-oak">
+                                                        <rect key="frame" x="0.0" y="0.0" width="109" height="19.5"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="18"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stretch" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIF-bA-O7K" userLabel="Koojj">
-                                                        <rect key="frame" x="0.0" y="19.5" width="101" height="15.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Stretch" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hIF-bA-O7K" userLabel="Koojj">
+                                                        <rect key="frame" x="0.0" y="19.5" width="109" height="15.5"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="14"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -150,7 +150,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="D5s-51-BCO">
-                                                <rect key="frame" x="104" y="0.0" width="35" height="35"/>
+                                                <rect key="frame" x="109" y="0.0" width="35" height="35"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8D0-3V-6xH">
                                                         <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -195,7 +195,7 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="7oB-18-8O9" firstAttribute="leading" secondItem="j1a-73-wrk" secondAttribute="trailing" constant="10" id="9uy-9P-IqT"/>
+                                    <constraint firstItem="7oB-18-8O9" firstAttribute="leading" secondItem="j1a-73-wrk" secondAttribute="trailing" constant="5" id="9uy-9P-IqT"/>
                                     <constraint firstAttribute="trailing" secondItem="7oB-18-8O9" secondAttribute="trailing" constant="10" id="A5o-3U-W4b"/>
                                     <constraint firstItem="fmO-Vz-nDQ" firstAttribute="top" secondItem="K0b-IS-NAS" secondAttribute="top" id="CzA-ov-k3a"/>
                                     <constraint firstAttribute="trailing" secondItem="fmO-Vz-nDQ" secondAttribute="trailing" id="DL8-pw-pHE"/>
@@ -206,7 +206,7 @@
                                     <constraint firstItem="Qcg-vX-ezW" firstAttribute="leading" secondItem="K0b-IS-NAS" secondAttribute="leading" constant="10" id="UaS-VY-ZNN"/>
                                     <constraint firstItem="j1a-73-wrk" firstAttribute="top" secondItem="K0b-IS-NAS" secondAttribute="top" constant="5" id="YJi-PU-Ccu"/>
                                     <constraint firstItem="j1a-73-wrk" firstAttribute="centerX" secondItem="K0b-IS-NAS" secondAttribute="centerX" id="ZYo-C9-wfn"/>
-                                    <constraint firstItem="j1a-73-wrk" firstAttribute="leading" secondItem="Qcg-vX-ezW" secondAttribute="trailing" constant="10" id="sVQ-cJ-cB3"/>
+                                    <constraint firstItem="j1a-73-wrk" firstAttribute="leading" secondItem="Qcg-vX-ezW" secondAttribute="trailing" constant="5" id="sVQ-cJ-cB3"/>
                                     <constraint firstAttribute="height" constant="44" id="t6r-tE-g6g"/>
                                     <constraint firstAttribute="bottom" secondItem="fmO-Vz-nDQ" secondAttribute="bottom" id="uHC-vt-Mpe"/>
                                 </constraints>

@@ -23,8 +23,10 @@ class PopularTrainerCollectionViewCell: UICollectionViewCell {
         lblName.text = "@" + obj.username
         imgUser.setImageFromURL(imgUrl: obj.user_image, placeholderImage: nil)
         lblFollower.text = obj.total_followers + " Followers"
+        if imgThumbnail.image == nil {
+            imgThumbnail.blurImage()
+        }
         imgThumbnail.setImageFromURL(imgUrl: obj.user_image, placeholderImage: nil)
-        imgThumbnail.blurImage()
     }
 
 }
