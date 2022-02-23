@@ -284,7 +284,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
         guard let cell = tableView.dequeueReusableCell(withIdentifier: kNewClassesTBLViewCellID, for: indexPath) as? NewClassesTBLViewCell else { return UITableViewCell() }
         
         let model = arrNewClass[indexPath.row]
-        
+        cell.selectedIndex = indexPath.row
         if cell.imgBlurThumbnail.image == nil {
             cell.imgBlurThumbnail.blurImage()
         }
@@ -306,7 +306,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
             var param = [String:Any]()
             param[Params.AddRemoveBookmark.coach_class_id] = model.id
             param[Params.AddRemoveBookmark.bookmark] = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-            //self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+            self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, selectedIndex: cell.selectedIndex)
         }
         cell.lblTitle.text = model.class_type_name
         cell.lblSubTitle.text = model.class_subtitle
@@ -340,5 +340,30 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
         let vc = LiveClassDetailsViewController.viewcontroller()
         vc.selectedId = model.id
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], selectedIndex: Int) {
+        showLoader()
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
+            
+            let message = responseObj["message"] as? String ?? ""
+            Utility.shared.showToast(message)
+            
+            for (index, model) in self.arrNewClass.enumerated() {
+                if selectedIndex == index {
+                    model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                    self.arrNewClass[index] = model
+                    DispatchQueue.main.async {
+                        self.tblNewClass.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                    }
+                    break
+                }
+            }
+            self.hideLoader()
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
     }
 }
