@@ -3739,6 +3739,14 @@
             <point key="canvasLocation" x="4708" y="-188.45577211394306"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="CpG-bk-cey">
+            <size key="intrinsicContentSize" width="268" height="44"/>
+        </designable>
+        <designable name="ZqS-EK-QPa">
+            <size key="intrinsicContentSize" width="268" height="44"/>
+        </designable>
+    </designables>
     <resources>
         <image name="3Dots" width="6" height="28"/>
         <image name="Birthday" width="19.5" height="19.5"/>

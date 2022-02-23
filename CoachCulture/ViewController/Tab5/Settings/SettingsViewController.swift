@@ -29,12 +29,11 @@ class SettingsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        hideTabBar()
     }
     
     
     func setUpUI() {
-        hideTabBar()
         
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         logOutView.tapToBtnLogOut {
@@ -62,11 +61,12 @@ class SettingsViewController: BaseViewController {
     
     // MARK: - Click Events
     @IBAction func clickToBtnLogout(_ sender: UIButton) {
+        hideTabBar()
         setCountryView()
     }
     
     @IBAction func clickToBtnEditProfile(_ sender: UIButton) {
-        
+        hideTabBar()
         if AppPrefsManager.sharedInstance.getUserRole() ==  UserRole.coach {
             let vc = EditProfileViewController.viewcontroller()
             self.navigationController?.pushViewController(vc, animated: true)
@@ -79,6 +79,7 @@ class SettingsViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnPaymentMethods(_ sender: UIButton) {
+        hideTabBar()
         let vc = PaymentMethodViewController.viewcontroller()
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -88,12 +89,14 @@ class SettingsViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnPreviousClasses(_ sender: UIButton) {
+        hideTabBar()
         let vc = PreviousClassesViewController.viewcontroller()
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
     
     @IBAction func clickToBtnBookmarkClasses(_ sender: UIButton) {
+        hideTabBar()
         let vc = PreviousClassesViewController.viewcontroller()
         vc.isFromBookMarkPage = true
         self.navigationController?.pushViewController(vc, animated: true)
@@ -101,6 +104,7 @@ class SettingsViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnDownlaodedClass(_ sender: UIButton) {
+        hideTabBar()
         let vc = DownloadedClassViewController.viewcontroller()
         self.navigationController?.pushViewController(vc, animated: true)
     }

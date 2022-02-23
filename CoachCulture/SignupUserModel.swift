@@ -36,7 +36,7 @@ struct User: Codable {
     let status : String?
     let updatedAt : String?
     let username : String?
-    let verificationCode : Int?
+//    let verificationCode : Int?
 
 
     enum CodingKeys: String, CodingKey {
@@ -50,7 +50,7 @@ struct User: Codable {
         case status = "status"
         case updatedAt = "updated_at"
         case username = "username"
-        case verificationCode = "verification_code"
+//        case verificationCode = "verification_code"
     }
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -64,7 +64,7 @@ struct User: Codable {
         status = try values.decodeIfPresent(String.self, forKey: .status)
         updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
         username = try values.decodeIfPresent(String.self, forKey: .username)
-        verificationCode = try values.decodeIfPresent(Int.self, forKey: .verificationCode)
+//        verificationCode = try values.decodeIfPresent(Int.self, forKey: .verificationCode)
     }
 }
 

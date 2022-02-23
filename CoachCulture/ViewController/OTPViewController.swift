@@ -7,6 +7,7 @@
 
 import UIKit
 import SVProgressHUD
+import DPOTPView
 
 class OTPViewController: BaseViewController {
     
@@ -21,8 +22,11 @@ class OTPViewController: BaseViewController {
     @IBOutlet weak var btnChangeNumber: UIButton!
     @IBOutlet weak var lblCounter: UILabel!
 
+    @IBOutlet var otpView: DPOTPView!
     @IBOutlet var btnDigits: [UIButton]!
     @IBOutlet var txtOtps: [UILabel]!
+    
+    
     var countryCode = ""
     var phoneCode = ""
     var phoneNo = ""
@@ -30,42 +34,42 @@ class OTPViewController: BaseViewController {
     var password = ""
     var otp = ""
     var verifiedCallback: (() -> Void)?
-    var verifyotp = "1234"
+//    var verifyotp = "1234"
     let apimanager = ApiManager()
     var counter = 60
     var timer = Timer()
     var isFromForgotPassword = false
     var emaiOrPhone = ""
+    var phoneX = ""
     
     var paramDic = [String:Any]()
     var isFromInitial = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        otpView.dpOTPViewDelegate = self
         isFromInitial = true
         tapResendTimer()
         btnResend.addTarget(self, action: #selector(didTapResend(_:)), for: .touchUpInside)
         btnChangeNumber.addTarget(self, action: #selector(didTapChangeNumber(_:)), for: .touchUpInside)
-        btnDigits.forEach { btn in
+        /*btnDigits.forEach { btn in
             btn.addTarget(self, action: #selector(didTapDigit(_:)), for: .touchUpInside)
-        }
-        
+        }*/
         btnResend.setTitle("Resent OTP", for: .normal)
         btnChangeNumber.setTitle("Change Number", for: .normal)
         btnResend.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         btnChangeNumber.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         
         let count = phoneNo.count
-        phoneNo.removeAll()
+        phoneX.removeAll()
         for _ in 0..<count {
-            phoneNo.append("x")
+            phoneX.append("x")
         }
         
         if isFromForgotPassword {
             lblDesc.text = "Please type the verification code sent to \(emaiOrPhone)"
         } else {
-            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneNo)."
+            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneX)."
         }
     }
     
@@ -98,47 +102,6 @@ class OTPViewController: BaseViewController {
             self.timer.invalidate()
             self.lblCounter.isHidden = true
             self.btnResend.isEnabled = true
-        }
-    }
-
-    @objc func didTapDigit(_ sender: UIButton) {
-        if sender.tag == 10 {
-            if otp.count > 0 {
-                otp = String(otp.prefix(otp.count - 1))
-            }
-        } else {
-            if otp.count < 4 {
-                let digit = sender.tag
-                otp.append("\(digit)")
-                if otp.count == 4 {
-                    if verifyotp == otp {
-                        print("Done -----")
-                        if self.isFromForgotPassword {
-                            self.verifyOTPForForgotPasswordAPI()
-                        } else {
-                            self.verifyAPI()
-                        }
-                        
-                    } else {
-                        print("Alert ------ ")
-                    }
-                }
-            } else if otp.count == 4 {
-                if verifyotp == otp {
-                    print("Done -----")
-                } else {
-                    print("Alert ------ ")
-                }
-            }
-        }
-        print(otp)
-        let arrOtp = otp.map {String($0)}
-        txtOtps.enumerated().forEach { index, txt in
-            if otp.count > index {
-                txt.text = arrOtp[index]
-            } else {
-                txt.text = ""
-            }
         }
     }
     
@@ -186,6 +149,7 @@ extension OTPViewController {
            
               
           } failure: { (error) in
+            print(error.localizedDescription)
               return true
           }
         
@@ -216,7 +180,7 @@ extension OTPViewController {
             "type":"phone"
         ]
         
-        apimanager.callMultiPartDataWebServiceNew(type: ReSendOTPBaseModel.self, image: nil, to: API.VERIFY_USER, params: param) { userModel, statusCode in
+        apimanager.callMultiPartDataWebServiceNew(type: ReSendOTPBaseModel.self, image: nil, to: API.RESEND_OTP, params: param) { userModel, statusCode in
             SVProgressHUD.dismiss()
             print("statusCode == == ",statusCode)
             print(userModel)
@@ -297,5 +261,48 @@ struct DataModel: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         verification_code = try values.decodeIfPresent(String.self, forKey: .verification_code)
+    }
+}
+
+//MARK:- EXTENSION DPOTPVIEW
+
+extension OTPViewController : DPOTPViewDelegate {
+    func dpOTPViewAddText(_ text: String, at position: Int) {
+        print("addText:- " + text + " at:- \(position)" )
+        if text.count == 4 {
+            otp = text
+            if self.isFromForgotPassword {
+                self.verifyOTPForForgotPasswordAPI()
+                print("Done ----- forgot")
+            } else {
+                print("Done ----- verify")
+                self.verifyAPI()
+            }
+        }
+        print(text)
+        let arrOtp = text.map {String($0)}
+        txtOtps.enumerated().forEach { index, txt in
+            if text.count > index {
+                txt.text = arrOtp[index]
+            } else {
+                txt.text = ""
+            }
+        }
+    }
+    
+    func dpOTPViewRemoveText(_ text: String, at position: Int) {
+        print("removeText:- " + text + " at:- \(position)" )
+    }
+    
+    func dpOTPViewChangePositionAt(_ position: Int) {
+        print("at:-\(position)")
+    }
+    
+    func dpOTPViewBecomeFirstResponder() {
+        print()
+    }
+    
+    func dpOTPViewResignFirstResponder() {
+        
     }
 }

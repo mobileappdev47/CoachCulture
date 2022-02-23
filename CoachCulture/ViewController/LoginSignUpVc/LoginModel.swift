@@ -29,6 +29,7 @@ class UserData {
     var user_image = ""
     var username = ""
     var base_currency = ""
+    var account_currency = ""
     var is_followed = false
     var total_followers = ""
     var feesDataObj = FeesData()
@@ -46,6 +47,7 @@ class UserData {
         countrycode = map.value("countrycode") ?? ""
         date_of_birth = map.value("date_of_birth") ?? ""
         email = map.value("email") ?? ""
+        account_currency = map.value("account_currency") ?? ""
         first_name = map.value("first_name") ?? ""
         id = map.value("id") ?? ""
         last_name = map.value("last_name") ?? ""

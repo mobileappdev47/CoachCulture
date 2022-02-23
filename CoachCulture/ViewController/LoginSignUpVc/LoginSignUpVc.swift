@@ -279,7 +279,7 @@ class LoginSignUpVc: BaseViewController {
 
         let phoneNumberKit = PhoneNumberKit()
         do {
-            let phoneNumber = try phoneNumberKit.parse(txtPhone.text ?? "")
+            let phoneNumber = try phoneNumberKit.parse("\(txtCountryCode.text ?? "")\(txtPhone.text ?? "")")
             phoneNo = "\(phoneNumber.nationalNumber)"
             dialCode = phoneNumber.regionID ?? ""
         } catch {
@@ -362,7 +362,7 @@ extension LoginSignUpVc: countryPickDelegate {
             }
         })
     
-        if filteredCountry?.count ?? 0 > 0 {
+            if filteredCountry?.count ?? 0 > 0 {
             switch selectedCountry?.currencyCode {
             case BaseCurrencyList.SGD:
                 base_currency = BaseCurrencyList.SGD
@@ -397,7 +397,18 @@ extension LoginSignUpVc {
                 self.showAlert(withTitle: "Error!", message: userModel?.message ?? "")
             } else {
                 if let userr = userModel {
-                    self.handleSignup(model: userr)
+//                    guard let self = self else {return}
+                    let vc = OTPViewController.viewcontroller()
+                    vc.countryCode = self.countryCodeDesc
+                    vc.phoneCode = self.txtCountryCode.text!
+                    vc.phoneNo = self.txtPhone.text!
+                    vc.username = self.txtUsername.text!
+                    vc.password = self.txtPassword.text!
+                    AppPrefsManager.sharedInstance.saveUserRole(role: "user")
+//                    vc.verifyotp = "\(userr.user?.verificationCode ?? 1234)"
+                    DispatchQueue.main.async {
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
             }
         } failure: { error, statusCode in
@@ -409,17 +420,7 @@ extension LoginSignUpVc {
         let vc = PopupViewController.viewcontroller()
         vc.message = "Please check email or phone to verification code"
         vc.dismissHandler = { [weak self] in
-            guard let self = self else {return}
-            let vc = OTPViewController.viewcontroller()
-            vc.countryCode = self.countryCodeDesc
-            vc.phoneCode = self.txtCountryCode.text!
-            vc.phoneNo = self.txtPhone.text!
-            vc.username = self.txtUsername.text!
-            vc.password = self.txtPassword.text!
-            vc.verifyotp = "\(model.user?.verificationCode ?? 0)"
-            DispatchQueue.main.async {
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            
         }
         self.present(vc, animated: true, completion: nil)
     }
