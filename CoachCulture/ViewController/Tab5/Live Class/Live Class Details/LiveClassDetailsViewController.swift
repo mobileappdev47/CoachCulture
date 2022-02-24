@@ -162,7 +162,7 @@ class LiveClassDetailsViewController: BaseViewController {
             lblTime.text = classDetailDataObj.class_time
             imgDownload.isHidden = true
             viewRecipeBottomButton.backgroundColor = COLORS.THEME_RED
-            lblViewRecipeBottomButton.text = "Join Class"
+            lblViewRecipeBottomButton.text = "Start Class"
             imgViewRecipeBottomButton.image = UIImage(named: "joinVideo")
         } else {
             lblClassType.text = "ON DEMAND"
@@ -172,7 +172,7 @@ class LiveClassDetailsViewController: BaseViewController {
             lblTime.text = classDetailDataObj.created_atForamted
             imgDownload.isHidden = false
             viewRecipeBottomButton.backgroundColor = COLORS.ON_DEMAND_COLOR
-            lblViewRecipeBottomButton.text = "Start Class"
+            lblViewRecipeBottomButton.text = "Join Class"
             imgViewRecipeBottomButton.image = UIImage(named: "ic_play")
         }
         
@@ -190,8 +190,12 @@ class LiveClassDetailsViewController: BaseViewController {
         lblCal.text = classDetailDataObj.burn_calories + "Kcal"
         lblTimeDuration1.text = classDetailDataObj.duration
         tblEquipment.reloadData()
-        lblNonSubscriberFee.text = "Non-Subscribers Fee: " + classDetailDataObj.feesDataObj.base_currency + " " + classDetailDataObj.feesDataObj.non_subscriber_fee
-        lblOneTimeFee.text = "One Time Fee: " + classDetailDataObj.feesDataObj.base_currency + " " + classDetailDataObj.feesDataObj.subscriber_fee
+        
+        let currencySybmol = getCurrencySymbol(from: classDetailDataObj.feesDataObj.fee_regional_currency)
+
+        lblNonSubscriberFee.text = "Non-Subscribers Fee: " + currencySybmol + " " + classDetailDataObj.feesDataObj.non_subscriber_fee
+        lblOneTimeFee.text = "One Time Fee: " + currencySybmol + " " + classDetailDataObj.feesDataObj.subscriber_fee
+        
         lblMoreIngredients.text = "\(classDetailDataObj.arrEquipmentList.count) more ingredients"
         viwMoreIngredient.isHidden = classDetailDataObj.arrEquipmentList.count > 4 ? false : true
         
@@ -257,20 +261,25 @@ class LiveClassDetailsViewController: BaseViewController {
        
     }
     
-    func setupConfirmationView(fees: String, recdCurrency: String) {
-        var currencySybmol = ""
+    func callAddUserToCoachClassAPI() {
+        showLoader()
+        let param = [ "coach_class_id" : classDetailDataObj.id,
+                      "transaction_id" : "1",
+                      
+        ] as [String : Any]
         
-        switch recdCurrency {
-        case BaseCurrencyList.SGD:
-            currencySybmol = BaseCurrencySymbol.SGD
-        case BaseCurrencyList.USD:
-            currencySybmol = BaseCurrencySymbol.USD
-        case BaseCurrencyList.EUR:
-            currencySybmol = BaseCurrencySymbol.EUR
-        default:
-            currencySybmol = ""
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.ADD_USER_TO_COACH_CLASS, parameters: param, headers: nil) { responseObj in
+            self.hideLoader()
+            let responseObj = ResponseDataModel(responseObj: responseObj)
+            Utility.shared.showToast(responseObj.message)
+        } failure: { (error) in
+            self.hideLoader()
+            return true
         }
-
+    }
+    
+    func setupConfirmationView(fees: String, recdCurrency: String) {
+        let currencySybmol = getCurrencySymbol(from: recdCurrency)
         var classTypeTitle = "Join Class"
         var classTypeName = "on demand"
         if self.classDetailDataObj.coach_class_type == CoachClassType.live {
@@ -282,7 +291,7 @@ class LiveClassDetailsViewController: BaseViewController {
         logOutView.btnLeft.setTitle("Confirm", for: .normal)
         logOutView.btnRight.setTitle("Cancel", for: .normal)
         logOutView.tapToBtnLogOut {
-            //self.callAddUserToCoachAPI()
+            self.callAddUserToCoachClassAPI()
             self.removeConfirmationView()
         }
     }
@@ -362,23 +371,26 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnJoinClass( _ sender: UIButton) {
-        //check whether is it coach or user
-        var fees = ""
-        var recdCurrency = ""
-        
-        if self.classDetailDataObj.subscription {
-            fees = classDetailDataObj.feesDataObj.subscriber_fee
-            recdCurrency = classDetailDataObj.feesDataObj.base_currency
+        if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+            self.goStepForwardAfterSubscribed()
         } else {
-            fees = classDetailDataObj.feesDataObj.non_subscriber_fee
-            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
-        }
-        self.checkUserSubscribedClassAPI { (isSubscribed) in
-            if isSubscribed {
-                self.goStepForwardAfterSubscribed()
+            var fees = ""
+            var recdCurrency = ""
+            
+            if self.classDetailDataObj.subscription {
+                fees = classDetailDataObj.feesDataObj.subscriber_fee
+                recdCurrency = classDetailDataObj.feesDataObj.base_currency
             } else {
-                self.addConfirmationView()
-                self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
+                fees = classDetailDataObj.feesDataObj.non_subscriber_fee
+                recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
+            }
+            self.checkUserSubscribedClassAPI { (isSubscribed) in
+                if isSubscribed {
+                    self.goStepForwardAfterSubscribed()
+                } else {
+                    self.addConfirmationView()
+                    self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
+                }
             }
         }
     }
@@ -583,3 +595,5 @@ extension CharacterSet {
         return characters
     }
 }
+
+

@@ -84,6 +84,10 @@ struct API {
     static let GET_MY_COACH_CLASS_LIST = BASE_URL + "api/get-my-coach-class-list"
     static let ADD_USER_TO_COACH_CLASS = BASE_URL + "api/subscription/add-user-to-coach-class"
     static let CHECK_USER_SUBSCRIBED_CLASS = BASE_URL + "api/subscription/check-user-subscribed-class"
+    static let JOIN_SESSION = BASE_URL + "api/coach-class/join-sessions"
+    static let END_LIVE_CLASS = BASE_URL + "api/coach-class/end-live-class"
+    static let NEW_UPLOAD = BASE_URL + "api/coach/new-uploads"
+    static let LIST_OF_CLASS_DONE = BASE_URL + "api/coach/list-of-class-done"
 }
 
 // MARK: - PARAMS KEYS
@@ -138,6 +142,7 @@ struct COLORS {
     static let BLUR_COLOR = hexStringToUIColor(hex: "#2C3A4A")
     
     static let ON_DEMAND_COLOR = hexStringToUIColor(hex: "#1A82F6")
+    static let RECIPE_COLOR = hexStringToUIColor(hex: "#4DB748")
 }
 
 // MARK: - ALERT TITLE

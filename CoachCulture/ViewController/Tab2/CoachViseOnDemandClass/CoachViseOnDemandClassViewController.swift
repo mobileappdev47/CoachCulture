@@ -435,19 +435,8 @@ extension CoachViseOnDemandClassViewController {
                 self.viewFollow.backgroundColor = (self.userDataObj?.is_followed ?? false) ? COLORS.BLUR_COLOR : COLORS.THEME_RED
                 
                 self.lblFollowers.text =  "\(self.userDataObj?.total_followers ?? "") Followers"
-                let recdCurrency = self.userDataObj?.feesDataObj.fee_regional_currency
-                var currencySybmol = ""
                 
-                switch recdCurrency {
-                case BaseCurrencyList.SGD:
-                    currencySybmol = BaseCurrencySymbol.SGD
-                case BaseCurrencyList.USD:
-                    currencySybmol = BaseCurrencySymbol.USD
-                case BaseCurrencyList.EUR:
-                    currencySybmol = BaseCurrencySymbol.EUR
-                default:
-                    currencySybmol = ""
-                }
+                let currencySybmol = getCurrencySymbol(from: self.userDataObj?.feesDataObj.fee_regional_currency ?? "")
                 self.lblFees.text =  "\(currencySybmol)\(self.userDataObj?.feesDataObj.subscriber_fee ?? "")"
                 self.lblUserName.text = "@ \(self.userDataObj?.username ?? "")"
                 

@@ -93,19 +93,7 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
         cell.viwUnsubscribe.isHidden = obj.unsubscribe_status ? true : false
         cell.viwSubscribe.isHidden = obj.unsubscribe_status ? false : true
         
-        let recdCurrency = obj.feesDataObj.fee_regional_currency
-        var currencySybmol = ""
-        
-        switch recdCurrency {
-        case BaseCurrencyList.SGD:
-            currencySybmol = BaseCurrencySymbol.SGD
-        case BaseCurrencyList.USD:
-            currencySybmol = BaseCurrencySymbol.USD
-        case BaseCurrencyList.EUR:
-            currencySybmol = BaseCurrencySymbol.EUR
-        default:
-            currencySybmol = ""
-        }
+        let currencySybmol = getCurrencySymbol(from: obj.feesDataObj.fee_regional_currency)
         cell.lblPrice.text =  "\(currencySybmol)\(obj.feesDataObj.subscriber_fee)"
 
         cell.didTapUnsubscribeClick = {

@@ -467,3 +467,19 @@ func convertUTCToLocal(dateStr:String, sourceFormate: String, destinationFormate
     }
     return ""
 }
+
+func getCurrencySymbol(from currency: String) -> String {
+    var currencySybmol = ""
+    
+    switch currency {
+    case BaseCurrencyList.SGD:
+        currencySybmol = BaseCurrencySymbol.SGD
+    case BaseCurrencyList.USD:
+        currencySybmol = BaseCurrencySymbol.USD
+    case BaseCurrencyList.EUR:
+        currencySybmol = BaseCurrencySymbol.EUR
+    default:
+        currencySybmol = ""
+    }
+    return currencySybmol
+}

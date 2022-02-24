@@ -362,7 +362,7 @@ extension LoginSignUpVc: countryPickDelegate {
             }
         })
     
-            if filteredCountry?.count ?? 0 > 0 {
+        if filteredCountry?.count ?? 0 > 0 {
             switch selectedCountry?.currencyCode {
             case BaseCurrencyList.SGD:
                 base_currency = BaseCurrencyList.SGD
