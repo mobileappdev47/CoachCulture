@@ -16,6 +16,11 @@ class LiveClassDetailsViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var lblViewRecipeBottomButton: UILabel!
+    @IBOutlet weak var imgViewRecipeBottomButton: UIImageView!
+    @IBOutlet weak var viewRecipeBottomButton: UIView!
+    @IBOutlet weak var viewDuration: UIView!
+    @IBOutlet weak var viewClassDifficultyLevel: UIView!
     @IBOutlet weak var btnBookmark: UIButton!
     @IBOutlet weak var btnMore: UIButton!
     
@@ -58,8 +63,7 @@ class LiveClassDetailsViewController: BaseViewController {
     var isFromClassDownloadedPage = false
     var ratingListPopUp : RatingListPopUp!
     var arrClassRatingList = [ClassRatingList]()
-
-
+    var logOutView:LogOutView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,6 +72,7 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     private func setUpUI() {
+        logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         hideTabBar()
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
         
@@ -138,7 +143,8 @@ class LiveClassDetailsViewController: BaseViewController {
         } else {
             getClassDetails()
         }
-        
+        self.viewClassDifficultyLevel.layer.maskedCorners = [.layerMaxXMinYCorner]
+        self.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
     }
     
     func setData() {
@@ -155,6 +161,9 @@ class LiveClassDetailsViewController: BaseViewController {
             lblDate.text = classDetailDataObj.class_date
             lblTime.text = classDetailDataObj.class_time
             imgDownload.isHidden = true
+            viewRecipeBottomButton.backgroundColor = COLORS.THEME_RED
+            lblViewRecipeBottomButton.text = "Join Class"
+            imgViewRecipeBottomButton.image = UIImage(named: "joinVideo")
         } else {
             lblClassType.text = "ON DEMAND"
             viwClassType.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
@@ -162,6 +171,9 @@ class LiveClassDetailsViewController: BaseViewController {
             lblDate.text = classDetailDataObj.total_viewers + " views"
             lblTime.text = classDetailDataObj.created_atForamted
             imgDownload.isHidden = false
+            viewRecipeBottomButton.backgroundColor = COLORS.ON_DEMAND_COLOR
+            lblViewRecipeBottomButton.text = "Start Class"
+            imgViewRecipeBottomButton.image = UIImage(named: "ic_play")
         }
         
         lblClassDifficultyLevel.text = classDetailDataObj.class_difficulty
@@ -245,8 +257,80 @@ class LiveClassDetailsViewController: BaseViewController {
        
     }
     
+    func setupConfirmationView(fees: String, recdCurrency: String) {
+        var currencySybmol = ""
+        
+        switch recdCurrency {
+        case BaseCurrencyList.SGD:
+            currencySybmol = BaseCurrencySymbol.SGD
+        case BaseCurrencyList.USD:
+            currencySybmol = BaseCurrencySymbol.USD
+        case BaseCurrencyList.EUR:
+            currencySybmol = BaseCurrencySymbol.EUR
+        default:
+            currencySybmol = ""
+        }
+
+        var classTypeTitle = "Join Class"
+        var classTypeName = "on demand"
+        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+            classTypeTitle = "Join the CoachCulture"
+            classTypeName = "live"
+        }
+        logOutView.lblTitle.text = classTypeTitle
+        logOutView.lblMessage.text = "Would you like to join \(self.lblUserName.text ?? "")'s \(classDetailDataObj.class_type) \(classTypeName) Class for a one time fee of \(currencySybmol + fees)?"
+        logOutView.btnLeft.setTitle("Confirm", for: .normal)
+        logOutView.btnRight.setTitle("Cancel", for: .normal)
+        logOutView.tapToBtnLogOut {
+            //self.callAddUserToCoachAPI()
+            self.removeConfirmationView()
+        }
+    }
+    
+    func addConfirmationView() {
+        logOutView.frame.size = self.view.frame.size
+        self.view.addSubview(logOutView)
+    }
+    
+    func removeConfirmationView() {
+        if logOutView != nil{
+            logOutView.removeFromSuperview()
+        }
+    }
+
+    func goStepForwardAfterSubscribed() {
+        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+        } else {
+            let folderName = self.classDetailDataObj.id + "_" + self.classDetailDataObj.class_subtitle
+            let directoryUrl =  URL(fileURLWithPath: getDirectoryPath() + "/" + folderName + "/")
+            
+            var destinationFileUrl = ""
+            
+            if Reachability.isConnectedToNetwork() {
+                destinationFileUrl = self.classDetailDataObj.thumbnail_video
+            } else {
+                destinationFileUrl = directoryUrl.appendingPathComponent(self.classDetailDataObj.thumbnail_video_file).absoluteString
+            }
+            
+            if let videoURL = URL(string: destinationFileUrl.addingPercentEncoding(withAllowedCharacters: .urlAllowedCharacters) ?? "") {
+                let player = AVPlayer(url: videoURL)
+                let playerViewController = AVPlayerViewController()
+                playerViewController.player = player
+                self.present(playerViewController, animated: true) {
+                    playerViewController.player!.play()
+                }
+            }
+        }
+    }
     
     // MARK: - CLICK EVENTS
+    
+    @IBAction func btnTrainerDetailClick(_ sender: Any) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = self.classDetailDataObj.coachDetailsDataObj.id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func clickToBtnBookmark( _ sender: UIButton) {
         if classDetailDataObj.bookmark.lowercased() == "no".lowercased() {
             addOrRemoveFromBookMark(bookmark: "yes")
@@ -278,23 +362,23 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnJoinClass( _ sender: UIButton) {
-        let folderName = classDetailDataObj.id + "_" + classDetailDataObj.class_subtitle
-        let directoryUrl =  URL(fileURLWithPath: getDirectoryPath() + "/" + folderName + "/")
+        //check whether is it coach or user
+        var fees = ""
+        var recdCurrency = ""
         
-        var destinationFileUrl = ""
-        
-        if Reachability.isConnectedToNetwork() {
-            destinationFileUrl = classDetailDataObj.thumbnail_video
+        if self.classDetailDataObj.subscription {
+            fees = classDetailDataObj.feesDataObj.subscriber_fee
+            recdCurrency = classDetailDataObj.feesDataObj.base_currency
         } else {
-            destinationFileUrl = directoryUrl.appendingPathComponent(classDetailDataObj.thumbnail_video_file).absoluteString
+            fees = classDetailDataObj.feesDataObj.non_subscriber_fee
+            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
         }
-        
-        if let videoURL = URL(string: destinationFileUrl) {
-            let player = AVPlayer(url: videoURL)
-            let playerViewController = AVPlayerViewController()
-            playerViewController.player = player
-            self.present(playerViewController, animated: true) {
-                playerViewController.player!.play()
+        self.checkUserSubscribedClassAPI { (isSubscribed) in
+            if isSubscribed {
+                self.goStepForwardAfterSubscribed()
+            } else {
+                self.addConfirmationView()
+                self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
             }
         }
     }
@@ -370,6 +454,21 @@ extension LiveClassDetailsViewController {
         }
     }
     
+    func checkUserSubscribedClassAPI(completion completionHandler:@escaping (_ isSubscribed: Bool) -> Void) {
+        showLoader()
+        let param = ["class_id" : self.classDetailDataObj.id]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.CHECK_USER_SUBSCRIBED_CLASS, parameters: param, headers: nil) { responseObj in
+            self.hideLoader()
+            if let subscribed = responseObj["class_subscription"] as? Bool {
+                completionHandler(subscribed)
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
+
     func getClassRating() {
         //showLoader()
         let param = ["coach_class_id" : selectedId,
@@ -462,5 +561,25 @@ extension LiveClassDetailsViewController {
             }
             task.resume()
         }
+    }
+}
+
+extension CharacterSet {
+
+    /// Characters valid in at least one part of a URL.
+    ///
+    /// These characters are not allowed in ALL parts of a URL; each part has different requirements. This set is useful for checking for Unicode characters that need to be percent encoded before performing a validity check on individual URL components.
+    static var urlAllowedCharacters: CharacterSet {
+        // Start by including hash, which isn't in any set
+        var characters = CharacterSet(charactersIn: "#")
+        // All URL-legal characters
+        characters.formUnion(.urlUserAllowed)
+        characters.formUnion(.urlPasswordAllowed)
+        characters.formUnion(.urlHostAllowed)
+        characters.formUnion(.urlPathAllowed)
+        characters.formUnion(.urlQueryAllowed)
+        characters.formUnion(.urlFragmentAllowed)
+
+        return characters
     }
 }

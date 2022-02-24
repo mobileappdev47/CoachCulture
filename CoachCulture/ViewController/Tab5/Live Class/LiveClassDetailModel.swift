@@ -36,8 +36,7 @@ class ClassDetailData {
     var class_time = ""
     var coachChannelDataObj = CoachChannel()
     var responseDic = [String : Any]()
-
-
+    var subscription = false
    
     init() {}
     
@@ -47,6 +46,7 @@ class ClassDetailData {
         
         id = map.value("id") ?? ""
         coach_class_type = map.value("coach_class_type") ?? ""
+        subscription = map.value("subscription") ?? false
         class_subtitle = map.value("class_subtitle") ?? ""
         class_type = map.value("class_type") ?? ""
         duration = map.value("duration") ?? ""
