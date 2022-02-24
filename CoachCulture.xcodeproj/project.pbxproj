@@ -48,6 +48,7 @@
 		512BBE6A27C5F01B002AF2B8 /* NewClassesTBLViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */; };
 		512BBE6D27C6143A002AF2B8 /* HomeNewClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */; };
 		512BBE7027C615DF002AF2B8 /* HomeNewClassHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */; };
+		BD25A6BD27C740CB0048CF15 /* continent.json in Resources */ = {isa = PBXBuildFile; fileRef = BD25A6BC27C740CB0048CF15 /* continent.json */; };
 		CB1E71A1284B181035DB2C88 /* Pods_CoachCulture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE6240B202CBFA8415C8744 /* Pods_CoachCulture.framework */; };
 		D40136C42758D78600E36A39 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40136C32758D78600E36A39 /* SettingsViewController.swift */; };
 		D40136C72758DCE000E36A39 /* LogOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40136C62758DCDF00E36A39 /* LogOutView.xib */; };
@@ -524,6 +525,7 @@
 		512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeNewClassHeaderView.xib; sourceTree = "<group>"; };
 		512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewClassHeaderView.swift; sourceTree = "<group>"; };
 		8D2B8E0B4D497DEC5D11191E /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
+		BD25A6BC27C740CB0048CF15 /* continent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = continent.json; sourceTree = "<group>"; };
 		D40136C32758D78600E36A39 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D40136C62758DCDF00E36A39 /* LogOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogOutView.xib; sourceTree = "<group>"; };
 		D40136C82758DCFC00E36A39 /* LogOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutView.swift; sourceTree = "<group>"; };
@@ -1775,6 +1777,7 @@
 		F196388E272BB78500D19373 /* CountryPicker */ = {
 			isa = PBXGroup;
 			children = (
+				BD25A6BC27C740CB0048CF15 /* continent.json */,
 				F1963A92272BB7DD00D19373 /* CountryPickerVC.swift */,
 				F196388F272BB78500D19373 /* CountryFlag */,
 				F196398E272BB78600D19373 /* SMCountry.swift */,
@@ -2402,6 +2405,7 @@
 				F1963A2B272BB78600D19373 /* MS.png in Resources */,
 				D48AEAFD27587A5E00896B0B /* SFProText-Semibold.otf in Resources */,
 				F19639B2272BB78600D19373 /* BS.png in Resources */,
+				BD25A6BD27C740CB0048CF15 /* continent.json in Resources */,
 				D4156CF72764868400328E4F /* DropDownCell.xib in Resources */,
 				D48F45242770921C00B0EAD8 /* CoachViseOnDemandClassItemTableViewCell.xib in Resources */,
 				D47C3B0D2771B21D007ACF96 /* RecipeDietartyItemCollectionViewCell.xib in Resources */,

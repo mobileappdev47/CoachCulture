@@ -27,6 +27,27 @@ extension UIImage {
         }
     }
     
+    public enum DataUnits: String {
+        case byte, kilobyte, megabyte, gigabyte
+    }
+    
+    func getSizeIn(_ type: DataUnits, recdData: Data)-> Double {
+        var size: Double = 0.0
+        
+        switch type {
+            case .byte:
+                size = Double(recdData.count)
+            case .kilobyte:
+                size = Double(recdData.count) / 1024
+            case .megabyte:
+                size = Double(recdData.count) / 1024 / 1024
+            case .gigabyte:
+                size = Double(recdData.count) / 1024 / 1024 / 1024
+        }
+        return size
+        //return String(format: "%.2f", size)
+    }
+    
     func tintWithColor(_ color:UIColor) -> UIImage {
         
         UIGraphicsBeginImageContextWithOptions(self.size, false, UIScreen.main.scale);

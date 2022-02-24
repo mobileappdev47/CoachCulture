@@ -72,8 +72,8 @@ class LoginSignUpVc: BaseViewController {
         }
         
         //comment code - comment the static cred
-        txtUsernameLogin.text = "devuser"
-        txtPasswordLogin.text = "Test@123"
+        txtUsernameLogin.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USERNAME)
+        txtPasswordLogin.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USER_PASSWORD)
     }
     
     fileprivate func setupViews() {
@@ -404,6 +404,7 @@ extension LoginSignUpVc {
                     vc.phoneNo = self.txtPhone.text!
                     vc.username = self.txtUsername.text!
                     vc.password = self.txtPassword.text!
+                    DEFAULTS.setValue(self.txtPassword.text, forKey: DEFAULTS_KEY.USER_PASSWORD)
                     AppPrefsManager.sharedInstance.saveUserRole(role: "user")
 //                    vc.verifyotp = "\(userr.user?.verificationCode ?? 1234)"
                     DispatchQueue.main.async {
@@ -438,7 +439,10 @@ extension LoginSignUpVc {
                 let dataObj = resObj["data"] as? [String:Any] ?? [String:Any]()
                 AppPrefsManager.sharedInstance.saveUserAccessToken(token: dataObj["access_token"] as? String ?? "")
                 AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: true)
-                
+                if !self.isRememberMe {
+                    DEFAULTS.setValue(self.txtUsernameLogin.text!, forKey: DEFAULTS_KEY.USERNAME)
+                }
+                DEFAULTS.setValue(self.txtPasswordLogin.text, forKey: DEFAULTS_KEY.USER_PASSWORD)
                 let userObj = dataObj["user"] as? [String:Any] ?? [String:Any]()
                 AppPrefsManager.sharedInstance.saveUserData(userData: userObj)
                 let role = userObj["role"] as? String ?? ""
