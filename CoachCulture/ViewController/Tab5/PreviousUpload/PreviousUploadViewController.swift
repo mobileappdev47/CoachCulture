@@ -48,6 +48,10 @@ class PreviousUploadViewController: BaseViewController {
     var max_duration = ""
     var min_duration = ""
     var class_difficulty_name = ""
+    var duration = ""
+    var meal_type_name = ""
+    var dietary_restriction_name = ""
+    var previous = ""
     
     var paramForApi = [String:Any]()
     
@@ -133,7 +137,6 @@ class PreviousUploadViewController: BaseViewController {
     
     @IBAction func clickToBtnFilter( _ sender : UIButton) {
         let vc = ClassFilterViewController.viewcontroller()
-        
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -241,6 +244,26 @@ extension PreviousUploadViewController {
         isDataLoading = true
         
         showLoader()
+        
+        /*var param = [String:Any]()
+        if !min_duration.isEmpty || min_duration != "" {
+            param["min_duration"] = min_duration
+        }
+        if !max_duration.isEmpty || max_duration != "" {
+            param["max_duration"] = max_duration
+        }
+        if !class_type_name.isEmpty || class_type_name != "" {
+            param["class_type_name"] = class_type_name
+        }
+        
+        param["page_no"] = "\(pageNo)"
+        param["per_page"] = "\(perPageCount)"
+        param["coach_only"] = coach_only
+        param["bookmark_only"] = bookmark_only
+
+        param["class_type"] = class_type
+        param["subscription"] = true*/
+
         let param = [ "page_no" : "\(pageNo)",
                       "per_page" : "\(perPageCount)",
                       "coach_only" : coach_only,

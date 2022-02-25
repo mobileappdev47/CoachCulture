@@ -22,16 +22,20 @@ class NewClassesTBLViewCell: UITableViewCell {
     @IBOutlet weak var imgBookmark: UIImageView!
     @IBOutlet weak var imgBanner: UIImageView!
     @IBOutlet weak var imgBlurThumbnail: UIImageView!
-    
+    @IBOutlet weak var clvDietaryRestriction: UICollectionView!
+
     //MARK:- VARIABLE AND OBJECT
     
     var didTapBookmarkButton : (() -> Void)!
     var selectedIndex = 0
+    var arrDietaryRestriction = [String]()
 
     //MARK:- CELL LIFE CYCLE
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.initialSetupUI()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -41,11 +45,35 @@ class NewClassesTBLViewCell: UITableViewCell {
     
     //MARK:- FUNCTION
     
+    func initialSetupUI() {
+        clvDietaryRestriction.register(UINib(nibName: "RecipeDietartyItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "RecipeDietartyItemCollectionViewCell")
+        clvDietaryRestriction.delegate = self
+        clvDietaryRestriction.dataSource = self
+        clvDietaryRestriction.collectionViewLayout = TagsLayout()
+    }
+    
     //MARK:- ACTION
     
     @IBAction func btnBookmarkClick(_ sender: Any) {
         if didTapBookmarkButton != nil {
             didTapBookmarkButton()
         }
+    }
+}
+
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout
+
+extension NewClassesTBLViewCell: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        
+        return arrDietaryRestriction.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeDietartyItemCollectionViewCell", for: indexPath) as!  RecipeDietartyItemCollectionViewCell
+        cell.lblTitle.text = arrDietaryRestriction[indexPath.row]
+        cell.lblTitle.sizeToFit()
+        return cell
     }
 }

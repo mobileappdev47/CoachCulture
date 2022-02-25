@@ -64,6 +64,10 @@ class LiveClassDetailsViewController: BaseViewController {
     var ratingListPopUp : RatingListPopUp!
     var arrClassRatingList = [ClassRatingList]()
     var logOutView:LogOutView!
+    var timer = Timer()
+    var counter = 0.0
+    var userCoachHistoryID : Int?
+    var isStatusUpdatedForVideoEnd = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,6 +76,13 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     private func setUpUI() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(didCompletePlaying),
+            name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+            object: nil
+        )
+
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         hideTabBar()
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
@@ -147,6 +158,14 @@ class LiveClassDetailsViewController: BaseViewController {
         self.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
     }
     
+    @objc func didCompletePlaying() {
+        self.isStatusUpdatedForVideoEnd = true
+        self.timer.invalidate()
+        let tempCounter = counter / 60
+        counter = tempCounter.rounded() <= 0.0 ? 1.0 : tempCounter
+        self.callEndLiveClassAPI()
+    }
+
     func setData() {
         if self.classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id { // personal class
             dropDown.dataSource  = ["Edit", "Delete", "Send", "Template", "Rate Class"]
@@ -322,8 +341,10 @@ class LiveClassDetailsViewController: BaseViewController {
             }
             
             if let videoURL = URL(string: destinationFileUrl.addingPercentEncoding(withAllowedCharacters: .urlAllowedCharacters) ?? "") {
+                isStatusUpdatedForVideoEnd = false
                 let player = AVPlayer(url: videoURL)
                 let playerViewController = AVPlayerViewController()
+                playerViewController.delegate = self
                 playerViewController.player = player
                 self.present(playerViewController, animated: true) {
                     playerViewController.player!.play()
@@ -574,6 +595,40 @@ extension LiveClassDetailsViewController {
             task.resume()
         }
     }
+    
+    func callJoinSessionsAPI() {
+        let param = [
+            Params.JoinSessions.class_id: self.classDetailDataObj.id,
+            Params.JoinSessions.coach_class_subscription_id: self.classDetailDataObj.coach_class_subscription_id
+        ] as [String : Any]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.JOIN_SESSION, parameters: param, headers: nil) { responseObj in
+            if let dataDict = responseObj["data"] as? [String:Any] {
+                if let user_coach_history_id = dataDict["user_coach_history_id"] as? Int {
+                    self.userCoachHistoryID = user_coach_history_id
+                }
+            }
+        } failure: { (error) in
+            return true
+        }
+    }
+    
+    func callEndLiveClassAPI() {
+        isStatusUpdatedForVideoEnd = true
+        let param = [
+            Params.EndLiveClass.class_id: self.classDetailDataObj.id,
+            Params.EndLiveClass.duration: Int(self.counter),
+            Params.EndLiveClass.user_coach_history_id: self.userCoachHistoryID ?? 0
+        ] as [String : Any]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.END_LIVE_CLASS, parameters: param, headers: nil) { responseObj in
+            _ = ResponseDataModel(responseObj: responseObj)
+            self.counter = 0.0
+        } failure: { (error) in
+            self.counter = 0.0
+            return true
+        }
+    }
 }
 
 extension CharacterSet {
@@ -596,4 +651,26 @@ extension CharacterSet {
     }
 }
 
-
+extension LiveClassDetailsViewController: AVPlayerViewControllerDelegate {
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        self.callJoinSessionsAPI()
+        self.timer.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
+    }
+    
+    @objc func update() {
+        counter += 1.0
+    }
+    
+    func playerViewController(_ playerViewController: AVPlayerViewController, willEndFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        
+        if !isStatusUpdatedForVideoEnd {
+            self.timer.invalidate()
+            let tempCounter = counter / 60
+            counter = tempCounter.rounded() <= 0.0 ? 1.0 : tempCounter
+            self.callEndLiveClassAPI()
+        }
+    }
+}

@@ -21,12 +21,18 @@ class SubsciptionList {
     var endDate = ""
     var unsubscribe_status = false
     var feesDataObj = FeesData()
+    var base_currency = ""
+    var amount = ""
+    var status = ""
     
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
         id = map.value("id") ?? ""
+        status = map.value("status") ?? ""
+        base_currency = map.value("base_currency") ?? ""
+        amount = map.value("amount") ?? ""
         username = map.value("username") ?? ""
         unsubscribe_status = map.value("unsubscribe_status") ?? false
         user_image = map.value("user_image") ?? ""

@@ -71,11 +71,17 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i75-yM-Qh1">
-                                <rect key="frame" x="262.5" y="20.5" width="47.5" height="17.5"/>
+                                <rect key="frame" x="212" y="26.5" width="98" height="17.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S$9.99" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MW-lM-Tij">
-                                        <rect key="frame" x="0.0" y="0.0" width="47.5" height="17.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="S$9.99" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MW-lM-Tij">
+                                        <rect key="frame" x="0.0" y="0.0" width="98" height="17.5"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="15"/>
+                                        <color key="textColor" name="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Renews Sept 22, 2021" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8A-rR-EjC">
+                                        <rect key="frame" x="3" y="17.5" width="95" height="14"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="12"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -83,9 +89,12 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="2MW-lM-Tij" firstAttribute="leading" secondItem="i75-yM-Qh1" secondAttribute="leading" id="0l5-Yl-Nvl"/>
+                                    <constraint firstItem="L8A-rR-EjC" firstAttribute="top" secondItem="2MW-lM-Tij" secondAttribute="bottom" id="7DE-fP-Mpw"/>
                                     <constraint firstAttribute="bottom" secondItem="2MW-lM-Tij" secondAttribute="bottom" id="S2x-mG-SZ2"/>
+                                    <constraint firstItem="L8A-rR-EjC" firstAttribute="trailing" secondItem="2MW-lM-Tij" secondAttribute="trailing" id="bHq-zc-9x7"/>
                                     <constraint firstAttribute="trailing" secondItem="2MW-lM-Tij" secondAttribute="trailing" id="lMl-52-OXA"/>
                                     <constraint firstItem="2MW-lM-Tij" firstAttribute="top" secondItem="i75-yM-Qh1" secondAttribute="top" id="qf2-Ro-hLl"/>
+                                    <constraint firstItem="L8A-rR-EjC" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="i75-yM-Qh1" secondAttribute="leading" constant="3" id="t6E-1K-idR"/>
                                 </constraints>
                             </view>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lIB-9o-WFQ">
@@ -175,12 +184,12 @@
                             <constraint firstAttribute="bottom" secondItem="lIB-9o-WFQ" secondAttribute="bottom" constant="12" id="Evp-VK-L8B"/>
                             <constraint firstItem="xO3-8x-CO4" firstAttribute="centerY" secondItem="nZb-Na-1xH" secondAttribute="centerY" id="F9E-5j-Kze"/>
                             <constraint firstItem="nZb-Na-1xH" firstAttribute="leading" secondItem="fJR-Fy-Wbw" secondAttribute="leading" id="GQd-hH-2gE"/>
-                            <constraint firstItem="i75-yM-Qh1" firstAttribute="top" secondItem="xO3-8x-CO4" secondAttribute="top" id="HBq-v5-vMn"/>
                             <constraint firstItem="i75-yM-Qh1" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xO3-8x-CO4" secondAttribute="trailing" constant="20" id="Hnu-zz-NbC"/>
                             <constraint firstItem="nZb-Na-1xH" firstAttribute="top" secondItem="fJR-Fy-Wbw" secondAttribute="top" id="Kj3-c7-NM7"/>
                             <constraint firstItem="lIB-9o-WFQ" firstAttribute="top" secondItem="5cM-AH-7xD" secondAttribute="bottom" constant="15.5" id="aQM-Ee-fEj"/>
                             <constraint firstItem="5cM-AH-7xD" firstAttribute="top" secondItem="xO3-8x-CO4" secondAttribute="bottom" constant="10" id="bZN-W4-4Cn"/>
                             <constraint firstItem="lIB-9o-WFQ" firstAttribute="leading" secondItem="fJR-Fy-Wbw" secondAttribute="leading" id="d8Z-ZA-zEX"/>
+                            <constraint firstItem="i75-yM-Qh1" firstAttribute="centerY" secondItem="xO3-8x-CO4" secondAttribute="centerY" constant="-5" id="eMi-Ft-q8d"/>
                             <constraint firstAttribute="trailing" secondItem="i75-yM-Qh1" secondAttribute="trailing" constant="10" id="eSW-mv-lwA"/>
                             <constraint firstAttribute="trailing" secondItem="lIB-9o-WFQ" secondAttribute="trailing" id="oZh-Rc-Dtl"/>
                         </constraints>
@@ -199,6 +208,7 @@
                 <outlet property="imgUser" destination="nZb-Na-1xH" id="Uut-yt-kIz"/>
                 <outlet property="lblDate" destination="5hl-iM-mBQ" id="n6L-0g-Dh9"/>
                 <outlet property="lblPrice" destination="2MW-lM-Tij" id="iwF-wo-paY"/>
+                <outlet property="lblStatus" destination="L8A-rR-EjC" id="lpb-cz-wVi"/>
                 <outlet property="lblSubscriptionPrice" destination="rXa-dp-8gh" id="K4b-3T-Q5g"/>
                 <outlet property="lblUserName" destination="Jlu-cO-snp" id="BvT-QE-0o6"/>
                 <outlet property="viwSubscribe" destination="zRl-nk-rCw" id="aLj-Al-6ET"/>
