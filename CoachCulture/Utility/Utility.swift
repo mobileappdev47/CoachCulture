@@ -441,3 +441,45 @@ func createDirectory(MyFolderName : String) -> URL{
     
     return dataPath
 }
+
+func convertUTCToLocalDate(dateStr:String, sourceFormate: String, destinationFormate: String) -> Date {
+    let dateFormatter = DateFormatter()
+    let localDateStr = convertUTCToLocal(dateStr: dateStr, sourceFormate: sourceFormate, destinationFormate: destinationFormate)
+    dateFormatter.timeZone = TimeZone.current
+    dateFormatter.dateFormat = destinationFormate
+
+    if let date = dateFormatter.date(from: localDateStr) {
+        return date
+    }
+    return Date()
+}
+
+func convertUTCToLocal(dateStr:String, sourceFormate: String, destinationFormate: String) -> String {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = sourceFormate
+    dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+    
+    if let date = dateFormatter.date(from: dateStr) {
+        dateFormatter.timeZone = TimeZone.current
+        dateFormatter.dateFormat = destinationFormate
+        
+        return dateFormatter.string(from: date)
+    }
+    return ""
+}
+
+func getCurrencySymbol(from currency: String) -> String {
+    var currencySybmol = ""
+    
+    switch currency {
+    case BaseCurrencyList.SGD:
+        currencySybmol = BaseCurrencySymbol.SGD
+    case BaseCurrencyList.USD:
+        currencySybmol = BaseCurrencySymbol.USD
+    case BaseCurrencyList.EUR:
+        currencySybmol = BaseCurrencySymbol.EUR
+    default:
+        currencySybmol = ""
+    }
+    return currencySybmol
+}

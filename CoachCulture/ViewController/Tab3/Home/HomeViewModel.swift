@@ -107,10 +107,29 @@ class PopularTrainerList {
     
     var coach_id = ""
     var count_coach = ""
+    
+    var coach_banner_file = ""
+    var coach_trailer_file = ""
+    var lastName = ""
+    var countrycode = ""
+    var date_of_birth = ""
+    var email = ""
+    var first_name = ""
+    var id = ""
+    var last_name = ""
+    var login_type = ""
+    var monthly_subscription_fee = ""
+    var nationality = ""
+    var phonecode = ""
+    var phoneno = ""
     var user_image = ""
     var username = ""
+    var base_currency = ""
+    var account_currency = ""
+    var is_followed = false
     var total_followers = ""
-    
+    var feesDataObj = FeesData()
+    var is_coach_subscribed = false
     
     init() {}
     
@@ -122,6 +141,29 @@ class PopularTrainerList {
         username = map.value("username") ?? ""
         total_followers = map.value("total_followers") ?? ""
        
+        coach_banner_file = map.value("coach_banner_file") ?? ""
+        
+        coach_trailer_file = map.value("coach_trailer_file") ?? ""
+        is_followed = map.value("is_followed") ?? false
+        lastName = map.value("lastName") ?? ""
+        countrycode = map.value("countrycode") ?? ""
+        date_of_birth = map.value("date_of_birth") ?? ""
+        email = map.value("email") ?? ""
+        account_currency = map.value("account_currency") ?? ""
+        first_name = map.value("first_name") ?? ""
+        id = map.value("id") ?? ""
+        last_name = map.value("last_name") ?? ""
+        login_type = map.value("login_type") ?? ""
+        monthly_subscription_fee = map.value("monthly_subscription_fee") ?? ""
+        nationality = map.value("nationality") ?? ""
+        phonecode = map.value("phonecode") ?? ""
+        username = map.value("username") ?? ""
+        user_image = map.value("user_image") ?? ""
+        phoneno = map.value("phoneno") ?? ""
+        base_currency = map.value("base_currency") ?? ""
+        total_followers = map.value("total_followers") ?? ""
+        is_coach_subscribed = map.value("is_coach_subscribed") ?? false
+        feesDataObj = FeesData(responseObj: responseObj["fees"] as? [String : Any] ?? [String : Any]())
     }
     
     class func getData(data : [Any]) -> [PopularTrainerList] {

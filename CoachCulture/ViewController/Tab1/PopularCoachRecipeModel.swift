@@ -65,9 +65,6 @@ class PopularRecipeData {
         for temp in arrDietaryRestrictionListData {
             arrdietary_restriction.append(temp.dietary_restriction_name)
         }
-        
-        
-
     }
     
     

@@ -310,17 +310,19 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
         }
         cell.lblTitle.text = model.class_type_name
         cell.lblSubTitle.text = model.class_subtitle
-        cell.lblDateTime.text = model.class_time
-        cell.lblDate.text = model.class_date
         cell.lblTime.text = model.duration
         cell.lblUsername.text = "@\(model.coachDetailsObj.username)"
 
         if model.coach_class_type == CoachClassType.live {
             cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             cell.lblClassType.text = "LIVE"
+            cell.lblDateTime.text = convertUTCToLocal(dateStr: model.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm")
+            cell.lblDate.text = convertUTCToLocal(dateStr: model.class_date, sourceFormate: "yyyy-MM-dd", destinationFormate: "dd MMM yyyy")
         } else if model.coach_class_type == CoachClassType.onDemand {
             cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
             cell.lblClassType.text = "ON DEMAND"
+            cell.lblDate.text = "\(model.total_viewers) Views"
+            cell.lblDateTime.text = convertUTCToLocal(dateStr: model.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
         }
         
         if arrNewClass.count - 1 == indexPath.row {

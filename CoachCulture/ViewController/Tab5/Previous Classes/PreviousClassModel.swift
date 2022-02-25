@@ -26,12 +26,14 @@ class CoachClassPrevious {
     var coachDetailsObj = CoachDetailsData()
     var userRatingObj = UserRating()
     var username = ""
-   
+    var created_at = ""
+    
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
         id = map.value("id") ?? ""
+        created_at = map.value("created_at") ?? ""
         username = map.value("username") ?? ""
         thumbnail_image = map.value("thumbnail_image") ?? ""
         coach_class_type = map.value("coach_class_type") ?? ""
@@ -85,4 +87,28 @@ class UserRating {
 class ClassDate {
     var date = ""
     var strDate = ""
+}
+
+class NewUploadList {
+    var map: Map!
+    var on_demand : CoachClassPrevious?
+    var live : CoachClassPrevious?
+    var Recipe : PopularRecipeData?
+    
+    init() {}
+    
+    init(responseObj: [String : Any]) {
+        map = Map(data: responseObj )
+        on_demand = CoachClassPrevious(responseObj: responseObj["on_demand"] as? [String : Any] ?? [String : Any]())
+        Recipe = PopularRecipeData(responseObj: responseObj["Recipe"] as? [String : Any] ?? [String : Any]())
+        live = CoachClassPrevious(responseObj: responseObj["live"] as? [String : Any] ?? [String : Any]())
+    }
+        
+    class func getData(data : [Any]) -> [NewUploadList] {
+        var arrTemp = [NewUploadList]()
+        for temp in data {
+            arrTemp.append(NewUploadList(responseObj: temp as? [String : Any] ?? [String : Any]()))
+        }
+        return arrTemp
+    }
 }
