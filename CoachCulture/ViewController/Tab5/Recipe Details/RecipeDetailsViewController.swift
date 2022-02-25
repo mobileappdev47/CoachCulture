@@ -43,6 +43,7 @@ class RecipeDetailsViewController: BaseViewController {
     var recipeDetailDataObj = RecipeDetailData()
     var dropDown = DropDown()
     var recipeID = ""
+    var isNew = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -132,6 +133,15 @@ class RecipeDetailsViewController: BaseViewController {
         tblIntredienta.reloadData()
         
     }
+    
+    private func navigateToDashboard() {
+        for controller in navigationController!.viewControllers {
+            if controller.isKind(of: EditProfileViewController.self) {
+                self.navigationController?.popToViewController(controller, animated: true)
+                break
+            } else {}
+        }
+    }
 
     // MARK: - Click events
     @IBAction func clickToBtnAddIngredient(_ sender : UIButton) {
@@ -154,6 +164,14 @@ class RecipeDetailsViewController: BaseViewController {
             addOrRemoveFromBookMark(bookmark: "no")
         }
         
+    }
+    
+    @IBAction func tapOnBack(_ sender: UIButton) {
+        if isNew {
+            navigateToDashboard()
+        } else {
+            self.popVC(animated: true)
+        }
     }
     
     @IBAction func clickToBtn3Dots( _ sender: UIButton) {

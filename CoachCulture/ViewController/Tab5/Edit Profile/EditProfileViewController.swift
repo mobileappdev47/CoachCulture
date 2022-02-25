@@ -140,6 +140,10 @@ class EditProfileViewController: BaseViewController {
             self.removeAddPhotoView()
         }
         
+        addPhotoPopUp.tapToBtnView {
+            self.removeAddPhotoView()
+        }
+        
         nationalityView = Bundle.main.loadNibNamed("NationalityView", owner: nil, options: nil)?.first as? NationalityView
         nationalityView.tapToBtnSelectItem { obj in
             
@@ -254,7 +258,7 @@ class EditProfileViewController: BaseViewController {
     @IBAction func clickToBtnPlayCoachTrailer(_ sender : UIButton) {
         
         let videoURL = URL(string: userDataObj.coach_trailer_file)
-        let player = AVPlayer(url: videoURL!)
+        let player = AVPlayer(url: videoURL ?? URL(fileURLWithPath: ""))
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         self.present(playerViewController, animated: true) {

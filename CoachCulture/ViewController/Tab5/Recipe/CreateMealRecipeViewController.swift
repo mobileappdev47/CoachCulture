@@ -57,6 +57,10 @@ class CreateMealRecipeViewController: BaseViewController {
             self.removeAddPhotoView()
         }
         
+        addPhotoPopUp.tapToBtnView {
+            self.removeAddPhotoView()
+        }
+        
         addPhotoPopUp.tapToBtnGallery {
             self.loadPhotoGalleryView()
             self.removeAddPhotoView()
@@ -232,14 +236,19 @@ extension CreateMealRecipeViewController: UIImagePickerControllerDelegate, UINav
         
         picker.dismiss(animated: true, completion: nil)
         
-        var editedImage:UIImage?
+        var editedImage:UIImage!
         
         editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
         if editedImage == nil {
             editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
         
-        photoData = editedImage!.jpegData(compressionQuality: 1.0)
+        if editedImage.getSizeIn(.megabyte, recdData: self.photoData ?? Data()) > 5.0 {
+            photoData = editedImage.jpegData(compressionQuality: 0.5)
+        } else {
+            photoData = editedImage.jpegData(compressionQuality: 1.0)
+        }
+        
         self.imgThumbnail.image = editedImage
         self.uploadRecipePhoto()
         

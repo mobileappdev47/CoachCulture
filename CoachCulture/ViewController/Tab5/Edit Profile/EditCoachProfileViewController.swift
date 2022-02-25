@@ -137,6 +137,9 @@ class EditCoachProfileViewController: BaseViewController {
             self.removeAddPhotoView()
         }
         
+        addPhotoPopUp.tapToBtnView {
+            self.removeAddPhotoView()
+        }
         customDatePickerForBirthDate = CustomDatePickerViewForTextFeild(textField: txtDummyBOD, format: "yyyy-MM-dd", mode: .date)
         customDatePickerForBirthDate.pickerView { (str, date) in
             let arrStr = str.components(separatedBy: "-")

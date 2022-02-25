@@ -11,6 +11,7 @@ class AddPhotoPopUp: UIView {
 
     internal var handlerForBtnGallery: (() -> Void)?
     internal var handlerForBtnCamera: (() -> Void)?
+    internal var handlerForBtnView: (() -> Void)?
 
 
     
@@ -26,6 +27,11 @@ class AddPhotoPopUp: UIView {
         self.handlerForBtnCamera = handler
     }
     
+    public func tapToBtnView(_ handler: @escaping () -> Void)
+    {
+        self.handlerForBtnView = nil
+        self.handlerForBtnView = handler
+    }
     
     @IBAction func clickToBtnGallery() {
         
@@ -43,5 +49,11 @@ class AddPhotoPopUp: UIView {
         }
     }
 
-
+    @IBAction func clickToBtnView(_ sender: UITapGestureRecognizer) {
+        if handlerForBtnView != nil
+        {
+            handlerForBtnView!()
+        }
+    }
+    
 }
