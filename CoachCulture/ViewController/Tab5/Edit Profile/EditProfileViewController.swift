@@ -56,8 +56,8 @@ class EditProfileViewController: BaseViewController {
     var photoData:Data!
     var selectedButton = UIButton()
     var user_image = ""
-    var accountCurrency = "USD"
-    var baseCurrency = "USD"
+    var accountCurrency = ""
+    var baseCurrency = ""
     var fromCurrency = true
     var coach_banner_file = ""
     var coach_trailer_file = ""
@@ -74,6 +74,11 @@ class EditProfileViewController: BaseViewController {
         super.viewDidLoad()
         
         setUpUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setData()
     }
     
     func setUpUI() {
@@ -118,6 +123,8 @@ class EditProfileViewController: BaseViewController {
                 }
             }
         }
+        txtPassword.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USER_PASSWORD)
+        txtRetypePassword.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USER_PASSWORD)
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
         dropDown.selectionBackgroundColor = .clear
@@ -130,6 +137,10 @@ class EditProfileViewController: BaseViewController {
         
         addPhotoPopUp.tapToBtnGallery {
             self.loadPhotoGalleryView()
+            self.removeAddPhotoView()
+        }
+        
+        addPhotoPopUp.tapToBtnView {
             self.removeAddPhotoView()
         }
         
@@ -174,7 +185,22 @@ class EditProfileViewController: BaseViewController {
     
     func setData() {
         dropDown.dataSource  = ["US$", "S$", "€"]
-        self.selectedCurrency = self.userDataObj.base_currency
+        self.baseCurrency = self.userDataObj.base_currency
+        if baseCurrency == BaseCurrencyList.USD {
+            lblSubscriptionCurrentSym.text = BaseCurrencySymbol.USD
+        } else if baseCurrency == BaseCurrencyList.SGD {
+            lblSubscriptionCurrentSym.text = BaseCurrencySymbol.SGD
+        } else if baseCurrency == BaseCurrencyList.EUR {
+            lblSubscriptionCurrentSym.text = BaseCurrencySymbol.EUR
+        }
+        self.accountCurrency = self.userDataObj.account_currency
+        if accountCurrency == BaseCurrencyList.USD {
+            lblAcCurrency.text = BaseCurrencySymbol.USD
+        } else if accountCurrency == BaseCurrencyList.SGD {
+            lblAcCurrency.text = BaseCurrencySymbol.SGD
+        } else if accountCurrency == BaseCurrencyList.EUR {
+            lblAcCurrency.text = BaseCurrencySymbol.EUR
+        }
         txtUserName.text = userDataObj.username
         txtEmail.text = userDataObj.email
         txtPhone.text = userDataObj.phoneno
@@ -182,7 +208,8 @@ class EditProfileViewController: BaseViewController {
         countryCodeDesc = userDataObj.countrycode
         self.imgCountryCode.image = UIImage.init(named: "\(countryCodeDesc).png")
         self.imgUserProfile.setImageFromURL(imgUrl: userDataObj.user_image, placeholderImage: nil)
-        txtMonthlySubscriptionFees.text =   "10" //userDataObj.monthly_subscription_fee
+        self.imgCoachBanner.setImageFromURL(imgUrl: userDataObj.coach_banner_file, placeholderImage: nil)
+        txtMonthlySubscriptionFees.text = self.userDataObj.monthly_subscription_fee
         coach_trailer_file = userDataObj.coach_trailer_file
         if !userDataObj.coach_trailer_file.isEmpty {
             lblCoachTrailer.text = "Delete Coach Trailer"
@@ -231,7 +258,7 @@ class EditProfileViewController: BaseViewController {
     @IBAction func clickToBtnPlayCoachTrailer(_ sender : UIButton) {
         
         let videoURL = URL(string: userDataObj.coach_trailer_file)
-        let player = AVPlayer(url: videoURL!)
+        let player = AVPlayer(url: videoURL ?? URL(fileURLWithPath: ""))
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         self.present(playerViewController, animated: true) {
@@ -538,9 +565,8 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        picker.dismiss(animated: true, completion: nil)
         
-        var editedImage:UIImage?
+        var editedImage:UIImage!
         
         if selectedButton == btnCoachTrailer {
             
@@ -561,7 +587,11 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
                 editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             }
             
-            photoData = editedImage!.jpegData(compressionQuality: 1.0)
+            if editedImage.getSizeIn(.megabyte, recdData: self.photoData ?? Data()) > 5.0 {
+                photoData = editedImage.jpegData(compressionQuality: 0.5)
+            } else {
+                photoData = editedImage.jpegData(compressionQuality: 1.0)
+            }
             
             if selectedButton == btnEditUserPhoto {
                 imgUserProfile.image = editedImage
@@ -572,6 +602,7 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             
             
             self.uploadUserPhoto()
+            picker.dismiss(animated: true, completion: nil)
         }
         
         

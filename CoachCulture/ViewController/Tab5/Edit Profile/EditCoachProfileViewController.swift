@@ -71,7 +71,7 @@ class EditCoachProfileViewController: BaseViewController {
     var user_image = ""
     var userDataObj = UserData()
     var baseCurrency = "USD"
-    var accountCurrency = "USD"
+    var accountCurrency = ""
     var fromCurrency = true
     
     override func viewDidLoad() {
@@ -85,14 +85,6 @@ class EditCoachProfileViewController: BaseViewController {
         
         imgUserProfile.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936"))
         imgUserProfile.addCornerRadius(5)
-        
-        if accountCurrency == "USD" {
-            lblAcCurrency.text = "US$"
-        } else if accountCurrency == "SGD" {
-            lblAcCurrency.text = "S$"
-        } else if accountCurrency == "EUR" {
-            lblAcCurrency.text = "€"
-        }
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if fromCurrency {
@@ -145,6 +137,9 @@ class EditCoachProfileViewController: BaseViewController {
             self.removeAddPhotoView()
         }
         
+        addPhotoPopUp.tapToBtnView {
+            self.removeAddPhotoView()
+        }
         customDatePickerForBirthDate = CustomDatePickerViewForTextFeild(textField: txtDummyBOD, format: "yyyy-MM-dd", mode: .date)
         customDatePickerForBirthDate.pickerView { (str, date) in
             let arrStr = str.components(separatedBy: "-")
@@ -164,7 +159,7 @@ class EditCoachProfileViewController: BaseViewController {
             self.navigationController?.popViewController(animated: true)
             self.removesuccessPopUpForCoachProfieView()
         }
-        
+                
         getNationality()
         getUserProfile()
         
@@ -177,6 +172,16 @@ class EditCoachProfileViewController: BaseViewController {
         txtProfilePhone.text = userDataObj.phoneno
         txtProfileCountryCode.text = userDataObj.phonecode
         accountCurrency = userDataObj.account_currency
+        baseCurrency = userDataObj.base_currency
+        txtProfilePassword.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USER_PASSWORD)
+        txtProfileRetypePassword.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USER_PASSWORD)
+        if accountCurrency == BaseCurrencyList.USD {
+            lblAcCurrency.text = BaseCurrencySymbol.USD
+        } else if accountCurrency == BaseCurrencyList.SGD {
+            lblAcCurrency.text = BaseCurrencySymbol.SGD
+        } else if accountCurrency == BaseCurrencyList.EUR {
+            lblAcCurrency.text = BaseCurrencySymbol.EUR
+        }
         countryCodeDesc = userDataObj.countrycode
         self.imgCountryCode.image = UIImage.init(named: "\(countryCodeDesc).png")
         self.imgUserProfile.setImageFromURL(imgUrl: userDataObj.user_image, placeholderImage: nil)
@@ -248,11 +253,11 @@ class EditCoachProfileViewController: BaseViewController {
     }
     
     @IBAction func clickTobBtnCurrency(_ sender: UIButton) {
-        setNationalityView()
-//        dropDown.show()
-//        dropDown.anchorView = btnCurrency
-//        fromCurrency = true
-//        dropDown.width = sender.frame.width
+//        setNationalityView()
+        dropDown.show()
+        dropDown.anchorView = btnCurrency
+        fromCurrency = true
+        dropDown.width = sender.frame.width
     }
     
     @IBAction func clickTobBtnSubmit(_ sender: UIButton) {
@@ -278,7 +283,7 @@ class EditCoachProfileViewController: BaseViewController {
         } else if imgTermsCondition.isHighlighted == false {
             Utility.shared.showToast("Accept terms and condition")
         } else {
-            checkEmail()
+            self.registerAsCoach()
         }
     }
     
@@ -347,7 +352,11 @@ extension EditCoachProfileViewController: UIImagePickerControllerDelegate, UINav
             editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
         
-        photoData = editedImage.jpegData(compressionQuality: 1.0)
+        if editedImage.getSizeIn(.megabyte, recdData: self.photoData ?? Data()) > 5.0 {
+            photoData = editedImage.jpegData(compressionQuality: 0.5)
+        } else {
+            photoData = editedImage.jpegData(compressionQuality: 1.0)
+        }
         
         if selectedButton == btnEditUserPhoto {
             self.imgUserProfile.image = editedImage
@@ -501,6 +510,7 @@ extension EditCoachProfileViewController {
         }
         
         let param = [
+//            "user_image": ,
             "type": selectedButton == btnEditUserPhoto ? "user_image" as AnyObject? : "user_passport_id_image" as AnyObject?
         ] as [String : AnyObject]
         

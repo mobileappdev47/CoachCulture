@@ -16,6 +16,8 @@ struct DEFAULTS_KEY {
     static let AUTH_TOKEN = "Authorization"
     static let USER_DATA = "LoginUserData"
     static let USER_ID = "UserId"
+    static let USERNAME = "UserName"
+    static let USER_PASSWORD = "UserPassword"
 }
 
 struct API {

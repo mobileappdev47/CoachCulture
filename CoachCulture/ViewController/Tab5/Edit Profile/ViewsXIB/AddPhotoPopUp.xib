@@ -81,13 +81,22 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="QzS-B7-eJv" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="50" id="8Jk-eY-vb4"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="QzS-B7-eJv" secondAttribute="trailing" constant="50" id="S6m-e2-pc3"/>
                 <constraint firstItem="QzS-B7-eJv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="SbW-on-4mr"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="WnN-3g-BdJ" appends="YES" id="BPp-uJ-8YQ"/>
+            </connections>
             <point key="canvasLocation" x="132" y="40"/>
         </view>
+        <tapGestureRecognizer id="WnN-3g-BdJ">
+            <connections>
+                <action selector="clickToBtnView:" destination="iN0-l3-epB" id="t16-4o-zTq"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <namedColor name="textColor">
