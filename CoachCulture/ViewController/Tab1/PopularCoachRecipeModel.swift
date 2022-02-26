@@ -29,13 +29,20 @@ class PopularRecipeData {
     var status = ""
     var arrRecipeSteps = [String:AnyObject]()
     var arrdietary_restriction = [String]()
-   
-   
+    var coach_image = ""
+    var username = ""
+    var meal_type_name = ""
+    var dietary_restriction_name = ""
+    
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
         id = map.value("id") ?? ""
+        dietary_restriction_name =  map.value("dietary_restriction_name") ?? ""
+        meal_type_name =  map.value("meal_type_name") ?? ""
+        username =  map.value("username") ?? ""
+        coach_image =  map.value("coach_image") ?? ""
         thumbnail_image = map.value("thumbnail_image") ?? ""
         title = map.value("title") ?? ""
         sub_title = map.value("sub_title") ?? ""

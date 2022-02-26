@@ -14,11 +14,16 @@ class ClassFilterViewController: BaseViewController {
         return vc
     }
     
-    @IBOutlet weak var bottomConstantViewMyCoachesOnly: NSLayoutConstraint!
+    @IBOutlet weak var viewMaxClassDurationExtra: UIView!
+    @IBOutlet weak var viewMyCoachOnlyExtra: UIView!
+    @IBOutlet weak var viwBookmarkOnly : UIView!
+    @IBOutlet weak var viwMyCoachesOnly : UIView!
+    @IBOutlet weak var viewMinClassDuration: UIView!
+    @IBOutlet weak var viewMaxClassDuration: UIView!
+    
     @IBOutlet weak var heightConstantViewMyCoachesOnly: NSLayoutConstraint!
     @IBOutlet weak var clvClassType : UICollectionView!
     @IBOutlet weak var lctClassTypeHeight : NSLayoutConstraint!
-    
     @IBOutlet weak var clvDifficultyLevel : UICollectionView!
     
     @IBOutlet weak var btnLive : UIButton!
@@ -36,8 +41,6 @@ class ClassFilterViewController: BaseViewController {
 
     @IBOutlet weak var viwLive : UIView!
     @IBOutlet weak var viwOnDemand : UIView!
-    @IBOutlet weak var viwBookmarkOnly : UIView!
-    @IBOutlet weak var viwMyCoachesOnly : UIView!
     
     var classDuration : ClassDuration!
     
@@ -47,6 +50,7 @@ class ClassFilterViewController: BaseViewController {
     var searchResultVC : SearchResultViewController!
 
     var isFromBookMarkPage = false
+    var isFromRecipe = false
     
     var param = [String:Any]()
     
@@ -60,14 +64,17 @@ class ClassFilterViewController: BaseViewController {
     
     // MARK: - METHODS
     func setUpUI() {
-        if previousClassVC == nil {
+        if previousClassVC != nil && isFromRecipe {
+            self.viwBookmarkOnly.isHidden = true
             self.viwMyCoachesOnly.isHidden = true
-            self.heightConstantViewMyCoachesOnly.constant = 0.0
-            self.bottomConstantViewMyCoachesOnly.constant = 0.0
-        } else {
-            self.viwMyCoachesOnly.isHidden = false
-            self.heightConstantViewMyCoachesOnly.constant = 50.0
-            self.bottomConstantViewMyCoachesOnly.constant = 15.0
+            self.viewMinClassDuration.isHidden = true
+            self.viewMaxClassDuration.isHidden = true
+            self.callMealTypeAndDietaryRestrictionList()
+        } else if previousClassVC != nil && !isFromRecipe {
+            self.viewMyCoachOnlyExtra.isHidden = true
+            self.viewMaxClassDurationExtra.isHidden = true
+            clickToBtnClassType(btnLive)
+            getClassType()
         }
         clvClassType.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
         clvClassType.delegate = self
@@ -90,10 +97,7 @@ class ClassFilterViewController: BaseViewController {
         viwBookmarkOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         
-        clickToBtnClassType(btnLive)
-        
-        getClassType()
-        
+        self.view.layoutIfNeeded()
     }
     
     func setData() {
@@ -275,6 +279,28 @@ class ClassFilterViewController: BaseViewController {
 
 // MARK: - API CALL
 extension ClassFilterViewController {
+    
+    func callMealTypeAndDietaryRestrictionList() {
+        showLoader()
+        
+        _ =  ApiCallManager.requestApi(method: .get, urlString: API.MEAL_TYPE_AND_DIETARY_RESTRICTION_LIST, parameters: nil, headers: nil) { responseObj in
+            
+            let responseModel = ResponseDataModel(responseObj: responseObj)
+            
+            if responseModel.success {
+                let dataObj = responseObj["data"] as? [Any] ?? [Any]()
+                self.arrClassTypeList = ClassTypeList.getData(data: dataObj)
+                self.clvClassType.reloadData()
+                self.lctClassTypeHeight.constant = self.clvClassType.collectionViewLayout.collectionViewContentSize.height
+            }
+            
+            self.getClassDifficultyList()
+            
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
     
     func getClassType() {
         showLoader()
