@@ -15,10 +15,14 @@ class ManageSubscriptionListViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var lblPageTitle: UILabel!
     @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var tblManageSubscription: UITableView!
     
+    @IBOutlet weak var lblNoDataFound: UILabel!
+    @IBOutlet weak var lblActiveCount: UILabel!
     @IBOutlet weak var txtSearch: UITextField!
+    @IBOutlet weak var lblCancelledCount: UILabel!
     var arrSubsciptionList = [SubsciptionList]()
     
     private var isDataLoading = false
@@ -29,7 +33,8 @@ class ManageSubscriptionListViewController: BaseViewController {
     var dataRequest: DataRequest?
     var cancelSubScription: CancelSubScription!
     var logOutView:LogOutView!
-
+    var isFromSubscribers = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +44,10 @@ class ManageSubscriptionListViewController: BaseViewController {
     
     // MARK: - Methods
     func setUpUI() {
+        lblPageTitle.text = isFromSubscribers ? "Subscribers" : "Subscribed"
+        lblNoDataFound.text = isFromSubscribers ? "No subscribers found" : "No subscribed found"
+        lblCancelledCount.isHidden = isFromSubscribers ? false : true
+        lblActiveCount.isHidden = isFromSubscribers ? false : true
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
 
         hideTabBar()
@@ -90,11 +99,17 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
         let cell = tableView.dequeueReusableCell(withIdentifier: "SubscriptionItemTableViewCell", for: indexPath) as! SubscriptionItemTableViewCell
         let obj = arrSubsciptionList[indexPath.row]
         cell.selectedIndex = indexPath.row
-        cell.viwUnsubscribe.isHidden = obj.unsubscribe_status ? true : false
-        cell.viwSubscribe.isHidden = obj.unsubscribe_status ? false : true
         
-        let currencySybmol = getCurrencySymbol(from: obj.feesDataObj.fee_regional_currency)
-        cell.lblPrice.text =  "\(currencySybmol)\(obj.feesDataObj.subscriber_fee)"
+        cell.lblStatus.isHidden = isFromSubscribers ? false : true
+        cell.lblStatus.text = obj.status
+        cell.lblStatus.textColor = COLORS.RECIPE_COLOR
+        cell.lblStatus.textAlignment = obj.status == "Active" ? .center : .right
+        cell.viwUnsubscribe.isHidden = isFromSubscribers ? true : (obj.unsubscribe_status ? true : false)
+        cell.viwSubscribe.isHidden = isFromSubscribers ? true : (obj.unsubscribe_status ? false : true)
+        
+        let currencySybmol = isFromSubscribers ? getCurrencySymbol(from: obj.base_currency) : getCurrencySymbol(from: obj.feesDataObj.fee_regional_currency)
+        cell.lblPrice.text = isFromSubscribers ? "\(currencySybmol)\(obj.amount)" : "\(currencySybmol)\(obj.feesDataObj.subscriber_fee)"
+        cell.lblSubscriptionPrice.text = "\(currencySybmol)\(obj.feesDataObj.subscriber_fee)"
 
         cell.didTapUnsubscribeClick = {
             self.addConfirmationView()
@@ -104,7 +119,11 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
         }
         
         cell.lblUserName.text = "@" + obj.username
-        cell.lblDate.text = "end " +  obj.endDate
+        if isFromSubscribers {
+            cell.lblDate.text = obj.status == "Active" ? ("Renews " + obj.endDate) : ("Ends " + obj.endDate)
+        } else {
+            cell.lblDate.text = obj.unsubscribe_status ? ("Ends " + obj.endDate) : ("Renews " + obj.endDate)
+        }
         cell.imgUser.setImageFromURL(imgUrl: obj.user_image, placeholderImage: nil)
         if arrSubsciptionList.count - 1 == indexPath.row {
             isDataLoading = false
@@ -167,20 +186,23 @@ extension ManageSubscriptionListViewController {
         let param = [ "search" : searchString,
                       "page_no" : "\(pageNo)",
                       "per_page" : "\(perPageCount)"]
+        let api = isFromSubscribers ? API.GET_COACH_SUBSCRIBER_USER_SEARCH_LIST : API.GET_SUBSCRIPTION_COACH_LIST
         
-        
-        dataRequest =  ApiCallManager.requestApi(method: .post, urlString: API.GET_SUBSCRIPTION_COACH_LIST, parameters: param, headers: nil) { responseObj in
+        dataRequest =  ApiCallManager.requestApi(method: .post, urlString: api, parameters: param, headers: nil) { responseObj in
             
             let dataObj = responseObj["coach_list"] as? [Any] ?? [Any]()
             let arr = SubsciptionList.getData(data: dataObj)
             
             if arr.count > 0 {
+                if let status_total = responseObj["status_total"] as? [String:Any] {
+                    self.lblActiveCount.text = "\(status_total["total_Active"] as? Int ?? 0) Active"
+                    self.lblCancelledCount.text = "\(status_total["total_Inactive"] as? Int ?? 0) Cancelled"
+                }
                 self.arrSubsciptionList.append(contentsOf: arr)
                 self.tblManageSubscription.reloadData()
             }
             
-            if arr.count < self.perPageCount
-            {
+            if arr.count < self.perPageCount {
                 self.continueLoadingData = false
             }
             self.isDataLoading = false

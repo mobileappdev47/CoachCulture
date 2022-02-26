@@ -17,7 +17,8 @@ class SubscriptionItemTableViewCell: UITableViewCell {
     @IBOutlet weak var lblSubscriptionPrice: UILabel!
     @IBOutlet weak var viwUnsubscribe: UIView!
     @IBOutlet weak var viwSubscribe: UIView!
-
+    @IBOutlet weak var lblStatus: UILabel!
+    
     var didTapUnsubscribeClick : (() -> Void)!
     var selectedIndex = 0
     

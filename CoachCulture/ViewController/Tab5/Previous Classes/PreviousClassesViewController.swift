@@ -43,6 +43,7 @@ class PreviousClassesViewController: BaseViewController {
     
     var searchString = ""
     var class_type = "on_demand"
+    var class_type_name = ""
     var coach_only = "no"
     var bookmark_only = "no"
     var max_duration = ""
@@ -115,6 +116,7 @@ class PreviousClassesViewController: BaseViewController {
         viwRecipeLine.isHidden = true
         resetVariable()
         if sender == btnLive {
+            class_type = "live"
             viwLiveLine.isHidden = false
             getPrevoisCoachClassList()
         }
@@ -126,6 +128,7 @@ class PreviousClassesViewController: BaseViewController {
         }
         
         if sender == btnOnDemand {
+            class_type = "on_demand"
             viwOnDemandLine.isHidden = false
             getPrevoisCoachClassList()
         }
@@ -277,21 +280,30 @@ extension PreviousClassesViewController {
         if(isDataLoading || !continueLoadingData){
             return
         }
-        
         isDataLoading = true
-        
         showLoader()
-        let param = [ "page_no" : "\(pageNo)",
-                      "per_page" : "\(perPageCount)",
-                      "coach_only" : coach_only,
-                      "bookmark_only" : isFromBookMarkPage ? "yes" : bookmark_only ,
-                      "max_duration" : max_duration,
-                      "min_duration" : min_duration,
-                      "class_difficulty_name" : class_difficulty_name,
-                      "subscription" : "",
-                      "search" : searchString,
-                      "class_type" : class_type,
-        ]
+        
+        var param = [String:Any]()
+        if isFromBookMarkPage {
+            param["bookmark_only"] = "yes"
+        }
+        if !class_difficulty_name.isEmpty || class_difficulty_name != "" {
+            param["class_difficulty_name"] = class_difficulty_name
+        }
+        if !min_duration.isEmpty || min_duration != "" {
+            param["min_duration"] = min_duration
+        }
+        if !max_duration.isEmpty || max_duration != "" {
+            param["max_duration"] = max_duration
+        }
+        if !class_type_name.isEmpty || class_type_name != "" {
+            param["class_type_name"] = class_type_name
+        }
+        
+        param["page_no"] = "\(pageNo)"
+        param["per_page"] = "\(perPageCount)"
+        param["class_type"] = class_type
+        param["subscription"] = true
         
         paramForApi =  param
         

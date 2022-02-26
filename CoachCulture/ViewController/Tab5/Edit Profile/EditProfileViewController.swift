@@ -317,8 +317,9 @@ class EditProfileViewController: BaseViewController {
             let vc = PreviousUploadViewController.viewcontroller()
             self.navigationController?.pushViewController(vc, animated: true)
         } else if sender.tag == 4 {
-            let vc = RecipeDetailsViewController.viewcontroller()
-            self.navigationController?.pushViewController(vc, animated: true)
+            let nextVc = ManageSubscriptionListViewController.viewcontroller()
+            nextVc.isFromSubscribers = true
+            self.pushVC(To: nextVc, animated: true)
         }
     }
     

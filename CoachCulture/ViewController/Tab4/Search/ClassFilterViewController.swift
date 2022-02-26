@@ -14,6 +14,8 @@ class ClassFilterViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var bottomConstantViewMyCoachesOnly: NSLayoutConstraint!
+    @IBOutlet weak var heightConstantViewMyCoachesOnly: NSLayoutConstraint!
     @IBOutlet weak var clvClassType : UICollectionView!
     @IBOutlet weak var lctClassTypeHeight : NSLayoutConstraint!
     
@@ -58,7 +60,15 @@ class ClassFilterViewController: BaseViewController {
     
     // MARK: - METHODS
     func setUpUI() {
-        
+        if previousClassVC == nil {
+            self.viwMyCoachesOnly.isHidden = true
+            self.heightConstantViewMyCoachesOnly.constant = 0.0
+            self.bottomConstantViewMyCoachesOnly.constant = 0.0
+        } else {
+            self.viwMyCoachesOnly.isHidden = false
+            self.heightConstantViewMyCoachesOnly.constant = 50.0
+            self.bottomConstantViewMyCoachesOnly.constant = 15.0
+        }
         clvClassType.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
         clvClassType.delegate = self
         clvClassType.dataSource = self
@@ -247,7 +257,12 @@ class ClassFilterViewController: BaseViewController {
             previousClassVC!.min_duration = self.lblMinClassDuration.text! == "0 mins" ? "" : self.lblMinClassDuration.text!
             previousClassVC!.max_duration = self.lblMaxClassDuration.text! == "0 mins" ? "" : self.lblMaxClassDuration.text!
             previousClassVC!.class_difficulty_name = class_difficulty_name
-            previousClassVC!.class_type = btnLive.isSelected ? "live" : "on_demand"
+            //previousClassVC!.class_type = btnLive.isSelected ? "live" : "on_demand"
+            
+            let arrfilterClassTypeNameModel = arrClassTypeList.filter({$0.isSelected})
+            let arrfilterClassTypeName = arrfilterClassTypeNameModel.map({$0.class_type_name})
+            
+            previousClassVC.class_type_name = arrfilterClassTypeName.joined(separator: ",")
             previousClassVC!.getPrevoisCoachClassList()
         }
         
@@ -346,7 +361,7 @@ extension ClassFilterViewController: UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width =  (clvClassType.frame.width - 30 ) / 3
-        return CGSize(width: width, height: 40)
+        return CGSize(width: width, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)

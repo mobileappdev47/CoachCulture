@@ -106,6 +106,19 @@
                                     <constraint firstAttribute="bottom" secondItem="RzM-K7-lYi" secondAttribute="bottom" constant="3" id="ne5-uS-pYU"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="jAG-Iy-Ffu">
+                                <rect key="frame" x="10" y="71" width="298" height="20"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="NuA-NA-BfJ"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ES2-mZ-BFH">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                            </collectionView>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K0b-IS-NAS" userLabel="viewBottom">
                                 <rect key="frame" x="0.0" y="96" width="320" height="44"/>
                                 <subviews>
@@ -224,12 +237,15 @@
                             <constraint firstItem="nNT-mS-dUR" firstAttribute="centerX" secondItem="2CC-DT-dSk" secondAttribute="centerX" id="DWF-EU-Ugz"/>
                             <constraint firstItem="2CC-DT-dSk" firstAttribute="leading" secondItem="ekw-ak-eL7" secondAttribute="leading" id="ECm-wJ-x0z"/>
                             <constraint firstItem="2CC-DT-dSk" firstAttribute="top" secondItem="ekw-ak-eL7" secondAttribute="top" id="Vc6-Ka-5zN"/>
+                            <constraint firstItem="K0b-IS-NAS" firstAttribute="top" secondItem="jAG-Iy-Ffu" secondAttribute="bottom" constant="5" id="XLu-9q-fVN"/>
                             <constraint firstAttribute="trailing" secondItem="K0b-IS-NAS" secondAttribute="trailing" id="ad5-IC-R2k"/>
+                            <constraint firstItem="jAG-Iy-Ffu" firstAttribute="trailing" secondItem="ahi-Tm-pPe" secondAttribute="trailing" id="cTc-YT-Xzv"/>
                             <constraint firstAttribute="bottom" secondItem="2CC-DT-dSk" secondAttribute="bottom" id="jza-op-Gb1"/>
                             <constraint firstItem="9C2-A3-I09" firstAttribute="top" secondItem="5L9-nd-b12" secondAttribute="top" constant="-3" id="mZU-xP-Eyu"/>
                             <constraint firstItem="9C2-A3-I09" firstAttribute="centerX" secondItem="ahi-Tm-pPe" secondAttribute="centerX" id="mkZ-I3-fTP"/>
                             <constraint firstItem="5L9-nd-b12" firstAttribute="top" secondItem="ekw-ak-eL7" secondAttribute="top" constant="10" id="pwq-bl-yhh"/>
                             <constraint firstAttribute="trailing" secondItem="ahi-Tm-pPe" secondAttribute="trailing" constant="12" id="rpM-hM-lDr"/>
+                            <constraint firstItem="jAG-Iy-Ffu" firstAttribute="leading" secondItem="5L9-nd-b12" secondAttribute="leading" id="s2M-GA-dgE"/>
                             <constraint firstItem="K0b-IS-NAS" firstAttribute="leading" secondItem="ekw-ak-eL7" secondAttribute="leading" id="sH7-ca-hMq"/>
                             <constraint firstItem="2CC-DT-dSk" firstAttribute="bottom" secondItem="K0b-IS-NAS" secondAttribute="bottom" id="sbi-d0-B4J"/>
                         </constraints>
@@ -245,6 +261,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="clvDietaryRestriction" destination="jAG-Iy-Ffu" id="C4y-J8-5eU"/>
                 <outlet property="imgBanner" destination="2CC-DT-dSk" id="umf-hm-wnF"/>
                 <outlet property="imgBlurThumbnail" destination="fmO-Vz-nDQ" id="3Ly-w1-zTV"/>
                 <outlet property="imgBookmark" destination="7iD-a7-Srn" id="cOR-mw-ZDx"/>

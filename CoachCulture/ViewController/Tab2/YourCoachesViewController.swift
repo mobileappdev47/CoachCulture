@@ -124,6 +124,7 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: kNewClassesTBLViewCellID, for: indexPath) as? NewClassesTBLViewCell else { return UITableViewCell() }
         
+        cell.clvDietaryRestriction.isHidden = true
         var recdModel = CoachClassPrevious()
         var isFromLiveDemand = true
         
@@ -184,6 +185,7 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
                 callNewUploadAPI()
             }
         } else {
+            cell.clvDietaryRestriction.isHidden = false
             if let recdModel = arrNewClass[indexPath.row].Recipe {
                 cell.selectedIndex = indexPath.row
                 if cell.imgBlurThumbnail.image == nil {
@@ -218,6 +220,19 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
                 cell.lblClassType.text = "RECIPE"
                 cell.lblDate.text = "\(recdModel.viewers) Views"
                 cell.lblDateTime.text = convertUTCToLocal(dateStr: recdModel.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
+
+                recdModel.arrdietary_restriction.sort()
+                var arrFilteredDietaryRestriction = [String]()
+                
+                if recdModel.arrdietary_restriction.count > 2 {
+                    arrFilteredDietaryRestriction.append(recdModel.arrdietary_restriction[0])
+                    arrFilteredDietaryRestriction.append(recdModel.arrdietary_restriction[1])
+                    cell.arrDietaryRestriction = arrFilteredDietaryRestriction
+                } else {
+                    cell.arrDietaryRestriction = recdModel.arrdietary_restriction
+                }
+
+                cell.clvDietaryRestriction.reloadData()
 
                 if arrNewClass.count - 1 == indexPath.row {
                     callNewUploadAPI()

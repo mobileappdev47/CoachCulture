@@ -90,6 +90,7 @@ struct API {
     static let END_LIVE_CLASS = BASE_URL + "api/coach-class/end-live-class"
     static let NEW_UPLOAD = BASE_URL + "api/coach/new-uploads"
     static let LIST_OF_CLASS_DONE = BASE_URL + "api/coach/list-of-class-done"
+    static let GET_COACH_SUBSCRIBER_USER_SEARCH_LIST = BASE_URL + "api/subscription/get-coach-subscriber-user-search-list"
 }
 
 // MARK: - PARAMS KEYS
@@ -110,6 +111,17 @@ struct Params {
     struct GetMyCoachClassList {
         static let page_no = "page_no"
         static let per_page = "per_page"
+    }
+    
+    struct JoinSessions {
+        static let coach_class_subscription_id = "coach_class_subscription_id"
+        static let class_id = "class_id"
+    }
+    
+    struct EndLiveClass {
+        static let class_id = "class_id"
+        static let duration = "duration"
+        static let user_coach_history_id = "user_coach_history_id"
     }
 }
 
