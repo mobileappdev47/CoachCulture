@@ -49,6 +49,10 @@
 		512BBE6D27C6143A002AF2B8 /* HomeNewClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */; };
 		512BBE7027C615DF002AF2B8 /* HomeNewClassHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */; };
 		BD25A6BD27C740CB0048CF15 /* continent.json in Resources */ = {isa = PBXBuildFile; fileRef = BD25A6BC27C740CB0048CF15 /* continent.json */; };
+		BDD3663427C8A11500911E4E /* ShowDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3663227C8A11500911E4E /* ShowDetailView.swift */; };
+		BDD3663527C8A11500911E4E /* ShowDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDD3663327C8A11500911E4E /* ShowDetailView.xib */; };
+		BDD3663927C8B12D00911E4E /* RecipeTestCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3663727C8B12D00911E4E /* RecipeTestCellTableViewCell.swift */; };
+		BDD3663A27C8B12D00911E4E /* RecipeTestCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDD3663827C8B12D00911E4E /* RecipeTestCellTableViewCell.xib */; };
 		CB1E71A1284B181035DB2C88 /* Pods_CoachCulture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DE6240B202CBFA8415C8744 /* Pods_CoachCulture.framework */; };
 		D40136C42758D78600E36A39 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40136C32758D78600E36A39 /* SettingsViewController.swift */; };
 		D40136C72758DCE000E36A39 /* LogOutView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D40136C62758DCDF00E36A39 /* LogOutView.xib */; };
@@ -526,6 +530,10 @@
 		512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewClassHeaderView.swift; sourceTree = "<group>"; };
 		8D2B8E0B4D497DEC5D11191E /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
 		BD25A6BC27C740CB0048CF15 /* continent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = continent.json; sourceTree = "<group>"; };
+		BDD3663227C8A11500911E4E /* ShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailView.swift; sourceTree = "<group>"; };
+		BDD3663327C8A11500911E4E /* ShowDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowDetailView.xib; sourceTree = "<group>"; };
+		BDD3663727C8B12D00911E4E /* RecipeTestCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTestCellTableViewCell.swift; sourceTree = "<group>"; };
+		BDD3663827C8B12D00911E4E /* RecipeTestCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTestCellTableViewCell.xib; sourceTree = "<group>"; };
 		D40136C32758D78600E36A39 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D40136C62758DCDF00E36A39 /* LogOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogOutView.xib; sourceTree = "<group>"; };
 		D40136C82758DCFC00E36A39 /* LogOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutView.swift; sourceTree = "<group>"; };
@@ -1241,6 +1249,8 @@
 				D4156CDE2764715600328E4F /* RecipeDetailsViewController.swift */,
 				D4860E9E276B993E00C9F6EB /* RecipeRating */,
 				D4156CE027647D5100328E4F /* Cell */,
+				BDD3663227C8A11500911E4E /* ShowDetailView.swift */,
+				BDD3663327C8A11500911E4E /* ShowDetailView.xib */,
 			);
 			path = "Recipe Details";
 			sourceTree = "<group>";
@@ -1250,6 +1260,8 @@
 			children = (
 				D4156CE127647DAF00328E4F /* RecipeIngredientTableViewCell.swift */,
 				D4156CE227647DAF00328E4F /* RecipeIngredientTableViewCell.xib */,
+				BDD3663727C8B12D00911E4E /* RecipeTestCellTableViewCell.swift */,
+				BDD3663827C8B12D00911E4E /* RecipeTestCellTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2241,6 +2253,7 @@
 				D4E54BE2275F3A2600D6A80F /* ClassDuration.xib in Resources */,
 				F1963A3E272BB78600D19373 /* NZ.png in Resources */,
 				F19639B0272BB78600D19373 /* BQ.png in Resources */,
+				BDD3663527C8A11500911E4E /* ShowDetailView.xib in Resources */,
 				D417985327631793001FA192 /* AddStepOfRecipeTableViewCell.xib in Resources */,
 				F19639AC272BB78600D19373 /* BL.png in Resources */,
 				F19639FA272BB78600D19373 /* IL.png in Resources */,
@@ -2319,6 +2332,7 @@
 				D4122BDA275B215A00A68E56 /* AddPhotoPopUp.xib in Resources */,
 				D4C887AC2759FE9C0068F7A9 /* SFProText-Bold.otf in Resources */,
 				F19639FB272BB78600D19373 /* IM.png in Resources */,
+				BDD3663A27C8B12D00911E4E /* RecipeTestCellTableViewCell.xib in Resources */,
 				F1963A85272BB78600D19373 /* VU.png in Resources */,
 				D4156CDC27646DFC00328E4F /* Recipe.storyboard in Resources */,
 				F1963A6D272BB78600D19373 /* TH.png in Resources */,
@@ -2531,6 +2545,7 @@
 				F18BF9AD2728091B007BB3CB /* ForgotPassViewController.swift in Sources */,
 				D40136C42758D78600E36A39 /* SettingsViewController.swift in Sources */,
 				512ABC042718020C008CB198 /* ExtensionMKMapView.swift in Sources */,
+				BDD3663427C8A11500911E4E /* ShowDetailView.swift in Sources */,
 				512ABDA727180D08008CB198 /* SideMenuController.swift in Sources */,
 				D4E54BEB275F846800D6A80F /* MuscleItemCollectionViewCell.swift in Sources */,
 				D417984C27630A19001FA192 /* CreateMealRecipeViewController.swift in Sources */,
@@ -2584,6 +2599,7 @@
 				D4F3C71827746D38001EDDE1 /* SubscriptionItemTableViewCell.swift in Sources */,
 				D48F4527277096C700B0EAD8 /* CoachViseRecipeItemTableViewCell.swift in Sources */,
 				D417984E27630FF7001FA192 /* CreateRecipeModel.swift in Sources */,
+				BDD3663927C8B12D00911E4E /* RecipeTestCellTableViewCell.swift in Sources */,
 				D48F45362770B49F00B0EAD8 /* YourCoachRecipeItemTableViewCell.swift in Sources */,
 				512ABC14271804B3008CB198 /* Localize.swift in Sources */,
 				512ABC052718020C008CB198 /* UIViewControllerExtension.swift in Sources */,
