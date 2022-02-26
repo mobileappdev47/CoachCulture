@@ -38,6 +38,7 @@ class CreateMealRecipeViewController: BaseViewController {
     var thumbnailImage = ""
     var recipeDetailDataObj = RecipeDetailData()
     var isFromEdit = false
+    var isFromTemplate = false
     
     
     // MARK: - Life Cycle
@@ -220,6 +221,7 @@ class CreateMealRecipeViewController: BaseViewController {
             let vc = AddIngredientsForRecipeViewController.viewcontroller()
             vc.paramDic = paramDic
             vc.isFromEdit = isFromEdit
+            vc.isFromTemplate = isFromTemplate
             vc.recipeDetailDataObj = self.recipeDetailDataObj
             self.navigationController?.pushViewController(vc, animated: true)
         }

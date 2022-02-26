@@ -68,6 +68,7 @@ class LiveClassDetailsViewController: BaseViewController {
     var counter = 0.0
     var userCoachHistoryID : Int?
     var isStatusUpdatedForVideoEnd = false
+    var isNew = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,7 +150,6 @@ class LiveClassDetailsViewController: BaseViewController {
                     self.classDetailDataObj = temp
                     self.setData()
                 }
-                
             }
         } else {
             getClassDetails()
@@ -353,6 +353,18 @@ class LiveClassDetailsViewController: BaseViewController {
         }
     }
     
+    private func navigateToDashboard() {
+        for controller in navigationController!.viewControllers {
+            if controller.isKind(of: EditProfileViewController.self) {
+                self.navigationController?.popToViewController(controller, animated: true)
+                break
+            } else {
+                self.navigationController?.popToViewController(controller, animated: true)
+                break
+            }
+        }
+    }
+    
     // MARK: - CLICK EVENTS
     
     @IBAction func btnTrainerDetailClick(_ sender: Any) {
@@ -380,13 +392,25 @@ class LiveClassDetailsViewController: BaseViewController {
             AppPrefsManager.sharedInstance.saveClassData(classData: arrLocalCoachClassData)
             downloadClassVideoImage(fileName: URL(string: classDetailDataObj.thumbnail_image_path)?.lastPathComponent ?? "", downloadUrl: classDetailDataObj.thumbnail_image)
             
+        } else {
+            Utility.shared.showToast("")
         }
         
         
         
     }
     
+    @IBAction func didTapBottomDetaile(_ sender: UIButton) {
+        
+    }
     
+    @IBAction func didTapBtnBack(_ sender: UIButton) {
+         if isNew {
+            navigateToDashboard()
+         } else {
+            self.popVC(animated: true)
+         }
+    }
     @IBAction func clickToBtnScanQr( _ sender: UIButton) {
         
     }

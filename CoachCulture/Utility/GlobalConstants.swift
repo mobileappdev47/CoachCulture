@@ -55,6 +55,7 @@ struct API {
     static let CREATE_RECIPE                         = BASE_URL + "api/recipe/create"
     static let EDIT_RECIPE                         = BASE_URL + "api/recipe/edit"
     static let RECIPE_DETAILS                         = BASE_URL + "api/recipe/details"
+    static let RECIPE_DELETE                           = BASE_URL + "api/recipe/delete/"
     static let DELETE_USER_IMAGE                         = BASE_URL + "api/auth/delete-user-image"
     static let ADD_REMOVE_BOOKMARK                         = BASE_URL + "api/recipe/add-remove-bookmark"
     static let COACH_CLASS_DETAILS                         = BASE_URL + "api/coach-class/details"

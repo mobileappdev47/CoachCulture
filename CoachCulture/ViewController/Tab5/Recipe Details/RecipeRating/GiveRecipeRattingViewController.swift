@@ -49,6 +49,7 @@ class GiveRecipeRattingViewController: BaseViewController {
         clvDietaryRestriction.delegate = self
         clvDietaryRestriction.dataSource = self
         txtTellusAbout.delegate = self
+        viwRating.allowsHalfStars = true
     }
     
     func setData() {
@@ -126,7 +127,7 @@ extension GiveRecipeRattingViewController {
     func giveRatting() {
         showLoader()
         let param = ["coach_recipe_id" : self.recipeDetailDataObj.id,
-                     "rating" : "\(Int(Double(self.viwRating.value)))",
+                     "rating" : "\(Float(Double(self.viwRating.value)))",
                      "comments" : self.txtTellusAbout.text!]
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.RECIPE_RATING, parameters: param, headers: nil) { responseObj in

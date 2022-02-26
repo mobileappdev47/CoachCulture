@@ -69,6 +69,11 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         setUpUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+            setUpUI()
+        }
+    
     // MARK: - Methods
     
     private func setUpUI() {

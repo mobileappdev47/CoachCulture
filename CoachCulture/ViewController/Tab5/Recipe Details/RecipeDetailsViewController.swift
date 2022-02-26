@@ -84,10 +84,6 @@ class RecipeDetailsViewController: BaseViewController {
         
         showDetailView = Bundle.main.loadNibNamed("ShowDetailView", owner: nil, options: nil)?.first as? ShowDetailView
         
-        showDetailView.tapToBtnOk {
-            self.showDetailView.removeFromSuperview()
-        }
-        
         self.showDetailView.recipeDetailDataObj = self.recipeDetailDataObj
         self.showDetailView.tblDescriptionDetail.reloadData()
         
@@ -102,7 +98,22 @@ class RecipeDetailsViewController: BaseViewController {
             }
             
             if index == 1 { //Delete
+                deleteRecipeDetail()
+            }
+            
+            if index == 2 { //send
                 
+            }
+            
+            if index == 3 {//Template
+                let vc = CreateMealRecipeViewController.viewcontroller()
+                vc.isFromEdit = true
+                vc.isFromTemplate = true
+                self.recipeDetailDataObj.title = ""
+                self.recipeDetailDataObj.thumbnail_image = ""
+                self.recipeDetailDataObj.id = ""
+                vc.recipeDetailDataObj = self.recipeDetailDataObj
+                self.navigationController?.pushViewController(vc, animated: true)
             }
             
             if index == 4 { //Rating
@@ -155,7 +166,10 @@ class RecipeDetailsViewController: BaseViewController {
             if controller.isKind(of: EditProfileViewController.self) {
                 self.navigationController?.popToViewController(controller, animated: true)
                 break
-            } else {}
+            } else {
+                self.navigationController?.popToViewController(controller, animated: true)
+                break
+            }
         }
     }
 
@@ -239,6 +253,7 @@ extension RecipeDetailsViewController : UITableViewDelegate, UITableViewDataSour
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeIngredientTableViewCell", for: indexPath) as! RecipeIngredientTableViewCell
         let obj = recipeDetailDataObj.arrQtyIngredient[indexPath.row]
+        cell.selectionStyle = .none
         cell.lblQty.text = obj.quantity
         cell.lblIngredient.text = obj.ingredients
         return cell
@@ -278,6 +293,19 @@ extension RecipeDetailsViewController {
         }
     }
     
+    func deleteRecipeDetail() {
+        showLoader()
+        let url = API.RECIPE_DELETE + recipeID
+        _ =  ApiCallManager.requestApi(method: .delete, urlString: url, parameters: nil, headers: nil) { responseObj in
+            Utility.shared.showToast((responseObj["message"] as? String) ?? "", title: "")
+            self.popVC(animated: true)
+            self.hideLoader()
+            
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
     
     func addOrRemoveFromBookMark(bookmark : String) {
         showLoader()

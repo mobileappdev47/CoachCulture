@@ -48,6 +48,8 @@
 		512BBE6A27C5F01B002AF2B8 /* NewClassesTBLViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */; };
 		512BBE6D27C6143A002AF2B8 /* HomeNewClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */; };
 		512BBE7027C615DF002AF2B8 /* HomeNewClassHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */; };
+		BD24B26A27CA4CEE00176981 /* BottomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24B26827CA4CEE00176981 /* BottomDetailView.swift */; };
+		BD24B26B27CA4CEE00176981 /* BottomDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD24B26927CA4CEE00176981 /* BottomDetailView.xib */; };
 		BD25A6BD27C740CB0048CF15 /* continent.json in Resources */ = {isa = PBXBuildFile; fileRef = BD25A6BC27C740CB0048CF15 /* continent.json */; };
 		BDD3663427C8A11500911E4E /* ShowDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3663227C8A11500911E4E /* ShowDetailView.swift */; };
 		BDD3663527C8A11500911E4E /* ShowDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDD3663327C8A11500911E4E /* ShowDetailView.xib */; };
@@ -529,6 +531,8 @@
 		512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeNewClassHeaderView.xib; sourceTree = "<group>"; };
 		512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewClassHeaderView.swift; sourceTree = "<group>"; };
 		8D2B8E0B4D497DEC5D11191E /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
+		BD24B26827CA4CEE00176981 /* BottomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomDetailView.swift; sourceTree = "<group>"; };
+		BD24B26927CA4CEE00176981 /* BottomDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomDetailView.xib; sourceTree = "<group>"; };
 		BD25A6BC27C740CB0048CF15 /* continent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = continent.json; sourceTree = "<group>"; };
 		BDD3663227C8A11500911E4E /* ShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailView.swift; sourceTree = "<group>"; };
 		BDD3663327C8A11500911E4E /* ShowDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowDetailView.xib; sourceTree = "<group>"; };
@@ -1185,6 +1189,15 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		BD24B26D27CA4D0000176981 /* BottomDetailView */ = {
+			isa = PBXGroup;
+			children = (
+				BD24B26827CA4CEE00176981 /* BottomDetailView.swift */,
+				BD24B26927CA4CEE00176981 /* BottomDetailView.xib */,
+			);
+			path = BottomDetailView;
+			sourceTree = "<group>";
+		};
 		D40136C12758D74400E36A39 /* Tab5 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1601,6 +1614,7 @@
 				D4CE25522769C07000743FFC /* LiveClassDetailsViewController.swift */,
 				D4C8B495276DDE42006749F2 /* Model */,
 				D4CE255A2769E64500743FFC /* Cell */,
+				BD24B26D27CA4D0000176981 /* BottomDetailView */,
 			);
 			path = "Live Class Details";
 			sourceTree = "<group>";
@@ -2365,6 +2379,7 @@
 				F19639A6272BB78600D19373 /* BE.png in Resources */,
 				F1963991272BB78600D19373 /* AC.png in Resources */,
 				D4156CE427647DAF00328E4F /* RecipeIngredientTableViewCell.xib in Resources */,
+				BD24B26B27CA4CEE00176981 /* BottomDetailView.xib in Resources */,
 				D4E6FA40277328DC00E3593C /* Payment.storyboard in Resources */,
 				F19639E0272BB78600D19373 /* GB.png in Resources */,
 				D49279B327579678001E23F0 /* Kontanter-Bold.otf in Resources */,
@@ -2616,6 +2631,7 @@
 				D442AD2927707C270061DA91 /* CoachFollowerModel.swift in Sources */,
 				D4F3C71227745E41001EDDE1 /* TransactionItemTableViewCell.swift in Sources */,
 				D41DB04927704433007FC5F7 /* ClassFilterViewController.swift in Sources */,
+				BD24B26A27CA4CEE00176981 /* BottomDetailView.swift in Sources */,
 				D4E54BDE275F254D00D6A80F /* ClassTypeListItemTableViewCell.swift in Sources */,
 				D4156CE327647DAF00328E4F /* RecipeIngredientTableViewCell.swift in Sources */,
 				F10C0413272A5C7A004E46F7 /* CoachContentViewController.swift in Sources */,

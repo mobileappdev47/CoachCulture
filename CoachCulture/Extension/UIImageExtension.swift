@@ -136,6 +136,12 @@ class CustomDatePickerViewForTextFeild: NSObject
         datePickerView = UIDatePicker()
         datePickerView.datePickerMode = mode
         
+        if #available(iOS 13.4, *) {
+            datePickerView.preferredDatePickerStyle = .wheels
+        } else {
+            // Fallback on earlier versions
+        }
+        
         datePickerView.minimumDate = minDate
         datePickerView.maximumDate = maxDate
         

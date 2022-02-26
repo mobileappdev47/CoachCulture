@@ -26,9 +26,10 @@ class AddIngredientsForRecipeViewController: BaseViewController {
     var arrAddIngredientsListData = [AddIngredients]()
     var paramDic = [String:Any]()
     
-     var dropDown = DropDown()
+    var dropDown = DropDown()
     var recipeDetailDataObj = RecipeDetailData()
     var isFromEdit = false
+    var isFromTemplate = false
     
     
     // MARK: - Life Cycle
@@ -141,8 +142,11 @@ class AddIngredientsForRecipeViewController: BaseViewController {
         
         paramDic["dietary_restriction"] = dietary_restriction
         paramDic["qty_ingredient"] = jsonStringFromDictionaryOrArrayObject(obj: qty_ingredient)
-        
-        createRecipe()
+        if dietary_restriction != "" {
+            createRecipe()
+        } else {
+            Utility.shared.showToast("Please select dietary restriction")
+        }
 
     }
     
@@ -206,7 +210,7 @@ extension AddIngredientsForRecipeViewController {
                 self.clvDietaryRestriction.reloadData()
                 self.lctvDietaryRestrictionHeight.constant = self.clvDietaryRestriction.collectionViewLayout.collectionViewContentSize.height
             }
-            if self.isFromEdit {
+            if self.isFromEdit && self.isFromTemplate {
                 self.setData()
             }
             self.hideLoader()
@@ -264,7 +268,7 @@ extension AddIngredientsForRecipeViewController : UITableViewDelegate, UITableVi
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddIngredientIemTableViewCell", for: indexPath) as! AddIngredientIemTableViewCell
         let obj = arrAddIngredientsListData[indexPath.row]
-        if isFromEdit {
+        if isFromEdit && isFromTemplate {
             cell.lblUnit.text = obj.unit
             cell.txtQty.text = obj.qty
             cell.txtIngredient.text = obj.addIngredients

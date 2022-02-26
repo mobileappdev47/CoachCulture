@@ -1018,6 +1018,7 @@
                                                             <userDefinedRuntimeAttribute type="color" keyPath="emptyStarColor">
                                                                 <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="allowsHalfStars" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BF7-by-YUT" userLabel="Details">
@@ -1828,10 +1829,19 @@
                                                             <constraint firstAttribute="width" constant="130" id="G0H-2H-QfG"/>
                                                         </constraints>
                                                     </tableView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vzn-0j-Bc3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="240" height="170"/>
+                                                        <connections>
+                                                            <action selector="didTapBottomDetaile:" destination="0kz-qW-A91" eventType="touchUpInside" id="GWw-tC-3iJ"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.17254901959999999" green="0.2274509804" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
+                                                    <constraint firstItem="Hlr-zA-aLR" firstAttribute="leading" secondItem="vzn-0j-Bc3" secondAttribute="trailing" id="3lH-NM-D9a"/>
+                                                    <constraint firstItem="vzn-0j-Bc3" firstAttribute="top" secondItem="n43-gX-34m" secondAttribute="top" id="79u-bP-lFN"/>
                                                     <constraint firstItem="RvM-y1-xRF" firstAttribute="top" secondItem="OyN-21-C0M" secondAttribute="top" id="BSA-Ic-D9a"/>
+                                                    <constraint firstItem="vzn-0j-Bc3" firstAttribute="leading" secondItem="n43-gX-34m" secondAttribute="leading" id="CXP-bE-eG1"/>
                                                     <constraint firstItem="Hlr-zA-aLR" firstAttribute="top" secondItem="RvM-y1-xRF" secondAttribute="bottom" id="DM4-Uw-HZJ"/>
                                                     <constraint firstItem="OyN-21-C0M" firstAttribute="centerY" secondItem="n43-gX-34m" secondAttribute="centerY" id="GRB-3t-XMy"/>
                                                     <constraint firstAttribute="trailing" secondItem="RvM-y1-xRF" secondAttribute="trailing" constant="10" id="JHc-ZU-3Qm"/>
@@ -1842,6 +1852,7 @@
                                                     <constraint firstItem="OyN-21-C0M" firstAttribute="leading" secondItem="n43-gX-34m" secondAttribute="leading" constant="10" id="d1b-xG-eM5"/>
                                                     <constraint firstAttribute="bottom" secondItem="OyN-21-C0M" secondAttribute="bottom" constant="20" id="dOQ-b5-fuf"/>
                                                     <constraint firstItem="RvM-y1-xRF" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="4du-gL-6Ra" secondAttribute="trailing" constant="10" id="hn3-wE-0CJ"/>
+                                                    <constraint firstAttribute="bottom" secondItem="vzn-0j-Bc3" secondAttribute="bottom" id="mW8-yD-WgU"/>
                                                     <constraint firstItem="Hlr-zA-aLR" firstAttribute="leading" secondItem="RvM-y1-xRF" secondAttribute="leading" id="r5c-7l-4gA"/>
                                                     <constraint firstItem="4du-gL-6Ra" firstAttribute="centerY" secondItem="n43-gX-34m" secondAttribute="centerY" id="yWs-4H-epr"/>
                                                 </constraints>
@@ -2056,7 +2067,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Elk-Ye-4SS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3314" y="-2136"/>
+            <point key="canvasLocation" x="3313.5999999999999" y="-2136.431784107946"/>
         </scene>
         <!--Live Class Rating View Controller-->
         <scene sceneID="6rO-HE-fFi">
@@ -2345,6 +2356,7 @@
                                                             <userDefinedRuntimeAttribute type="color" keyPath="emptyStarColor">
                                                                 <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="allowsHalfStars" value="YES"/>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                 </subviews>
@@ -3406,6 +3418,7 @@
                     </view>
                     <size key="freeformSize" width="375" height="900"/>
                     <connections>
+                        <outlet property="btnSubCurrency" destination="UJx-Mj-zjc" id="P1d-nt-NgV"/>
                         <outlet property="btnUploadthumbnail" destination="PJe-CX-P2c" id="ptp-hj-eam"/>
                         <outlet property="imgThumbnail" destination="d8w-f6-22s" id="bxW-Ka-qE9"/>
                         <outlet property="lblClassDifficulty" destination="MRg-ge-Zkl" id="cN1-1M-5Dr"/>
@@ -3762,7 +3775,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FNL-jM-ex2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4708" y="-188.45577211394306"/>
+            <point key="canvasLocation" x="4697" y="-171"/>
         </scene>
     </scenes>
     <designables>

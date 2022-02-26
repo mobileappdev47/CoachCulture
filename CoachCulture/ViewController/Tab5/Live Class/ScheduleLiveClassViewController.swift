@@ -24,6 +24,8 @@ class ScheduleLiveClassViewController: BaseViewController {
     @IBOutlet weak var tblClassDifficulty : UITableView!
     
     @IBOutlet weak var imgThumbnail : UIImageView!
+  
+    @IBOutlet weak var btnSubCurrency: UIButton!
     
     @IBOutlet weak var lctTableClassTypeHeight : NSLayoutConstraint!
     @IBOutlet weak var lctClassDifficultyHeight : NSLayoutConstraint!
@@ -53,6 +55,8 @@ class ScheduleLiveClassViewController: BaseViewController {
     var selectedButton = UIButton()
     var addPhotoPopUp:AddPhotoPopUp!
     var photoData:Data!
+    var dropDown = DropDown()
+    var baseCurrency = "SGD"
     var uploadedUrl = ""
     var thumbailUrl = ""
     var nationalityView : NationalityView!
@@ -97,8 +101,35 @@ class ScheduleLiveClassViewController: BaseViewController {
             self.removeAddPhotoView()
         }
         
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if item.lowercased() == "US$".lowercased() {
+                lblSubscriptionCurrentSym.text = item
+                lblNonSubscriptionCurrentSym.text = item
+                baseCurrency = "USD"
+            }
+            if item.lowercased() == "S$".lowercased() {
+                lblSubscriptionCurrentSym.text = item
+                lblNonSubscriptionCurrentSym.text = item
+                baseCurrency = "SGD"
+            }
+            if item.lowercased() == "€".lowercased() {
+                lblSubscriptionCurrentSym.text = item
+                lblNonSubscriptionCurrentSym.text = item
+                baseCurrency = "EUR"
+            }
+        }
+        
+        dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+        dropDown.textColor = UIColor.white
+        dropDown.selectionBackgroundColor = .clear
+        
+            
         addPhotoPopUp.tapToBtnGallery {
             self.loadPhotoGalleryView()
+            self.removeAddPhotoView()
+        }
+        
+        addPhotoPopUp.tapToBtnView {
             self.removeAddPhotoView()
         }
         
@@ -111,7 +142,9 @@ class ScheduleLiveClassViewController: BaseViewController {
             
         }
         
-        customDatePickerForSelectDate = CustomDatePickerViewForTextFeild(textField: txtDummyDate, format: "yyyy-MM-dd", mode: .date)
+        dropDown.dataSource  = ["US$", "S$", "€"]
+        
+        customDatePickerForSelectDate = CustomDatePickerViewForTextFeild(textField: txtDummyDate, format: "yyyy-MM-dd", mode: .date,  minDate: Date(), maxDate: nil)
         customDatePickerForSelectDate.pickerView { (str, date) in
             let arrStr = str.components(separatedBy: "-")
             self.selectedDate = str
@@ -232,8 +265,10 @@ class ScheduleLiveClassViewController: BaseViewController {
         setClassDurationView()
     }
     
-    @IBAction func clickTobBtnSelectSubscriptionCurrency(_ sender: UIButton) {
-        setNationalityView()
+    @IBAction func clickTobBtnSelectSubscriptionCurrency(_ sender: UIButton) {        
+        dropDown.show()
+        dropDown.anchorView = btnSubCurrency
+        dropDown.width = sender.frame.width
     }
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
@@ -269,7 +304,7 @@ class ScheduleLiveClassViewController: BaseViewController {
             param["subscriber_fee"] = txtSubscriberFee.text!
             param["non_subscriber_fee"] = txtNonSubscriberFee.text!
             param["thumbnail_image"] = thumbailUrl
-            param["base_currency"] = selectedCurrency
+            param["base_currency"] = baseCurrency
                     
             let vc = UserMusclesForLiveClassViewController.viewcontroller()
             vc.paramDic = param
@@ -277,9 +312,6 @@ class ScheduleLiveClassViewController: BaseViewController {
             vc.classDetailDataObj = self.classDetailDataObj
             self.navigationController?.pushViewController(vc, animated: true)
         }
-        
-        
-        
         
     }
         

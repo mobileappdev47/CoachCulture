@@ -23,21 +23,14 @@ class ShowDetailView: UIView {
     @IBOutlet weak var hightRecipeIngTbl: NSLayoutConstraint!
     @IBOutlet weak var heightDescriptionDetailTbl: NSLayoutConstraint!
     @IBOutlet weak var hightMainView: NSLayoutConstraint!
-    @IBOutlet weak var hightScrollVew: NSLayoutConstraint!
     @IBOutlet weak var hightBottomView: NSLayoutConstraint!
     @IBOutlet weak var hightTopView: NSLayoutConstraint!
     
-    internal var handlerForBtnOk: (() -> Void)?
     var recipeDetailDataObj = RecipeDetailData()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()
-    }
-    
-    public func tapToBtnOk(_ handler: @escaping () -> Void)
-    {
-        self.handlerForBtnOk = nil
     }
     
     @IBAction func clickBtnOk(_ sender: UIButton) {
@@ -58,8 +51,6 @@ class ShowDetailView: UIView {
         tblDescriptionDetail.register(UINib(nibName: "RecipeTestCellTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeTestCellTableViewCell")
         tblDescriptionDetail.delegate = self
         tblDescriptionDetail.dataSource = self
-        hightScrollVew.constant = hightTopView.constant
-        hightMainView.constant = (hightScrollVew.constant + hightBottomView.constant)
     }
 }
 
@@ -81,6 +72,7 @@ extension ShowDetailView: UITableViewDataSource, UITableViewDelegate {
             cell.lblIngredient.text = obj.ingredients
             cell.lblQty.font = UIFont(name: "SFProText-Bold", size: 13)
             cell.lblIngredient.font = UIFont(name: "SFProText-Bold", size: 13)
+            cell.selectionStyle = .none
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeTestCellTableViewCell") as! RecipeTestCellTableViewCell
@@ -107,13 +99,16 @@ extension ShowDetailView: UITableViewDataSource, UITableViewDelegate {
             tblDescriptionDetail.isScrollEnabled = false
         }
         
-        if hightMainView.constant > 618 {
-            self.scrollView.isScrollEnabled = true
-        } else {
-            self.scrollView.isScrollEnabled = false
-        }
         lblSubTitle.sizeToFit()
-        hightTopView.constant = (lblTitle.frame.height + lblSubTitle.frame.height + hightRecipeIngTbl.constant + heightDescriptionDetailTbl.constant)
+//        hightTopView.constant = (lblTitle.frame.height + lblSubTitle.frame.height + hightRecipeIngTbl.constant + heightDescriptionDetailTbl.constant)
+//        hightScrollVew.constant = hightTopView.constant
+//        hightMainView.constant = (hightScrollVew.constant + hightBottomView.constant)
+//
+//        if hightTopView.constant > 618 {
+//            self.scrollView.isScrollEnabled = true
+//        } else {
+//            self.scrollView.isScrollEnabled = false
+//        }
 
     }
 }
