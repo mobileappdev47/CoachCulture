@@ -282,13 +282,23 @@
                                                                     <constraint firstItem="ptC-Th-Oi7" firstAttribute="leading" secondItem="GfX-iU-Yzm" secondAttribute="leading" id="egq-EV-JMk"/>
                                                                 </constraints>
                                                             </view>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bjy-iK-yqf">
+                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="150"/>
+                                                                <connections>
+                                                                    <action selector="didTapUserProfile:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="6RK-Pn-0hi"/>
+                                                                </connections>
+                                                            </button>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="GfX-iU-Yzm" secondAttribute="trailing" id="8KM-2g-oyW"/>
                                                             <constraint firstAttribute="trailing" secondItem="Jz9-FC-zlY" secondAttribute="trailing" id="AwV-GJ-P03"/>
+                                                            <constraint firstItem="Bjy-iK-yqf" firstAttribute="top" secondItem="YvF-tf-fTW" secondAttribute="top" id="E2X-Mu-ZZy"/>
                                                             <constraint firstItem="Jz9-FC-zlY" firstAttribute="leading" secondItem="YvF-tf-fTW" secondAttribute="leading" id="Fl8-Mr-JUz"/>
+                                                            <constraint firstItem="Bjy-iK-yqf" firstAttribute="leading" secondItem="YvF-tf-fTW" secondAttribute="leading" id="IDB-pL-xUj"/>
+                                                            <constraint firstAttribute="bottom" secondItem="Bjy-iK-yqf" secondAttribute="bottom" id="MXn-vh-d9F"/>
                                                             <constraint firstItem="Jz9-FC-zlY" firstAttribute="top" secondItem="YvF-tf-fTW" secondAttribute="top" id="OxA-uT-Rsx"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Bjy-iK-yqf" secondAttribute="trailing" id="W6A-LT-EiE"/>
                                                             <constraint firstItem="GfX-iU-Yzm" firstAttribute="leading" secondItem="YvF-tf-fTW" secondAttribute="leading" id="aYy-L1-6OY"/>
                                                             <constraint firstAttribute="bottom" secondItem="Jz9-FC-zlY" secondAttribute="bottom" id="y4s-bU-KPw"/>
                                                             <constraint firstAttribute="bottom" secondItem="GfX-iU-Yzm" secondAttribute="bottom" id="y9A-3b-ua7"/>
@@ -769,7 +779,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3278" y="-1139"/>
+            <point key="canvasLocation" x="3277.5999999999999" y="-1140.6296851574214"/>
         </scene>
         <!--Give Recipe Ratting View Controller-->
         <scene sceneID="OTd-DQ-FPe">

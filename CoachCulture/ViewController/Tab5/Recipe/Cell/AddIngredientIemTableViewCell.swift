@@ -30,6 +30,21 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         
     }
     
+    func isNav() -> Bool {
+        if txtQty.text == "" {
+            Utility.shared.showToast("Enter Ingredients Quanitity")
+            return false
+        } else if txtIngredient.text == "" {
+            Utility.shared.showToast("Enter qty unit type")
+            return false
+        } else if lblUnit.text == "" {
+            Utility.shared.showToast("Enter Ingredients Name")
+            return false
+        } else {
+            return true
+        }
+    }
+    
     @IBAction func clickToBtnSelectUnit(_ sender : UIButton) {
         dropDown.show()
     }

@@ -44,6 +44,7 @@ class RecipeDetailsViewController: BaseViewController {
     var dropDown = DropDown()
     var recipeID = ""
     var isNew = false
+    var showDetailView : ShowDetailView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +82,14 @@ class RecipeDetailsViewController: BaseViewController {
         tblIntredienta.dataSource = self
         tblIntredienta.layoutIfNeeded()
         
+        showDetailView = Bundle.main.loadNibNamed("ShowDetailView", owner: nil, options: nil)?.first as? ShowDetailView
+        
+        showDetailView.tapToBtnOk {
+            self.showDetailView.removeFromSuperview()
+        }
+        
+        self.showDetailView.recipeDetailDataObj = self.recipeDetailDataObj
+        self.showDetailView.tblDescriptionDetail.reloadData()
         
         dropDown.dataSource  = ["Edit", "Delete", "Send", "Template", "Rating"]
         dropDown.anchorView = btnMore
@@ -130,8 +139,15 @@ class RecipeDetailsViewController: BaseViewController {
         lblViews.text = recipeDetailDataObj.total_viewers + "Views"
         lblDate.text = recipeDetailDataObj.created_at
         
+        showDetailView.setData(title: recipeDetailDataObj.title, SubTitle: recipeDetailDataObj.sub_title, Data: recipeDetailDataObj)
+        self.showDetailView.heightDescriptionDetailTbl.constant = 0.5
+        self.showDetailView.hightRecipeIngTbl.constant = 0.5
         tblIntredienta.reloadData()
-        
+    }
+    
+    func setShowDetailView() {
+        showDetailView.frame.size = self.view.frame.size
+        self.view.addSubview(showDetailView)
     }
     
     private func navigateToDashboard() {
@@ -153,9 +169,14 @@ class RecipeDetailsViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnViewRecipe(_ sender : UIButton) {
-       
+        setShowDetailView()
     }
     
+    @IBAction func didTapUserProfile(_ sender: UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = self.recipeDetailDataObj.coachDetailsObj.id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
     @IBAction func clickToBtnBookMark(_ sender : UIButton) {
         
         if recipeDetailDataObj.bookmark.lowercased() == "no".lowercased() {
@@ -260,7 +281,7 @@ extension RecipeDetailsViewController {
     
     func addOrRemoveFromBookMark(bookmark : String) {
         showLoader()
-        let param = ["coach_recipe_id" : "9","bookmark" : bookmark]
+        let param = ["coach_recipe_id" : recipeID.description,"bookmark" : bookmark]
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.ADD_REMOVE_BOOKMARK, parameters: param, headers: nil) { responseObj in
             

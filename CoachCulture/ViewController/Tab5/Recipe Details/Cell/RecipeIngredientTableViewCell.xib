@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,10 +27,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="35"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ByU-x9-b9q">
-                                <rect key="frame" x="0.0" y="0.0" width="51" height="32"/>
+                                <rect key="frame" x="0.0" y="0.0" width="96" height="32"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="350g" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCW-BL-e6T">
-                                        <rect key="frame" x="12" y="10" width="27" height="12"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="350g" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YCW-BL-e6T">
+                                        <rect key="frame" x="12" y="10" width="72" height="12"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -49,17 +49,17 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AX2-Li-mo0">
-                                <rect key="frame" x="56" y="0.0" width="264" height="32"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AX2-Li-mo0">
+                                <rect key="frame" x="104" y="0.0" width="219" height="32"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Chicken" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mgH-VS-tva">
-                                        <rect key="frame" x="12" y="10" width="240" height="12"/>
+                                        <rect key="frame" x="12" y="10" width="195" height="12"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.32156862749999998" green="0.37647058820000001" blue="0.43921568630000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.32156862745098036" green="0.37647058823529411" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="mgH-VS-tva" firstAttribute="leading" secondItem="AX2-Li-mo0" secondAttribute="leading" constant="12" id="5Bm-D7-o68"/>
                                     <constraint firstItem="mgH-VS-tva" firstAttribute="top" secondItem="AX2-Li-mo0" secondAttribute="top" constant="10" id="BB9-Jd-oRd"/>
@@ -79,6 +79,7 @@
                             <constraint firstAttribute="bottom" secondItem="ByU-x9-b9q" secondAttribute="bottom" constant="3" id="3UK-rI-JqK"/>
                             <constraint firstAttribute="trailing" secondItem="AX2-Li-mo0" secondAttribute="trailing" id="Jlf-yL-vhw"/>
                             <constraint firstItem="AX2-Li-mo0" firstAttribute="top" secondItem="ByU-x9-b9q" secondAttribute="top" id="WhA-sF-snr"/>
+                            <constraint firstItem="ByU-x9-b9q" firstAttribute="width" secondItem="dVs-ID-aVJ" secondAttribute="width" multiplier="0.3" id="dee-nF-3T4"/>
                             <constraint firstItem="AX2-Li-mo0" firstAttribute="bottom" secondItem="ByU-x9-b9q" secondAttribute="bottom" id="gwQ-EK-JEv"/>
                             <constraint firstItem="ByU-x9-b9q" firstAttribute="top" secondItem="dVs-ID-aVJ" secondAttribute="top" id="hKu-50-bEi"/>
                             <constraint firstItem="ByU-x9-b9q" firstAttribute="leading" secondItem="dVs-ID-aVJ" secondAttribute="leading" id="ksB-9m-nAr"/>
@@ -98,7 +99,7 @@
                 <outlet property="lblIngredient" destination="mgH-VS-tva" id="Qsr-wv-9Am"/>
                 <outlet property="lblQty" destination="YCW-BL-e6T" id="3cC-PK-nd8"/>
             </connections>
-            <point key="canvasLocation" x="132" y="88"/>
+            <point key="canvasLocation" x="131.8840579710145" y="87.388392857142847"/>
         </tableViewCell>
     </objects>
     <resources>
