@@ -29,7 +29,10 @@ class SearchResultItemTableViewCell: UITableViewCell {
     @IBOutlet weak var imgClassCover : UIImageView!
     @IBOutlet weak var imgBookMark : UIImageView!
     @IBOutlet weak var imgThumbnail : UIImageView!
+    @IBOutlet weak var viewProfile: UIView!
 
+    var didTapBookmarkButton : (() -> Void)!
+    var selectedIndex = 0
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,4 +45,11 @@ class SearchResultItemTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    //MARK: - ACTION
+    
+    @IBAction func btnBookmarkClick(_ sender: Any) {
+        if didTapBookmarkButton != nil {
+            didTapBookmarkButton()
+        }
+    }
 }
