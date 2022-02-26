@@ -4803,7 +4803,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XIM-b7-S1w">
-                                <rect key="frame" x="0.0" y="255" width="375" height="412"/>
+                                <rect key="frame" x="20" y="255" width="335" height="412"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMR-e3-dc1">
@@ -4850,7 +4850,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HMC-sT-a26" userLabel="viewSearch">
                                         <rect key="frame" x="20" y="70" width="335" height="50"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Search" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xv5-LW-w5t">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xv5-LW-w5t">
                                                 <rect key="frame" x="8" y="8" width="319" height="34"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -5064,7 +5064,7 @@
                         <constraints>
                             <constraint firstItem="QNu-aM-3oK" firstAttribute="leading" secondItem="QiA-jH-9kT" secondAttribute="leading" constant="20" id="7gt-du-Qt3"/>
                             <constraint firstItem="QRP-7W-pgz" firstAttribute="trailing" secondItem="QNu-aM-3oK" secondAttribute="trailing" constant="20" id="A71-vi-74Y"/>
-                            <constraint firstItem="XIM-b7-S1w" firstAttribute="leading" secondItem="QiA-jH-9kT" secondAttribute="leading" id="BQp-qa-rV9"/>
+                            <constraint firstItem="XIM-b7-S1w" firstAttribute="leading" secondItem="QiA-jH-9kT" secondAttribute="leading" constant="20" id="BQp-qa-rV9"/>
                             <constraint firstItem="ZMR-e3-dc1" firstAttribute="top" secondItem="QRP-7W-pgz" secondAttribute="top" id="ChC-M4-dAX"/>
                             <constraint firstAttribute="bottom" secondItem="XIM-b7-S1w" secondAttribute="bottom" id="dLd-q8-dgx"/>
                             <constraint firstItem="0Ps-j8-e6R" firstAttribute="top" secondItem="ZMR-e3-dc1" secondAttribute="bottom" id="f3q-ih-X5J"/>
@@ -5074,7 +5074,7 @@
                             <constraint firstItem="QRP-7W-pgz" firstAttribute="trailing" secondItem="0Ps-j8-e6R" secondAttribute="trailing" id="kK5-Vx-7El"/>
                             <constraint firstItem="QRP-7W-pgz" firstAttribute="trailing" secondItem="ZMR-e3-dc1" secondAttribute="trailing" id="kz5-t1-5ff"/>
                             <constraint firstItem="XIM-b7-S1w" firstAttribute="top" secondItem="QNu-aM-3oK" secondAttribute="bottom" constant="10" id="qVd-Xd-y2G"/>
-                            <constraint firstItem="QRP-7W-pgz" firstAttribute="trailing" secondItem="XIM-b7-S1w" secondAttribute="trailing" id="s8r-Zn-33Z"/>
+                            <constraint firstItem="QRP-7W-pgz" firstAttribute="trailing" secondItem="XIM-b7-S1w" secondAttribute="trailing" constant="20" id="s8r-Zn-33Z"/>
                             <constraint firstItem="ZMR-e3-dc1" firstAttribute="leading" secondItem="QiA-jH-9kT" secondAttribute="leading" id="uOI-Ww-Kwb"/>
                         </constraints>
                     </view>

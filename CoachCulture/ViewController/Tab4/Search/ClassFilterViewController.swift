@@ -30,7 +30,9 @@ class ClassFilterViewController: BaseViewController {
     @IBOutlet weak var btnOnDemand : UIButton!
     @IBOutlet weak var btnMinClassDuration : UIButton!
     @IBOutlet weak var btnMaxClassDuration : UIButton!
+    @IBOutlet weak var btnDuration : UIButton!
     @IBOutlet weak var btnMyCoach : UIButton!
+    @IBOutlet weak var btnMyCoachExtra : UIButton!
     @IBOutlet weak var btnBookMark : UIButton!
 
    
@@ -38,7 +40,7 @@ class ClassFilterViewController: BaseViewController {
     
     @IBOutlet weak var lblMinClassDuration : UILabel!
     @IBOutlet weak var lblMaxClassDuration : UILabel!
-
+    @IBOutlet weak var lblMaxClassDurationExtra : UILabel!
     @IBOutlet weak var viwLive : UIView!
     @IBOutlet weak var viwOnDemand : UIView!
     
@@ -48,12 +50,12 @@ class ClassFilterViewController: BaseViewController {
     var arrClassDifficultyList = [ClassDifficultyList]()
     var previousClassVC : PreviousClassesViewController!
     var searchResultVC : SearchResultViewController!
-
     var isFromBookMarkPage = false
     var isFromRecipe = false
-    
     var param = [String:Any]()
-    
+    var arrMealType = [MealTypeListData]()
+    var arrDietaryRestrictionListData = [DietaryRestrictionListData]()
+
     // MARK: - LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,8 +71,10 @@ class ClassFilterViewController: BaseViewController {
             self.viwMyCoachesOnly.isHidden = true
             self.viewMinClassDuration.isHidden = true
             self.viewMaxClassDuration.isHidden = true
+            viewMyCoachOnlyExtra.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
             self.callMealTypeAndDietaryRestrictionList()
         } else if previousClassVC != nil && !isFromRecipe {
+            viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
             self.viewMyCoachOnlyExtra.isHidden = true
             self.viewMaxClassDurationExtra.isHidden = true
             clickToBtnClassType(btnLive)
@@ -87,81 +91,143 @@ class ClassFilterViewController: BaseViewController {
         classDuration = Bundle.main.loadNibNamed("ClassDuration", owner: nil, options: nil)?.first as? ClassDuration
         classDuration.tapToBtnSelectItem { obj in
             if self.selectedButtonForDuration == self.btnMinClassDuration {
+                if self.selectedButtonForDuration.isSelected {
+                    self.viewMinClassDuration.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                } else {
+                    self.viewMinClassDuration.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+                }
                 self.lblMinClassDuration.text = obj + " mins"
+            } else if self.selectedButtonForDuration == self.btnMaxClassDuration {
+                if self.selectedButtonForDuration.isSelected {
+                    self.viewMaxClassDuration.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                } else {
+                    self.viewMaxClassDuration.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+                }
+                self.lblMaxClassDuration.text = obj + " mins"
+            } else if self.selectedButtonForDuration == self.btnDuration {
+                if self.previousClassVC != nil && self.isFromRecipe {
+                    if self.selectedButtonForDuration.isSelected {
+                        self.viewMaxClassDurationExtra.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                    } else {
+                        self.viewMaxClassDurationExtra.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+                    }
+                    self.lblMaxClassDurationExtra.text = obj + " mins"
+                }
             } else {
                 self.lblMaxClassDuration.text = obj + " mins"
             }
-            
         }
-        
         viwBookmarkOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
-        viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
-        
         self.view.layoutIfNeeded()
     }
     
     func setData() {
-        let coach_only = param["coach_only"] as? String ?? ""
-        let bookmark_only = param["bookmark_only"] as? String ?? ""
-        if coach_only == "yes" {
-            viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
-            btnMyCoach.isSelected = true
-        }
-        
-        if bookmark_only == "yes" {
-            viwBookmarkOnly.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
-            btnBookMark.isSelected = true
-        }
-        
-        let clssType = param["class_type"] as? String ?? ""
-        btnLive.isSelected = false
-        btnOnDemand.isSelected = false
-        if clssType == CoachClassType.live {
-            clickToBtnClassType(btnLive)
+        if previousClassVC != nil && isFromRecipe {
+            let coach_only = param["coach_only"] as? String ?? ""
+            if coach_only == "yes" {
+                viewMyCoachOnlyExtra.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                btnMyCoachExtra.isSelected = true
+            }
+            
+            self.lblMaxClassDurationExtra.text = param["duration"] as? String ?? ""
+            
+            if lblMaxClassDurationExtra.text!.isEmpty {
+                self.lblMaxClassDurationExtra.text =  "0 mins"
+            } else {
+                self.btnDuration.isSelected = true
+                self.viewMaxClassDurationExtra.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+            }
+                        
+            let arrDietaryRestrictionName = (param["dietary_restriction_name"] as? String ?? "").components(separatedBy: ",")
+            
+            for temp in arrDietaryRestrictionName {
+                let ind = self.arrDietaryRestrictionListData.firstIndex { obj in
+                    return obj.dietary_restriction_name.lowercased() == temp.lowercased()
+                }
+                if ind != nil {
+                    arrDietaryRestrictionListData[ind!].isSelected = true
+                }
+            }
+            
+            let arrMealTypeName = (param["meal_type_name"] as? String ?? "").components(separatedBy: ",")
+            
+            for temp in arrMealTypeName {
+                let ind = self.arrMealType.firstIndex { obj in
+                    return obj.meal_type_name.lowercased() == temp.lowercased()
+                }
+                if ind != nil {
+                    arrMealType[ind!].isSelected = true
+                }
+            }
         } else {
-            clickToBtnClassType(btnOnDemand)
-        }
-        
-        self.lblMinClassDuration.text = param["min_duration"] as? String ?? ""
-        self.lblMaxClassDuration.text = param["max_duration"] as? String ?? ""
-        
-        if lblMaxClassDuration.text!.isEmpty {
-            self.lblMaxClassDuration.text =  "0 mins"
-        }
-        
-        if lblMinClassDuration.text!.isEmpty {
-            self.lblMinClassDuration.text =  "0 mins"
-        }
-        
-        
-        let arrClassType = (param["class_type_name"] as? String ?? "").components(separatedBy: ",")
-        
-        for temp in arrClassType {
-            let ind = arrClassTypeList.firstIndex { obj in
-                return obj.class_type_name.lowercased() == temp.lowercased()
+            let coach_only = param["coach_only"] as? String ?? ""
+            let bookmark_only = param["bookmark_only"] as? String ?? ""
+            if coach_only == "yes" {
+                viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                btnMyCoach.isSelected = true
             }
             
-            if ind != nil {
-                arrClassTypeList[ind!].isSelected = true
-            }
-        }
-        
-        let arrclass_difficulty_name = (param["class_difficulty_name"] as? String ?? "").components(separatedBy: ",")
-        
-        for temp in arrclass_difficulty_name {
-            let ind = arrClassDifficultyList.firstIndex { obj in
-                return obj.class_difficulty_name.lowercased() == temp.lowercased()
+            if bookmark_only == "yes" {
+                viwBookmarkOnly.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                btnBookMark.isSelected = true
             }
             
-            if ind != nil {
-                arrClassDifficultyList[ind!].isSelected = true
+            let clssType = param["class_type"] as? String ?? ""
+            btnLive.isSelected = false
+            btnOnDemand.isSelected = false
+            if clssType == CoachClassType.live {
+                clickToBtnClassType(btnLive)
+            } else {
+                clickToBtnClassType(btnOnDemand)
             }
+            
+            self.lblMinClassDuration.text = param["min_duration"] as? String ?? ""
+            self.lblMaxClassDuration.text = param["max_duration"] as? String ?? ""
+            
+            if lblMinClassDuration.text!.isEmpty {
+                self.lblMinClassDuration.text =  "0 mins"
+            } else {
+                self.btnMinClassDuration.isSelected = true
+                self.viewMinClassDuration.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+            }
+
+            if lblMaxClassDuration.text!.isEmpty {
+                self.lblMaxClassDuration.text =  "0 mins"
+            } else {
+                self.btnMaxClassDuration.isSelected = true
+                self.viewMaxClassDuration.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+            }
+            
+            let arrClassType = (param["class_type_name"] as? String ?? "").components(separatedBy: ",")
+            
+            for temp in arrClassType {
+                let ind = arrClassTypeList.firstIndex { obj in
+                    return obj.class_type_name.lowercased() == temp.lowercased()
+                }
+                
+                if ind != nil {
+                    arrClassTypeList[ind!].isSelected = true
+                }
+            }
+            
+            let arrclass_difficulty_name = (param["class_difficulty_name"] as? String ?? "").components(separatedBy: ",")
+            
+            for temp in arrclass_difficulty_name {
+                let ind = arrClassDifficultyList.firstIndex { obj in
+                    return obj.class_difficulty_name.lowercased() == temp.lowercased()
+                }
+                
+                if ind != nil {
+                    arrClassDifficultyList[ind!].isSelected = true
+                }
+            }
+            
+            if isFromBookMarkPage {
+                viwBookmarkOnly.isHidden = true
+            }
+
         }
-        
-        if isFromBookMarkPage {
-            viwBookmarkOnly.isHidden = true
-        }
-        
+            
         clvClassType.reloadData()
         clvDifficultyLevel.reloadData()
     }
@@ -203,73 +269,178 @@ class ClassFilterViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnMyCoachOnly ( _ sender : UIButton) {
-        sender.isSelected = !sender.isSelected
-        if sender.isSelected {
-            viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+        if previousClassVC != nil && isFromRecipe {
+            sender.isSelected = !sender.isSelected
+            if sender.isSelected {
+                viewMyCoachOnlyExtra.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+            } else {
+                viewMyCoachOnlyExtra.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+            }
         } else {
-            viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+            sender.isSelected = !sender.isSelected
+            if sender.isSelected {
+                viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+            } else {
+                viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+            }
         }
     }
     
     @IBAction func clickToBtnRecipeDuration(_ sender : UIButton) {
-        selectedButtonForDuration = sender
-        setClassDurationView()
+        if sender == self.btnDuration {
+            if self.previousClassVC != nil && self.isFromRecipe {
+                self.btnDuration.isSelected = !self.btnDuration.isSelected
+                if self.btnDuration.isSelected {
+                    selectedButtonForDuration = sender
+                    setClassDurationView()
+                } else {
+                    self.viewMaxClassDurationExtra.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+                }
+            }
+        } else if sender == self.btnMinClassDuration {
+            self.btnMinClassDuration.isSelected = !self.btnMinClassDuration.isSelected
+            if self.btnMinClassDuration.isSelected {
+                selectedButtonForDuration = sender
+                setClassDurationView()
+            } else {
+                self.viewMinClassDuration.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+            }
+        } else if sender == self.btnMaxClassDuration {
+            self.btnMaxClassDuration.isSelected = !self.btnMaxClassDuration.isSelected
+            if self.btnMaxClassDuration.isSelected {
+                selectedButtonForDuration = sender
+                setClassDurationView()
+            } else {
+                self.viewMaxClassDuration.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+            }
+        } else {
+            selectedButtonForDuration = sender
+            setClassDurationView()
+        }
     }
     
     @IBAction func clickToBtnApplyFilter(_ sender : UIButton) {
         var class_difficulty_name = ""
-        for temp in arrClassDifficultyList {
-            if temp.isSelected {
-                if class_difficulty_name.isEmpty {
-                    class_difficulty_name =  temp.class_difficulty_name
-                } else {
-                    class_difficulty_name += "," + temp.class_difficulty_name
-                }
-            }
-        }
-        
         var class_type = ""
+        var meal_type_name = ""
+        var dietary_restriction_name = ""
         
-        for temp in arrClassTypeList {
-            if temp.isSelected {
-                if class_type.isEmpty {
-                    class_type = temp.class_type_name
-                } else {
-                    class_type += "," + temp.class_type_name
+        if previousClassVC != nil && isFromRecipe {
+            for temp in arrMealType {
+                if temp.isSelected {
+                    if meal_type_name.isEmpty {
+                        meal_type_name =  temp.meal_type_name
+                    } else {
+                        meal_type_name += "," + temp.meal_type_name
+                    }
                 }
             }
-        }
-        
-        if searchResultVC != nil {
-            searchResultVC!.resetVariable()
-            searchResultVC!.coach_only = btnMyCoach.isSelected ? "yes" : "no"
-            searchResultVC!.bookmark_only = btnBookMark.isSelected ? "yes" : "no"
-            searchResultVC!.min_duration = self.lblMinClassDuration.text! == "0 mins" ? "" : self.lblMinClassDuration.text!
-            searchResultVC!.max_duration = self.lblMaxClassDuration.text! == "0 mins" ? "" : self.lblMaxClassDuration.text!
-            searchResultVC!.class_difficulty_name = class_difficulty_name
-            searchResultVC!.class_type_name = class_type
-            searchResultVC!.class_type = btnLive.isSelected ? "live" : "on_demand"
-            searchResultVC!.setLiveDemandClass()
-            searchResultVC!.getAllCoachClassList()
             
-        }
-        
-        if previousClassVC != nil {
-            previousClassVC!.resetVariable()
-            previousClassVC!.coach_only = btnMyCoach.isSelected ? "yes" : "no"
-            previousClassVC!.bookmark_only = isFromBookMarkPage ? "yes" : (btnBookMark.isSelected ? "yes" : "no")
-            previousClassVC!.min_duration = self.lblMinClassDuration.text! == "0 mins" ? "" : self.lblMinClassDuration.text!
-            previousClassVC!.max_duration = self.lblMaxClassDuration.text! == "0 mins" ? "" : self.lblMaxClassDuration.text!
-            previousClassVC!.class_difficulty_name = class_difficulty_name
-            //previousClassVC!.class_type = btnLive.isSelected ? "live" : "on_demand"
+            for temp in arrDietaryRestrictionListData {
+                if temp.isSelected {
+                    if dietary_restriction_name.isEmpty {
+                        dietary_restriction_name = temp.dietary_restriction_name
+                    } else {
+                        dietary_restriction_name += "," + temp.dietary_restriction_name
+                    }
+                }
+            }
             
-            let arrfilterClassTypeNameModel = arrClassTypeList.filter({$0.isSelected})
-            let arrfilterClassTypeName = arrfilterClassTypeNameModel.map({$0.class_type_name})
+            if searchResultVC != nil {
+                searchResultVC!.resetVariable()
+                searchResultVC!.coach_only = btnMyCoach.isSelected ? "yes" : "no"
+                searchResultVC!.bookmark_only = btnBookMark.isSelected ? "yes" : "no"
+                searchResultVC!.min_duration = self.lblMinClassDuration.text! == "0 mins" ? "" : self.lblMinClassDuration.text!
+                searchResultVC!.max_duration = self.lblMaxClassDuration.text! == "0 mins" ? "" : self.lblMaxClassDuration.text!
+                searchResultVC!.class_difficulty_name = class_difficulty_name
+                searchResultVC!.class_type_name = class_type
+                searchResultVC!.class_type = btnLive.isSelected ? "live" : "on_demand"
+                searchResultVC!.setLiveDemandClass()
+                searchResultVC!.getAllCoachClassList()
+            }
             
-            previousClassVC.class_type_name = arrfilterClassTypeName.joined(separator: ",")
-            previousClassVC!.getPrevoisCoachClassList()
+            if previousClassVC != nil {
+                previousClassVC!.resetVariable()
+                previousClassVC!.coach_only = btnMyCoachExtra.isSelected ? "yes" : "no"
+                
+                if self.btnDuration.isSelected {
+                    previousClassVC!.duration = self.lblMaxClassDurationExtra.text! == "0 mins" ? "" : self.lblMaxClassDurationExtra.text!
+                } else {
+                    previousClassVC!.duration.removeAll()
+                }
+                previousClassVC!.dietary_restriction_name = dietary_restriction_name
+                
+                let arrFilterMealTypeNameModel = arrMealType.filter({$0.isSelected})
+                let arrFilterMealTypeName = arrFilterMealTypeNameModel.map({$0.meal_type_name})
+                
+                previousClassVC.meal_type_name = arrFilterMealTypeName.joined(separator: ",")
+                
+                previousClassVC.resetVariable()
+                previousClassVC.resetRecipeVariable()
+                previousClassVC!.getPrevoisCoachRecipeList()
+            }
+
+        } else {
+            for temp in arrClassDifficultyList {
+                if temp.isSelected {
+                    if class_difficulty_name.isEmpty {
+                        class_difficulty_name =  temp.class_difficulty_name
+                    } else {
+                        class_difficulty_name += "," + temp.class_difficulty_name
+                    }
+                }
+            }
+            
+            for temp in arrClassTypeList {
+                if temp.isSelected {
+                    if class_type.isEmpty {
+                        class_type = temp.class_type_name
+                    } else {
+                        class_type += "," + temp.class_type_name
+                    }
+                }
+            }
+            
+            if searchResultVC != nil {
+                searchResultVC!.resetVariable()
+                searchResultVC!.coach_only = btnMyCoach.isSelected ? "yes" : "no"
+                searchResultVC!.bookmark_only = btnBookMark.isSelected ? "yes" : "no"
+                searchResultVC!.min_duration = self.lblMinClassDuration.text! == "0 mins" ? "" : self.lblMinClassDuration.text!
+                searchResultVC!.max_duration = self.lblMaxClassDuration.text! == "0 mins" ? "" : self.lblMaxClassDuration.text!
+                searchResultVC!.class_difficulty_name = class_difficulty_name
+                searchResultVC!.class_type_name = class_type
+                searchResultVC!.class_type = btnLive.isSelected ? "live" : "on_demand"
+                searchResultVC!.setLiveDemandClass()
+                searchResultVC!.getAllCoachClassList()
+                
+            }
+            
+            if previousClassVC != nil {
+                previousClassVC!.resetVariable()
+                previousClassVC!.coach_only = btnMyCoach.isSelected ? "yes" : "no"
+                previousClassVC!.bookmark_only = isFromBookMarkPage ? "yes" : (btnBookMark.isSelected ? "yes" : "no")
+                
+                if self.btnMinClassDuration.isSelected {
+                    previousClassVC!.min_duration = self.lblMinClassDuration.text! == "0 mins" ? "" : self.lblMinClassDuration.text!
+                } else {
+                    previousClassVC!.min_duration.removeAll()
+                }
+                if self.btnMaxClassDuration.isSelected {
+                    previousClassVC!.max_duration = self.lblMaxClassDuration.text! == "0 mins" ? "" : self.lblMaxClassDuration.text!
+                } else {
+                    previousClassVC!.max_duration.removeAll()
+                }
+                
+                previousClassVC!.class_difficulty_name = class_difficulty_name
+                //previousClassVC!.class_type = btnLive.isSelected ? "live" : "on_demand"
+                
+                let arrfilterClassTypeNameModel = arrClassTypeList.filter({$0.isSelected})
+                let arrfilterClassTypeName = arrfilterClassTypeNameModel.map({$0.class_type_name})
+                
+                previousClassVC.class_type_name = arrfilterClassTypeName.joined(separator: ",")
+                previousClassVC!.getPrevoisCoachClassList()
+            }
         }
-        
         navigationController?.popViewController(animated: true)
         
     }
@@ -284,18 +455,23 @@ extension ClassFilterViewController {
         showLoader()
         
         _ =  ApiCallManager.requestApi(method: .get, urlString: API.MEAL_TYPE_AND_DIETARY_RESTRICTION_LIST, parameters: nil, headers: nil) { responseObj in
-            
+            self.hideLoader()
             let responseModel = ResponseDataModel(responseObj: responseObj)
             
             if responseModel.success {
-                let dataObj = responseObj["data"] as? [Any] ?? [Any]()
-                self.arrClassTypeList = ClassTypeList.getData(data: dataObj)
+                if let dataObj = responseObj["data"] as? [String:Any] {
+                    if let arrDietaryRestriction = dataObj["dietary_restriction"] as? [[String:Any]] {
+                        self.arrDietaryRestrictionListData = DietaryRestrictionListData.getData(data: arrDietaryRestriction)
+                    }
+                    if let arrMealType = dataObj["meal_type"] as? [[String:Any]] {
+                        self.arrMealType = MealTypeListData.getData(data: arrMealType)
+                    }
+                }
+                self.clvDifficultyLevel.reloadData()
                 self.clvClassType.reloadData()
                 self.lctClassTypeHeight.constant = self.clvClassType.collectionViewLayout.collectionViewContentSize.height
+                self.setData()
             }
-            
-            self.getClassDifficultyList()
-            
         } failure: { (error) in
             self.hideLoader()
             return true
@@ -352,36 +528,66 @@ extension ClassFilterViewController {
 extension ClassFilterViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
     {
-        if collectionView == clvDifficultyLevel {
-            return arrClassDifficultyList.count
+        if previousClassVC != nil && isFromRecipe {
+            if collectionView == clvDifficultyLevel {
+                return arrMealType.count
+            }
+            return arrDietaryRestrictionListData.count
+        } else {
+            if collectionView == clvDifficultyLevel {
+                return arrClassDifficultyList.count
+            }
+            return arrClassTypeList.count
         }
-        return arrClassTypeList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell
     {
-        if collectionView == clvDifficultyLevel {
-            let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
-            let obj  = arrClassDifficultyList[indexPath.row]
-            cell.lblTitle.text = obj.class_difficulty_name
-            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
-            
-            if obj.isSelected {
-                cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+        if previousClassVC != nil && isFromRecipe {
+            if collectionView == clvDifficultyLevel {
+                let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+                let obj  = arrMealType[indexPath.row]
+                cell.lblTitle.text = obj.meal_type_name
+                cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+                
+                if obj.isSelected {
+                    cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                }
+                return cell
+            } else {
+                let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+                let obj  = arrDietaryRestrictionListData[indexPath.row]
+                cell.lblTitle.text = obj.dietary_restriction_name
+                cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#525F6F")
+                
+                if obj.isSelected {
+                    cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                }
+                return cell
             }
-            return cell
         } else {
-            let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
-            let obj  = arrClassTypeList[indexPath.row]
-            cell.lblTitle.text = obj.class_type_name
-            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#525F6F")
-            
-            if obj.isSelected {
-                cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+            if collectionView == clvDifficultyLevel {
+                let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+                let obj  = arrClassDifficultyList[indexPath.row]
+                cell.lblTitle.text = obj.class_difficulty_name
+                cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+                
+                if obj.isSelected {
+                    cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                }
+                return cell
+            } else {
+                let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+                let obj  = arrClassTypeList[indexPath.row]
+                cell.lblTitle.text = obj.class_type_name
+                cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#525F6F")
+                
+                if obj.isSelected {
+                    cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
+                }
+                return cell
             }
-            return cell
         }
-                        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -392,13 +598,23 @@ extension ClassFilterViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        if collectionView == clvDifficultyLevel {
-            arrClassDifficultyList[indexPath.row].isSelected = !arrClassDifficultyList[indexPath.row].isSelected
-            clvDifficultyLevel.reloadData()
-
+        if previousClassVC != nil && isFromRecipe {
+            if collectionView == clvDifficultyLevel {
+                arrMealType[indexPath.row].isSelected = !arrMealType[indexPath.row].isSelected
+                clvDifficultyLevel.reloadData()
+            } else {
+                arrDietaryRestrictionListData[indexPath.row].isSelected = !arrDietaryRestrictionListData[indexPath.row].isSelected
+                clvClassType.reloadData()
+            }
         } else {
-            arrClassTypeList[indexPath.row].isSelected = !arrClassTypeList[indexPath.row].isSelected
-            clvClassType.reloadData()
+            if collectionView == clvDifficultyLevel {
+                arrClassDifficultyList[indexPath.row].isSelected = !arrClassDifficultyList[indexPath.row].isSelected
+                clvDifficultyLevel.reloadData()
+
+            } else {
+                arrClassTypeList[indexPath.row].isSelected = !arrClassTypeList[indexPath.row].isSelected
+                clvClassType.reloadData()
+            }
         }
     }
     
