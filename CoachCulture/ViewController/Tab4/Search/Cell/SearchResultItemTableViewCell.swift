@@ -10,6 +10,7 @@ import HCSStarRatingView
 
 class SearchResultItemTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var viewBlur: UIView!
     @IBOutlet weak var lblClassDifficultyLevel : UILabel!
     @IBOutlet weak var lbltitle : UILabel!
     @IBOutlet weak var lblDuration : UILabel!

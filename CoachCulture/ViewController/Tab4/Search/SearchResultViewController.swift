@@ -14,6 +14,7 @@ class SearchResultViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var clvDateTime: UICollectionView!
     @IBOutlet weak var tblSearchResult: UITableView!
     
@@ -45,6 +46,8 @@ class SearchResultViewController: BaseViewController {
     
     var arrDates = [ClassDate]()
     var paramForApi = [String:Any]()
+    var start_datetime = ""
+    var end_datetime = ""
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -54,12 +57,33 @@ class SearchResultViewController: BaseViewController {
         getAllCoachClassList()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let layout = clvDateTime.collectionViewLayout as! UICollectionViewFlowLayout
+
+        let noOfCell: CGFloat = 4
+        let totalGivenMarginToCLNView: CGFloat = 10
+        let minimumInteritemSpacingForSectionAt: CGFloat = 10
+        let margin = totalGivenMarginToCLNView + minimumInteritemSpacingForSectionAt
+        
+        let width  = (self.clvDateTime.frame.width - margin) / noOfCell
+        let height  = CGFloat(35.0)
+
+        layout.itemSize = CGSize(width: width, height: height)
+        clvDateTime.collectionViewLayout = layout
+        DispatchQueue.main.async {
+            self.clvDateTime.reloadData()
+        }
+    }
+    
     func setUpUI() {
         setLiveDemandClass()
         
         customDatePickerForSelectTime = CustomDatePickerViewForTextFeild(textField: txtDummyTime, format: "HH:mm", mode: .time)
         customDatePickerForSelectTime.pickerView { (str, date) in
-            self.lblTime.text = str
+            let currentHrsMinutes = str.components(separatedBy: ":")
+            self.lblTime.text = "\(currentHrsMinutes.first ?? "00"):\(Int(currentHrsMinutes.last ?? "00")?.roundMinutes() ?? "00")"
         }
         
         clvDateTime.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
@@ -67,6 +91,8 @@ class SearchResultViewController: BaseViewController {
         clvDateTime.dataSource = self
         clvDateTime.reloadData()
         
+        tblSearchResult.register(UINib(nibName: "CoachViseOnDemandClassItemTableViewCell", bundle: nil), forCellReuseIdentifier: "CoachViseOnDemandClassItemTableViewCell")
+
         tblSearchResult.register(UINib(nibName: "SearchResultItemTableViewCell", bundle: nil), forCellReuseIdentifier: "SearchResultItemTableViewCell")
         tblSearchResult.delegate = self
         tblSearchResult.dataSource = self
@@ -79,7 +105,8 @@ class SearchResultViewController: BaseViewController {
         if class_type == CoachClassType.live {
             viwSearchFilter.isHidden = true
             viwLiveClassTime.isHidden = false
-            for i in 0...3 {
+            arrDates.removeAll()
+            for i in 0...4 {
                 let nsDate = Date().addDays(0+i).getDateStringWithFormate("EEE dd", timezone: "UTC")
                 let date = Date().addDays(0+i).getDateStringWithFormate("yyyy-MM-dd", timezone: "UTC")
                 
@@ -88,17 +115,18 @@ class SearchResultViewController: BaseViewController {
                 obj.date = date
                 arrDates.append(obj)
             }
-            
-            lblTime.text = Date().getDateStringWithFormate("HH:mm", timezone: "UTC")
+            let currentHrsMinutes = Calendar.current.dateComponents([.hour, .minute], from: Date())
+            lblTime.text = "\(currentHrsMinutes.hour ?? 00):\(currentHrsMinutes.minute?.roundMinutes() ?? "00")"
             
             clvDateTime.reloadData()
             
             class_date = arrDates.first!.date
+            start_datetime = convertToUTC(dateToConvert: "\(class_date) \(lblTime.text ?? "")", dateFormate: "yyyy-MM-dd HH:mm")
+            end_datetime = convertToUTC(dateToConvert: "\(class_date) 23:59", dateFormate: "yyyy-MM-dd HH:mm")
         } else {
             viwSearchFilter.isHidden = false
             viwLiveClassTime.isHidden = true
         }
-        
     }
     
     func resetVariable() {
@@ -154,12 +182,14 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
-        if class_date.isEmpty {
-            class_date = arrDates[indexPath.row].date
-        } else {
+        if class_date == arrDates[indexPath.row].date {
             class_date = ""
+        } else {
+            class_date = arrDates[indexPath.row].date
+            start_datetime = convertToUTC(dateToConvert: "\(class_date) \(lblTime.text ?? "")", dateFormate: "yyyy-MM-dd HH:mm")
+            end_datetime = convertToUTC(dateToConvert: "\(class_date) 23:59", dateFormate: "yyyy-MM-dd HH:mm")
         }
-        
+
         collectionView.reloadData()
         self.resetVariable()
         getAllCoachClassList()
@@ -177,22 +207,43 @@ extension SearchResultViewController : UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseOnDemandClassItemTableViewCell", for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultItemTableViewCell", for: indexPath) as! SearchResultItemTableViewCell
         let obj = arrCoachClassList[indexPath.row]
-        cell.lblClassType.text = "On demand".uppercased()
-        cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
-        cell.imgUser.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
-        cell.imgThumbnail.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
-        cell.imgThumbnail.blurImage()
-        cell.imgClassCover.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "coverBG")
-        cell.lbltitle.text = obj.class_type_name
-        cell.lblClassDifficultyLevel.text = obj.class_difficulty_name
-        cell.lblClassDate.text = obj.class_date
-        cell.lblUserName.text = "@" + obj.coachDetailsObj.username
-        cell.lblClassTime.text = obj.class_time
+
+        if class_type == CoachClassType.live {
+            cell.lblClassType.text = "Live".uppercased()
+            cell.lblClassTime.text = convertUTCToLocal(dateStr: obj.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm")
+            cell.viwClassTypeContainer.backgroundColor = COLORS.THEME_RED
+        } else {
+            cell.lblClassType.text = "On demand".uppercased()
+            cell.lblClassTime.text = obj.total_viewers + " Views"
+            cell.viwClassTypeContainer.backgroundColor = COLORS.ON_DEMAND_COLOR
+        }
         cell.lblDuration.text = obj.duration
         
+        cell.viewProfile.isHidden = false
+        if cell.imgProfileBottom.image == nil {
+            cell.imgProfileBottom.blurImage()
+        }
+        cell.viewProfile.addCornerRadius(10)
+        cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+        cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
+        cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
+        cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
+        
+        cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
+        cell.lbltitle.text = obj.class_type_name
+        cell.lblClassDifficultyLevel.text = obj.class_subtitle
+        cell.lblClassDate.text = convertUTCToLocal(dateStr: obj.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
+        cell.selectedIndex = indexPath.row
+                
+        cell.didTapBookmarkButton = {
+            var param = [String:Any]()
+            param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+            param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+            self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+        }
         if obj.bookmark == "no" {
             cell.imgBookMark.image = UIImage(named: "BookmarkLight")
         } else {
@@ -203,20 +254,54 @@ extension SearchResultViewController : UITableViewDelegate, UITableViewDataSourc
            
             getAllCoachClassList()
         }
-        
+
+        cell.layoutIfNeeded()
         return cell
-        
+    }
+    
+    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], recdType : String, selectedIndex: Int) {
+        showLoader()
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
+            
+            if let message = responseObj["message"] as? String, !message.isEmpty {
+                Utility.shared.showToast(message)
+            }
+            switch recdType {
+            case SelectedDemandClass.onDemand, SelectedDemandClass.live:
+                for (index, model) in self.arrCoachClassList.enumerated() {
+                    if selectedIndex == index {
+                        model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                        self.arrCoachClassList[index] = model
+                        DispatchQueue.main.async {
+                            self.tblSearchResult.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                        }
+                        break
+                    }
+                }
+            default:
+                self.resetVariable()
+                self.getAllCoachClassList()
+            }
+            self.hideLoader()
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 122
+        return 105
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 122
+        return 105
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = LiveClassDetailsViewController.viewcontroller()
+        let obj = arrCoachClassList[indexPath.row]
+        vc.selectedId = obj.id
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -232,21 +317,34 @@ extension SearchResultViewController {
         
         isDataLoading = true
         showLoader()
+        
         var param = [String:Any]()
+
+        if !class_difficulty_name.isEmpty || class_difficulty_name != "" {
+            param["class_difficulty_name"] = class_difficulty_name
+        }
+        if !class_type_name.isEmpty || class_type_name != "" {
+            param["class_type_name"] = class_type_name
+        }
+        if !min_duration.isEmpty || min_duration != "" {
+            param["min_duration"] = min_duration
+        }
+        if !max_duration.isEmpty || max_duration != "" {
+            param["max_duration"] = max_duration
+        }
+        if !searchString.isEmpty || searchString != "" {
+            param["search"] = searchString
+        }
+        if (!class_date.isEmpty || class_date != "") && class_type != CoachClassType.onDemand {
+            param["start_datetime"] = start_datetime
+            param["end_datetime"] = end_datetime
+        }
         
         param["page_no"] = "\(pageNo)"
         param["per_page"] = "\(perPageCount)"
         param["coach_only"] = "\(coach_only)"
         param["bookmark_only"] = "\(bookmark_only)"
-        param["max_duration"] = "\(max_duration)"
-        param["min_duration"] = "\(min_duration)"
-        param["class_difficulty_name"] = "\(class_difficulty_name)"
-        param["class_type_name"] = "\(class_type_name)"
-        param["class_date"] = "\(class_date)"
-        param["class_time"] = lblTime.text
-        param["search"] = "\(searchString)"
         param["class_type"] = "\(class_type)"
-
         
         paramForApi = param
         
@@ -254,9 +352,17 @@ extension SearchResultViewController {
             
             let dataObj = responseObj["coach_class_list"] as? [Any] ?? [Any]()
             let arr = CoachClassPrevious.getData(data: dataObj)
-            self.arrCoachClassList.append(contentsOf: arr)
-            self.tblSearchResult.layoutIfNeeded()
-            self.tblSearchResult.reloadData()
+            
+            if arr.count > 0 {
+                self.arrCoachClassList.append(contentsOf: arr)
+            }
+            if self.arrCoachClassList.count > 0 {
+                self.viewNoDataFound.isHidden = true
+                self.tblSearchResult.layoutIfNeeded()
+                self.tblSearchResult.reloadData()
+            } else {
+                self.viewNoDataFound.isHidden = false
+            }
             
             if arr.count < self.perPageCount
             {
@@ -295,3 +401,21 @@ extension SearchResultViewController : UITextFieldDelegate {
 }
 
 
+extension Int {
+    func roundMinutes() -> String {
+        var roundMinutes = "00"
+        switch self {
+        case 0...14:
+            roundMinutes = "00"
+        case 15...29:
+            roundMinutes = "15"
+        case 30...44:
+            roundMinutes = "30"
+        case 45...59:
+            roundMinutes = "45"
+        default:
+            roundMinutes = "00"
+        }
+        return roundMinutes
+    }
+}

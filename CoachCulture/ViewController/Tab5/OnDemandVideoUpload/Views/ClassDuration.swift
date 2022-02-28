@@ -25,7 +25,7 @@ class ClassDuration: UIView {
     override func awakeFromNib() {
         
         var count = 0
-        for _ in 1...24 {
+        for _ in 1...30 {
             count += 5
             pickerData.append("\(count)")
         }

@@ -156,7 +156,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cYG-td-Vcb" userLabel="blur_view">
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cYG-td-Vcb" userLabel="blur_view">
                                 <rect key="frame" x="7" y="15" width="120" height="80"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.34540881849315069" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <userDefinedRuntimeAttributes>
@@ -337,6 +337,7 @@
                 <outlet property="lblDuration" destination="zYa-zE-qtD" id="c6J-tG-Rq4"/>
                 <outlet property="lblUserName" destination="BvR-t4-4i1" id="PsD-Xs-Cti"/>
                 <outlet property="lbltitle" destination="mA0-u1-0Qo" id="kRr-Bn-stg"/>
+                <outlet property="viewBlur" destination="cYG-td-Vcb" id="SMp-oe-RZC"/>
                 <outlet property="viewProfile" destination="3Ca-k1-cJP" id="DY1-c0-FZt"/>
                 <outlet property="viwClassTypeContainer" destination="PKf-0T-FYN" id="PUA-Dn-Qvc"/>
                 <outlet property="viwRating" destination="X0K-F2-G82" id="Axl-FA-kes"/>

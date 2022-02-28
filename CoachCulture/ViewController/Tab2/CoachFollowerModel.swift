@@ -83,12 +83,16 @@ class CoachClassInfoList {
     var total_viewers = ""
     var bookmark = ""
     var created_atFormated = ""
+    var class_date = ""
+    var class_time = ""
    
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
         coach_class_type = map.value("coach_class_type") ?? ""
+        class_time = map.value("class_time") ?? ""
+        class_date = map.value("class_date") ?? ""
         class_type_name = map.value("class_type_name") ?? ""
         id = map.value("id") ?? ""
         class_subtitle = map.value("class_subtitle") ?? ""

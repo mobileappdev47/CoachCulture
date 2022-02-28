@@ -61,12 +61,12 @@ class PreviousUploadViewController: BaseViewController {
         super.viewDidLoad()
         
         setUpUI()
+        getCoachesWiseClassList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        getCoachesWiseClassList()
     }
     
     // MARK: - Methods
@@ -137,6 +137,9 @@ class PreviousUploadViewController: BaseViewController {
     
     @IBAction func clickToBtnFilter( _ sender : UIButton) {
         let vc = ClassFilterViewController.viewcontroller()
+        vc.isFromRecipe = viwRecipeLine.isHidden ? false : true
+        vc.previousUploadVC = self
+        vc.param = self.paramForApi
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -204,8 +207,8 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.lbltitle.text = obj.class_type_name
-            cell.lblClassDate.text = obj.created_atFormated
-            cell.lblClassTime.text = obj.total_viewers + " Views"
+            cell.lblClassDate.text = convertUTCToLocal(dateStr: "\(obj.class_date) \(obj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "dd MMM yyyy")
+            cell.lblClassTime.text = convertUTCToLocal(dateStr: "\(obj.class_date) \(obj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "HH:mm")
             
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -360,7 +363,7 @@ extension PreviousUploadViewController {
         if !max_duration.isEmpty || max_duration != "" {
             param["max_duration"] = max_duration
         }
-        param["tamplate"] = true
+        param["template"] = true
         
         paramForApi =  param
         
@@ -413,7 +416,9 @@ extension PreviousUploadViewController {
         if !dietary_restriction_name.isEmpty || dietary_restriction_name != "" {
             param["dietary_restriction_name"] = dietary_restriction_name
         }
-        param["bookmark_only"] = "no"
+        if isFromBookMarkPage {
+            param["bookmark_only"] = "yes"
+        }
         paramForApi =  param
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_COACH_WISE_RECIPE_LIST, parameters: param, headers: nil) { responseObj in
