@@ -13,9 +13,6 @@
         <array key="Karla-Medium.ttf">
             <string>Karla-Medium</string>
         </array>
-        <array key="Karla-Regular.ttf">
-            <string>Karla-Regular</string>
-        </array>
         <array key="Karla-SemiBold.ttf">
             <string>Karla-SemiBold</string>
         </array>
@@ -33,6 +30,9 @@
         </array>
         <array key="SFProText-Semibold.otf">
             <string>SFProText-Semibold</string>
+        </array>
+        <array key="karla.regular.ttf">
+            <string>Karla-Regular</string>
         </array>
         <array key="latosemibold.ttf">
             <string>Lato-Semibold</string>

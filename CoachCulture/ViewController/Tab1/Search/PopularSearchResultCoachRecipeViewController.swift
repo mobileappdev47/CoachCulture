@@ -88,7 +88,11 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
         cell.imgThumbnail.blurImage()
         cell.arrDietaryRestriction = obj.arrDietaryRestrictionName
         cell.clvDietaryRestriction.reloadData()
-        
+        if obj.bookmark == "no" {
+            cell.imgBookmark.image = UIImage(named: "BookmarkLight")
+        } else {
+            cell.imgBookmark.image = UIImage(named: "Bookmark")
+        }
         if arrCoachRecipeData.count - 1 == indexPath.row
         {
             let coach_only = selectedParam["coach_only"] as? String ?? ""
@@ -107,7 +111,9 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = RecipeDetailsViewController.viewcontroller()
+        vc.recipeID = arrCoachRecipeData[indexPath.row].id
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

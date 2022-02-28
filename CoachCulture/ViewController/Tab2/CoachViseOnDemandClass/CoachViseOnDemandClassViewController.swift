@@ -66,13 +66,12 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
             setUpUI()
-        }
+    }
     
     // MARK: - Methods
     
@@ -99,6 +98,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         tblOndemand.dataSource = self
         getUserProfile()
         getCoacheSearchHistory()
+        setData()
     }
     
     func resetVariable() {

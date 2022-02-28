@@ -111,9 +111,10 @@ extension PopularCoachRecipeViewController: UICollectionViewDataSource, UICollec
         return CGSize(width: 155, height: 190)
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
-        
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let vc = RecipeDetailsViewController.viewcontroller()
+        vc.recipeID = arrPopularRecipeData[indexPath.row].id
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     
@@ -161,7 +162,9 @@ extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = RecipeDetailsViewController.viewcontroller()
+        vc.recipeID = arrPopularRecipeData[indexPath.row].id
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
