@@ -63,6 +63,7 @@ class LiveClassDetailsViewController: BaseViewController {
     var isFromClassDownloadedPage = false
     var ratingListPopUp : RatingListPopUp!
     var arrClassRatingList = [ClassRatingList]()
+    var bottomDetailView = BottomDetailView()
     var logOutView:LogOutView!
     var timer = Timer()
     var counter = 0.0
@@ -143,6 +144,7 @@ class LiveClassDetailsViewController: BaseViewController {
         
         ratingListPopUp = Bundle.main.loadNibNamed("RatingListPopUp", owner: nil, options: nil)?.first as? RatingListPopUp
         
+        bottomDetailView = Bundle.main.loadNibNamed("BottomDetailView", owner: nil, options: nil)?.first as! BottomDetailView
         
         if isFromClassDownloadedPage && !Reachability.isConnectedToNetwork() {
             for temp in AppPrefsManager.sharedInstance.getClassData() {
@@ -208,6 +210,7 @@ class LiveClassDetailsViewController: BaseViewController {
         imgClassCover.setImageFromURL(imgUrl: classDetailDataObj.thumbnail_image, placeholderImage: nil)
         lblCal.text = classDetailDataObj.burn_calories + "Kcal"
         lblTimeDuration1.text = classDetailDataObj.duration
+        bottomDetailView.heightEqupmentTbl.constant = 0.5
         tblEquipment.reloadData()
         
         let currencySybmol = getCurrencySymbol(from: classDetailDataObj.feesDataObj.fee_regional_currency)
@@ -247,6 +250,12 @@ class LiveClassDetailsViewController: BaseViewController {
         
         ratingListPopUp.frame.size = self.view.frame.size
         self.view.addSubview(ratingListPopUp)
+    }
+    
+    func setbottomDetailView() {
+        
+        bottomDetailView.frame.size = self.view.frame.size
+        self.view.addSubview(bottomDetailView)
     }
     
     func checkIfDataIsUpdated() {
@@ -401,7 +410,8 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     @IBAction func didTapBottomDetaile(_ sender: UIButton) {
-        
+        bottomDetailView.setData(title: self.classDetailDataObj.class_type, SubTitle: self.classDetailDataObj.class_subtitle, calary: classDetailDataObj.burn_calories + "Kcal", duration: classDetailDataObj.duration, Data: self.classDetailDataObj)
+        setbottomDetailView()
     }
     
     @IBAction func didTapBtnBack(_ sender: UIButton) {

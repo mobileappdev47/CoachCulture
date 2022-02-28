@@ -100,15 +100,6 @@ extension ShowDetailView: UITableViewDataSource, UITableViewDelegate {
         }
         
         lblSubTitle.sizeToFit()
-//        hightTopView.constant = (lblTitle.frame.height + lblSubTitle.frame.height + hightRecipeIngTbl.constant + heightDescriptionDetailTbl.constant)
-//        hightScrollVew.constant = hightTopView.constant
-//        hightMainView.constant = (hightScrollVew.constant + hightBottomView.constant)
-//
-//        if hightTopView.constant > 618 {
-//            self.scrollView.isScrollEnabled = true
-//        } else {
-//            self.scrollView.isScrollEnabled = false
-//        }
 
     }
 }

@@ -9,7 +9,9 @@ import UIKit
 
 class LiveClassEquipmentItemTableViewCell: UITableViewCell {
     @IBOutlet weak var lblTitle : UILabel!
-
+    @IBOutlet weak var ledingCell: NSLayoutConstraint!
+    @IBOutlet weak var trelingCell: NSLayoutConstraint!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

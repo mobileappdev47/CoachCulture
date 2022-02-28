@@ -37,6 +37,11 @@ class OnDemandVideoUploadViewController: BaseViewController {
     @IBOutlet weak var lblUploadThumbnail : UILabel!
     @IBOutlet weak var lblSubscriptionCurrentSym : UILabel!
     @IBOutlet weak var lblNonSubscriptionCurrentSym : UILabel!
+    @IBOutlet weak var lblUploding: UILabel!
+    
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var updateStack: UIStackView!
+    @IBOutlet weak var viwUploding: UIView!
     
     @IBOutlet weak var btnUploadthumbnail : UIButton!
     @IBOutlet weak var btnUploadVideo : UIButton!
@@ -205,9 +210,6 @@ class OnDemandVideoUploadViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
-        
-        
-        
         if uploadedVideoUrl.isEmpty {
             Utility.shared.showToast("Please upload demand video")
         } else if  thumbailUrl.isEmpty {
@@ -249,16 +251,32 @@ class OnDemandVideoUploadViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnUplaodOnDemandVideo(_ sender : UIButton) {
+        if uploadedVideoUrl == "" {
+            selectedButton = btnUploadVideo
+            let picker = UIImagePickerController()
+            picker.delegate = self
+            picker.mediaTypes = [kUTTypeMovie as String]
+            self.present(picker, animated: true, completion: nil)
+        } else {
+            selectedButton = btnUploadthumbnail
+            setAddPhotoView()
+        }
+    }
+    
+    @IBAction func clickToBtnUplaodThumbnail(_ sender : UIButton) {
+    }
+    
+    @IBAction func btnUpdateThum(_ sender: UIButton) {
+        selectedButton = btnUploadthumbnail
+        setAddPhotoView()
+    }
+    
+    @IBAction func btnUpdateVideo(_ sender: UIButton) {
         selectedButton = btnUploadVideo
         let picker = UIImagePickerController()
         picker.delegate = self
         picker.mediaTypes = [kUTTypeMovie as String]
         self.present(picker, animated: true, completion: nil)
-    }
-    
-    @IBAction func clickToBtnUplaodThumbnail(_ sender : UIButton) {
-        selectedButton = btnUploadthumbnail
-        setAddPhotoView()
     }
     
 }
@@ -325,13 +343,18 @@ extension OnDemandVideoUploadViewController {
     
     func uploadVideo(nameOfResource : String, Url : URL){   //1
         
-        showLoader()
-        
         let expression  = AWSS3TransferUtilityUploadExpression()
         expression.progressBlock = { (task: AWSS3TransferUtilityTask,progress: Progress) -> Void in
-            print(progress.fractionCompleted)   //2
+            print("\(progress.fractionCompleted)" + "progress")   //2
+            DispatchQueue.main.async {
+                self.lblUploding.text = "\(Int(progress.fractionCompleted * 100))" + "%"
+                self.progressView.progress = Float(progress.fractionCompleted)
+            }
             if progress.isFinished{           //3
                 print("Upload Finished...")
+                DispatchQueue.main.async {
+                    self.lblUploding.text = "Video Upload Complete."
+                }
                 Utility.shared.showToast("Video uploaded successfully")
                 let url = AWSS3.default().configuration.endpoint.url
                 let publicURL = url?.appendingPathComponent(BUCKET_NAME).appendingPathComponent(nameOfResource)
@@ -356,7 +379,6 @@ extension OnDemandVideoUploadViewController {
                 print("Uploaded to:\(String(describing: publicURL))")
             }
             
-            self.hideLoader()
             
         } as? AWSS3TransferUtilityUploadCompletionHandlerBlock
         
@@ -368,6 +390,10 @@ extension OnDemandVideoUploadViewController {
             }
             if(task.result != nil){
                 print("Starting upload...")
+                DispatchQueue.main.async {
+                    self.lblUploding.text = "Uploading Start..."
+                    self.viwUploding.isHidden = false
+                }
             }
             return nil
         })
@@ -399,6 +425,7 @@ extension OnDemandVideoUploadViewController {
             let responseModel = ResponseDataModel(responseObj: resObj)
             let dataObj = resObj["data"] as? [String:Any] ?? [String:Any]()
             self.thumbailUrl = dataObj["thumbnail_image"] as? String ?? ""
+            self.updateStack.isHidden = false
             
             Utility.shared.showToast(responseModel.message)
             self.hideLoader()
@@ -491,8 +518,6 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        picker.dismiss(animated: true, completion: nil)
-        
         var editedImage:UIImage?
         
         if selectedButton == btnUploadVideo {
@@ -521,6 +546,9 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
             self.uploadVideoThumbnail()
         }
         
+        
+        picker.dismiss(animated: true, completion: nil)
+        
     }
     
     
@@ -544,7 +572,12 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
             let imagePickerController = UIImagePickerController()
             
             imagePickerController.sourceType = .photoLibrary
-            imagePickerController.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+            
+            if uploadedVideoUrl == "" {
+                imagePickerController.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
+            } else {
+                imagePickerController.mediaTypes = [kUTTypeImage as String]
+            }
             imagePickerController.allowsEditing = false
             imagePickerController.delegate = self
             

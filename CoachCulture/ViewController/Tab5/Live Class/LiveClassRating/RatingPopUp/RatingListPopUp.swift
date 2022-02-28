@@ -18,18 +18,6 @@ class RatingListPopUp: UIView {
 
     var arrClassRatingList = [ClassRatingList]()
     
-    internal var handlerForBtnOk: (() -> Void)?
-
-
-    
-    public func tapToBtnOk(_ handler: @escaping () -> Void)
-    {
-        self.handlerForBtnOk = nil
-    }
-   
-    
-   
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpUI()

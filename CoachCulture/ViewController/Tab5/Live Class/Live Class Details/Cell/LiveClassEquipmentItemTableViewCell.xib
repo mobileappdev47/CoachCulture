@@ -23,20 +23,20 @@
                 <rect key="frame" x="0.0" y="0.0" width="188" height="30"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rag-rD-r6s">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rag-rD-r6s">
                         <rect key="frame" x="0.0" y="0.0" width="188" height="30"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Xn-vZ-Nuj">
-                                <rect key="frame" x="0.0" y="0.0" width="188" height="23.5"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8Xn-vZ-Nuj">
+                                <rect key="frame" x="2" y="2" width="184" height="21.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Dumbell" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCo-hV-C5n">
-                                        <rect key="frame" x="5" y="5" width="178" height="13.5"/>
+                                        <rect key="frame" x="5" y="5" width="174" height="11.5"/>
                                         <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="12"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.32156862745098036" green="0.37647058823529411" blue="0.4392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.32011115550000002" green="0.3777698874" blue="0.4394184351" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="oCo-hV-C5n" firstAttribute="leading" secondItem="8Xn-vZ-Nuj" secondAttribute="leading" constant="5" id="LR3-gd-FFP"/>
                                     <constraint firstAttribute="trailing" secondItem="oCo-hV-C5n" secondAttribute="trailing" constant="5" id="mlq-Xu-spW"/>
@@ -52,10 +52,10 @@
                         </subviews>
                         <color key="backgroundColor" name="textfeildBGColor"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="8Xn-vZ-Nuj" secondAttribute="trailing" id="FbG-hr-c0o"/>
+                            <constraint firstAttribute="trailing" secondItem="8Xn-vZ-Nuj" secondAttribute="trailing" constant="2" id="FbG-hr-c0o"/>
                             <constraint firstAttribute="bottom" secondItem="8Xn-vZ-Nuj" secondAttribute="bottom" constant="6.5" id="op6-6Y-oWn"/>
-                            <constraint firstItem="8Xn-vZ-Nuj" firstAttribute="leading" secondItem="rag-rD-r6s" secondAttribute="leading" id="qjz-zs-hm8"/>
-                            <constraint firstItem="8Xn-vZ-Nuj" firstAttribute="top" secondItem="rag-rD-r6s" secondAttribute="top" id="yqG-VH-t2f"/>
+                            <constraint firstItem="8Xn-vZ-Nuj" firstAttribute="leading" secondItem="rag-rD-r6s" secondAttribute="leading" constant="2" id="qjz-zs-hm8"/>
+                            <constraint firstItem="8Xn-vZ-Nuj" firstAttribute="top" secondItem="rag-rD-r6s" secondAttribute="top" constant="2" id="yqG-VH-t2f"/>
                         </constraints>
                     </view>
                 </subviews>
@@ -69,6 +69,8 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="lblTitle" destination="oCo-hV-C5n" id="Vqt-RG-glS"/>
+                <outlet property="ledingCell" destination="LR3-gd-FFP" id="s1G-fx-Wlm"/>
+                <outlet property="trelingCell" destination="mlq-Xu-spW" id="sl6-1d-exg"/>
             </connections>
             <point key="canvasLocation" x="36.231884057971016" y="114.50892857142857"/>
         </tableViewCell>
