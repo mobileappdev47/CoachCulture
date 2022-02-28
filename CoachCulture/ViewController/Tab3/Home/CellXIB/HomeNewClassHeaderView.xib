@@ -47,6 +47,9 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="RzT-DI-0md" secondAttribute="trailing" id="fPC-TJ-Ptp"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="lblTitle" destination="0wy-La-zvQ" id="UVS-TU-nAA"/>
+            </connections>
             <point key="canvasLocation" x="140.57971014492756" y="155.35714285714286"/>
         </view>
     </objects>

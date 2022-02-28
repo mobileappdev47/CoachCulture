@@ -22,12 +22,14 @@ class UpCommingLiveClass {
     var user_image = ""
     var classDateFormated = ""
     var classTimeFormated = ""
+    var class_id = 0
     
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
         coach_class_type = map.value("coach_class_type") ?? ""
+        class_id = map.value("class_id") ?? 0
         class_type = map.value("class_type") ?? ""
         class_subtitle = map.value("class_subtitle") ?? ""
         class_date = map.value("class_date") ?? ""
