@@ -468,6 +468,14 @@ func convertUTCToLocal(dateStr:String, sourceFormate: String, destinationFormate
     return ""
 }
 
+func convertToUTC(dateToConvert:String, dateFormate: String) -> String {
+    let formatter = DateFormatter()
+    formatter.dateFormat = dateFormate
+    let convertedDate = formatter.date(from: dateToConvert)
+    formatter.timeZone = TimeZone(identifier: "UTC")
+    return formatter.string(from: convertedDate ?? Date())
+}
+
 func getCurrencySymbol(from currency: String) -> String {
     var currencySybmol = ""
     

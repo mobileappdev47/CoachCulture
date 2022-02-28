@@ -178,7 +178,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
         if viwOnDemandLine.isHidden == false {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultItemTableViewCell", for: indexPath) as! SearchResultItemTableViewCell
             let obj = arrCoachClassPrevious[indexPath.row]
-            
+            cell.viewBlur.isHidden = false
             cell.lblClassType.text = "On demand".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
             cell.imgUser.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
@@ -221,6 +221,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             return cell
         } else if viwLiveLine.isHidden == false {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultItemTableViewCell", for: indexPath) as! SearchResultItemTableViewCell
+            cell.viewBlur.isHidden = false
             let obj = arrCoachClassPrevious[indexPath.row]
             cell.lblClassType.text = "Live".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#CC2936")

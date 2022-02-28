@@ -798,10 +798,26 @@
                                                     </view>
                                                 </subviews>
                                             </stackView>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Pn-T2-p77">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="0Pn-T2-p77">
                                                 <rect key="frame" x="20" y="180" width="335" height="387.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </tableView>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oRO-mJ-QQf">
+                                                <rect key="frame" x="20" y="180" width="335" height="387.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No class data found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1GL-to-SUF">
+                                                        <rect key="frame" x="77.5" y="182" width="180" height="23.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                                        <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" name="themeColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="1GL-to-SUF" firstAttribute="centerY" secondItem="oRO-mJ-QQf" secondAttribute="centerY" id="EU4-gt-R1N"/>
+                                                    <constraint firstItem="1GL-to-SUF" firstAttribute="centerX" secondItem="oRO-mJ-QQf" secondAttribute="centerX" id="vJ8-ab-Fxl"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" name="themeColor"/>
                                         <constraints>
@@ -812,10 +828,14 @@
                                             <constraint firstItem="Uxn-ci-zeS" firstAttribute="leading" secondItem="5kp-vT-V7f" secondAttribute="leading" id="AME-GT-ioa"/>
                                             <constraint firstItem="0Pn-T2-p77" firstAttribute="centerX" secondItem="Uxn-ci-zeS" secondAttribute="centerX" id="Fuf-kG-X8a"/>
                                             <constraint firstItem="L5E-Op-cE8" firstAttribute="leading" secondItem="5kp-vT-V7f" secondAttribute="leading" constant="20" id="LTg-GY-55r"/>
+                                            <constraint firstItem="oRO-mJ-QQf" firstAttribute="leading" secondItem="0Pn-T2-p77" secondAttribute="leading" id="OOD-59-Ph9"/>
+                                            <constraint firstItem="oRO-mJ-QQf" firstAttribute="bottom" secondItem="0Pn-T2-p77" secondAttribute="bottom" id="Rk9-k7-ziW"/>
                                             <constraint firstItem="L5E-Op-cE8" firstAttribute="trailing" secondItem="0Pn-T2-p77" secondAttribute="trailing" id="fT1-Dc-eXM"/>
+                                            <constraint firstItem="oRO-mJ-QQf" firstAttribute="top" secondItem="0Pn-T2-p77" secondAttribute="top" id="fyW-dX-Yj9"/>
                                             <constraint firstAttribute="bottom" secondItem="0Pn-T2-p77" secondAttribute="bottom" constant="20" id="hZt-OY-xng"/>
                                             <constraint firstAttribute="trailing" secondItem="L5E-Op-cE8" secondAttribute="trailing" constant="20" id="lYs-Mn-prg"/>
                                             <constraint firstItem="0Pn-T2-p77" firstAttribute="top" secondItem="Uxn-ci-zeS" secondAttribute="bottom" constant="10" id="pnC-tk-Ix4"/>
+                                            <constraint firstItem="oRO-mJ-QQf" firstAttribute="trailing" secondItem="0Pn-T2-p77" secondAttribute="trailing" id="qqJ-pT-F1o"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -847,6 +867,7 @@
                         <outlet property="tblSearchResult" destination="0Pn-T2-p77" id="ysW-1O-tyK"/>
                         <outlet property="txtDummyTime" destination="OEb-7E-Ebw" id="nZ4-fU-cQU"/>
                         <outlet property="txtSearch" destination="9td-Zv-Syz" id="TJt-xR-0oK"/>
+                        <outlet property="viewNoDataFound" destination="oRO-mJ-QQf" id="p8t-cg-KJW"/>
                         <outlet property="viwLiveClassTime" destination="AjH-Fc-yc6" id="kaa-Db-6Ga"/>
                         <outlet property="viwSearchFilter" destination="phR-4f-4zI" id="m9u-O7-bYu"/>
                     </connections>

@@ -79,7 +79,7 @@ extension DownloadedClassViewController : UITableViewDelegate, UITableViewDataSo
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultItemTableViewCell", for: indexPath) as! SearchResultItemTableViewCell
         let obj = arrCoachClassPrevious[indexPath.row]
-        
+        cell.viewBlur.isHidden = false
         cell.lblClassType.text = "On demand".uppercased()
         cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
         cell.imgUser.setImageFromURL(imgUrl: obj.coachDetailsDataObj.user_image, placeholderImage: "coverBG")
