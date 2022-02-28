@@ -82,9 +82,9 @@ extension BottomDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         let height = cell.frame.size.height
-        if heightEqupmentTbl.constant > 180 {
-            tblEqupment.isScrollEnabled = true
-        }
+//        if heightEqupmentTbl.constant > 180 {
+//            tblEqupment.isScrollEnabled = true
+//        }
         self.heightEqupmentTbl.constant += height
         lblSubTitle.sizeToFit()
         

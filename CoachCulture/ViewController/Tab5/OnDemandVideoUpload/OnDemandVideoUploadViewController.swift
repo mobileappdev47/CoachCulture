@@ -45,6 +45,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
     
     @IBOutlet weak var btnUploadthumbnail : UIButton!
     @IBOutlet weak var btnUploadVideo : UIButton!
+    @IBOutlet weak var btnCurrency: UIButton!
     
     @IBOutlet weak var txtClassSubTitile : UITextField!
     @IBOutlet weak var txtSubscriberFee : UITextField!
@@ -54,15 +55,16 @@ class OnDemandVideoUploadViewController: BaseViewController {
     var selectedButton = UIButton()
     var addPhotoPopUp:AddPhotoPopUp!
     var photoData:Data!
+    var dropDown = DropDown()
     // In your type's instance variables
     var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
     var uploadedVideoUrl = ""
     var thumbailUrl = ""
-    var nationalityView : NationalityView!
     var arrNationalityData = [NationalityData]()
     var selectedCurrency = ""
     var isFromEdit = false
     var classDetailDataObj = ClassDetailData()
+    var baseCurrency = "SGD"
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -99,14 +101,29 @@ class OnDemandVideoUploadViewController: BaseViewController {
             self.loadPhotoGalleryView()
             self.removeAddPhotoView()
         }
-        
-        nationalityView = Bundle.main.loadNibNamed("NationalityView", owner: nil, options: nil)?.first as? NationalityView
-        nationalityView.tapToBtnSelectItem { obj in
-            
-            self.lblSubscriptionCurrentSym.text = "S" + obj.currency_symbol
-            self.lblNonSubscriptionCurrentSym.text = "S" + obj.currency_symbol
-            self.selectedCurrency = obj.currency
+    
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if item.lowercased() == "US$".lowercased() {
+                lblSubscriptionCurrentSym.text = item
+                lblNonSubscriptionCurrentSym.text = item
+                baseCurrency = "USD"
+            }
+            if item.lowercased() == "S$".lowercased() {
+                lblSubscriptionCurrentSym.text = item
+                lblNonSubscriptionCurrentSym.text = item
+                baseCurrency = "SGD"
+            }
+            if item.lowercased() == "€".lowercased() {
+                lblSubscriptionCurrentSym.text = item
+                lblNonSubscriptionCurrentSym.text = item
+                baseCurrency = "EUR"
+            }
         }
+        
+        dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+        dropDown.textColor = UIColor.white
+        dropDown.selectionBackgroundColor = .clear
+        dropDown.dataSource  = ["US$", "S$", "€"]
         
         if isFromEdit {
             setData()
@@ -180,18 +197,6 @@ class OnDemandVideoUploadViewController: BaseViewController {
         
     }
     
-    func setNationalityView(){
-        nationalityView.frame.size = self.view.frame.size
-        self.view.addSubview(nationalityView)
-    }
-    
-    func removeNationalityView(){
-        if nationalityView != nil{
-            nationalityView.removeFromSuperview()
-        }
-    }
-    
-    
     // MARK: - Click Event
     @IBAction func clickToBtnClassType(_ sender : UIButton) {
         tblClassTypeList.isHidden = !tblClassTypeList.isHidden
@@ -206,7 +211,9 @@ class OnDemandVideoUploadViewController: BaseViewController {
     }
     
     @IBAction func clickTobBtnSelectSubscriptionCurrency(_ sender: UIButton) {
-        setNationalityView()
+        dropDown.show()
+        dropDown.anchorView = btnCurrency
+        dropDown.width = sender.frame.width
     }
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
@@ -239,7 +246,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
             param["non_subscriber_fee"] = txtNonSubscriberFee.text!
             param["thumbnail_image"] = thumbailUrl
             param["thumbnail_video"] = uploadedVideoUrl
-            param["base_currency"] = selectedCurrency
+            param["base_currency"] = baseCurrency
             
             let vc = UsedMusclesViewController.viewcontroller()
             vc.paramDic = param
@@ -261,9 +268,6 @@ class OnDemandVideoUploadViewController: BaseViewController {
             selectedButton = btnUploadthumbnail
             setAddPhotoView()
         }
-    }
-    
-    @IBAction func clickToBtnUplaodThumbnail(_ sender : UIButton) {
     }
     
     @IBAction func btnUpdateThum(_ sender: UIButton) {
@@ -330,7 +334,6 @@ extension OnDemandVideoUploadViewController {
 //                    self.tableView(self.tblClassDifficulty, didSelectRowAt: IndexPath(item: 0, section: 0))
 //                }
             }
-            self.getNationality()
             
             self.hideLoader()
             
@@ -354,6 +357,8 @@ extension OnDemandVideoUploadViewController {
                 print("Upload Finished...")
                 DispatchQueue.main.async {
                     self.lblUploding.text = "Video Upload Complete."
+                    self.lblUploadThumbnail.text = "Upload thumbnail for on demand class"
+                    self.btnUploadVideo.isEnabled = true
                 }
                 Utility.shared.showToast("Video uploaded successfully")
                 let url = AWSS3.default().configuration.endpoint.url
@@ -434,32 +439,6 @@ extension OnDemandVideoUploadViewController {
             return true
         })
     }
-    
-    func getNationality() {
-        showLoader()
-        
-        _ =  ApiCallManager.requestApi(method: .get, urlString: API.NATIONALITY_LIST, parameters: nil, headers: nil) { responseObj in
-            
-            let responseModel = ResponseDataModel(responseObj: responseObj)
-            
-            if responseModel.success {
-                let dataObj = responseObj["data"] as? [Any] ?? [Any]()
-                self.arrNationalityData = NationalityData.getData(data: dataObj)
-                self.nationalityView.arrNationalityData = self.arrNationalityData
-                self.nationalityView.isFromCoachClass = true
-                self.nationalityView.setUpUI()
-            }
-            
-            self.hideLoader()
-            if self.isFromEdit {
-                self.setData()
-            }
-            
-        } failure: { (error) in
-            self.hideLoader()
-            return true
-        }
-    }
 }
 
 
@@ -528,11 +507,9 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
             do {
                 photoData = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
                 
-            } catch  {
-            }
+            } catch  { }
             
-            self.lblUploadThumbnail.text = "Upload thumbnail for on demand class"
-            
+            btnUploadVideo.isEnabled = false
             self.uploadVideo(nameOfResource: videoUrl.lastPathComponent, Url: videoUrl)
             
         } else {

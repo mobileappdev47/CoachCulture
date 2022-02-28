@@ -122,7 +122,7 @@ class ScheduleLiveClassViewController: BaseViewController {
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
         dropDown.selectionBackgroundColor = .clear
-        
+        dropDown.dataSource  = ["US$", "S$", "€"]
             
         addPhotoPopUp.tapToBtnGallery {
             self.loadPhotoGalleryView()
@@ -141,8 +141,6 @@ class ScheduleLiveClassViewController: BaseViewController {
             self.selectedCurrency = obj.currency
             
         }
-        
-        dropDown.dataSource  = ["US$", "S$", "€"]
         
         customDatePickerForSelectDate = CustomDatePickerViewForTextFeild(textField: txtDummyDate, format: "yyyy-MM-dd", mode: .date,  minDate: Date(), maxDate: nil)
         customDatePickerForSelectDate.pickerView { (str, date) in
