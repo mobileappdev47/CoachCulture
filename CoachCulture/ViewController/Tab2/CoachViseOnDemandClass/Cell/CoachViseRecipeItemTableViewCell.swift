@@ -9,7 +9,7 @@ import UIKit
 
 class CoachViseRecipeItemTableViewCell: UITableViewCell {
     
-    
+    @IBOutlet weak var viewBlur: UIView!
     @IBOutlet weak var lbltitle : UILabel!
     @IBOutlet weak var lblRecipeType : UILabel!
     @IBOutlet weak var lblDuration : UILabel!

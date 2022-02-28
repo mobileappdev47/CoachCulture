@@ -49,7 +49,9 @@ class PreviousClassesViewController: BaseViewController {
     var max_duration = ""
     var min_duration = ""
     var class_difficulty_name = ""
-    
+    var meal_type_name = ""
+    var dietary_restriction_name = ""
+    var duration = ""
     var isFromBookMarkPage = false
     var paramForApi = [String:Any]()
     
@@ -58,12 +60,12 @@ class PreviousClassesViewController: BaseViewController {
         super.viewDidLoad()
         
         setUpUI()
+        getPrevoisCoachClassList()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getPrevoisCoachClassList()
-        
+
     }
     
     // MARK: - Methods
@@ -359,6 +361,11 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             let vc = LiveClassDetailsViewController.viewcontroller()
             vc.selectedId = arrCoachClassPrevious[indexPath.row].id
             self.navigationController?.pushViewController(vc, animated: true)
+        } else {
+            let vc = RecipeDetailsViewController.viewcontroller()
+            let obj = arrCoachRecipePrevious[indexPath.row]
+            vc.recipeID = obj.id
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }
@@ -427,12 +434,28 @@ extension PreviousClassesViewController {
         isDataLoadingRecipe = true
         
         showLoader()
-        let param = [ "page_no" : "\(pageNoRecipe)",
-                      "per_page" : "\(perPageCountRecipe)",
-                      "coach_only" : coach_only,
-                      "bookmark_only": "no",
-                      "previous": "yes"
-        ]
+        
+        var param = [String:Any]()
+        
+        param["page_no"] = "\(pageNoRecipe)"
+        param["per_page"] = "\(perPageCountRecipe)"
+        if !duration.isEmpty || duration != "" {
+            param["duration"] = duration
+        }
+        if !meal_type_name.isEmpty || meal_type_name != "" {
+            param["meal_type_name"] = meal_type_name
+        }
+        if !dietary_restriction_name.isEmpty || dietary_restriction_name != "" {
+            param["dietary_restriction_name"] = dietary_restriction_name
+        }
+        param["coach_only"] = coach_only
+        if !searchString.isEmpty || searchString != "" {
+            param["search"] = searchString
+        }
+        param["bookmark_only"] = "no"
+        param["previous"] = "yes"
+        
+        paramForApi =  param
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_ALL_COACH_RECIPE_LIST, parameters: param, headers: nil) { responseObj in
             

@@ -291,6 +291,7 @@
                 <outlet property="lblRecipeType" destination="e2P-Kx-RQa" id="UO0-7h-X0P"/>
                 <outlet property="lblUsername" destination="RNR-fb-ZSB" id="9KM-DO-X9Y"/>
                 <outlet property="lbltitle" destination="rUO-ZE-0Ov" id="1UP-oP-HUV"/>
+                <outlet property="viewBlur" destination="BPL-X7-hQQ" id="SxX-xL-qh0"/>
                 <outlet property="viewProfile" destination="wry-BK-UUK" id="Tg7-Xg-tnO"/>
                 <outlet property="viewProfileBottom" destination="kH8-Gv-Eoq" id="VW5-uE-65x"/>
             </connections>

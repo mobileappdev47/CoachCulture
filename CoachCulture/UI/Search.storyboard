@@ -1405,15 +1405,18 @@
                     <size key="freeformSize" width="375" height="850"/>
                     <connections>
                         <outlet property="btnBookMark" destination="nmC-rc-gfU" id="Jdb-uv-vXI"/>
+                        <outlet property="btnDuration" destination="jT3-t2-13E" id="yw2-aj-pQT"/>
                         <outlet property="btnLive" destination="M9a-gA-JZG" id="Lt4-OW-cr0"/>
                         <outlet property="btnMaxClassDuration" destination="hgJ-ZW-Leq" id="A5R-zG-tnV"/>
                         <outlet property="btnMinClassDuration" destination="hTb-Gu-dKg" id="Zwq-oP-WWG"/>
                         <outlet property="btnMyCoach" destination="82X-0M-4bp" id="6pk-o8-9AM"/>
+                        <outlet property="btnMyCoachExtra" destination="eP3-yy-Zk0" id="Dar-ij-vSw"/>
                         <outlet property="btnOnDemand" destination="DrX-5p-G9c" id="tSa-dL-wZd"/>
                         <outlet property="clvClassType" destination="Eel-nk-C5v" id="rXZ-ej-Xak"/>
                         <outlet property="clvDifficultyLevel" destination="Ovc-xG-RON" id="UrN-KW-haE"/>
                         <outlet property="heightConstantViewMyCoachesOnly" destination="1e7-nf-W7q" id="KHl-sR-3n7"/>
                         <outlet property="lblMaxClassDuration" destination="gzw-Rj-gB6" id="bUz-R6-6yY"/>
+                        <outlet property="lblMaxClassDurationExtra" destination="8j1-rR-PIF" id="6Zw-em-SC2"/>
                         <outlet property="lblMinClassDuration" destination="H2d-Wn-nzD" id="evc-fD-LIp"/>
                         <outlet property="lctClassTypeHeight" destination="2Mu-jw-vQa" id="tA2-mV-dC5"/>
                         <outlet property="viewMaxClassDuration" destination="kam-3l-ecm" id="nOC-ha-7bl"/>
