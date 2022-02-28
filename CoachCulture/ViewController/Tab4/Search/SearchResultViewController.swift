@@ -45,6 +45,8 @@ class SearchResultViewController: BaseViewController {
     
     var arrDates = [ClassDate]()
     var paramForApi = [String:Any]()
+    var start_datetime = ""
+    var end_datetime = ""
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -232,7 +234,39 @@ extension SearchResultViewController {
         
         isDataLoading = true
         showLoader()
+        
         var param = [String:Any]()
+
+        if !class_difficulty_name.isEmpty || class_difficulty_name != "" {
+            param["class_difficulty_name"] = class_difficulty_name
+        }
+        if !class_type_name.isEmpty || class_type_name != "" {
+            param["class_type_name"] = class_type_name
+        }
+        if !min_duration.isEmpty || min_duration != "" {
+            param["min_duration"] = min_duration
+        }
+        if !max_duration.isEmpty || max_duration != "" {
+            param["max_duration"] = max_duration
+        }
+        if !searchString.isEmpty || searchString != "" {
+            param["search"] = searchString
+        }
+        if !start_datetime.isEmpty || start_datetime != "" {
+            param["start_datetime"] = start_datetime
+        }
+        if !end_datetime.isEmpty || end_datetime != "" {
+            param["end_datetime"] = end_datetime
+        }
+        
+        param["page_no"] = "\(pageNo)"
+        param["per_page"] = "\(perPageCount)"
+        param["coach_only"] = "\(coach_only)"
+        param["bookmark_only"] = "\(bookmark_only)"
+        param["class_type"] = "\(class_type)"
+        
+        
+        /*var param = [String:Any]()
         
         param["page_no"] = "\(pageNo)"
         param["per_page"] = "\(perPageCount)"
@@ -245,7 +279,7 @@ extension SearchResultViewController {
         param["class_date"] = "\(class_date)"
         param["class_time"] = lblTime.text
         param["search"] = "\(searchString)"
-        param["class_type"] = "\(class_type)"
+        param["class_type"] = "\(class_type)"*/
 
         
         paramForApi = param
