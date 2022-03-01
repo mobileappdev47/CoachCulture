@@ -15,6 +15,8 @@ class MainSearchViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewUserProfile: UIView!
+    @IBOutlet weak var imgBookmark: UIImageView!
     @IBOutlet weak var lblCoachClassType : UILabel!
     @IBOutlet weak var lbltitle : UILabel!
     @IBOutlet weak var lblDuration : UILabel!
@@ -35,9 +37,11 @@ class MainSearchViewController: BaseViewController {
     
     @IBOutlet weak var clvClassType : UICollectionView!
     @IBOutlet weak var lctClassTypeHeight : NSLayoutConstraint!
+    @IBOutlet weak var imgUserThumbnail: UIImageView!
     
     var arrClassTypeList = [ClassTypeList]()
-
+    var upcommingLiveClassModel = UpCommingLiveClass()
+    
     // MARK: - LIFE CYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,23 +51,35 @@ class MainSearchViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         showTabBar()
+        callGetUpcommingLiveClassAPI()
+        getClassType()
     }
     
 
     // MARK: - METHODS
     
     func setUpUI() {
+        self.viewUserProfile.addCornerRadius(5)
+        self.viewUserProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         clickToBtnClassType(btnLive)
         
         clvClassType.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
         clvClassType.delegate = self
         clvClassType.dataSource = self
-        
-        getClassType()
     }
     
     // MARK: - CLICK EVENTS
+    
+    
+    @IBAction func btnBookmarkClick(_ sender: Any) {
+        var param = [String:Any]()
+        param[Params.AddRemoveBookmark.coach_class_id] = self.upcommingLiveClassModel.class_id
+        param[Params.AddRemoveBookmark.bookmark] = self.upcommingLiveClassModel.class_bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param)
+    }
+    
     @IBAction func clickToBtnClassType( _ sender : UIButton) {
         
         btnLive.isSelected = false
@@ -149,6 +165,48 @@ extension MainSearchViewController: UICollectionViewDataSource, UICollectionView
 
 
 extension MainSearchViewController {
+    
+    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any]) {
+        showLoader()
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
+            
+            if let message = responseObj["message"] as? String, !message.isEmpty {
+                Utility.shared.showToast(message)
+            }
+            if let bookmark = responseObj["bookmark"] as? String, !bookmark.isEmpty {
+                self.upcommingLiveClassModel.class_bookmark = bookmark
+                
+                self.imgBookmark.image = self.upcommingLiveClassModel.class_bookmark == BookmarkType.Yes ? UIImage(named: "Bookmark") : UIImage(named: "BookmarkLight")
+            }
+            self.hideLoader()
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
+    }
+    func callGetUpcommingLiveClassAPI() {
+        showLoader()
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_UPCOMMING_LIVE_CLASS_LIST, parameters: nil, headers: nil) { responseObj in
+            if let upcoming_live_class = responseObj["upcoming_live_class"] as? [String:Any] {
+                self.upcommingLiveClassModel = UpCommingLiveClass(responseObj: upcoming_live_class)
+                self.imgClassCover.setImageFromURL(imgUrl: self.upcommingLiveClassModel.thumbnail_url, placeholderImage: "")
+                self.imgUserThumbnail.blurImage()
+                self.imgUser.setImageFromURL(imgUrl: self.upcommingLiveClassModel.user_image, placeholderImage: "")
+                self.lbltitle.text = self.upcommingLiveClassModel.class_type
+                self.lblCoachClassType.text = self.upcommingLiveClassModel.class_subtitle
+                self.lblUserName.text = "@\(self.upcommingLiveClassModel.username)"
+                self.lblDuration.text = self.upcommingLiveClassModel.duration
+                self.lblClassDate.text = convertUTCToLocal(dateStr: self.upcommingLiveClassModel.class_date, sourceFormate: "yyyy-MM-dd", destinationFormate: "dd MMM yyyy")
+                self.lblClassTime.text = convertUTCToLocal(dateStr: self.upcommingLiveClassModel.class_time, sourceFormate: "HH:mm:ss", destinationFormate: "HH:mm")
+                self.imgBookmark.image = self.upcommingLiveClassModel.class_bookmark == BookmarkType.Yes ? UIImage(named: "Bookmark") : UIImage(named: "BookmarkLight")
+            }
+            self.hideLoader()
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
     
     func getClassType() {
         showLoader()

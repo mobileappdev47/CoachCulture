@@ -104,6 +104,7 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: kHomeNewClassHeaderViewID) as? HomeNewClassHeaderView {
+            headerView.lblTitle.text = "New Uploads"
             return headerView
         }
         return UIView()
