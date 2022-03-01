@@ -28,14 +28,16 @@ class BaseViewController: UIViewController {
     //MARK: - Tabbar
     func hideTabBar()
     {
-        let taskerCustomTabBar = self.tabBarController as! CustomTabBarController
-        taskerCustomTabBar.setTabBarHidden(tabBarHidden: true, vc: self)
+        if let taskerCustomTabBar = self.tabBarController as? CustomTabBarController {
+            taskerCustomTabBar.setTabBarHidden(tabBarHidden: true, vc: self)
+        }
     }
     
     func showTabBar()
     {
-        let taskerCustomTabBar = self.tabBarController as! CustomTabBarController
-        taskerCustomTabBar.setTabBarHidden(tabBarHidden: false, vc: self)
+        if let taskerCustomTabBar = self.tabBarController as? CustomTabBarController {
+            taskerCustomTabBar.setTabBarHidden(tabBarHidden: false, vc: self)
+        }
     }
     
     //MARK: - Home Page
