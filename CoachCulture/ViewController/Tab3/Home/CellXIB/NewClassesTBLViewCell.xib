@@ -76,13 +76,20 @@
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_logo" translatesAutoresizingMaskIntoConstraints="NO" id="7id-4r-pOR">
                                         <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="loQ-fV-h3q">
+                                        <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="7id-4r-pOR" firstAttribute="top" secondItem="9C2-A3-I09" secondAttribute="top" id="FCS-1w-EjW"/>
+                                    <constraint firstAttribute="bottom" secondItem="loQ-fV-h3q" secondAttribute="bottom" id="Mpc-Lp-ma2"/>
+                                    <constraint firstAttribute="trailing" secondItem="loQ-fV-h3q" secondAttribute="trailing" id="Nfu-EJ-H2V"/>
                                     <constraint firstAttribute="height" constant="30" id="b8m-Hx-wn2"/>
+                                    <constraint firstItem="loQ-fV-h3q" firstAttribute="top" secondItem="9C2-A3-I09" secondAttribute="top" id="dTq-vR-GWx"/>
                                     <constraint firstItem="7id-4r-pOR" firstAttribute="leading" secondItem="9C2-A3-I09" secondAttribute="leading" id="gkt-aD-Z2l"/>
                                     <constraint firstAttribute="width" constant="30" id="hJp-hd-dyM"/>
+                                    <constraint firstItem="loQ-fV-h3q" firstAttribute="leading" secondItem="9C2-A3-I09" secondAttribute="leading" id="j1y-jf-5tu"/>
                                     <constraint firstAttribute="bottom" secondItem="7id-4r-pOR" secondAttribute="bottom" id="lV9-7I-UaN"/>
                                     <constraint firstAttribute="trailing" secondItem="7id-4r-pOR" secondAttribute="trailing" id="who-IZ-nTB"/>
                                 </constraints>
@@ -261,6 +268,7 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="btnUser" destination="loQ-fV-h3q" id="rpr-jC-sXW"/>
                 <outlet property="clvDietaryRestriction" destination="jAG-Iy-Ffu" id="C4y-J8-5eU"/>
                 <outlet property="imgBanner" destination="2CC-DT-dSk" id="umf-hm-wnF"/>
                 <outlet property="imgBlurThumbnail" destination="fmO-Vz-nDQ" id="3Ly-w1-zTV"/>

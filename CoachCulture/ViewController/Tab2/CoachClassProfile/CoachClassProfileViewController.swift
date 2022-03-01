@@ -190,6 +190,16 @@ class CoachClassProfileViewController: BaseViewController {
     @IBAction func clickToBtnCoachProfile( _ sender : UIButton) {
        
     }
+    
+    @IBAction func clickToBtnUser( _ sender : UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        if isFromSelectedType == SelectedDemandClass.recipe {
+            vc.selectedCoachId = self.arrCoachRecipe[sender.tag].coachDetailsObj.id
+        } else {
+            vc.selectedCoachId = self.arrCoachClassInfoList[sender.tag].coachDetailsObj.id
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 
@@ -263,7 +273,8 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
             cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
-            
+            cell.btnUser.tag = indexPath.row
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lbltitle.text = obj.class_type_name
             cell.lbltitle.text = obj.class_subtitle
@@ -307,6 +318,8 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
             cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
+            cell.btnUser.tag = indexPath.row
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
 
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lbltitle.text = obj.class_type_name
@@ -352,6 +365,8 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.lbltitle.text = obj.title
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
+            cell.btnUser.tag = indexPath.row
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
             
             var arrFilteredDietaryRestriction = [String]()
             

@@ -22,6 +22,7 @@ class NewClassesTBLViewCell: UITableViewCell {
     @IBOutlet weak var imgBookmark: UIImageView!
     @IBOutlet weak var imgBanner: UIImageView!
     @IBOutlet weak var imgBlurThumbnail: UIImageView!
+    @IBOutlet weak var btnUser: UIButton!
     @IBOutlet weak var clvDietaryRestriction: UICollectionView!
 
     //MARK:- VARIABLE AND OBJECT

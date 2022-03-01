@@ -69,6 +69,7 @@ struct API {
     static let GET_YOUR_COACH_RECIPE_LIST                         = BASE_URL + "api/recipe/get-your-coach-recipe-list"
     static let GET_ALL_COACH_RECIPE_LIST                         = BASE_URL + "api/recipe/get-all-coach-recipe-list"
     static let GET_COACH_CLASS_PREVIOUS_LIST                         = BASE_URL + "api/coach-class/get-user-previous-list"
+    static let GET_USER_BOOKMARK_LIST                        = BASE_URL + "api/recipe/get-user-bookmark-list"
     static let GET_RECIPE_CLASS_PREVIOUS_LIST                         = BASE_URL + "api/recipe/get-user-previous-list"
     static let GET_SUBSCRIPTION_COACH_LIST                         = BASE_URL + "api/subscription/get-subscribed-coach-search-list"
     static let GET_FILTER_CLASS_LIST                         = BASE_URL + "api/get-filter-class-list"

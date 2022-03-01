@@ -33,11 +33,13 @@ class GiveRecipeRattingViewController: BaseViewController {
     @IBOutlet weak var imgUserProfile: UIImageView!
     @IBOutlet weak var imgRecipeCover: UIImageView!
     @IBOutlet weak var clvDietaryRestriction: UICollectionView!
+    
+    var selectedId = ""
     var recipeDetailDataObj = RecipeDetailData()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        getRecipeDetails()
         setUpUI()
     }
     
@@ -144,7 +146,22 @@ extension GiveRecipeRattingViewController {
             return true
         }
     }
-    
+    func getRecipeDetails() {
+        showLoader()
+        let param = ["id" : selectedId]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.RECIPE_DETAILS, parameters: param, headers: nil) { responseObj in
+            
+            let dataObj = responseObj["coach_recipe"] as? [String:Any] ?? [String:Any]()
+            self.recipeDetailDataObj = RecipeDetailData(responseObj: dataObj)
+            self.setData()
+            self.hideLoader()
+            
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
   
 }
 

@@ -26,6 +26,7 @@ class CoachViseOnDemandClassItemTableViewCell: UITableViewCell {
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var imgBookMark : UIImageView!
     @IBOutlet weak var btnBookMark : UIButton!
+    @IBOutlet weak var btnUser: UIButton!
     
     //MARK: - VARIABLE AND OBJECT
     

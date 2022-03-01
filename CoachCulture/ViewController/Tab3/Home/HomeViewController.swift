@@ -243,6 +243,12 @@ extension HomeViewController {
             return true
         }
     }
+    
+    @objc func clickToBtnUser( _ sender : UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = self.arrNewClass[sender.tag].coachDetailsObj.id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate {
@@ -293,7 +299,8 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
         cell.viewUsername.addCornerRadius(5)
         cell.viewClassType.addCornerRadius(5)
         cell.viewUserImage.addCornerRadius(cell.viewUserImage.bounds.height / 2)
-        
+        cell.btnUser.tag = indexPath.row
+        cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
         cell.viewBG.addCornerRadius(10)
         cell.viewBG.backgroundColor = COLORS.APP_THEME_COLOR
                 

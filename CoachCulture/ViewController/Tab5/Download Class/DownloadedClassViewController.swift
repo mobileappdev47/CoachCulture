@@ -62,6 +62,12 @@ class DownloadedClassViewController: BaseViewController {
         
     }
     
+    @objc func clickToBtnUser( _ sender : UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = self.arrMainCoachClassPrevious[sender.tag].coachDetailsDataObj.id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
@@ -92,8 +98,10 @@ extension DownloadedClassViewController : UITableViewDelegate, UITableViewDataSo
         cell.lblUserName.text = "@" + obj.coachDetailsDataObj.username
         cell.lblClassTime.text = obj.total_viewers + " Views"
         cell.lblDuration.text = obj.duration
+        cell.viewBlur.isHidden = true
         cell.viwRating.value = 0
-        
+        cell.btnUser.tag = indexPath.row
+        cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
         if obj.bookmark == "no" {
             cell.imgBookMark.image = UIImage(named: "BookmarkLight")
         } else {

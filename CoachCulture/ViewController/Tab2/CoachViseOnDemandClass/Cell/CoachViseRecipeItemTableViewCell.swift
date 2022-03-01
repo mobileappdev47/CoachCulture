@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import HCSStarRatingView
 
 class CoachViseRecipeItemTableViewCell: UITableViewCell {
     
@@ -24,6 +25,12 @@ class CoachViseRecipeItemTableViewCell: UITableViewCell {
     @IBOutlet weak var viewProfile: UIView!
     @IBOutlet weak var imgProfileBanner: UIImageView!
     @IBOutlet weak var lblUsername: UILabel!
+    
+
+    @IBOutlet weak var btnUser: UIButton!
+    @IBOutlet weak var btnRating: UIButton!
+    @IBOutlet weak var starRating: HCSStarRatingView!
+    @IBOutlet weak var lblRate: UILabel!
     
     //MARK: - VARIABLE AND OBJECT
     
@@ -51,6 +58,9 @@ class CoachViseRecipeItemTableViewCell: UITableViewCell {
         }
     }
     
+    @IBAction func btnRatingTap(_ sender: UIButton) {
+        
+    }
 }
 
 

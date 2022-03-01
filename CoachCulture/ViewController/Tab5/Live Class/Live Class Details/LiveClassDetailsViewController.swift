@@ -349,15 +349,16 @@ class LiveClassDetailsViewController: BaseViewController {
                 destinationFileUrl = directoryUrl.appendingPathComponent(self.classDetailDataObj.thumbnail_video_file).absoluteString
             }
             
-            if let videoURL = URL(string: destinationFileUrl.addingPercentEncoding(withAllowedCharacters: .urlAllowedCharacters) ?? "") {
-                isStatusUpdatedForVideoEnd = false
-                let player = AVPlayer(url: videoURL)
-                let playerViewController = AVPlayerViewController()
-                playerViewController.delegate = self
-                playerViewController.player = player
-                self.present(playerViewController, animated: true) {
-                    playerViewController.player!.play()
-                }
+            let url = destinationFileUrl.replacingOccurrences(of: "file://", with: "")
+//            let abc = url.replacingOccurrences(of: "%20", with: " ")
+            let videoURL = URL(fileURLWithPath: url.removingPercentEncoding ?? "")
+            isStatusUpdatedForVideoEnd = false
+            let player = AVPlayer(url: videoURL)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.delegate = self
+            playerViewController.player = player
+            self.present(playerViewController, animated: true) {
+                playerViewController.player!.play()
             }
         }
     }
@@ -395,14 +396,15 @@ class LiveClassDetailsViewController: BaseViewController {
         if !isClassDownloaded {
             let folderName = classDetailDataObj.id + "_" + classDetailDataObj.class_subtitle
             let _ =  createDirectory(MyFolderName: folderName)
-            downloadClassVideoImage(fileName: classDetailDataObj.thumbnail_video_file, downloadUrl: classDetailDataObj.thumbnail_video)
+            downloadClassVideoImage(fileName: URL(string: classDetailDataObj.thumbnail_image_path)?.lastPathComponent ?? "", downloadUrl: classDetailDataObj.thumbnail_image)
             let resObj = classDetailDataObj.responseDic
             arrLocalCoachClassData.append(resObj)
             AppPrefsManager.sharedInstance.saveClassData(classData: arrLocalCoachClassData)
-            downloadClassVideoImage(fileName: URL(string: classDetailDataObj.thumbnail_image_path)?.lastPathComponent ?? "", downloadUrl: classDetailDataObj.thumbnail_image)
+            downloadClassVideoImage(fileName: classDetailDataObj.thumbnail_video_file, downloadUrl: classDetailDataObj.thumbnail_video)
             
         } else {
-            Utility.shared.showToast("")
+            Utility.shared.showToast("Video Already Downloded")
+            self.isClassDownloaded = false
         }
         
         
@@ -448,6 +450,7 @@ class LiveClassDetailsViewController: BaseViewController {
                 }
             }
         }
+        self.goStepForwardAfterSubscribed()
     }
     
     @IBAction func clickToBtnMore( _ sender: UIButton) {
@@ -603,7 +606,7 @@ extension LiveClassDetailsViewController {
         let destinationFileUrl = directoryUrl.appendingPathComponent( fileName)
         
         //Create URL to the source file you want to download
-        if let fileURL = URL(string: downloadUrl) {
+        if let fileURL = URL(string: downloadUrl.addingPercentEncoding(withAllowedCharacters: .urlAllowedCharacters) ?? "") {
             let sessionConfig = URLSessionConfiguration.default
             let session = URLSession(configuration: sessionConfig)
             

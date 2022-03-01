@@ -944,17 +944,6 @@
                                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jZ5-cI-j0e" userLabel="User Profile">
                                                         <rect key="frame" x="255" y="0.0" width="110" height="170"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-GT-Dxl">
-                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="170"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="110" id="Fhq-aS-FQw"/>
-                                                                </constraints>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
-                                                                        <real key="value" value="5"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                </userDefinedRuntimeAttributes>
-                                                            </imageView>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BRy-qH-p3A">
                                                                 <rect key="frame" x="0.0" y="132" width="110" height="38"/>
                                                                 <subviews>
@@ -973,6 +962,17 @@
                                                                     <constraint firstAttribute="bottom" secondItem="evq-Zo-1K8" secondAttribute="bottom" constant="10" id="xIk-kQ-6Ts"/>
                                                                 </constraints>
                                                             </view>
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="eJC-GT-Dxl">
+                                                                <rect key="frame" x="0.0" y="0.0" width="110" height="170"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="110" id="Fhq-aS-FQw"/>
+                                                                </constraints>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                                        <real key="value" value="5"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </imageView>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>

@@ -199,17 +199,24 @@
                                                     <constraint firstItem="Qc1-Zi-WHK" firstAttribute="top" secondItem="FIt-KO-MRy" secondAttribute="top" id="r7q-Qx-mwH"/>
                                                 </constraints>
                                             </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J3m-Ai-rCS">
+                                                <rect key="frame" x="0.0" y="0.0" width="75" height="110"/>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="UaM-0x-4CH" firstAttribute="leading" secondItem="FvR-Uh-rf0" secondAttribute="leading" id="2Db-6N-kVW"/>
                                             <constraint firstAttribute="bottom" secondItem="FIt-KO-MRy" secondAttribute="bottom" id="4cT-Te-ySR"/>
+                                            <constraint firstItem="J3m-Ai-rCS" firstAttribute="top" secondItem="FvR-Uh-rf0" secondAttribute="top" id="5HH-jD-vvX"/>
                                             <constraint firstAttribute="trailing" secondItem="FIt-KO-MRy" secondAttribute="trailing" id="Bns-hH-K9I"/>
                                             <constraint firstItem="UaM-0x-4CH" firstAttribute="top" secondItem="FvR-Uh-rf0" secondAttribute="top" id="DfY-uX-Abb"/>
                                             <constraint firstAttribute="bottom" secondItem="UaM-0x-4CH" secondAttribute="bottom" id="HXy-QJ-DsX"/>
                                             <constraint firstItem="FIt-KO-MRy" firstAttribute="leading" secondItem="FvR-Uh-rf0" secondAttribute="leading" id="YiZ-PW-WRR"/>
+                                            <constraint firstAttribute="trailing" secondItem="J3m-Ai-rCS" secondAttribute="trailing" id="cM5-Va-wxa"/>
+                                            <constraint firstItem="J3m-Ai-rCS" firstAttribute="leading" secondItem="FvR-Uh-rf0" secondAttribute="leading" id="hHf-Ba-Lmy"/>
                                             <constraint firstAttribute="trailing" secondItem="UaM-0x-4CH" secondAttribute="trailing" id="kpR-Iy-ige"/>
                                             <constraint firstAttribute="height" constant="110" id="l7X-J1-CRA"/>
+                                            <constraint firstAttribute="bottom" secondItem="J3m-Ai-rCS" secondAttribute="bottom" id="oNv-21-Q8r"/>
                                             <constraint firstAttribute="width" constant="75" id="xtv-2z-v4Q"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -283,6 +290,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="btnBookMark" destination="A4v-fH-4eb" id="Upq-Qu-13A"/>
+                <outlet property="btnUser" destination="J3m-Ai-rCS" id="Hyc-qe-Hsk"/>
                 <outlet property="imgBookMark" destination="xmo-6t-GtP" id="jKU-8F-9r3"/>
                 <outlet property="imgProfileBanner" destination="UaM-0x-4CH" id="ECg-lD-Rjf"/>
                 <outlet property="imgProfileBottom" destination="Qc1-Zi-WHK" id="olP-BS-Vfi"/>

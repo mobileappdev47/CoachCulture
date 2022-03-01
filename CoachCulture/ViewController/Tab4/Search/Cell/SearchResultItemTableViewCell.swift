@@ -31,9 +31,11 @@ class SearchResultItemTableViewCell: UITableViewCell {
     @IBOutlet weak var imgBookMark : UIImageView!
     @IBOutlet weak var imgThumbnail : UIImageView!
     @IBOutlet weak var viewProfile: UIView!
-
+    @IBOutlet weak var btnUser: UIButton!
+    
     var didTapBookmarkButton : (() -> Void)!
     var selectedIndex = 0
+    var recipeDetailDataObj = RecipeDetailData()
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,5 +54,7 @@ class SearchResultItemTableViewCell: UITableViewCell {
         if didTapBookmarkButton != nil {
             didTapBookmarkButton()
         }
+    }
+    @IBAction func btnRatingTap(_ sender: UIButton) {        
     }
 }

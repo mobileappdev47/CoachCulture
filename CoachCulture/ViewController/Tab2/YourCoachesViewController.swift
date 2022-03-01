@@ -75,6 +75,18 @@ class YourCoachesViewController: BaseViewController {
         self.scrollView.delegate = self
     }
     
+    @objc func clickToBtnUser( _ sender : UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        if arrNewClass[sender.tag].live?.coach_class_type == "live" {
+            vc.selectedCoachId = self.arrNewClass[sender.tag].live?.coachDetailsObj.id ?? ""
+        } else if arrNewClass[sender.tag].on_demand?.coach_class_type == "on_demand" {
+            vc.selectedCoachId = self.arrNewClass[sender.tag].on_demand?.coachDetailsObj.id ?? ""
+        } else {
+            vc.selectedCoachId = self.arrNewClass[sender.tag].Recipe?.coachDetailsObj.id ?? ""
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     // MARK: - CLICK EVENTS
     
     @IBAction func clickToBtnSearch( _ sender : UIButton) {
@@ -128,6 +140,8 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
         cell.clvDietaryRestriction.isHidden = true
         var recdModel = CoachClassPrevious()
         var isFromLiveDemand = true
+        cell.btnUser.tag = indexPath.row
+        cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
         
         recdModel = arrNewClass[indexPath.row].live ?? CoachClassPrevious()
         

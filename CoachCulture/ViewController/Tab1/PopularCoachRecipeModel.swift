@@ -33,6 +33,7 @@ class PopularRecipeData {
     var username = ""
     var meal_type_name = ""
     var dietary_restriction_name = ""
+    var average_rating = ""
     
     init() {}
     
@@ -47,6 +48,7 @@ class PopularRecipeData {
         title = map.value("title") ?? ""
         sub_title = map.value("sub_title") ?? ""
         duration = map.value("duration") ?? ""
+        average_rating = map.value("average_rating") ?? ""
         arrMealType = MealTypeListData.getData(data: responseObj["meal_type"] as? [Any] ?? [Any]())
         arrDietaryRestrictionListData = DietaryRestrictionListData.getData(data: responseObj["dietary_restriction"] as? [Any] ?? [Any]())
         coachDetailsObj = CoachDetailsData(responseObj: responseObj["coach"] as? [String : Any] ?? [String : Any]())

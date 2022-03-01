@@ -27,6 +27,7 @@ class CoachClassPrevious {
     var userRatingObj = UserRating()
     var username = ""
     var created_at = ""
+    var average_rating = ""
     
     init() {}
     
@@ -35,6 +36,7 @@ class CoachClassPrevious {
         id = map.value("id") ?? ""
         created_at = map.value("created_at") ?? ""
         username = map.value("username") ?? ""
+        average_rating = map.value("average_rating") ?? ""
         thumbnail_image = map.value("thumbnail_image") ?? ""
         coach_class_type = map.value("coach_class_type") ?? ""
         class_subtitle = map.value("class_subtitle") ?? ""

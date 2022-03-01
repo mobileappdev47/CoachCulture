@@ -46,15 +46,14 @@ class PopularCoachRecipeViewController: BaseViewController {
     
     // MARK: - METHODS
     func setUpUI() {
+        tblCoachRecipe.register(UINib(nibName: "NewClassesTBLViewCell", bundle: nil), forCellReuseIdentifier: "NewClassesTBLViewCell")
+        tblCoachRecipe.delegate = self
+        tblCoachRecipe.dataSource = self
+        tblCoachRecipe.layoutIfNeeded()
         
         clvPopularRecipeItem.register(UINib(nibName: "PopularRecipeItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PopularRecipeItemCollectionViewCell")
         clvPopularRecipeItem.delegate = self
         clvPopularRecipeItem.dataSource = self
-        
-        tblCoachRecipe.register(UINib(nibName: "YourCoachRecipeItemTableViewCell", bundle: nil), forCellReuseIdentifier: "YourCoachRecipeItemTableViewCell")
-        tblCoachRecipe.delegate = self
-        tblCoachRecipe.dataSource = self
-        tblCoachRecipe.layoutIfNeeded()
        
         if Reachability.isConnectedToNetwork(){
         getPopularRecipeList(str: "")
@@ -117,7 +116,11 @@ extension PopularCoachRecipeViewController: UICollectionViewDataSource, UICollec
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    
+    @objc func clickToBtnUser( _ sender : UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = self.arrCoachRecipeData[sender.tag].coachDetailsObj.id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 
@@ -131,39 +134,56 @@ extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewClassesTBLViewCell", for: indexPath) as? NewClassesTBLViewCell else { return UITableViewCell() }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "YourCoachRecipeItemTableViewCell", for: indexPath) as! YourCoachRecipeItemTableViewCell
-        let obj = arrCoachRecipeData[indexPath.row]
-        cell.lblTitle.text = obj.title
-        cell.lblDuration.text = obj.duration
-        cell.lblRecipeType.text = obj.arrMealTypeString
-        cell.lblUserName.text = obj.coachDetailsObj.username
-        cell.imgUser.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: nil)
-        cell.imgThumbnail.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: nil)
-        cell.imgThumbnail.blurImage()
-        cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
-        if obj.bookmark.lowercased() == "no".lowercased() {
+        let model = arrCoachRecipeData[indexPath.row]
+        cell.selectedIndex = indexPath.row
+        if cell.imgBlurThumbnail.image == nil {
+            cell.imgBlurThumbnail.blurImage()
+        }
+        
+        cell.viewTime.addCornerRadius(5)
+        cell.viewUsername.addCornerRadius(5)
+        cell.viewClassType.addCornerRadius(5)
+        cell.viewUserImage.addCornerRadius(cell.viewUserImage.bounds.height / 2)
+        cell.btnUser.tag = indexPath.row
+        cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+        cell.viewBG.addCornerRadius(10)
+        cell.viewBG.backgroundColor = COLORS.APP_THEME_COLOR
+        
+        cell.imgUser.setImageFromURL(imgUrl: model.coachDetailsObj.user_image, placeholderImage: "")
+        cell.imgBanner.setImageFromURL(imgUrl: model.thumbnail_image, placeholderImage: "")
+        cell.imgBlurThumbnail.setImageFromURL(imgUrl: model.thumbnail_image, placeholderImage: "")
+        
+        cell.imgBookmark.image = model.bookmark == BookmarkType.No ? UIImage(named: "BookmarkLight") : UIImage(named: "Bookmark")
+        if model.bookmark.lowercased() == "no".lowercased() {
             cell.imgBookmark.image = UIImage(named: "BookmarkLight")
         } else {
             cell.imgBookmark.image = UIImage(named: "Bookmark")
         }
-        
-        cell.btnBookmark.tag = indexPath.row
-        cell.btnBookmark.addTarget(self, action: #selector(self.clickToBtnBookMark(_:)), for: .touchUpInside)
+        cell.lblTitle.text = model.title
+        cell.lblSubTitle.text = model.sub_title
+        cell.lblTime.text = model.duration
+        cell.lblUsername.text = "@\(model.coachDetailsObj.username)"
+        cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#4DB748")
+        cell.lblClassType.text = "RECIPE"
+        cell.lblDateTime.text = convertUTCToLocal(dateStr: model.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
+        cell.lblDate.text = "\(model.viewers) views"
+      
+        cell.layoutIfNeeded()
         return cell
-        
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 122
+        return 170
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 122
+        return 170
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = RecipeDetailsViewController.viewcontroller()
-        vc.recipeID = arrPopularRecipeData[indexPath.row].id
+        vc.recipeID = arrCoachRecipeData[indexPath.row].id
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
