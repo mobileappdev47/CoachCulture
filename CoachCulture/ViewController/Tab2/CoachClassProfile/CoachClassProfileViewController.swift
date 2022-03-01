@@ -176,7 +176,9 @@ class CoachClassProfileViewController: BaseViewController {
     
     @IBAction func btnSettingsClick(_ sender: Any) {
         let nextVC = SettingsViewController.viewcontroller()
-        self.pushVC(To: nextVC, animated: true)
+        DispatchQueue.main.async {
+            self.pushVC(To: nextVC, animated: true)
+        }
     }
     
     @IBAction func btnSubscriptionClick(_ sender: Any) {
