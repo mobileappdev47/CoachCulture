@@ -169,6 +169,11 @@ class CoachClassProfileViewController: BaseViewController {
     
     // MARK: - CLICK EVENTS
     
+    @IBAction func btnWorkoutStatisticsClick(_ sender: Any) {
+        let nextVC = WorkoutStatisticVC.instantiate(fromAppStoryboard: .Followers)
+        self.pushVC(To: nextVC, animated: true)
+    }
+    
     @IBAction func btnSettingsClick(_ sender: Any) {
         let nextVC = SettingsViewController.viewcontroller()
         self.pushVC(To: nextVC, animated: true)
