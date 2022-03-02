@@ -7,6 +7,46 @@
 
 import Foundation
 
+class UserWorkoutStatisticsModel {
+    var map: Map!
+    
+    var allDataObj = AllModel()
+    var arrWeeklyDataObj = [AllModel]()
+    
+    init() {}
+    
+    init(responseObj: [String : Any]) {
+        map = Map(data: responseObj )
+        
+        allDataObj = AllModel(responseObj: responseObj["all"] as? [String : Any] ?? [String : Any]())
+        
+        if let arrWeekly = responseObj["weekly"] as? [[String : Any]] {
+            for temp in arrWeekly {
+                arrWeeklyDataObj.append(AllModel(responseObj: temp))
+            }
+        }
+    }    
+}
+
+class AllModel {
+    var map: Map!
+    var user_total_duration = ""
+    var user_total_burn_calories = ""
+    var total_duration = ""
+    var total_burn_calories = ""
+    var date = ""
+    
+    init() {}
+    
+    init(responseObj: [String : Any]) {
+        map = Map(data: responseObj )
+        date = map.value("date") ?? ""
+        user_total_duration = map.value("user_total_duration") ?? ""
+        user_total_burn_calories = map.value("user_total_burn_calories") ?? ""
+        total_duration = map.value("total_duration") ?? ""
+        total_burn_calories = map.value("total_burn_calories") ?? ""
+    }
+}
 
 class CoachClassPrevious {
     var map: Map!
@@ -51,8 +91,8 @@ class CoachClassPrevious {
         class_difficulty_name = map.value("class_difficulty_name") ?? ""
         class_time = map.value("class_time") ?? ""
         class_date = map.value("class_date") ?? ""
-
-
+        
+        
     }
     
     
@@ -60,7 +100,7 @@ class CoachClassPrevious {
         
         var arrTemp = [CoachClassPrevious]()
         for temp in data {
-       
+            
             arrTemp.append(CoachClassPrevious(responseObj: temp as? [String : Any] ?? [String : Any]()))
         }
         
@@ -73,7 +113,7 @@ class UserRating {
     var map: Map!
     var comments = ""
     var rating = ""
-   
+    
     init() {}
     
     init(responseObj: [String : Any]) {
@@ -82,7 +122,7 @@ class UserRating {
         rating = map.value("rating") ?? ""
         
     }
-   
+    
 }
 
 
@@ -105,7 +145,7 @@ class NewUploadList {
         Recipe = PopularRecipeData(responseObj: responseObj["Recipe"] as? [String : Any] ?? [String : Any]())
         live = CoachClassPrevious(responseObj: responseObj["live"] as? [String : Any] ?? [String : Any]())
     }
-        
+    
     class func getData(data : [Any]) -> [NewUploadList] {
         var arrTemp = [NewUploadList]()
         for temp in data {

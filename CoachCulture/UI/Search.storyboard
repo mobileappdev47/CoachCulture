@@ -33,10 +33,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lTG-uh-Ka1">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CUx-PD-AIR">
-                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="29.5"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -50,22 +50,22 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dzr-hx-A5O">
-                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
+                                <rect key="frame" x="0.0" y="79.5" width="375" height="587.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="us1-dP-SpW">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="453"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="452"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TeS-3s-ayz" userLabel="LiveClasses">
-                                                <rect key="frame" x="20" y="20" width="335" height="134"/>
+                                                <rect key="frame" x="20" y="20" width="335" height="133.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Upcoming Live Classes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LBh-pE-Ozg">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Oj-qW-lgw">
-                                                        <rect key="frame" x="0.0" y="29" width="335" height="105"/>
+                                                        <rect key="frame" x="0.0" y="28.5" width="335" height="105"/>
                                                         <subviews>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AWk-bL-SdQ" userLabel="left">
                                                                 <rect key="frame" x="7" y="7.5" width="120" height="90"/>
@@ -188,16 +188,16 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sxJ-np-gDQ" userLabel="viewHit">
-                                                                <rect key="frame" x="137" y="7.5" width="70" height="31"/>
+                                                                <rect key="frame" x="137" y="7.5" width="70" height="30.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HIIT" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCh-N6-Ilw">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="18"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="17.5"/>
                                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                                         <color key="textColor" name="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Advance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Of-z9-c7O">
-                                                                        <rect key="frame" x="0.0" y="19" width="70" height="12"/>
+                                                                        <rect key="frame" x="0.0" y="18.5" width="70" height="12"/>
                                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="10"/>
                                                                         <color key="textColor" name="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -232,7 +232,7 @@
                                                                 </connections>
                                                             </button>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jhp-Ie-mFq">
-                                                                <rect key="frame" x="137" y="58.5" width="70" height="39"/>
+                                                                <rect key="frame" x="137" y="59" width="70" height="38.5"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26 May 2021" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LYt-q4-VzM">
                                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="14"/>
@@ -241,7 +241,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="15:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BRK-Yo-1rn">
-                                                                        <rect key="frame" x="0.0" y="15" width="70" height="24"/>
+                                                                        <rect key="frame" x="0.0" y="15" width="70" height="23.5"/>
                                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                                                         <color key="textColor" name="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -258,15 +258,71 @@
                                                                     <constraint firstAttribute="trailing" secondItem="BRK-Yo-1rn" secondAttribute="trailing" id="d5m-Ht-FeR"/>
                                                                 </constraints>
                                                             </view>
+                                                            <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="BBQ-fg-h8W">
+                                                                <rect key="frame" x="0.0" y="0.0" width="335" height="105"/>
+                                                                <subviews>
+                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="H91-lS-4Qr" userLabel="view_no_upcomming_live_class">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="No Upcoming Live Class." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ra-sL-WEp">
+                                                                                <rect key="frame" x="43.5" y="-11.5" width="248.5" height="23.5"/>
+                                                                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" white="0.20000000000000001" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="8Ra-sL-WEp" firstAttribute="centerX" secondItem="H91-lS-4Qr" secondAttribute="centerX" id="VqW-l2-G4i"/>
+                                                                            <constraint firstItem="8Ra-sL-WEp" firstAttribute="centerY" secondItem="H91-lS-4Qr" secondAttribute="centerY" id="sZO-QP-gyO"/>
+                                                                        </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                                                <real key="value" value="10"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </view>
+                                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RRy-8G-F7I" userLabel="view_no_live_class">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="0.0"/>
+                                                                        <subviews>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="No Upcoming Live Class." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gds-PI-tFE">
+                                                                                <rect key="frame" x="43.5" y="-11.5" width="248.5" height="23.5"/>
+                                                                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                        <color key="backgroundColor" red="0.17254901959999999" green="0.2274509804" blue="0.2901960784" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstItem="Gds-PI-tFE" firstAttribute="centerY" secondItem="RRy-8G-F7I" secondAttribute="centerY" id="o5l-jb-QCa"/>
+                                                                            <constraint firstItem="Gds-PI-tFE" firstAttribute="centerX" secondItem="RRy-8G-F7I" secondAttribute="centerX" id="uM3-Z5-7yK"/>
+                                                                        </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                                                <real key="value" value="10"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </view>
+                                                                </subviews>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                                        <real key="value" value="10"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                </userDefinedRuntimeAttributes>
+                                                            </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.17254901959999999" green="0.2274509804" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
+                                                            <constraint firstItem="BBQ-fg-h8W" firstAttribute="leading" secondItem="5Oj-qW-lgw" secondAttribute="leading" id="3jR-DC-r0c"/>
+                                                            <constraint firstItem="BBQ-fg-h8W" firstAttribute="top" secondItem="5Oj-qW-lgw" secondAttribute="top" id="DQ6-OG-5Da"/>
                                                             <constraint firstAttribute="height" constant="105" id="EIY-Jo-8U9"/>
                                                             <constraint firstItem="sxJ-np-gDQ" firstAttribute="top" secondItem="AWk-bL-SdQ" secondAttribute="top" id="FiF-Pt-nFz"/>
+                                                            <constraint firstAttribute="trailing" secondItem="BBQ-fg-h8W" secondAttribute="trailing" id="GHV-1H-ULo"/>
                                                             <constraint firstItem="AWk-bL-SdQ" firstAttribute="centerY" secondItem="5Oj-qW-lgw" secondAttribute="centerY" id="Mam-vC-w1R"/>
                                                             <constraint firstItem="anR-0h-Vow" firstAttribute="top" secondItem="sxJ-np-gDQ" secondAttribute="top" id="Uhn-5S-3lb"/>
                                                             <constraint firstItem="NN6-nE-83m" firstAttribute="leading" secondItem="anR-0h-Vow" secondAttribute="trailing" constant="3" id="WBB-oA-16O"/>
                                                             <constraint firstItem="sxJ-np-gDQ" firstAttribute="leading" secondItem="AWk-bL-SdQ" secondAttribute="trailing" constant="10" id="Yen-xe-uyl"/>
+                                                            <constraint firstAttribute="bottom" secondItem="BBQ-fg-h8W" secondAttribute="bottom" id="aHH-Mz-T2g"/>
                                                             <constraint firstItem="anR-0h-Vow" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="sxJ-np-gDQ" secondAttribute="trailing" constant="5" id="cZE-g5-cDD"/>
                                                             <constraint firstAttribute="trailing" secondItem="NN6-nE-83m" secondAttribute="trailing" id="cZv-yF-kik"/>
                                                             <constraint firstItem="jhp-Ie-mFq" firstAttribute="bottom" secondItem="AWk-bL-SdQ" secondAttribute="bottom" id="ci2-5J-img"/>
@@ -297,16 +353,16 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="36m-Us-mGO" userLabel="LiveClasses">
-                                                <rect key="frame" x="20" y="174" width="335" height="259"/>
+                                                <rect key="frame" x="20" y="173.5" width="335" height="258.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Find Classes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FVQ-Ai-VHX">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KC4-Pz-oha">
-                                                        <rect key="frame" x="0.0" y="34" width="335" height="225"/>
+                                                        <rect key="frame" x="0.0" y="33.5" width="335" height="225"/>
                                                         <subviews>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jic-B8-R0x" userLabel="Class Type">
                                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="50"/>
@@ -443,7 +499,7 @@
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Searchicon" translatesAutoresizingMaskIntoConstraints="NO" id="KfD-rB-rIK">
-                                                                        <rect key="frame" x="62" y="11" width="23" height="23"/>
+                                                                        <rect key="frame" x="62.5" y="11" width="22.5" height="23"/>
                                                                         <color key="tintColor" name="textColor"/>
                                                                     </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w1c-HG-Hvx">
@@ -557,6 +613,9 @@
                         <outlet property="lblUserName" destination="WFZ-fm-jF1" id="5bE-TP-phW"/>
                         <outlet property="lbltitle" destination="UCh-N6-Ilw" id="dh2-OZ-jxI"/>
                         <outlet property="lctClassTypeHeight" destination="UX7-YL-VgN" id="tjB-mR-g2B"/>
+                        <outlet property="stackNoClassFoundMain" destination="BBQ-fg-h8W" id="iee-Lo-qA8"/>
+                        <outlet property="viewNoLiveClass" destination="RRy-8G-F7I" id="i1A-H8-cOH"/>
+                        <outlet property="viewNoUpcommingLiveClass" destination="H91-lS-4Qr" id="Ko7-pm-40r"/>
                         <outlet property="viewUserProfile" destination="NN6-nE-83m" id="6fG-Wo-94G"/>
                         <outlet property="viwLive" destination="ueu-T4-Jwj" id="mb0-D7-PYI"/>
                         <outlet property="viwOnDemand" destination="Uzr-39-qoT" id="4C1-P0-nD9"/>

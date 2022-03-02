@@ -15,6 +15,9 @@ class MainSearchViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var stackNoClassFoundMain: UIStackView!
+    @IBOutlet weak var viewNoLiveClass: UIView!
+    @IBOutlet weak var viewNoUpcommingLiveClass: UIView!
     @IBOutlet weak var viewUserProfile: UIView!
     @IBOutlet weak var imgBookmark: UIImageView!
     @IBOutlet weak var lblCoachClassType : UILabel!
@@ -61,7 +64,7 @@ class MainSearchViewController: BaseViewController {
     // MARK: - METHODS
     
     func setUpUI() {
-        self.viewUserProfile.addCornerRadius(5)
+        self.viewUserProfile.addCornerRadius(10)
         self.viewUserProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         clickToBtnClassType(btnLive)
         
@@ -188,8 +191,14 @@ extension MainSearchViewController {
     func callGetUpcommingLiveClassAPI() {
         showLoader()
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_UPCOMMING_LIVE_CLASS_LIST, parameters: nil, headers: nil) { responseObj in
-            if let upcoming_live_class = responseObj["upcoming_live_class"] as? [String:Any] {
+            if let upcoming_live_class = responseObj["upcoming_live_class"] as? [String:Any], upcoming_live_class.count > 0 {
                 self.upcommingLiveClassModel = UpCommingLiveClass(responseObj: upcoming_live_class)
+                
+                if let flag_upcoming = responseObj["flag_upcoming"] as? Bool, !flag_upcoming {
+                    self.stackNoClassFoundMain.isHidden = false
+                    self.viewNoUpcommingLiveClass.isHidden = false
+                }
+                
                 self.imgClassCover.setImageFromURL(imgUrl: self.upcommingLiveClassModel.thumbnail_url, placeholderImage: "")
                 self.imgUserThumbnail.blurImage()
                 self.imgUser.setImageFromURL(imgUrl: self.upcommingLiveClassModel.user_image, placeholderImage: "")
@@ -200,6 +209,9 @@ extension MainSearchViewController {
                 self.lblClassDate.text = convertUTCToLocal(dateStr: self.upcommingLiveClassModel.class_date, sourceFormate: "yyyy-MM-dd", destinationFormate: "dd MMM yyyy")
                 self.lblClassTime.text = convertUTCToLocal(dateStr: self.upcommingLiveClassModel.class_time, sourceFormate: "HH:mm:ss", destinationFormate: "HH:mm")
                 self.imgBookmark.image = self.upcommingLiveClassModel.class_bookmark == BookmarkType.Yes ? UIImage(named: "Bookmark") : UIImage(named: "BookmarkLight")
+            } else {
+                self.stackNoClassFoundMain.isHidden = false
+                self.viewNoLiveClass.isHidden = false
             }
             self.hideLoader()
         } failure: { (error) in
