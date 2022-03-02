@@ -303,7 +303,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseRecipeItemTableViewCell", for: indexPath) as! CoachViseRecipeItemTableViewCell
-            
+            cell.viewBlur.isHidden = false
             let obj = arrCoachRecipePrevious[indexPath.row]
             cell.lbltitle.text = obj.title
             cell.lblUsername.text = "@" + obj.coachDetailsObj.username

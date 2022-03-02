@@ -1,5 +1,8 @@
 
 import UIKit
+import Charts
+
+var arrMonths = [String]()
 
 class WorkoutStatisticVC: BaseViewController {
     
@@ -10,7 +13,13 @@ class WorkoutStatisticVC: BaseViewController {
     @IBOutlet weak var lctOndemandTableHeight: NSLayoutConstraint!
     @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var viewNavbar: UIView!
-
+    @IBOutlet weak var viewTotalWorkoutDuration: UIView!
+    @IBOutlet weak var lblTotalWorkoutDuration: UILabel!
+    @IBOutlet weak var lblTotalBurnCalories: UILabel!
+    @IBOutlet var chartView: CombinedChartView!
+    @IBOutlet weak var viewTotalWorkout: UIView!
+    @IBOutlet weak var viewTotalkcalBurnt: UIView!
+    
     //MARK: - VARIABLE AND OBJECT
     
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
@@ -23,6 +32,8 @@ class WorkoutStatisticVC: BaseViewController {
     var isDataLoading = false
     var continueLoadingData = true
 
+    var ITEM_COUNT  = 0
+    
     //MARK: - VIEW CONTROLLER LIFE CYCLE
     
     override func viewDidLoad() {
@@ -44,7 +55,124 @@ class WorkoutStatisticVC: BaseViewController {
     
     //MARK: - FUNCTION
     
+    func setupChartUI() {
+        // MARK: General
+        chartView.delegate                  = self
+        chartView.drawGridBackgroundEnabled = false
+        chartView.drawBarShadowEnabled      = false
+        chartView.highlightFullBarEnabled   = false
+        chartView.drawOrder                 = [DrawOrder.line.rawValue, DrawOrder.bar.rawValue]
+        
+        // MARK: xAxis
+        let xAxis                           = chartView.xAxis
+        xAxis.labelPosition                 = .bottom
+        
+        xAxis.axisMinimum                   = 0.0
+        xAxis.granularity                   = 1.0
+        xAxis.valueFormatter                = BarChartFormatter()
+        xAxis.centerAxisLabelsEnabled = false
+        xAxis.setLabelCount(ITEM_COUNT, force: true)
+                
+        // MARK: leftAxis
+        let leftAxis                        = chartView.leftAxis
+        leftAxis.drawGridLinesEnabled       = false
+        leftAxis.drawLabelsEnabled = false
+        leftAxis.axisMinimum                = 0.0
+        
+        //leftAxis.nameAxis = "left Axis"
+        //leftAxis.nameAxisEnabled = true
+
+        // MARK: rightAxis
+        let rightAxis                       = chartView.rightAxis
+        rightAxis.drawGridLinesEnabled      = false
+        rightAxis.axisMinimum               = 0.0
+        rightAxis.drawLabelsEnabled = false
+
+        //rightAxis.nameAxis = "right Axis"
+        //rightAxis.nameAxisEnabled = true
+    
+        // MARK: legend
+        let legend                          = chartView.legend
+        legend.wordWrapEnabled              = true
+        legend.horizontalAlignment          = .center
+        legend.verticalAlignment            = .bottom
+        legend.orientation                  = .horizontal
+        legend.drawInside                   = false
+        
+        // MARK: description
+        chartView.chartDescription?.enabled = false
+        
+        setChartData()
+    }
+    
+    func setChartData() {
+        let data = CombinedChartData()
+        data.lineData = generateLineData()
+        data.barData = generateBarData()
+        chartView.xAxis.axisMaximum = data.xMax + 0.25
+        chartView.data = data
+    }
+    
+    func generateLineData() -> LineChartData {
+        // MARK: ChartDataEntry
+        var entries = [ChartDataEntry]()
+                
+        for (index, model) in self.userWorkoutStatisticsModel.arrWeeklyDataObj.enumerated() {
+            entries.append(ChartDataEntry(x: Double(index), y: Double(model.user_total_burn_calories) ?? 0.0))
+        }
+        
+        // MARK: LineChartDataSet
+        let set = LineChartDataSet(entries: entries)
+
+        set.colors = [COLORS.RECIPE_COLOR]
+        set.lineWidth = 2.5
+        set.circleColors = [COLORS.RECIPE_COLOR]
+        set.circleHoleRadius = 2.5
+        set.fillColor = COLORS.RECIPE_COLOR
+        set.mode = .cubicBezier
+        set.drawValuesEnabled = true
+        set.valueFont = NSUIFont.systemFont(ofSize: CGFloat(10.0))
+        set.valueTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        set.axisDependency = .left
+        
+        // MARK: LineChartData
+        let data = LineChartData()
+        data.addDataSet(set)
+        return data
+    }
+    
+    func generateBarData() -> BarChartData {
+        // MARK: BarChartDataEntry
+        var entries1 = [BarChartDataEntry]()
+        
+        for index in 0..<ITEM_COUNT {
+            let user_total_duration = self.userWorkoutStatisticsModel.arrWeeklyDataObj[index].user_total_duration.components(separatedBy: .whitespaces).first
+            entries1.append(BarChartDataEntry(x: Double(index), y: Double(user_total_duration ?? "0.0") ?? 0.0))
+        }
+        
+        // MARK: BarChartDataSet
+        let set1            = BarChartDataSet(entries: entries1)
+        set1.colors         = [COLORS.APP_THEME_COLOR]
+        set1.valueTextColor = .white
+        set1.valueFont      = NSUIFont.systemFont(ofSize: CGFloat(10.0))
+        set1.axisDependency = .left
+                
+        // MARK: BarChartData
+        let groupSpace = 0.06
+        let barSpace = 0.01
+        let barWidth = 0.46
+        
+        // x2 dataset
+        // (0.45 + 0.02) * 2 + 0.06 = 1.00 -> interval per "group"
+        let data = BarChartData(dataSets: [set1])
+        data.barWidth = barWidth
+        // make this BarData object grouped
+        data.groupBars(fromX: 0.0, groupSpace: groupSpace, barSpace: barSpace)     // start at x = 0
+        return data
+    }
+
     func initialSetupUI() {
+        //self.chartView.backgroundColor = COLORS.CHART_BG_COLOR
         self.hideTabBar()
         tblPreviousClassView.register(UINib(nibName: kHomeNewClassHeaderViewID, bundle: nil), forHeaderFooterViewReuseIdentifier: kHomeNewClassHeaderViewID)
         tblPreviousClassView.register(UINib(nibName: kCoachViseOnDemandClassItemTableViewCellID, bundle: nil), forCellReuseIdentifier: kCoachViseOnDemandClassItemTableViewCellID)
@@ -83,7 +211,7 @@ class WorkoutStatisticVC: BaseViewController {
 
             if self.arrCoachClassInfoList.count > 0 {
                 if self.safeAreaTop > 20 {
-                    self.lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (self.safeAreaTop + 14))
+                    self.lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (self.safeAreaTop + 44))
                 } else {
                     self.lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (10.0 + self.safeAreaTop))
                 }
@@ -120,6 +248,19 @@ class WorkoutStatisticVC: BaseViewController {
             
             if let user_workout_statistics = responseObj["user_workout_statistics"] as? [String:Any] {
                 self.userWorkoutStatisticsModel = UserWorkoutStatisticsModel(responseObj: user_workout_statistics)
+                self.ITEM_COUNT = self.userWorkoutStatisticsModel.arrWeeklyDataObj.count
+                if self.ITEM_COUNT > 0 {
+                    self.userWorkoutStatisticsModel.arrWeeklyDataObj.forEach { (allModel) in
+                        arrMonths.append(convertUTCToLocal(dateStr: allModel.date, sourceFormate: "yyyy-MM-dd", destinationFormate: "dd MMM"))
+                    }
+                    self.viewTotalWorkout.isHidden = false
+                    self.viewTotalkcalBurnt.isHidden = false
+                    self.lblTotalWorkoutDuration.text = self.userWorkoutStatisticsModel.allDataObj.user_total_duration
+                    self.lblTotalBurnCalories.text = "\(self.userWorkoutStatisticsModel.allDataObj.user_total_burn_calories) kcal"
+                    self.chartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+                    self.setupChartUI()
+                    self.view.layoutIfNeeded()
+                }
             }
         } failure: { (error) in
             self.hideLoader()
@@ -138,9 +279,9 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
         if scrollView == self.scrollView {
             print(self.scrollView.contentOffset.y)
             if safeAreaTop > 20 {
-                tblPreviousClassView.isScrollEnabled = (self.scrollView.contentOffset.y >= 225)
+                tblPreviousClassView.isScrollEnabled = (self.scrollView.contentOffset.y >= 330)
             } else {
-                tblPreviousClassView.isScrollEnabled = (self.scrollView.contentOffset.y >= 230)
+                tblPreviousClassView.isScrollEnabled = (self.scrollView.contentOffset.y >= 330)
             }
         }
         
@@ -308,5 +449,27 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
         let obj = arrCoachClassInfoList[indexPath.row]
         vc.selectedId = obj.id
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+
+extension WorkoutStatisticVC: ChartViewDelegate {
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print("chartValueSelected : x = \(highlight.x)")
+    }
+    
+    func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        print("chartValueNothingSelected")
+    }
+    
+    public class BarChartFormatter: NSObject, IAxisValueFormatter
+    {
+        var months: [String]! = arrMonths
+        
+        public func stringForValue(_ value: Double, axis: AxisBase?) -> String
+        {
+            let modu =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
+            return months[Int(modu) ]
+        }
     }
 }

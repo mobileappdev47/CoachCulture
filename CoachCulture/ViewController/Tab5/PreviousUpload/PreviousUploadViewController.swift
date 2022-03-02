@@ -228,7 +228,7 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseRecipeItemTableViewCell", for: indexPath) as! CoachViseRecipeItemTableViewCell
             let obj = arrCoachRecipe[indexPath.row]
             cell.selectedIndex = indexPath.row
-            cell.viewBlur.isHidden = true
+            cell.viewBlur.isHidden = false
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
