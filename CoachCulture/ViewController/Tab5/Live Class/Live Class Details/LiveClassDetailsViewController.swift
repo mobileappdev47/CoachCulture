@@ -70,6 +70,7 @@ class LiveClassDetailsViewController: BaseViewController {
     var userCoachHistoryID : Int?
     var isStatusUpdatedForVideoEnd = false
     var isNew = false
+    var deleteID = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -403,8 +404,33 @@ class LiveClassDetailsViewController: BaseViewController {
             downloadClassVideoImage(fileName: classDetailDataObj.thumbnail_video_file, downloadUrl: classDetailDataObj.thumbnail_video)
             
         } else {
-            Utility.shared.showToast("Video Already Downloded")
-            self.isClassDownloaded = false
+            self.addConfirmationView()
+            logOutView.lblTitle.text = "Delete downloaded class"
+            logOutView.lblMessage.text = "Are you sure that you want to delete the downloaded class?"
+            logOutView.btnLeft.setTitle("Confirm", for: .normal)
+            logOutView.btnRight.setTitle("Cancel", for: .normal)
+            logOutView.tapToBtnLogOut {
+                Utility.shared.showToast("Delete Downloded class sucessFully")
+                self.isClassDownloaded = false
+                self.imgDownload.image = UIImage(named: "Downloading")
+                self.removeConfirmationView()
+                if !self.isFromClassDownloadedPage {
+                    for i in 0..<self.arrLocalCoachClassData.count {
+                        let dic = self.arrLocalCoachClassData[i] as? NSDictionary ?? [:]
+                        let id = dic["id"] as! Int
+                        if "\(id)" == self.classDetailDataObj.id {
+                            self.arrLocalCoachClassData.remove(at: i)
+                            AppPrefsManager.sharedInstance.saveClassData(classData: self.arrLocalCoachClassData)
+                            break
+                        }
+                        
+                    }
+                } else {
+                    self.arrLocalCoachClassData.remove(at: self.deleteID)
+                    AppPrefsManager.sharedInstance.saveClassData(classData: self.arrLocalCoachClassData)
+                    self.checkIfDataIsUpdated()
+                }
+            }
         }
         
         
@@ -515,7 +541,6 @@ extension LiveClassDetailsViewController {
             self.classDetailDataObj = ClassDetailData(responseObj: dataObj)
             self.setData()
             self.hideLoader()
-            self.checkIfDataIsUpdated()
             self.getClassRating()
             
         } failure: { (error) in

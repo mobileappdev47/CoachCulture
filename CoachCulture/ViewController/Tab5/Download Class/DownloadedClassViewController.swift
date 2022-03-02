@@ -23,9 +23,12 @@ class DownloadedClassViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpUI()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        setUpUI()
+    }
     // MARK: - Methods
     func setUpUI() {
         hideTabBar()
@@ -117,6 +120,7 @@ extension DownloadedClassViewController : UITableViewDelegate, UITableViewDataSo
         let vc = LiveClassDetailsViewController.viewcontroller()
         vc.selectedId = arrCoachClassPrevious[indexPath.row].id
         vc.isFromClassDownloadedPage = true
+        vc.deleteID = indexPath.row
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
