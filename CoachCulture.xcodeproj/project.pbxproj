@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */; };
 		510C1D9427BE6C2F007228E9 /* HeaderTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */; };
 		512ABB922717FD72008CB198 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB912717FD72008CB198 /* AppDelegate.swift */; };
 		512ABB962717FD72008CB198 /* LoginSignUpVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB952717FD72008CB198 /* LoginSignUpVc.swift */; };
@@ -482,6 +483,7 @@
 /* Begin PBXFileReference section */
 		2797DA3766B97BEE907AE49E /* Pods-CoachCulture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.debug.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE6240B202CBFA8415C8744 /* Pods_CoachCulture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoachCulture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStatisticVC.swift; sourceTree = "<group>"; };
 		510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTableView.xib; sourceTree = "<group>"; };
 		5121A5E72718247F00B15581 /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-SemiBold.ttf"; sourceTree = "<group>"; };
 		5121A5E82718247F00B15581 /* Karla-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Medium.ttf"; sourceTree = "<group>"; };
@@ -973,6 +975,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		510B86FE27CDEEEA00FD09A8 /* WorkoutStatistic */ = {
+			isa = PBXGroup;
+			children = (
+				510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */,
+			);
+			path = WorkoutStatistic;
+			sourceTree = "<group>";
+		};
 		511FE593271D378400B7D02F /* LandingVc */ = {
 			isa = PBXGroup;
 			children = (
@@ -1354,6 +1364,7 @@
 		D41DB04A2770538A007FC5F7 /* Tab2 */ = {
 			isa = PBXGroup;
 			children = (
+				510B86FE27CDEEEA00FD09A8 /* WorkoutStatistic */,
 				D495BC852782D93E0013C292 /* CoachClassProfile */,
 				D48F451D2770893500B0EAD8 /* CoachViseOnDemandClass */,
 				D41DB04D277055EE007FC5F7 /* SearchFollowers */,
@@ -2638,6 +2649,7 @@
 				D48F452F2770A8EE00B0EAD8 /* PopularRecipeItemCollectionViewCell.swift in Sources */,
 				512ABC072718020C008CB198 /* StringExtension.swift in Sources */,
 				512ABEBD27180D09008CB198 /* GradientView.swift in Sources */,
+				510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */,
 				D4E6FA4327732A2100E3593C /* PaymentMethodViewController.swift in Sources */,
 				D40136C92758DCFC00E36A39 /* LogOutView.swift in Sources */,
 				D4677F6D27577CC300DD7E70 /* ResponseDataModel.swift in Sources */,
