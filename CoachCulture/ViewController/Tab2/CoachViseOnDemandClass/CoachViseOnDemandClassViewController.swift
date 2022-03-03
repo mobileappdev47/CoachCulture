@@ -577,7 +577,7 @@ extension CoachViseOnDemandClassViewController {
     func callAddUserToCoachAPI() {
         showLoader()
         let param = [ "coach_id" : selectedCoachId,
-                      "transaction_id" : "1",
+                      "transaction_id" : "pi_3KYlygSD6FO6JDp91vNaiTqa",
                       
         ] as [String : Any]
         

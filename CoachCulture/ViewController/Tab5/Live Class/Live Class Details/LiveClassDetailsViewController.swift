@@ -71,6 +71,7 @@ class LiveClassDetailsViewController: BaseViewController {
     var isStatusUpdatedForVideoEnd = false
     var isNew = false
     var deleteID = Int()
+    var isFromSubscriptionPurchase = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -299,7 +300,7 @@ class LiveClassDetailsViewController: BaseViewController {
     func callAddUserToCoachClassAPI() {
         showLoader()
         let param = [ "coach_class_id" : classDetailDataObj.id,
-                      "transaction_id" : "1",
+                      "transaction_id" : "pi_3KYlygSD6FO6JDp91vNaiTqa",
                       
         ] as [String : Any]
         
@@ -307,6 +308,7 @@ class LiveClassDetailsViewController: BaseViewController {
             self.hideLoader()
             let responseObj = ResponseDataModel(responseObj: responseObj)
             Utility.shared.showToast(responseObj.message)
+            self.isFromSubscriptionPurchase = true
         } failure: { (error) in
             self.hideLoader()
             return true
@@ -482,7 +484,11 @@ class LiveClassDetailsViewController: BaseViewController {
             if Reachability.isConnectedToNetwork(){
                 self.checkUserSubscribedClassAPI { (isSubscribed) in
                     if isSubscribed {
-                        self.goStepForwardAfterSubscribed()
+                        if self.isFromSubscriptionPurchase {
+                            self.getClassDetails()
+                        } else {
+                            self.goStepForwardAfterSubscribed()
+                        }
                     } else {
                         self.addConfirmationView()
                         self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
@@ -490,7 +496,6 @@ class LiveClassDetailsViewController: BaseViewController {
                 }
             }
         }
-        self.goStepForwardAfterSubscribed()
     }
     
     @IBAction func clickToBtnMore( _ sender: UIButton) {
@@ -546,20 +551,27 @@ extension LiveClassDetailsViewController : UITableViewDelegate, UITableViewDataS
 // MARK: - API CALL
 extension LiveClassDetailsViewController {
     func getClassDetails() {
-        showLoader()
+        if !self.isFromSubscriptionPurchase {
+            showLoader()
+        }
         let param = ["id" : selectedId]
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.COACH_CLASS_DETAILS, parameters: param, headers: nil) { responseObj in
             
             let dataObj = responseObj["coach_class"] as? [String:Any] ?? [String:Any]()
             self.classDetailDataObj = ClassDetailData(responseObj: dataObj)
-            self.setData()
+            if self.isFromSubscriptionPurchase {
+                self.goStepForwardAfterSubscribed()
+            } else {
+                self.checkIfDataIsUpdated()
+                self.getClassRating()
+                self.setData()
+            }
             self.hideLoader()
             if Reachability.isConnectedToNetwork(){
                 self.getClassRating()
             }
-            
-        } failure: { (error) in
+                    } failure: { (error) in
             self.hideLoader()
             return true
         }
@@ -685,6 +697,7 @@ extension LiveClassDetailsViewController {
             if let dataDict = responseObj["data"] as? [String:Any] {
                 if let user_coach_history_id = dataDict["user_coach_history_id"] as? Int {
                     self.userCoachHistoryID = user_coach_history_id
+                    self.isFromSubscriptionPurchase = false
                 }
             }
         } failure: { (error) in
