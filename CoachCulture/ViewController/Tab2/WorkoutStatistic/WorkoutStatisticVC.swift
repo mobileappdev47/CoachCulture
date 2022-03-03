@@ -47,8 +47,8 @@ class WorkoutStatisticVC: BaseViewController {
         initialSetupUI()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         
         self.showTabBar()
     }
@@ -66,13 +66,17 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: xAxis
         let xAxis                           = chartView.xAxis
         xAxis.labelPosition                 = .bottom
-        
+        xAxis.labelFont = NSUIFont(name: "SFProText-Bold", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)
         xAxis.axisMinimum                   = 0.0
         xAxis.granularity                   = 1.0
         xAxis.valueFormatter                = BarChartFormatter()
         xAxis.centerAxisLabelsEnabled = false
         xAxis.setLabelCount(ITEM_COUNT, force: true)
                 
+        xAxis.drawGridLinesEnabled = false
+        xAxis.labelTextColor = .white
+        xAxis.avoidFirstLastClippingEnabled = true
+        
         // MARK: leftAxis
         let leftAxis                        = chartView.leftAxis
         leftAxis.drawGridLinesEnabled       = false
@@ -99,6 +103,8 @@ class WorkoutStatisticVC: BaseViewController {
         legend.orientation                  = .horizontal
         legend.drawInside                   = false
         
+        legend.form = .none
+        legend.textColor = .clear
         // MARK: description
         chartView.chartDescription?.enabled = false
         
@@ -126,12 +132,14 @@ class WorkoutStatisticVC: BaseViewController {
 
         set.colors = [COLORS.RECIPE_COLOR]
         set.lineWidth = 2.5
+        
         set.circleColors = [COLORS.RECIPE_COLOR]
         set.circleHoleRadius = 2.5
         set.fillColor = COLORS.RECIPE_COLOR
+        
         set.mode = .cubicBezier
         set.drawValuesEnabled = true
-        set.valueFont = NSUIFont.systemFont(ofSize: CGFloat(10.0))
+        set.valueFont = NSUIFont(name: "SFProText-Bold", size: 9) ?? NSUIFont.systemFont(ofSize: CGFloat(9.0))
         set.valueTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         set.axisDependency = .left
         
@@ -152,9 +160,9 @@ class WorkoutStatisticVC: BaseViewController {
         
         // MARK: BarChartDataSet
         let set1            = BarChartDataSet(entries: entries1)
-        set1.colors         = [COLORS.APP_THEME_COLOR]
+        set1.colors         = [COLORS.BARCHART_BG_COLOR]
         set1.valueTextColor = .white
-        set1.valueFont      = NSUIFont.systemFont(ofSize: CGFloat(10.0))
+        set1.valueFont      = NSUIFont(name: "SFProText-Bold", size: 10) ?? NSUIFont.systemFont(ofSize: CGFloat(10.0))
         set1.axisDependency = .left
                 
         // MARK: BarChartData
@@ -162,8 +170,6 @@ class WorkoutStatisticVC: BaseViewController {
         let barSpace = 0.01
         let barWidth = 0.46
         
-        // x2 dataset
-        // (0.45 + 0.02) * 2 + 0.06 = 1.00 -> interval per "group"
         let data = BarChartData(dataSets: [set1])
         data.barWidth = barWidth
         // make this BarData object grouped

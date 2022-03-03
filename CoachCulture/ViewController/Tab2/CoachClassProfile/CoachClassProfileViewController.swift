@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Charts
 
 class CoachClassProfileViewController: BaseViewController {
 
@@ -19,6 +20,7 @@ class CoachClassProfileViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var heightConstantViewStackMain: NSLayoutConstraint!
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var imgUserProfile: UIImageView!
@@ -30,6 +32,12 @@ class CoachClassProfileViewController: BaseViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var viewNavbar: UIView!
     @IBOutlet weak var lblNoDataFound: UILabel!
+
+    @IBOutlet weak var lblTotalWorkoutDuration: UILabel!
+    @IBOutlet weak var lblTotalBurnCalories: UILabel!
+    @IBOutlet var chartView: CombinedChartView!
+    @IBOutlet weak var viewTotalWorkout: UIView!
+    @IBOutlet weak var viewTotalkcalBurnt: UIView!
 
     var arrCoachClassInfoList = [CoachClassPrevious]()
     var coachInfoDataObj = CoachInfoData()
@@ -47,6 +55,8 @@ class CoachClassProfileViewController: BaseViewController {
     var perPageCountRecipe = 10
     let role = AppPrefsManager.sharedInstance.getUserRole()
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
+    var userWorkoutStatisticsModel = UserWorkoutStatisticsModel()
+    var ITEM_COUNT  = 0
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,11 +90,130 @@ class CoachClassProfileViewController: BaseViewController {
         tblOndemand.delegate = self
         tblOndemand.dataSource = self
                 
-        callFollowingCoachClassListAPI()
-       
-        
+        if Reachability.isConnectedToNetwork() {
+            callUserWorkoutStatisticsAPI()
+            callFollowingCoachClassListAPI()
+        }
     }
     
+    func setupChartUI() {
+        // MARK: General
+        chartView.delegate                  = self
+        chartView.drawGridBackgroundEnabled = false
+        chartView.drawBarShadowEnabled      = false
+        chartView.highlightFullBarEnabled   = false
+        chartView.drawOrder                 = [DrawOrder.line.rawValue, DrawOrder.bar.rawValue]
+        
+        // MARK: xAxis
+        let xAxis                           = chartView.xAxis
+        xAxis.labelPosition                 = .bottom
+        xAxis.axisMinimum                   = 0.0
+        xAxis.labelFont = NSUIFont(name: "SFProText-Semibold", size: 7.0) ?? NSUIFont.systemFont(ofSize: 10)
+        xAxis.granularity                   = 1.0
+        xAxis.valueFormatter                = BarChartFormatter()
+        xAxis.centerAxisLabelsEnabled = false
+        xAxis.setLabelCount(ITEM_COUNT, force: true)
+        
+        xAxis.drawGridLinesEnabled = false
+        xAxis.labelTextColor = .white
+        xAxis.avoidFirstLastClippingEnabled = true
+        
+        // MARK: leftAxis
+        let leftAxis                        = chartView.leftAxis
+        leftAxis.drawGridLinesEnabled       = false
+        leftAxis.drawLabelsEnabled = false
+        leftAxis.axisMinimum                = 0.0
+        
+        //leftAxis.nameAxis = "left Axis"
+        //leftAxis.nameAxisEnabled = true
+
+        // MARK: rightAxis
+        let rightAxis                       = chartView.rightAxis
+        rightAxis.drawGridLinesEnabled      = false
+        rightAxis.axisMinimum               = 0.0
+        rightAxis.drawLabelsEnabled = false
+
+        //rightAxis.nameAxis = "right Axis"
+        //rightAxis.nameAxisEnabled = true
+    
+        // MARK: legend
+        let legend                          = chartView.legend
+        legend.wordWrapEnabled              = true
+        legend.horizontalAlignment          = .center
+        legend.verticalAlignment            = .bottom
+        legend.orientation                  = .horizontal
+        legend.drawInside                   = false
+        
+        legend.form = .none
+        legend.textColor = .clear
+        // MARK: description
+        chartView.chartDescription?.enabled = false
+        
+        setChartData()
+    }
+    
+    func setChartData() {
+        let data = CombinedChartData()
+        data.lineData = generateLineData()
+        data.barData = generateBarData()
+        chartView.xAxis.axisMaximum = data.xMax + 0.25
+        chartView.data = data
+    }
+    
+    func generateLineData() -> LineChartData {
+        // MARK: ChartDataEntry
+        var entries = [ChartDataEntry]()
+                
+        for (index, model) in self.userWorkoutStatisticsModel.arrWeeklyDataObj.enumerated() {
+            entries.append(ChartDataEntry(x: Double(index), y: Double(model.user_total_burn_calories) ?? 0.0))
+        }
+        
+        // MARK: LineChartDataSet
+        let set = LineChartDataSet(entries: entries)
+
+        set.colors = [COLORS.RECIPE_COLOR]
+        set.lineWidth = 2.5
+        
+        set.drawCirclesEnabled = false
+        
+        set.mode = .cubicBezier
+        set.drawValuesEnabled = true
+        set.valueTextColor = .clear
+        set.axisDependency = .left
+        
+        // MARK: LineChartData
+        let data = LineChartData()
+        data.addDataSet(set)
+        return data
+    }
+    
+    func generateBarData() -> BarChartData {
+        // MARK: BarChartDataEntry
+        var entries1 = [BarChartDataEntry]()
+        
+        for index in 0..<ITEM_COUNT {
+            let user_total_duration = self.userWorkoutStatisticsModel.arrWeeklyDataObj[index].user_total_duration.components(separatedBy: .whitespaces).first
+            entries1.append(BarChartDataEntry(x: Double(index), y: Double(user_total_duration ?? "0.0") ?? 0.0))
+        }
+        
+        // MARK: BarChartDataSet
+        let set1            = BarChartDataSet(entries: entries1)
+        set1.colors         = [COLORS.BARCHART_BG_COLOR]
+        set1.valueTextColor = .clear
+        set1.axisDependency = .left
+                
+        // MARK: BarChartData
+        let groupSpace = 0.06
+        let barSpace = 0.01
+        let barWidth = 0.46
+        
+        let data = BarChartData(dataSets: [set1])
+        data.barWidth = barWidth
+        // make this BarData object grouped
+        data.groupBars(fromX: 0.0, groupSpace: groupSpace, barSpace: barSpace)     // start at x = 0
+        return data
+    }
+
     func resetVariable() {
         arrCoachClassInfoList.removeAll()
         isDataLoading = false
@@ -438,6 +567,38 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
 
 
 extension CoachClassProfileViewController {
+    
+    func callUserWorkoutStatisticsAPI() {
+        let api = API.GET_USER_WORKOUT_STATISTIC
+        showLoader()
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: api, parameters: nil, headers: nil) { responseObj in
+            
+            self.hideLoader()
+            
+            if let user_workout_statistics = responseObj["user_workout_statistics"] as? [String:Any] {
+                self.userWorkoutStatisticsModel = UserWorkoutStatisticsModel(responseObj: user_workout_statistics)
+                self.ITEM_COUNT = self.userWorkoutStatisticsModel.arrWeeklyDataObj.count
+                if self.ITEM_COUNT > 0 {
+                    self.userWorkoutStatisticsModel.arrWeeklyDataObj.forEach { (allModel) in
+                        arrMonths.append(convertUTCToLocal(dateStr: allModel.date, sourceFormate: "yyyy-MM-dd", destinationFormate: "dd MMM"))
+                    }
+                    self.heightConstantViewStackMain.constant = 16.0
+                    self.viewTotalWorkout.isHidden = false
+                    self.viewTotalkcalBurnt.isHidden = false
+                    self.lblTotalWorkoutDuration.text = self.userWorkoutStatisticsModel.allDataObj.user_total_duration
+                    self.lblTotalBurnCalories.text = "\(self.userWorkoutStatisticsModel.allDataObj.user_total_burn_calories) kcal"
+                    self.chartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0)
+                    self.setupChartUI()
+                    self.view.layoutIfNeeded()
+                }
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
+    
     func callFollowingCoachClassListAPI() {
         if(isDataLoading || !continueLoadingData){
             return
@@ -540,7 +701,9 @@ extension CoachClassProfileViewController {
                 }
             default:
                 self.resetVariable()
-                self.callFollowingCoachClassListAPI()
+                if Reachability.isConnectedToNetwork() {
+                    self.callFollowingCoachClassListAPI()
+                }
             }
             self.hideLoader()
         } failure: { (error) in
@@ -555,4 +718,26 @@ extension CoachClassProfileViewController {
 struct UserType {
     static let user = "user"
     static let coach = "coach"
+}
+
+extension CoachClassProfileViewController: ChartViewDelegate {
+    
+    func chartValueSelected(_ chartView: ChartViewBase, entry: ChartDataEntry, highlight: Highlight) {
+        print("chartValueSelected : x = \(highlight.x)")
+    }
+    
+    func chartValueNothingSelected(_ chartView: ChartViewBase) {
+        print("chartValueNothingSelected")
+    }
+    
+    public class BarChartFormatter: NSObject, IAxisValueFormatter
+    {
+        var months: [String]! = arrMonths
+        
+        public func stringForValue(_ value: Double, axis: AxisBase?) -> String
+        {
+            let modu =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
+            return months[Int(modu) ]
+        }
+    }
 }

@@ -76,9 +76,20 @@ class LiveClassDetailsViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         setUpUI()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.showTabBar()
+    }
+
     private func setUpUI() {
         NotificationCenter.default.addObserver(
             self,
@@ -345,23 +356,29 @@ class LiveClassDetailsViewController: BaseViewController {
             let directoryUrl =  URL(fileURLWithPath: getDirectoryPath() + "/" + folderName + "/")
             
             var destinationFileUrl = ""
-            
+            isStatusUpdatedForVideoEnd = false
+            var videoURL : URL?
+
             if Reachability.isConnectedToNetwork() {
                 destinationFileUrl = self.classDetailDataObj.thumbnail_video
+                if let tempVideoURL = URL(string: destinationFileUrl.addingPercentEncoding(withAllowedCharacters: .urlAllowedCharacters) ?? "") {
+                    videoURL = tempVideoURL
+                }
             } else {
                 destinationFileUrl = directoryUrl.appendingPathComponent(self.classDetailDataObj.thumbnail_video_file).absoluteString
+                let url = destinationFileUrl.replacingOccurrences(of: "file://", with: "")
+    //            let abc = url.replacingOccurrences(of: "%20", with: " ")
+                videoURL = URL(fileURLWithPath: url.removingPercentEncoding ?? "")
+                isStatusUpdatedForVideoEnd = false
             }
-            
-            let url = destinationFileUrl.replacingOccurrences(of: "file://", with: "")
-//            let abc = url.replacingOccurrences(of: "%20", with: " ")
-            let videoURL = URL(fileURLWithPath: url.removingPercentEncoding ?? "")
-            isStatusUpdatedForVideoEnd = false
-            let player = AVPlayer(url: videoURL)
-            let playerViewController = AVPlayerViewController()
-            playerViewController.delegate = self
-            playerViewController.player = player
-            self.present(playerViewController, animated: true) {
-                playerViewController.player!.play()
+            if let finalUrl = videoURL {
+                let player = AVPlayer(url: finalUrl)
+                let playerViewController = AVPlayerViewController()
+                playerViewController.delegate = self
+                playerViewController.player = player
+                self.present(playerViewController, animated: true) {
+                    playerViewController.player!.play()
+                }
             }
         }
     }

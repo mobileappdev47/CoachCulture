@@ -163,6 +163,7 @@ struct COLORS {
     static let ON_DEMAND_COLOR = hexStringToUIColor(hex: "#1A82F6")
     static let RECIPE_COLOR = hexStringToUIColor(hex: "#4DB748")
     static let CHART_BG_COLOR = hexStringToUIColor(hex: "#707070")
+    static let BARCHART_BG_COLOR = hexStringToUIColor(hex: "#E200FF")
 }
 
 // MARK: - ALERT TITLE
