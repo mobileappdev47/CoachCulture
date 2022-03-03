@@ -74,29 +74,39 @@ class ClassFilterViewController: BaseViewController {
             self.viewMinClassDuration.isHidden = true
             self.viewMaxClassDuration.isHidden = true
             viewMyCoachOnlyExtra.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
-            self.callMealTypeAndDietaryRestrictionList()
+            if Reachability.isConnectedToNetwork(){
+                self.callMealTypeAndDietaryRestrictionList()
+            }
         } else if previousUploadVC != nil && isFromRecipe {
             self.viwBookmarkOnly.isHidden = true
             self.viwMyCoachesOnly.isHidden = true
             self.viewMinClassDuration.isHidden = true
             self.viewMaxClassDuration.isHidden = true
             viewMyCoachOnlyExtra.isHidden = true
-            self.callMealTypeAndDietaryRestrictionList()
+            if Reachability.isConnectedToNetwork(){
+                self.callMealTypeAndDietaryRestrictionList()
+            }
         } else if previousUploadVC != nil && !isFromRecipe {
             viwMyCoachesOnly.isHidden = true
             self.viewMyCoachOnlyExtra.isHidden = true
             self.viewMaxClassDurationExtra.isHidden = true
-            getClassType()
+            if Reachability.isConnectedToNetwork(){
+                getClassType()
+            }
         } else if previousClassVC != nil && !isFromRecipe {
             viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
             self.viewMyCoachOnlyExtra.isHidden = true
             self.viewMaxClassDurationExtra.isHidden = true
-            getClassType()
+            if Reachability.isConnectedToNetwork(){
+                getClassType()
+            }
         } else {
             self.viewClassTypeMain.isHidden = false
             self.viewMyCoachOnlyExtra.isHidden = true
             self.viewMaxClassDurationExtra.isHidden = true
-            getClassType()
+            if Reachability.isConnectedToNetwork(){
+                getClassType()
+            }
         }
         clvClassType.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
         clvClassType.delegate = self
@@ -511,7 +521,10 @@ class ClassFilterViewController: BaseViewController {
                 let arrfilterClassTypeName = arrfilterClassTypeNameModel.map({$0.class_type_name})
                 
                 previousUploadVC.class_type_name = arrfilterClassTypeName.joined(separator: ",")
-                previousUploadVC!.getCoachesWiseClassList()
+                
+                if Reachability.isConnectedToNetwork(){
+                    previousUploadVC!.getCoachesWiseClassList()
+                }
             }
         } else {
             for temp in arrClassDifficultyList {
@@ -637,7 +650,9 @@ extension ClassFilterViewController {
                 self.lctClassTypeHeight.constant = self.clvClassType.collectionViewLayout.collectionViewContentSize.height
             }
             
-            self.getClassDifficultyList()
+            if Reachability.isConnectedToNetwork(){
+                self.getClassDifficultyList()
+            }
             
         } failure: { (error) in
             self.hideLoader()

@@ -159,9 +159,13 @@ class EditCoachProfileViewController: BaseViewController {
             self.navigationController?.popViewController(animated: true)
             self.removesuccessPopUpForCoachProfieView()
         }
-                
-        getNationality()
-        getUserProfile()
+            
+        if Reachability.isConnectedToNetwork(){
+            getNationality()
+        }
+        if Reachability.isConnectedToNetwork(){
+            getUserProfile()
+        }
         
     }
     
@@ -283,7 +287,9 @@ class EditCoachProfileViewController: BaseViewController {
         } else if imgTermsCondition.isHighlighted == false {
             Utility.shared.showToast("Accept terms and condition")
         } else {
-            self.registerAsCoach()
+            if Reachability.isConnectedToNetwork(){
+                self.registerAsCoach()
+            }
         }
     }
     
@@ -333,7 +339,9 @@ class EditCoachProfileViewController: BaseViewController {
         }     else if txtProfilePassword.text!.isEmpty {
             Utility.shared.showToast("Password is a mandatory field.")
         } else {
-            editUserProfile()
+            if Reachability.isConnectedToNetwork(){
+                editUserProfile()
+            }
         }
         
     }
@@ -441,7 +449,9 @@ extension EditCoachProfileViewController {
             let responseModel = ResponseDataModel(responseObj: responseObj)
             
             if responseModel.success {
-                self.registerAsCoach()
+                if Reachability.isConnectedToNetwork(){
+                    self.registerAsCoach()
+                }
             } else{
                 Utility.shared.showToast(responseModel.message)
                 self.hideLoader()

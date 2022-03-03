@@ -159,8 +159,9 @@ class ScheduleLiveClassViewController: BaseViewController {
             self.lblHour.text = arrStr.first
         }
         
-        
-        getClassType()
+        if Reachability.isConnectedToNetwork(){
+            getClassType()
+        }
         
         
     }
@@ -346,7 +347,9 @@ extension ScheduleLiveClassViewController {
             }
             
             self.hideLoader()
-            self.getClassDifficultyList()
+            if Reachability.isConnectedToNetwork(){
+                self.getClassDifficultyList()
+            }
             
         } failure: { (error) in
             self.hideLoader()
@@ -373,7 +376,9 @@ extension ScheduleLiveClassViewController {
             }
             
             self.hideLoader()
-            self.getNationality()
+            if Reachability.isConnectedToNetwork(){
+                self.getNationality()
+            }
             
         } failure: { (error) in
             self.hideLoader()

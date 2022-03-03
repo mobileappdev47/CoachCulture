@@ -207,7 +207,9 @@ class LoginSignUpVc: BaseViewController {
                 "password": txtPasswordLogin.text!,
                 "login_type": 0
             ]
-            loginAPI()
+            if Reachability.isConnectedToNetwork(){
+                loginAPI()
+            }
         }
     }
     

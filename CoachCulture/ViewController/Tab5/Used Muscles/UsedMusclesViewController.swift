@@ -35,7 +35,9 @@ class UsedMusclesViewController: BaseViewController {
         clvMusclesType.dataSource = self
         
         
-        getMuscleGroupList()
+        if Reachability.isConnectedToNetwork(){
+            getMuscleGroupList()
+        }
     }
     
     func setData() {

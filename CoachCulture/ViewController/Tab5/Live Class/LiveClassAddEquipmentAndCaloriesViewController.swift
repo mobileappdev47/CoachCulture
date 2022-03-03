@@ -45,7 +45,9 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
     
     // MARK: - methods
     func setUpUI() {
-        getEquipmentList()
+        if Reachability.isConnectedToNetwork(){
+            getEquipmentList()
+        }
         tblAddEquipment.register(UINib(nibName: "AddEquipmentItemTableViewCell", bundle: nil), forCellReuseIdentifier: "AddEquipmentItemTableViewCell")
         tblAddEquipment.delegate = self
         tblAddEquipment.dataSource = self
@@ -131,7 +133,9 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
             paramDic["burn_calories"] = txtCalories.text!
             paramDic["description"] = txtDescription.text!
             
-            createClass()
+            if Reachability.isConnectedToNetwork(){
+                createClass()
+            }
         }
         
        

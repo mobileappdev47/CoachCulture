@@ -153,8 +153,12 @@ class EditProfileViewController: BaseViewController {
             
         }
         
-        getUserProfile()
-        getNationality()
+        if Reachability.isConnectedToNetwork(){
+            getUserProfile()
+        }
+        if Reachability.isConnectedToNetwork(){
+            getNationality()
+        }
         hideTabBar()
     }
     
@@ -251,7 +255,9 @@ class EditProfileViewController: BaseViewController {
             picker.mediaTypes = [kUTTypeMovie as String]
             self.present(picker, animated: true, completion: nil)
         } else {
-            deleteCoachTrailerFile()
+            if Reachability.isConnectedToNetwork(){
+                deleteCoachTrailerFile()
+            }
         }
     }
     
@@ -299,7 +305,9 @@ class EditProfileViewController: BaseViewController {
         } else if txtPassword.text!.isEmpty {
             Utility.shared.showToast("Password is a mandatory field.")
         } else {
-            editUserProfile()
+            if Reachability.isConnectedToNetwork(){
+                editUserProfile()
+            }
         }
     }
     

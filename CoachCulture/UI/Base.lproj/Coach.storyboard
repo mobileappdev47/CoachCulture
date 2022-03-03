@@ -101,7 +101,7 @@
                                 </subviews>
                             </stackView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACh CLUTURE" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kn1-bn-gAS">
-                                <rect key="frame" x="30" y="170" width="276" height="140"/>
+                                <rect key="frame" x="30" y="263.5" width="276" height="140"/>
                                 <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="60"/>
                                 <color key="textColor" name="themeRedColor"/>
                                 <nil key="highlightedColor"/>
@@ -114,12 +114,12 @@
                             <constraint firstItem="f5j-ee-IKD" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="3fn-kJ-tbM"/>
                             <constraint firstItem="zxR-NY-VVH" firstAttribute="width" secondItem="6Tk-OE-BBY" secondAttribute="width" multiplier="0.55" id="EgZ-fZ-qel"/>
                             <constraint firstItem="Kn1-bn-gAS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="KID-OY-BKv"/>
+                            <constraint firstItem="Kn1-bn-gAS" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Sgx-jQ-f31"/>
                             <constraint firstItem="zxR-NY-VVH" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="T2w-h7-4Qw"/>
                             <constraint firstItem="f5j-ee-IKD" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" multiplier="0.12" id="cRD-zr-kP7"/>
                             <constraint firstItem="f5j-ee-IKD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="50" id="iZQ-PG-Tez"/>
                             <constraint firstItem="f5j-ee-IKD" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.25" id="mwe-Tm-vd6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zxR-NY-VVH" secondAttribute="bottom" constant="40" id="xGX-Gb-F05"/>
-                            <constraint firstItem="Kn1-bn-gAS" firstAttribute="top" secondItem="f5j-ee-IKD" secondAttribute="bottom" constant="40" id="xWG-Mk-IvT"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="YDQ-lL-Qfk"/>

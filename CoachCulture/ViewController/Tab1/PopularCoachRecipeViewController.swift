@@ -56,7 +56,7 @@ class PopularCoachRecipeViewController: BaseViewController {
         clvPopularRecipeItem.dataSource = self
        
         if Reachability.isConnectedToNetwork(){
-        getPopularRecipeList(str: "")
+            getPopularRecipeList(str: "")
         }
         
     }
@@ -72,9 +72,13 @@ class PopularCoachRecipeViewController: BaseViewController {
         let obj = arrCoachRecipeData[sender.tag]
         
         if obj.bookmark.lowercased() == "no".lowercased() {
-            addOrRemoveFromBookMark(bookmark: "yes", coach_recipe_id: obj.id, selectedIndex: sender.tag)
+            if Reachability.isConnectedToNetwork(){
+                addOrRemoveFromBookMark(bookmark: "yes", coach_recipe_id: obj.id, selectedIndex: sender.tag)
+            }
         } else {
-            addOrRemoveFromBookMark(bookmark: "no", coach_recipe_id: obj.id, selectedIndex: sender.tag)
+            if Reachability.isConnectedToNetwork(){
+                addOrRemoveFromBookMark(bookmark: "no", coach_recipe_id: obj.id, selectedIndex: sender.tag)
+            }
         }
     }
 }

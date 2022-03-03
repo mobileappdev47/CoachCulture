@@ -47,7 +47,9 @@ class LiveClassRatingViewController: BaseViewController {
     
     private func setUpUI() {
         txtTellUsAbout.delegate = self
-        getClassDetails()
+        if Reachability.isConnectedToNetwork(){
+            getClassDetails()
+        }
     }
     
     func setData() {
@@ -86,7 +88,9 @@ class LiveClassRatingViewController: BaseViewController {
 
     // MARK: - Click events
     @IBAction func clickToBtnNext(_ sender : UIButton) {
-        giveRatting()
+        if Reachability.isConnectedToNetwork(){
+            giveRatting()
+        }
     }
 
 }

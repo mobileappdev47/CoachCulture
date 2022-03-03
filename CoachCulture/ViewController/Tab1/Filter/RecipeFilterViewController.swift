@@ -41,7 +41,9 @@ class RecipeFilterViewController: BaseViewController {
     // MARK: - Methods
     func setUpUI() {
         
-        getMealTypeList()
+        if Reachability.isConnectedToNetwork(){
+            getMealTypeList()
+        }
         
         viwMyCoachesOnly.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         clvMealType.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")

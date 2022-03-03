@@ -61,7 +61,9 @@ class PreviousUploadViewController: BaseViewController {
         super.viewDidLoad()
         
         setUpUI()
-        getCoachesWiseClassList()
+        if Reachability.isConnectedToNetwork() {
+            getCoachesWiseClassList()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -113,19 +115,25 @@ class PreviousUploadViewController: BaseViewController {
         if sender == btnLive {
             class_type = "live"
             viwLiveLine.isHidden = false
-            getCoachesWiseClassList()
+            if Reachability.isConnectedToNetwork() {
+                getCoachesWiseClassList()
+            }
         }
         
         if sender == btnRecipe {
             viwRecipeLine.isHidden = false
             resetRecipeVariable()
-            getCoachesWiseRecipeList()
+            if Reachability.isConnectedToNetwork() {
+                getCoachesWiseRecipeList()
+            }
         }
         
         if sender == btnOnDemand {
             class_type = "on_demand"
             viwOnDemandLine.isHidden = false
-            getCoachesWiseClassList()
+            if Reachability.isConnectedToNetwork() {
+                getCoachesWiseClassList()
+            }
         }
     }
     
@@ -179,7 +187,10 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                }
             }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -188,7 +199,9 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
             }
             
             if arrCoachClassInfoList.count - 1 == indexPath.row {
-                getCoachesWiseClassList()
+                if Reachability.isConnectedToNetwork() {
+                    getCoachesWiseClassList()
+                }
             }
             return cell
         } else if viwLiveLine.isHidden == false {
@@ -217,8 +230,9 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
             }
             
             if arrCoachClassInfoList.count - 1 == indexPath.row {
-                
-                getCoachesWiseClassList()
+                if Reachability.isConnectedToNetwork() {
+                    getCoachesWiseClassList()
+                }
             }
             
             
@@ -257,7 +271,9 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
             if arrCoachRecipe.count - 1 == indexPath.row {
-                getCoachesWiseRecipeList()
+                if Reachability.isConnectedToNetwork(){
+                    getCoachesWiseRecipeList()
+                }
             }
             
             return cell
@@ -297,7 +313,10 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
                 }
             default:
                 self.resetVariable()
-                self.getCoachesWiseClassList()
+                
+                if Reachability.isConnectedToNetwork(){
+                    self.getCoachesWiseClassList()
+                }
             }
             
             self.hideLoader()

@@ -129,7 +129,9 @@ class OnDemandVideoUploadViewController: BaseViewController {
             setData()
         }
         
-        getClassType()
+        if Reachability.isConnectedToNetwork(){
+            getClassType()
+        }
         
         
     }
@@ -309,7 +311,9 @@ extension OnDemandVideoUploadViewController {
             }
             
             self.hideLoader()
-            self.getClassDifficultyList()
+            if Reachability.isConnectedToNetwork(){
+                self.getClassDifficultyList()
+            }
             
         } failure: { (error) in
             self.hideLoader()

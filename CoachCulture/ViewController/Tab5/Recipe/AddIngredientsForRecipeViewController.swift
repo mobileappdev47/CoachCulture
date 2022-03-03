@@ -58,7 +58,9 @@ class AddIngredientsForRecipeViewController: BaseViewController {
         
         //AddIngredientIemTableViewCell
         
-        getDietaryList()
+        if Reachability.isConnectedToNetwork(){
+            getDietaryList()
+        }
     }
     
     func setData() {
@@ -143,7 +145,9 @@ class AddIngredientsForRecipeViewController: BaseViewController {
         paramDic["dietary_restriction"] = dietary_restriction
         paramDic["qty_ingredient"] = jsonStringFromDictionaryOrArrayObject(obj: qty_ingredient)
         if dietary_restriction != "" {
-            createRecipe()
+            if Reachability.isConnectedToNetwork(){
+                createRecipe()
+            }
         } else {
             Utility.shared.showToast("Please select dietary restriction")
         }

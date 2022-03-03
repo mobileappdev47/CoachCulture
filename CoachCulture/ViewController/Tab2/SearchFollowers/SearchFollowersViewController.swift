@@ -40,7 +40,9 @@ class SearchFollowersViewController: BaseViewController {
         
         txtSearch.text = ""
         clickToBtnFollowerAll(btnFollower)
-        getAllCoachesListWithSearch(str: "")
+        if Reachability.isConnectedToNetwork(){
+            getAllCoachesListWithSearch(str: "")
+        }
     }
     
     func setUpUI() {
@@ -63,7 +65,9 @@ class SearchFollowersViewController: BaseViewController {
             viwLine2.isHidden = false
         }
         
-        getAllCoachesListWithSearch(str: txtSearch.text!)
+        if Reachability.isConnectedToNetwork(){
+            getAllCoachesListWithSearch(str: txtSearch.text!)
+        }
     }
 
 }
@@ -144,7 +148,9 @@ extension SearchFollowersViewController : UITextFieldDelegate {
         
         let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
        
-        self.getAllCoachesListWithSearch(str: finalString)
+        if Reachability.isConnectedToNetwork(){
+            self.getAllCoachesListWithSearch(str: finalString)
+        }
         
         
         return true

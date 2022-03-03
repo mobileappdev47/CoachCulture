@@ -56,8 +56,12 @@ class MainSearchViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         showTabBar()
-        callGetUpcommingLiveClassAPI()
-        getClassType()
+        if Reachability.isConnectedToNetwork(){
+            callGetUpcommingLiveClassAPI()
+        }
+        if Reachability.isConnectedToNetwork(){
+            getClassType()
+        }
     }
     
 
@@ -80,7 +84,9 @@ class MainSearchViewController: BaseViewController {
         var param = [String:Any]()
         param[Params.AddRemoveBookmark.coach_class_id] = self.upcommingLiveClassModel.class_id
         param[Params.AddRemoveBookmark.bookmark] = self.upcommingLiveClassModel.class_bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param)
+        if Reachability.isConnectedToNetwork(){
+            self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param)
+        }
     }
     
     @IBAction func clickToBtnClassType( _ sender : UIButton) {

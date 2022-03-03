@@ -54,8 +54,10 @@ class WorkoutStatisticVC: BaseViewController {
         self.tblPreviousClassView.isScrollEnabled = false
         self.scrollView.delegate = self
 
-        callUserWorkoutStatisticsAPI()
-        callgetUserPreviousClassAPI()
+        if Reachability.isConnectedToNetwork(){
+            callUserWorkoutStatisticsAPI()
+            callgetUserPreviousClassAPI()
+        }
     }
     
     func resetVariable() {
@@ -201,7 +203,9 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                }
             }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -248,7 +252,9 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                }
             }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -286,7 +292,9 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
                 }
             default:
                 self.resetVariable()
-                self.callgetUserPreviousClassAPI()
+                if Reachability.isConnectedToNetwork(){
+                    self.callgetUserPreviousClassAPI()
+                }
             }
             self.hideLoader()
         } failure: { (error) in

@@ -111,14 +111,18 @@ class ForgotPassViewController: BaseViewController {
                 self.showAlert(withTitle: "Invalid Email", message: "Please enter valid email")
              }
             else {
-                resendOTP()
+                if Reachability.isConnectedToNetwork(){
+                    resendOTP()
+                }
             }
         } else {
             if (txtPhone.text!.isEmpty) {
                self.showAlert(withTitle: "Invalid Phone Number", message: "Please enter valid phone number")
                
             }  else {
-                resendOTP()
+                if Reachability.isConnectedToNetwork(){
+                    resendOTP()
+                }
             }
         }
         

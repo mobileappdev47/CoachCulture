@@ -39,7 +39,9 @@ class GiveRecipeRattingViewController: BaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getRecipeDetails()
+        if Reachability.isConnectedToNetwork(){
+            getRecipeDetails()
+        }
         setUpUI()
     }
     
@@ -71,7 +73,9 @@ class GiveRecipeRattingViewController: BaseViewController {
     
     // MARK: - Click events
     @IBAction func clickToBtnNext(_ sender : UIButton) {
-        giveRatting()
+        if Reachability.isConnectedToNetwork(){
+            giveRatting()
+        }
     }
 
 }

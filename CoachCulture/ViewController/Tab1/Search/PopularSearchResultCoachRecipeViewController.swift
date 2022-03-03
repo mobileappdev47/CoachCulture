@@ -42,7 +42,9 @@ class PopularSearchResultCoachRecipeViewController: BaseViewController {
         
         txtSearch.delegate = self
         hideTabBar()
-        self.getAllCoachRecipeList(duration: "", meal_type_name: "", dietary_restriction_name: "", coach_only: "no")
+        if Reachability.isConnectedToNetwork(){
+            self.getAllCoachRecipeList(duration: "", meal_type_name: "", dietary_restriction_name: "", coach_only: "no")
+        }
     }
     
     func resetAll() {
@@ -96,7 +98,9 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
         if arrCoachRecipeData.count - 1 == indexPath.row
         {
             let coach_only = selectedParam["coach_only"] as? String ?? ""
-            self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
+            if Reachability.isConnectedToNetwork(){
+                self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
+            }
         }
         
         return cell
@@ -130,7 +134,9 @@ extension PopularSearchResultCoachRecipeViewController : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.resetAll()
         let coach_only = selectedParam["coach_only"] as? String ?? ""
-        self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
+        if Reachability.isConnectedToNetwork(){
+            self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
+        }
     }
     
 }

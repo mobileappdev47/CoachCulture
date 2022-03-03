@@ -53,7 +53,9 @@ class RecipeDetailsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getRecipeDetails()
+        if Reachability.isConnectedToNetwork(){
+            getRecipeDetails()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -98,7 +100,9 @@ class RecipeDetailsViewController: BaseViewController {
             }
             
             if index == 1 { //Delete
-                deleteRecipeDetail()
+                if Reachability.isConnectedToNetwork(){
+                    deleteRecipeDetail()
+                }
             }
             
             if index == 2 { //send
@@ -194,9 +198,13 @@ class RecipeDetailsViewController: BaseViewController {
     @IBAction func clickToBtnBookMark(_ sender : UIButton) {
         
         if recipeDetailDataObj.bookmark.lowercased() == "no".lowercased() {
-            addOrRemoveFromBookMark(bookmark: "yes")
+            if Reachability.isConnectedToNetwork(){
+                addOrRemoveFromBookMark(bookmark: "yes")
+            }
         } else {
-            addOrRemoveFromBookMark(bookmark: "no")
+            if Reachability.isConnectedToNetwork(){
+                addOrRemoveFromBookMark(bookmark: "no")
+            }
         }
         
     }
@@ -315,7 +323,9 @@ extension RecipeDetailsViewController {
             
             let responseModel = ResponseDataModel(responseObj: responseObj)
             
-            self.getRecipeDetails()
+            if Reachability.isConnectedToNetwork(){
+                self.getRecipeDetails()
+            }
             Utility.shared.showToast(responseModel.message)
            
             self.hideLoader()

@@ -96,8 +96,10 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         tblOndemand.register(UINib(nibName: "CoachViseRecipeItemTableViewCell", bundle: nil), forCellReuseIdentifier: "CoachViseRecipeItemTableViewCell")
         tblOndemand.delegate = self
         tblOndemand.dataSource = self
-        getUserProfile()
-        getCoacheSearchHistory()
+        if Reachability.isConnectedToNetwork(){
+            getUserProfile()
+            getCoacheSearchHistory()
+        }
         setData()
     }
     
@@ -198,7 +200,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         logOutView.btnLeft.setTitle("Confirm", for: .normal)
         logOutView.btnRight.setTitle("Cancel", for: .normal)
         logOutView.tapToBtnLogOut {
-            self.callAddUserToCoachAPI()
+            if Reachability.isConnectedToNetwork(){
+                self.callAddUserToCoachAPI()
+            }
             self.removeConfirmationView()
         }
     }
@@ -225,7 +229,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnAddFollow( _ sender : UIButton) {
-        addRemoveFollowers(isShowLoader: true)
+        if Reachability.isConnectedToNetwork(){
+            addRemoveFollowers(isShowLoader: true)
+        }
     }
     
     @IBAction func clickToBtnCoachProfile( _ sender : UIButton) {
@@ -260,13 +266,19 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             switch recdType {
             case SelectedDemandClass.onDemand, SelectedDemandClass.live:
                 self.resetVariable()
-                self.getCoachesWiseClassList()
+                if Reachability.isConnectedToNetwork(){
+                    self.getCoachesWiseClassList()
+                }
             case SelectedDemandClass.recipe:
                 self.resetRecipeVariable()
-                self.getCoachesWiseRecipeList()
+                if Reachability.isConnectedToNetwork(){
+                    self.getCoachesWiseRecipeList()
+                }
             default:
                 self.resetVariable()
-                self.getCoachesWiseClassList()
+                if Reachability.isConnectedToNetwork(){
+                    self.getCoachesWiseClassList()
+                }
             }
         }
         return headerView
@@ -306,7 +318,9 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                }
             }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -316,7 +330,9 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             
             if arrCoachClassInfoList.count - 1 == indexPath.row {
                 
-                getCoachesWiseClassList()
+                if Reachability.isConnectedToNetwork(){
+                    getCoachesWiseClassList()
+                }
             }
             
             
@@ -331,7 +347,9 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                }
             }
             cell.lblDuration.text = obj.duration
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
@@ -348,7 +366,9 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             
             if arrCoachClassInfoList.count - 1 == indexPath.row {
                 
-                getCoachesWiseClassList()
+                if Reachability.isConnectedToNetwork(){
+                    getCoachesWiseClassList()
+                }
             }
             
             
@@ -362,7 +382,9 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
+                }
             }
             cell.lbltitle.text = obj.title
             cell.lblDuration.text = obj.duration
@@ -387,7 +409,9 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             }
             if arrCoachRecipe.count - 1 == indexPath.row {
                 
-                getCoachesWiseRecipeList()
+                if Reachability.isConnectedToNetwork(){
+                    getCoachesWiseRecipeList()
+                }
             }
             
             return cell
@@ -585,7 +609,10 @@ extension CoachViseOnDemandClassViewController {
             if isShowLoader {
                 Utility.shared.showToast(responseObj.message)
             }
-            self.getUserProfile()
+            
+            if Reachability.isConnectedToNetwork(){
+                self.getUserProfile()
+            }
             self.hideLoader()
             
         } failure: { (error) in
@@ -622,7 +649,9 @@ extension CoachViseOnDemandClassViewController {
                 }
             default:
                 self.resetVariable()
-                self.getCoachesWiseClassList()
+                if Reachability.isConnectedToNetwork(){
+                    self.getCoachesWiseClassList()
+                }
             }
             
             self.hideLoader()

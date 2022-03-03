@@ -50,7 +50,9 @@ class CreateMealRecipeViewController: BaseViewController {
     // MARK: - Methods
     func setUpUI() {
         
-        getMealTypeList()
+        if Reachability.isConnectedToNetwork(){
+            getMealTypeList()
+        }
         
         addPhotoPopUp = Bundle.main.loadNibNamed("AddPhotoPopUp", owner: nil, options: nil)?.first as? AddPhotoPopUp
         addPhotoPopUp.tapToBtnCamera {

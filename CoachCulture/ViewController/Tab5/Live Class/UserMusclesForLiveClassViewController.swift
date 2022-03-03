@@ -34,7 +34,9 @@ class UserMusclesForLiveClassViewController: BaseViewController {
         clvMusclesType.delegate = self
         clvMusclesType.dataSource = self
         
-        getMuscleGroupList()
+        if Reachability.isConnectedToNetwork(){
+            getMuscleGroupList()
+        }
     }
     
     func setData() {
