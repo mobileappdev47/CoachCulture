@@ -5,6 +5,7 @@ import Firebase
 import GoogleSignIn
 import FBSDKLoginKit
 import PhoneNumberKit
+import SafariServices
 
 class LoginSignUpVc: BaseViewController {
     
@@ -31,6 +32,7 @@ class LoginSignUpVc: BaseViewController {
     @IBOutlet weak var viewFB: UIView!
     @IBOutlet weak var imgAcceptTerms: UIImageView!
     @IBOutlet weak var lblTermsAndConditions: UILabel!
+    @IBOutlet weak var btnTermsAndCondition: UIButton!
     
     @IBOutlet weak var btnLoginTapped: UIButton!
     @IBOutlet weak var btnSignupTapped: UIButton!
@@ -194,6 +196,14 @@ class LoginSignUpVc: BaseViewController {
         self.manageLoginSignUpView(isLogin: false)
     }
     
+    @IBAction func btnTermsAndConditionClicked(_ sender: UIButton) {        
+        guard let url = URL(string: "https://developers.google.com/assistant/console/policies/privacy-policy-guide") else {
+            return
+        }
+        let vc = SFSafariViewController(url: url)
+        self.present(vc, animated: true, completion: nil)
+    }
+    
     @IBAction func didTapCountryCode(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "CountryPickerVC") as! CountryPickerVC
         vc.delegate = self
@@ -205,6 +215,7 @@ class LoginSignUpVc: BaseViewController {
             loginParams = [
                 "username": txtUsernameLogin.text!,
                 "password": txtPasswordLogin.text!,
+                "device_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC81Mi43My4yMDYuMzdcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2NDYyODc4MDEsImV4cCI6MTY3NzgyMzgwMSwibmJmIjoxNjQ2Mjg3ODAxLCJqdGkiOiJpM1I2OHJLSjlDbkNZaUJSIiwic3ViIjoxMjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kl3knqt_VeKveza9YK9de2dy6Ps9yYxu3bRUsuCmKhg",
                 "login_type": 0
             ]
             if Reachability.isConnectedToNetwork(){

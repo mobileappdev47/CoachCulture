@@ -1032,8 +1032,8 @@
 		512ABBE727180033008CB198 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				512ABB972717FD73008CB198 /* Coach.storyboard */,
 				D4D2864427587CEB00970987 /* Home.storyboard */,
+				512ABB972717FD73008CB198 /* Coach.storyboard */,
 				D4D286572758C11B00970987 /* Profile.storyboard */,
 				D4156CDB27646DFA00328E4F /* Recipe.storyboard */,
 				D492C554276DF269007CE556 /* Search.storyboard */,

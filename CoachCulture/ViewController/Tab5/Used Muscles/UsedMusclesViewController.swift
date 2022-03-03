@@ -78,13 +78,9 @@ class UsedMusclesViewController: BaseViewController {
             let vc = AddEquipmentAndCaloriesViewController.viewcontroller()
             vc.paramDic = paramDic
             vc.isFromEdit = self.isFromEdit
-            vc.classDetailDataObj = self.classDetailDataObj
             self.navigationController?.pushViewController(vc, animated: true)
         }
-       
     }
-    
-    
 }
 
 extension UsedMusclesViewController {

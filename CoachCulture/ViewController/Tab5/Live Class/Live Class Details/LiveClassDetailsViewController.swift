@@ -114,6 +114,30 @@ class LiveClassDetailsViewController: BaseViewController {
                 }
             }
             
+            if item.lowercased() == "Template".lowercased() { //Delete
+                
+                if classDetailDataObj.coach_class_type == CoachClassType.live {
+                    let vc = ScheduleLiveClassViewController.viewcontroller()
+                    vc.isFromEdit = true
+                    vc.isFromTemplate = true
+                    self.classDetailDataObj.class_subtitle = ""
+                    self.classDetailDataObj.thumbnail_image = ""
+                    self.classDetailDataObj.id = ""
+                    vc.classDetailDataObj = self.classDetailDataObj
+                    self.navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    let vc = OnDemandVideoUploadViewController.viewcontroller()
+                    vc.isFromEdit = true
+                    vc.isFromTemplate = true
+                    self.classDetailDataObj.class_subtitle = ""
+                    self.classDetailDataObj.thumbnail_image = ""
+                    self.classDetailDataObj.thumbnail_video = ""
+                    self.classDetailDataObj.id = ""
+                    vc.classDetailDataObj = self.classDetailDataObj
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+            
             if item.lowercased() == "Rate Class".lowercased() { //Rating
                 
                 if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {

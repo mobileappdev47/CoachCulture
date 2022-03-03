@@ -25,6 +25,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
     
     @IBOutlet weak var tblClassTypeList : UITableView!
     @IBOutlet weak var tblClassDifficulty : UITableView!
+    @IBOutlet weak var imgUpload: UIImageView!
     
     @IBOutlet weak var imgThumbnail : UIImageView!
     
@@ -63,6 +64,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
     var arrNationalityData = [NationalityData]()
     var selectedCurrency = ""
     var isFromEdit = false
+    var isFromTemplate = false
     var classDetailDataObj = ClassDetailData()
     var baseCurrency = "SGD"
     
@@ -102,6 +104,10 @@ class OnDemandVideoUploadViewController: BaseViewController {
             self.removeAddPhotoView()
         }
     
+        addPhotoPopUp.tapToBtnView {
+            self.removeAddPhotoView()
+        }
+        
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "US$".lowercased() {
                 lblSubscriptionCurrentSym.text = item
@@ -127,6 +133,8 @@ class OnDemandVideoUploadViewController: BaseViewController {
         
         if isFromEdit {
             setData()
+            lblClassType.text = "Class Type"
+            lblClassDifficulty.text = "Class Difficulty"
         }
         
         if Reachability.isConnectedToNetwork(){
@@ -252,8 +260,11 @@ class OnDemandVideoUploadViewController: BaseViewController {
             
             let vc = UsedMusclesViewController.viewcontroller()
             vc.paramDic = param
-            vc.isFromEdit = self.isFromEdit
-            vc.classDetailDataObj = self.classDetailDataObj
+            if isFromTemplate {
+                vc.isFromEdit = false
+            } else {
+                vc.isFromEdit = isFromEdit
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
                
@@ -435,7 +446,9 @@ extension OnDemandVideoUploadViewController {
             let dataObj = resObj["data"] as? [String:Any] ?? [String:Any]()
             self.thumbailUrl = dataObj["thumbnail_image"] as? String ?? ""
             self.updateStack.isHidden = false
-            
+            self.lblUploadThumbnail.isHidden = true
+            self.imgUpload.isHidden = true
+            self.btnUploadVideo.isEnabled = false
             Utility.shared.showToast(responseModel.message)
             self.hideLoader()
         }, failure: { error, code in

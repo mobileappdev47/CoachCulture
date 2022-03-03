@@ -60,8 +60,8 @@ class LiveClassRatingViewController: BaseViewController {
         lblClassSubTitle.text = classDetailDataObj.class_subtitle
        
         lblUserName.text = "@" + classDetailDataObj.coachDetailsDataObj.username
-        imgUserProfile.setImageFromURL(imgUrl: classDetailDataObj.thumbnail_image, placeholderImage: nil)
-        imgThumbNail.setImageFromURL(imgUrl: classDetailDataObj.coachDetailsDataObj.user_image, placeholderImage: nil)
+        imgUserProfile.setImageFromURL(imgUrl: classDetailDataObj.coachDetailsDataObj.user_image, placeholderImage: nil)
+        imgThumbNail.setImageFromURL(imgUrl: classDetailDataObj.thumbnail_image, placeholderImage: nil)
         imgThumbNail.blurImage()
         
         if classDetailDataObj.coach_class_type == CoachClassType.live {

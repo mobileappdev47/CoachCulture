@@ -222,9 +222,11 @@ class CreateMealRecipeViewController: BaseViewController {
             
             let vc = AddIngredientsForRecipeViewController.viewcontroller()
             vc.paramDic = paramDic
-            vc.isFromEdit = isFromEdit
-            vc.isFromTemplate = isFromTemplate
-            vc.recipeDetailDataObj = self.recipeDetailDataObj
+            if isFromTemplate {
+                vc.isFromEdit = false
+            } else {
+                vc.isFromEdit = isFromEdit                
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

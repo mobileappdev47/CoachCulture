@@ -568,7 +568,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GF2-Vh-rzm">
                                                         <rect key="frame" x="210" y="159" width="155" height="20"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 more ingredients" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSQ-ra-KaQ">
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2 more ingredients" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bSQ-ra-KaQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="155" height="20"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="11"/>
                                                                 <color key="textColor" name="textColor"/>
@@ -3498,7 +3498,7 @@
                                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="252"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1rt-ZU-BWw">
-                                                                <rect key="frame" x="50" y="154" width="137.5" height="35"/>
+                                                                <rect key="frame" x="50" y="54" width="137.5" height="35"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x5v-Q6-nBJ">
                                                                         <rect key="frame" x="55" y="8.5" width="28" height="18"/>
@@ -3510,7 +3510,7 @@
                                                                         <rect key="frame" x="20" y="8.5" width="18" height="18"/>
                                                                     </imageView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tH1-8b-pdX">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="137.5" height="35"/>
+                                                                        <rect key="frame" x="0.0" y="5" width="137.5" height="30"/>
                                                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                         <state key="normal" title="Button"/>
                                                                         <connections>
@@ -3528,7 +3528,6 @@
                                                                     <constraint firstItem="tH1-8b-pdX" firstAttribute="leading" secondItem="1rt-ZU-BWw" secondAttribute="leading" id="aAR-2b-oMd"/>
                                                                     <constraint firstAttribute="height" constant="35" id="ag9-vj-Uhm"/>
                                                                     <constraint firstItem="kbo-KJ-nMW" firstAttribute="centerY" secondItem="1rt-ZU-BWw" secondAttribute="centerY" id="wt3-hp-t43"/>
-                                                                    <constraint firstItem="tH1-8b-pdX" firstAttribute="top" secondItem="1rt-ZU-BWw" secondAttribute="top" id="xbc-Oc-IjV"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
@@ -3537,10 +3536,10 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="8Yl-QI-g7z">
-                                                                <rect key="frame" x="0.0" y="44" width="187.5" height="100"/>
+                                                                <rect key="frame" x="0.0" y="44" width="187.5" height="0.0"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="100" id="Pe3-MR-Bdk"/>
+                                                                    <constraint firstAttribute="height" id="Pe3-MR-Bdk"/>
                                                                 </constraints>
                                                             </tableView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Equipment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ei-eU-U13">
@@ -3553,7 +3552,7 @@
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="1rt-ZU-BWw" secondAttribute="bottom" constant="10" id="1N4-07-7Gi"/>
-                                                            <constraint firstItem="1rt-ZU-BWw" firstAttribute="top" secondItem="8Yl-QI-g7z" secondAttribute="bottom" constant="10" id="Kct-Ox-OZX"/>
+                                                            <constraint firstItem="1rt-ZU-BWw" firstAttribute="top" secondItem="8Yl-QI-g7z" secondAttribute="bottom" constant="10" id="Sws-qJ-gdq"/>
                                                             <constraint firstAttribute="trailing" secondItem="8ei-eU-U13" secondAttribute="trailing" id="Td3-Vq-j3B"/>
                                                             <constraint firstItem="8ei-eU-U13" firstAttribute="top" secondItem="LvM-DK-bgW" secondAttribute="top" constant="10" id="Uv7-o3-HvJ"/>
                                                             <constraint firstItem="1rt-ZU-BWw" firstAttribute="leading" secondItem="LvM-DK-bgW" secondAttribute="leading" constant="50" id="Zjm-jr-QKN"/>
@@ -3741,10 +3740,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="swT-Jm-EEw">
-                                                <rect key="frame" x="50" y="144" width="137.5" height="150"/>
+                                                <rect key="frame" x="50" y="44" width="137.5" height="0.0"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="8kD-ZK-HEs"/>
+                                                    <constraint firstAttribute="height" id="8kD-ZK-HEs"/>
                                                 </constraints>
                                             </tableView>
                                         </subviews>
@@ -3805,14 +3804,6 @@
             <point key="canvasLocation" x="4696.8000000000002" y="-171.36431784107947"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="CpG-bk-cey">
-            <size key="intrinsicContentSize" width="268" height="44"/>
-        </designable>
-        <designable name="ZqS-EK-QPa">
-            <size key="intrinsicContentSize" width="268" height="44"/>
-        </designable>
-    </designables>
     <resources>
         <image name="3Dots" width="6" height="28"/>
         <image name="Birthday" width="19.5" height="19.5"/>

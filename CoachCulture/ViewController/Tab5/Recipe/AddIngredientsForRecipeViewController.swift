@@ -245,7 +245,7 @@ extension AddIngredientsForRecipeViewController {
             let vc = RecipeDetailsViewController.viewcontroller()
             vc.isNew = true
             let dic = responseModel.map.data?["coach_recipe"] as! [String:Any]
-            vc.recipeID = "\(dic["recipe_id"] as! Int)"
+            vc.recipeID = "\(dic["recipe_id"]!)"
             self.navigationController?.pushViewController(vc, animated: true)
             Utility.shared.showToast(responseModel.message)
             self.hideLoader()

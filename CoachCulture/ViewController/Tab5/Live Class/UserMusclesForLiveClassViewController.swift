@@ -78,7 +78,6 @@ class UserMusclesForLiveClassViewController: BaseViewController {
             let vc = LiveClassAddEquipmentAndCaloriesViewController.viewcontroller()
             vc.paramDic = paramDic
             vc.isFromEdit = self.isFromEdit
-            vc.classDetailDataObj = self.classDetailDataObj
             self.navigationController?.pushViewController(vc, animated: true)
         }
        

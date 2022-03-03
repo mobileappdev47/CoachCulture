@@ -67,6 +67,7 @@ class ScheduleLiveClassViewController: BaseViewController {
     var selectedDate = ""
     var selectedTime = ""
     var isFromEdit = false
+    var isFromTemplate = false
     var classDetailDataObj = ClassDetailData()
 
     
@@ -307,8 +308,11 @@ class ScheduleLiveClassViewController: BaseViewController {
                     
             let vc = UserMusclesForLiveClassViewController.viewcontroller()
             vc.paramDic = param
-            vc.isFromEdit = self.isFromEdit
-            vc.classDetailDataObj = self.classDetailDataObj
+            if isFromTemplate {
+                vc.isFromEdit = false
+            } else {
+                vc.isFromEdit = isFromEdit
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

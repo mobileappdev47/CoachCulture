@@ -195,6 +195,17 @@ extension ForgotPassViewController {
           if responseModel.success {
               
               self.goToOtpScreen(dic: param)
+          } else {
+            
+            let vc = PopupViewController.viewcontroller()
+            vc.isHide = true
+            vc.titleTxt = "Not Signed Up Yet"
+            vc.message = """
+                    Looks like the number/email
+                    you have entered is not
+                    registered on CoachCulture.
+                    """
+            self.present(vc, animated: true, completion: nil)
           }
           
           Utility.shared.showToast(responseModel.message)

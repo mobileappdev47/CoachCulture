@@ -88,8 +88,7 @@ class RecipeDetailsViewController: BaseViewController {
         
         self.showDetailView.recipeDetailDataObj = self.recipeDetailDataObj
         self.showDetailView.tblDescriptionDetail.reloadData()
-        
-        dropDown.dataSource  = ["Edit", "Delete", "Send", "Template", "Rating"]
+
         dropDown.anchorView = btnMore
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if index == 0 { //Edit
@@ -136,6 +135,11 @@ class RecipeDetailsViewController: BaseViewController {
     }
     
     func setData() {
+        if self.recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+            dropDown.dataSource = ["Edit", "Delete", "Send", "Template", "Rating"]
+        } else {
+            dropDown.dataSource = ["Send", "Share"]
+        }
         lblMealType.text = recipeDetailDataObj.arrMealTypeString
         lblRecipeDuration.text = recipeDetailDataObj.duration
         clvDietaryRestriction.reloadData()
@@ -147,7 +151,7 @@ class RecipeDetailsViewController: BaseViewController {
             imgBookmark.image = UIImage(named: "Bookmark")
         }
         
-        lblUserName.text = recipeDetailDataObj.coachDetailsObj.username
+        lblUserName.text = "@" + recipeDetailDataObj.coachDetailsObj.username
         imgUserProfile.setImageFromURL(imgUrl: recipeDetailDataObj.coachDetailsObj.user_image, placeholderImage: nil)
         lblRecipeTitle.text = recipeDetailDataObj.title
         lblRecipeSubTitle.text = recipeDetailDataObj.sub_title
@@ -278,6 +282,7 @@ extension RecipeDetailsViewController : UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
 }
 
 
