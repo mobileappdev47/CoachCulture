@@ -272,11 +272,15 @@ extension OTPViewController : DPOTPViewDelegate {
         if text.count == 4 {
             otp = text
             if self.isFromForgotPassword {
-                self.verifyOTPForForgotPasswordAPI()
+                if Reachability.isConnectedToNetwork(){
+                    self.verifyOTPForForgotPasswordAPI()
+                }
                 print("Done ----- forgot")
             } else {
                 print("Done ----- verify")
-                self.verifyAPI()
+                if Reachability.isConnectedToNetwork(){
+                    self.verifyAPI()
+                }
             }
         }
         print(text)

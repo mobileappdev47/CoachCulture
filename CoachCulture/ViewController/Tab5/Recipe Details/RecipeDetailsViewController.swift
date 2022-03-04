@@ -53,7 +53,9 @@ class RecipeDetailsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        getRecipeDetails()
+        if Reachability.isConnectedToNetwork(){
+            getRecipeDetails()
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -86,8 +88,7 @@ class RecipeDetailsViewController: BaseViewController {
         
         self.showDetailView.recipeDetailDataObj = self.recipeDetailDataObj
         self.showDetailView.tblDescriptionDetail.reloadData()
-        
-        dropDown.dataSource  = ["Edit", "Delete", "Send", "Template", "Rating"]
+
         dropDown.anchorView = btnMore
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if index == 0 { //Edit
@@ -98,7 +99,9 @@ class RecipeDetailsViewController: BaseViewController {
             }
             
             if index == 1 { //Delete
-                deleteRecipeDetail()
+                if Reachability.isConnectedToNetwork(){
+                    deleteRecipeDetail()
+                }
             }
             
             if index == 2 { //send
@@ -132,6 +135,11 @@ class RecipeDetailsViewController: BaseViewController {
     }
     
     func setData() {
+        if self.recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+            dropDown.dataSource = ["Edit", "Delete", "Send", "Template", "Rating"]
+        } else {
+            dropDown.dataSource = ["Send", "Share"]
+        }
         lblMealType.text = recipeDetailDataObj.arrMealTypeString
         lblRecipeDuration.text = recipeDetailDataObj.duration
         clvDietaryRestriction.reloadData()
@@ -143,7 +151,7 @@ class RecipeDetailsViewController: BaseViewController {
             imgBookmark.image = UIImage(named: "Bookmark")
         }
         
-        lblUserName.text = recipeDetailDataObj.coachDetailsObj.username
+        lblUserName.text = "@" + recipeDetailDataObj.coachDetailsObj.username
         imgUserProfile.setImageFromURL(imgUrl: recipeDetailDataObj.coachDetailsObj.user_image, placeholderImage: nil)
         lblRecipeTitle.text = recipeDetailDataObj.title
         lblRecipeSubTitle.text = recipeDetailDataObj.sub_title
@@ -194,9 +202,13 @@ class RecipeDetailsViewController: BaseViewController {
     @IBAction func clickToBtnBookMark(_ sender : UIButton) {
         
         if recipeDetailDataObj.bookmark.lowercased() == "no".lowercased() {
-            addOrRemoveFromBookMark(bookmark: "yes")
+            if Reachability.isConnectedToNetwork(){
+                addOrRemoveFromBookMark(bookmark: "yes")
+            }
         } else {
-            addOrRemoveFromBookMark(bookmark: "no")
+            if Reachability.isConnectedToNetwork(){
+                addOrRemoveFromBookMark(bookmark: "no")
+            }
         }
         
     }
@@ -270,6 +282,7 @@ extension RecipeDetailsViewController : UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
+    
 }
 
 
@@ -315,7 +328,9 @@ extension RecipeDetailsViewController {
             
             let responseModel = ResponseDataModel(responseObj: responseObj)
             
-            self.getRecipeDetails()
+            if Reachability.isConnectedToNetwork(){
+                self.getRecipeDetails()
+            }
             Utility.shared.showToast(responseModel.message)
            
             self.hideLoader()

@@ -34,7 +34,9 @@ class UserMusclesForLiveClassViewController: BaseViewController {
         clvMusclesType.delegate = self
         clvMusclesType.dataSource = self
         
-        getMuscleGroupList()
+        if Reachability.isConnectedToNetwork(){
+            getMuscleGroupList()
+        }
     }
     
     func setData() {
@@ -76,7 +78,6 @@ class UserMusclesForLiveClassViewController: BaseViewController {
             let vc = LiveClassAddEquipmentAndCaloriesViewController.viewcontroller()
             vc.paramDic = paramDic
             vc.isFromEdit = self.isFromEdit
-            vc.classDetailDataObj = self.classDetailDataObj
             self.navigationController?.pushViewController(vc, animated: true)
         }
        

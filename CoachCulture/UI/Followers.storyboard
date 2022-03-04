@@ -695,15 +695,26 @@
                                                             <constraint firstItem="KC9-Jx-ymC" firstAttribute="leading" secondItem="TDl-yk-nZw" secondAttribute="leading" id="mBB-po-0F8"/>
                                                         </constraints>
                                                     </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuI-UK-LY8">
+                                                        <rect key="frame" x="0.0" y="0.0" width="130" height="195"/>
+                                                        <connections>
+                                                            <action selector="clickToBtnCoachProfile:" destination="a7g-ut-xrg" eventType="touchUpInside" id="TD5-Ou-Bwp"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="wuI-UK-LY8" secondAttribute="bottom" id="42g-Ra-crx"/>
                                                     <constraint firstAttribute="trailing" secondItem="TDl-yk-nZw" secondAttribute="trailing" id="6s8-Bx-ogS"/>
                                                     <constraint firstAttribute="bottom" secondItem="ga1-d2-6D6" secondAttribute="bottom" id="8LC-jU-v5N"/>
                                                     <constraint firstAttribute="bottom" secondItem="TDl-yk-nZw" secondAttribute="bottom" id="9Ej-E2-H8z"/>
+                                                    <constraint firstItem="TDl-yk-nZw" firstAttribute="bottom" secondItem="dZr-3t-Vgi" secondAttribute="bottom" id="9cY-Ij-oNo"/>
                                                     <constraint firstAttribute="trailing" secondItem="ga1-d2-6D6" secondAttribute="trailing" id="E7R-F0-SZh"/>
+                                                    <constraint firstItem="wuI-UK-LY8" firstAttribute="leading" secondItem="dZr-3t-Vgi" secondAttribute="leading" id="HFC-h2-Nx5"/>
                                                     <constraint firstItem="TDl-yk-nZw" firstAttribute="leading" secondItem="dZr-3t-Vgi" secondAttribute="leading" id="HWi-nr-eMh"/>
+                                                    <constraint firstItem="wuI-UK-LY8" firstAttribute="top" secondItem="dZr-3t-Vgi" secondAttribute="top" id="Liw-Ad-jNP"/>
                                                     <constraint firstAttribute="width" constant="130" id="Xnh-hW-vOc"/>
+                                                    <constraint firstAttribute="trailing" secondItem="wuI-UK-LY8" secondAttribute="trailing" id="abS-NZ-tGa"/>
                                                     <constraint firstItem="ga1-d2-6D6" firstAttribute="top" secondItem="dZr-3t-Vgi" secondAttribute="top" id="kn1-xT-Adt"/>
                                                     <constraint firstItem="ga1-d2-6D6" firstAttribute="leading" secondItem="dZr-3t-Vgi" secondAttribute="leading" id="tfW-U9-cFM"/>
                                                 </constraints>
@@ -1195,6 +1206,7 @@
                     <navigationItem key="navigationItem" id="DFI-su-KFC"/>
                     <connections>
                         <outlet property="btnBack" destination="yPU-3d-gA8" id="n9K-9B-OiM"/>
+                        <outlet property="btnUser" destination="wuI-UK-LY8" id="iY5-34-YaK"/>
                         <outlet property="chartView" destination="Vc2-Pl-uEY" id="wHg-vS-A8q"/>
                         <outlet property="heightConstantViewStackMain" destination="YKG-Ah-W7z" id="Tqu-z2-cYU"/>
                         <outlet property="imgThumbnail" destination="6Ug-1T-eJZ" id="0D6-l8-tRD"/>

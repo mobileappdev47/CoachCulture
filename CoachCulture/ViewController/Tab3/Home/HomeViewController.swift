@@ -313,7 +313,9 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
             var param = [String:Any]()
             param[Params.AddRemoveBookmark.coach_class_id] = model.id
             param[Params.AddRemoveBookmark.bookmark] = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-            self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, selectedIndex: cell.selectedIndex)
+            if Reachability.isConnectedToNetwork(){
+                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, selectedIndex: cell.selectedIndex)
+            }
         }
         cell.lblTitle.text = model.class_type_name
         cell.lblSubTitle.text = model.class_subtitle
@@ -333,7 +335,9 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
         }
         
         if arrNewClass.count - 1 == indexPath.row {
-            callGetMyCoachClassListAPI()
+            if Reachability.isConnectedToNetwork(){
+                callGetMyCoachClassListAPI()
+            }
         }
         
         cell.layoutIfNeeded()

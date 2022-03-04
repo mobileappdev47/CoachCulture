@@ -82,13 +82,13 @@ class EditProfileViewController: BaseViewController {
     }
     
     func setUpUI() {
-        clickToBtnCoachContentEdit(btnCoachContent)
+        clickToBtnCoachContentEdit(btnEditProfile)
         
         imgUserProfile.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936"))
         imgUserProfile.addCornerRadius(5)
         
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
-            let strPhoneCode = getCountryPhonceCode(countryCode)
+            let strPhoneCode = getCountryPhonceCode(countryCode)    
             self.imgCountryCode.image = UIImage.init(named: "\(countryCode).png")
             self.txtCountryCode.text = "+\(strPhoneCode)"
             self.countryCodeDesc = countryCode
@@ -153,8 +153,12 @@ class EditProfileViewController: BaseViewController {
             
         }
         
-        getUserProfile()
-        getNationality()
+        if Reachability.isConnectedToNetwork(){
+            getUserProfile()
+        }
+        if Reachability.isConnectedToNetwork(){
+            getNationality()
+        }
         hideTabBar()
     }
     
@@ -251,7 +255,9 @@ class EditProfileViewController: BaseViewController {
             picker.mediaTypes = [kUTTypeMovie as String]
             self.present(picker, animated: true, completion: nil)
         } else {
-            deleteCoachTrailerFile()
+            if Reachability.isConnectedToNetwork(){
+                deleteCoachTrailerFile()
+            }
         }
     }
     
@@ -299,7 +305,9 @@ class EditProfileViewController: BaseViewController {
         } else if txtPassword.text!.isEmpty {
             Utility.shared.showToast("Password is a mandatory field.")
         } else {
-            editUserProfile()
+            if Reachability.isConnectedToNetwork(){
+                editUserProfile()
+            }
         }
     }
     

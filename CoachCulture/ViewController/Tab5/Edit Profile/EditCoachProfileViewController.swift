@@ -7,6 +7,7 @@
 
 import UIKit
 import MobileCoreServices
+import SafariServices
 
 class EditCoachProfileViewController: BaseViewController {
     
@@ -81,7 +82,7 @@ class EditCoachProfileViewController: BaseViewController {
     }
     // MARK: - methods
     func setUpUI() {
-        clickToBtnSignUpAsCoach(btnSignUpAsCoach)
+        clickToBtnSignUpAsCoach(btnEditProfile)
         
         imgUserProfile.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936"))
         imgUserProfile.addCornerRadius(5)
@@ -140,7 +141,7 @@ class EditCoachProfileViewController: BaseViewController {
         addPhotoPopUp.tapToBtnView {
             self.removeAddPhotoView()
         }
-        customDatePickerForBirthDate = CustomDatePickerViewForTextFeild(textField: txtDummyBOD, format: "yyyy-MM-dd", mode: .date)
+        customDatePickerForBirthDate = CustomDatePickerViewForTextFeild(textField: txtDummyBOD, format: "yyyy-MM-dd", mode: .date, minDate: nil, maxDate: Date())
         customDatePickerForBirthDate.pickerView { (str, date) in
             let arrStr = str.components(separatedBy: "-")
             self.dateOfBirth = str
@@ -159,9 +160,13 @@ class EditCoachProfileViewController: BaseViewController {
             self.navigationController?.popViewController(animated: true)
             self.removesuccessPopUpForCoachProfieView()
         }
-                
-        getNationality()
-        getUserProfile()
+            
+        if Reachability.isConnectedToNetwork(){
+            getNationality()
+        }
+        if Reachability.isConnectedToNetwork(){
+            getUserProfile()
+        }
         
     }
     
@@ -248,8 +253,16 @@ class EditCoachProfileViewController: BaseViewController {
         setNationalityView()
     }
     
-    @IBAction func clickTobBtnTermsAndCondition(_ sender: UIButton) {
+    @IBAction func clickTobBtnCheckBox(_ sender: UIButton) {
         imgTermsCondition.isHighlighted = !imgTermsCondition.isHighlighted
+    }
+    
+    @IBAction func clickToBtnTermsAndCondition(_ sender: UIButton) {
+        guard let url = URL(string: "https://developers.google.com/assistant/console/policies/privacy-policy-guide") else {
+            return
+        }
+        let vc = SFSafariViewController(url: url)
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func clickTobBtnCurrency(_ sender: UIButton) {
@@ -283,7 +296,9 @@ class EditCoachProfileViewController: BaseViewController {
         } else if imgTermsCondition.isHighlighted == false {
             Utility.shared.showToast("Accept terms and condition")
         } else {
-            self.registerAsCoach()
+            if Reachability.isConnectedToNetwork(){
+                self.registerAsCoach()
+            }
         }
     }
     
@@ -333,7 +348,9 @@ class EditCoachProfileViewController: BaseViewController {
         }     else if txtProfilePassword.text!.isEmpty {
             Utility.shared.showToast("Password is a mandatory field.")
         } else {
-            editUserProfile()
+            if Reachability.isConnectedToNetwork(){
+                editUserProfile()
+            }
         }
         
     }
@@ -441,7 +458,9 @@ extension EditCoachProfileViewController {
             let responseModel = ResponseDataModel(responseObj: responseObj)
             
             if responseModel.success {
-                self.registerAsCoach()
+                if Reachability.isConnectedToNetwork(){
+                    self.registerAsCoach()
+                }
             } else{
                 Utility.shared.showToast(responseModel.message)
                 self.hideLoader()

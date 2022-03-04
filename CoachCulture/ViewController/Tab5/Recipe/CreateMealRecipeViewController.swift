@@ -50,7 +50,9 @@ class CreateMealRecipeViewController: BaseViewController {
     // MARK: - Methods
     func setUpUI() {
         
-        getMealTypeList()
+        if Reachability.isConnectedToNetwork(){
+            getMealTypeList()
+        }
         
         addPhotoPopUp = Bundle.main.loadNibNamed("AddPhotoPopUp", owner: nil, options: nil)?.first as? AddPhotoPopUp
         addPhotoPopUp.tapToBtnCamera {
@@ -220,9 +222,11 @@ class CreateMealRecipeViewController: BaseViewController {
             
             let vc = AddIngredientsForRecipeViewController.viewcontroller()
             vc.paramDic = paramDic
-            vc.isFromEdit = isFromEdit
-            vc.isFromTemplate = isFromTemplate
-            vc.recipeDetailDataObj = self.recipeDetailDataObj
+            if isFromTemplate {
+                vc.isFromEdit = false
+            } else {
+                vc.isFromEdit = isFromEdit                
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         

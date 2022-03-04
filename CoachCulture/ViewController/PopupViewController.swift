@@ -17,6 +17,7 @@ class PopupViewController: UIViewController {
     }
     
     @IBOutlet weak var lblMessage: UILabel!
+    @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var doneImg: UIImageView!
     @IBOutlet weak var btnOk: UIButton! {
         didSet {
@@ -24,12 +25,14 @@ class PopupViewController: UIViewController {
         }
     }
     var message = ""
+    var titleTxt = ""
     var dismissHandler: (() -> Void)?
     var isHide = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         doneImg.isHidden = isHide
+        lblTitle.text = titleTxt
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineSpacing = 8
         paragraphStyle.alignment = .center

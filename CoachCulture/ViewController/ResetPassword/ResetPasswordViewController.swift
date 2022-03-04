@@ -53,7 +53,9 @@ class ResetPasswordViewController: BaseViewController {
         } else if (txtNewPassword.text! != txtCPassword.text!) {
             self.showAlert(withTitle: "Invalid Retyped Password", message: "Please enter valid password")
         } else {
-            changePassword()
+            if Reachability.isConnectedToNetwork(){
+                changePassword()
+            }
         }
         
     }

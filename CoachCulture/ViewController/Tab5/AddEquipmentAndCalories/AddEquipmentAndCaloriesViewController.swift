@@ -46,7 +46,10 @@ class AddEquipmentAndCaloriesViewController: BaseViewController {
     
     // MARK: - methods
     func setUpUI() {
-        getEquipmentList()
+        arrAddedEquipment = []
+        if Reachability.isConnectedToNetwork(){
+            getEquipmentList()
+        }
         tblAddEquipment.register(UINib(nibName: "AddEquipmentItemTableViewCell", bundle: nil), forCellReuseIdentifier: "AddEquipmentItemTableViewCell")
         tblAddEquipment.delegate = self
         tblAddEquipment.dataSource = self
@@ -137,7 +140,9 @@ class AddEquipmentAndCaloriesViewController: BaseViewController {
             paramDic["burn_calories"] = txtCalories.text!
             paramDic["description"] = txtDescription.text!
             
-            createClass()
+            if Reachability.isConnectedToNetwork(){
+                createClass()
+            }
         }
         
        
@@ -250,18 +255,16 @@ extension AddEquipmentAndCaloriesViewController {
             
             let responseModel = ResponseDataModel(responseObj: responseObj)
             
-            if responseModel.success {
-                let dataObj = responseObj["data"] as? [Any] ?? [Any]()                
-            }
-            
             let dic = responseModel.map.data?["coach_class"] as! [String:Any]
             let classId = dic["class_id"] as! Int
-            
             let vc = LiveClassDetailsViewController.viewcontroller()
             vc.selectedId = "\(classId)"
             vc.isNew = true
             self.navigationController?.pushViewController(vc, animated: true)
             
+            if responseModel.success {
+                let dataObj = responseObj["data"] as? [Any] ?? [Any]()
+            }
             Utility.shared.showToast(responseModel.message)
             self.hideLoader()
             

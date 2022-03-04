@@ -38,7 +38,8 @@ class CoachClassProfileViewController: BaseViewController {
     @IBOutlet var chartView: CombinedChartView!
     @IBOutlet weak var viewTotalWorkout: UIView!
     @IBOutlet weak var viewTotalkcalBurnt: UIView!
-
+    @IBOutlet weak var btnUser: UIButton!
+    
     var arrCoachClassInfoList = [CoachClassPrevious]()
     var coachInfoDataObj = CoachInfoData()
     var selectedCoachId = ""
@@ -324,8 +325,10 @@ class CoachClassProfileViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnCoachProfile( _ sender : UIButton) {
-       
+     
     }
+    
+    
     
     @IBAction func clickToBtnUser( _ sender : UIButton) {
         let vc = CoachViseOnDemandClassViewController.viewcontroller()
@@ -363,13 +366,19 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             switch recdType {
             case SelectedDemandClass.onDemand, SelectedDemandClass.live:
                 self.resetVariable()
-                self.callFollowingCoachClassListAPI()
+                if Reachability.isConnectedToNetwork(){
+                    self.callFollowingCoachClassListAPI()
+                }
             case SelectedDemandClass.recipe:
                 self.resetRecipeVariable()
-                self.getCoachesWiseRecipeList()
+                if Reachability.isConnectedToNetwork(){
+                    self.getCoachesWiseRecipeList()
+                }
             default:
                 self.resetVariable()
-                self.callFollowingCoachClassListAPI()
+                if Reachability.isConnectedToNetwork(){
+                    self.callFollowingCoachClassListAPI()
+                }
             }
         }
         return headerView
@@ -422,7 +431,9 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                }
             }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -432,7 +443,9 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             
             if arrCoachClassInfoList.count - 1 == indexPath.row {
                
-                callFollowingCoachClassListAPI()
+                if Reachability.isConnectedToNetwork(){
+                    callFollowingCoachClassListAPI()
+                }
             }
 
             cell.layoutIfNeeded()
@@ -472,7 +485,9 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                }
             }
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -482,7 +497,9 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             
             if arrCoachClassInfoList.count - 1 == indexPath.row {
                
-                callFollowingCoachClassListAPI()
+                if Reachability.isConnectedToNetwork(){
+                    callFollowingCoachClassListAPI()
+                }
             }
 
 
@@ -495,7 +512,9 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
+                }
             }
             cell.selectedIndex = indexPath.row
             cell.lbltitle.text = obj.title
@@ -534,7 +553,9 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             }
             if arrCoachRecipe.count - 1 == indexPath.row {
                 
-                getCoachesWiseRecipeList()
+                if Reachability.isConnectedToNetwork(){
+                    getCoachesWiseRecipeList()
+                }
             }
             
             return cell

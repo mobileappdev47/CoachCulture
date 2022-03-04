@@ -64,9 +64,9 @@ class ManageSubscriptionListViewController: BaseViewController {
         cancelSubScription.tapToBtnNo {
             self.cancelSubScription.removeFromSuperview()
         }
-        
-        getCoachSubscriptionList(isShowLoader: true)
-        
+        if Reachability.isConnectedToNetwork(){
+            getCoachSubscriptionList(isShowLoader: true)
+        }
     }
     
     func setCancelSubScription() {
@@ -128,7 +128,9 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
         if arrSubsciptionList.count - 1 == indexPath.row {
             isDataLoading = false
             continueLoadingData = true
-            self.getCoachSubscriptionList(isShowLoader: false)
+            if Reachability.isConnectedToNetwork(){
+                self.getCoachSubscriptionList(isShowLoader: false)
+            }
         }
         cell.layoutIfNeeded()
         return cell
@@ -140,8 +142,10 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
         logOutView.btnLeft.setTitle("Yes", for: .normal)
         logOutView.btnRight.setTitle("No", for: .normal)
         logOutView.tapToBtnLogOut {
-            self.callUnsubscribeToCoachAPI(selectedIndex: selectedIndex, id: obj.id)
-            self.removeConfirmationView()
+            if Reachability.isConnectedToNetwork(){
+                self.callUnsubscribeToCoachAPI(selectedIndex: selectedIndex, id: obj.id)
+                self.removeConfirmationView()
+            }
         }
     }
     
@@ -262,7 +266,9 @@ extension ManageSubscriptionListViewController : UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         if arrSubsciptionList.count > 0 {
             self.resetAll()
-            getCoachSubscriptionList(isShowLoader: true)
+            if Reachability.isConnectedToNetwork(){
+                getCoachSubscriptionList(isShowLoader: true)
+            }
         }
     }
 

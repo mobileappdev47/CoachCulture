@@ -9,6 +9,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="SFProText-Bold.otf">
+            <string>SFProText-Bold</string>
+        </array>
         <array key="SFProText-Heavy.otf">
             <string>SFProText-Heavy</string>
         </array>
@@ -44,8 +47,9 @@ email within 24hrs.</string>
                                 <constraint firstAttribute="height" constant="47" id="62I-I0-C4K"/>
                                 <constraint firstAttribute="width" constant="100" id="YuM-q5-flA"/>
                             </constraints>
+                            <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="17"/>
                             <color key="tintColor" name="textColor"/>
-                            <state key="normal" title="Button"/>
+                            <state key="normal" title="OK"/>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
                                     <real key="value" value="10"/>

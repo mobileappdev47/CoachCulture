@@ -174,9 +174,13 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
                 param[Params.AddRemoveBookmark.coach_class_id] = recdModel.id
                 param[Params.AddRemoveBookmark.bookmark] = recdModel.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
                 if cell.lblClassType.text == "ON DEMAND" {
-                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, selectedIndex: cell.selectedIndex, recdType: SelectedDemandClass.onDemand)
+                    if Reachability.isConnectedToNetwork(){
+                        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, selectedIndex: cell.selectedIndex, recdType: SelectedDemandClass.onDemand)
+                    }
                 } else {
-                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, selectedIndex: cell.selectedIndex, recdType: SelectedDemandClass.live)
+                    if Reachability.isConnectedToNetwork(){
+                        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, selectedIndex: cell.selectedIndex, recdType: SelectedDemandClass.live)
+                    }
                 }
             }
             cell.lblTitle.text = recdModel.class_type_name
@@ -197,7 +201,9 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
             }
             
             if arrNewClass.count - 1 == indexPath.row {
-                callNewUploadAPI()
+                if Reachability.isConnectedToNetwork(){
+                    callNewUploadAPI()
+                }
             }
         } else {
             cell.clvDietaryRestriction.isHidden = false
@@ -224,7 +230,9 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
                     var param = [String:Any]()
                     param[Params.AddRemoveBookmark.coach_recipe_id] = recdModel.id
                     param[Params.AddRemoveBookmark.bookmark] = recdModel.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                    self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, selectedIndex: cell.selectedIndex, recdType: SelectedDemandClass.recipe)
+                    if Reachability.isConnectedToNetwork(){
+                        self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, selectedIndex: cell.selectedIndex, recdType: SelectedDemandClass.recipe)
+                    }
                 }
                 cell.lblTitle.text = recdModel.title
                 cell.lblSubTitle.text = recdModel.sub_title
@@ -250,7 +258,9 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
                 cell.clvDietaryRestriction.reloadData()
 
                 if arrNewClass.count - 1 == indexPath.row {
-                    callNewUploadAPI()
+                    if Reachability.isConnectedToNetwork(){
+                        callNewUploadAPI()
+                    }
                 }
             }
         }

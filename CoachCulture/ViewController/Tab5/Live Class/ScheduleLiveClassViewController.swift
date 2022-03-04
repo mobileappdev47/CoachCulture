@@ -67,6 +67,7 @@ class ScheduleLiveClassViewController: BaseViewController {
     var selectedDate = ""
     var selectedTime = ""
     var isFromEdit = false
+    var isFromTemplate = false
     var classDetailDataObj = ClassDetailData()
 
     
@@ -159,8 +160,9 @@ class ScheduleLiveClassViewController: BaseViewController {
             self.lblHour.text = arrStr.first
         }
         
-        
-        getClassType()
+        if Reachability.isConnectedToNetwork(){
+            getClassType()
+        }
         
         
     }
@@ -306,8 +308,11 @@ class ScheduleLiveClassViewController: BaseViewController {
                     
             let vc = UserMusclesForLiveClassViewController.viewcontroller()
             vc.paramDic = param
-            vc.isFromEdit = self.isFromEdit
-            vc.classDetailDataObj = self.classDetailDataObj
+            if isFromTemplate {
+                vc.isFromEdit = false
+            } else {
+                vc.isFromEdit = isFromEdit
+            }
             self.navigationController?.pushViewController(vc, animated: true)
         }
         
@@ -346,7 +351,9 @@ extension ScheduleLiveClassViewController {
             }
             
             self.hideLoader()
-            self.getClassDifficultyList()
+            if Reachability.isConnectedToNetwork(){
+                self.getClassDifficultyList()
+            }
             
         } failure: { (error) in
             self.hideLoader()
@@ -373,7 +380,9 @@ extension ScheduleLiveClassViewController {
             }
             
             self.hideLoader()
-            self.getNationality()
+            if Reachability.isConnectedToNetwork(){
+                self.getNationality()
+            }
             
         } failure: { (error) in
             self.hideLoader()

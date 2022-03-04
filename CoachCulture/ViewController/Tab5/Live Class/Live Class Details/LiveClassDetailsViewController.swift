@@ -120,7 +120,33 @@ class LiveClassDetailsViewController: BaseViewController {
             }
             
             if item.lowercased() == "Delete".lowercased() { //Delete
-                self.deleteClass()
+                if Reachability.isConnectedToNetwork(){
+                    self.deleteClass()
+                }
+            }
+            
+            if item.lowercased() == "Template".lowercased() { //Delete
+                
+                if classDetailDataObj.coach_class_type == CoachClassType.live {
+                    let vc = ScheduleLiveClassViewController.viewcontroller()
+                    vc.isFromEdit = true
+                    vc.isFromTemplate = true
+                    self.classDetailDataObj.class_subtitle = ""
+                    self.classDetailDataObj.thumbnail_image = ""
+                    self.classDetailDataObj.id = ""
+                    vc.classDetailDataObj = self.classDetailDataObj
+                    self.navigationController?.pushViewController(vc, animated: true)
+                } else {
+                    let vc = OnDemandVideoUploadViewController.viewcontroller()
+                    vc.isFromEdit = true
+                    vc.isFromTemplate = true
+                    self.classDetailDataObj.class_subtitle = ""
+                    self.classDetailDataObj.thumbnail_image = ""
+                    self.classDetailDataObj.thumbnail_video = ""
+                    self.classDetailDataObj.id = ""
+                    vc.classDetailDataObj = self.classDetailDataObj
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
             
             if item.lowercased() == "Rate Class".lowercased() { //Rating
@@ -167,7 +193,9 @@ class LiveClassDetailsViewController: BaseViewController {
                 }
             }
         } else {
-            getClassDetails()
+            if Reachability.isConnectedToNetwork(){
+                getClassDetails()
+            }
         }
         self.viewClassDifficultyLevel.layer.maskedCorners = [.layerMaxXMinYCorner]
         self.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
@@ -178,7 +206,9 @@ class LiveClassDetailsViewController: BaseViewController {
         self.timer.invalidate()
         let tempCounter = counter / 60
         counter = tempCounter.rounded() <= 0.0 ? 1.0 : tempCounter
-        self.callEndLiveClassAPI()
+        if Reachability.isConnectedToNetwork(){
+            self.callEndLiveClassAPI()
+        }
     }
 
     func setData() {
@@ -333,7 +363,9 @@ class LiveClassDetailsViewController: BaseViewController {
         logOutView.btnLeft.setTitle("Confirm", for: .normal)
         logOutView.btnRight.setTitle("Cancel", for: .normal)
         logOutView.tapToBtnLogOut {
-            self.callAddUserToCoachClassAPI()
+            if Reachability.isConnectedToNetwork(){
+                self.callAddUserToCoachClassAPI()
+            }
             self.removeConfirmationView()
         }
     }
@@ -405,9 +437,13 @@ class LiveClassDetailsViewController: BaseViewController {
     
     @IBAction func clickToBtnBookmark( _ sender: UIButton) {
         if classDetailDataObj.bookmark.lowercased() == "no".lowercased() {
-            addOrRemoveFromBookMark(bookmark: "yes")
+            if Reachability.isConnectedToNetwork(){
+                addOrRemoveFromBookMark(bookmark: "yes")
+            }
         } else {
-            addOrRemoveFromBookMark(bookmark: "no")
+            if Reachability.isConnectedToNetwork(){
+                addOrRemoveFromBookMark(bookmark: "no")
+            }
         }
     }
     
@@ -486,16 +522,18 @@ class LiveClassDetailsViewController: BaseViewController {
                 fees = classDetailDataObj.feesDataObj.non_subscriber_fee
                 recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
             }
-            self.checkUserSubscribedClassAPI { (isSubscribed) in
-                if isSubscribed {
-                    if self.isFromSubscriptionPurchase {
-                        self.getClassDetails()
+            if Reachability.isConnectedToNetwork(){
+                self.checkUserSubscribedClassAPI { (isSubscribed) in
+                    if isSubscribed {
+                        if self.isFromSubscriptionPurchase {
+                            self.getClassDetails()
+                        } else {
+                            self.goStepForwardAfterSubscribed()
+                        }
                     } else {
-                        self.goStepForwardAfterSubscribed()
+                        self.addConfirmationView()
+                        self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
                     }
-                } else {
-                    self.addConfirmationView()
-                    self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
                 }
             }
         }
@@ -571,7 +609,10 @@ extension LiveClassDetailsViewController {
                 self.setData()
             }
             self.hideLoader()
-        } failure: { (error) in
+            if Reachability.isConnectedToNetwork(){
+                self.getClassRating()
+            }
+                    } failure: { (error) in
             self.hideLoader()
             return true
         }
@@ -638,8 +679,9 @@ extension LiveClassDetailsViewController {
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.COACH_CLASS_BOOKMARK, parameters: param, headers: nil) { responseObj in
             
             let responseModel = ResponseDataModel(responseObj: responseObj)
-            
-            self.getClassDetails()
+            if Reachability.isConnectedToNetwork(){
+                self.getClassDetails()
+            }
             Utility.shared.showToast(responseModel.message)
             
             self.hideLoader()
@@ -745,8 +787,9 @@ extension CharacterSet {
 extension LiveClassDetailsViewController: AVPlayerViewControllerDelegate {
     
     func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-        
-        self.callJoinSessionsAPI()
+        if Reachability.isConnectedToNetwork(){
+            self.callJoinSessionsAPI()
+        }
         self.timer.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
     }
@@ -761,7 +804,9 @@ extension LiveClassDetailsViewController: AVPlayerViewControllerDelegate {
             self.timer.invalidate()
             let tempCounter = counter / 60
             counter = tempCounter.rounded() <= 0.0 ? 1.0 : tempCounter
-            self.callEndLiveClassAPI()
+            if Reachability.isConnectedToNetwork(){
+                self.callEndLiveClassAPI()
+            }
         }
     }
 }

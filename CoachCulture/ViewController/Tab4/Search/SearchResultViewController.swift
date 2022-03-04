@@ -242,7 +242,9 @@ extension SearchResultViewController : UITableViewDelegate, UITableViewDataSourc
             var param = [String:Any]()
             param[Params.AddRemoveBookmark.coach_class_id] = obj.id
             param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-            self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+            if Reachability.isConnectedToNetwork(){
+                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+            }
         }
         if obj.bookmark == "no" {
             cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -395,7 +397,9 @@ extension SearchResultViewController : UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.resetVariable()
-        getAllCoachClassList()
+        if Reachability.isConnectedToNetwork(){
+            getAllCoachClassList()
+        }
     }
     
 }

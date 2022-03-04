@@ -60,7 +60,9 @@ class PreviousClassesViewController: BaseViewController {
         super.viewDidLoad()
         
         setUpUI()
-        getPrevoisCoachClassList()
+        if Reachability.isConnectedToNetwork(){
+            getPrevoisCoachClassList()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,19 +122,25 @@ class PreviousClassesViewController: BaseViewController {
         if sender == btnLive {
             class_type = "live"
             viwLiveLine.isHidden = false
-            getPrevoisCoachClassList()
+            if Reachability.isConnectedToNetwork(){
+                getPrevoisCoachClassList()
+            }
         }
         
         if sender == btnRecipe {
             viwRecipeLine.isHidden = false
             resetRecipeVariable()
-            getPrevoisCoachRecipeList()
+            if Reachability.isConnectedToNetwork(){
+                getPrevoisCoachRecipeList()
+            }
         }
         
         if sender == btnOnDemand {
             class_type = "on_demand"
             viwOnDemandLine.isHidden = false
-            getPrevoisCoachClassList()
+            if Reachability.isConnectedToNetwork(){
+                getPrevoisCoachClassList()
+            }
         }
     }
     
@@ -228,8 +236,9 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
             
             if arrCoachClassPrevious.count - 1 == indexPath.row {
-                
-                getPrevoisCoachClassList()
+                if Reachability.isConnectedToNetwork(){
+                    getPrevoisCoachClassList()
+                }
             }
             if isFromBookMarkPage {
                 cell.viewBlur.isHidden = true
@@ -241,7 +250,9 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                     var param = [String:Any]()
                     param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                     param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                    if Reachability.isConnectedToNetwork(){
+                        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                    }
                 }
             }
             return cell
@@ -283,8 +294,9 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             cell.btnRating.addTarget(self, action: #selector(self.clickToBtnRateNow(_:)), for: .touchUpInside)
             
             if arrCoachClassPrevious.count - 1 == indexPath.row {
-                
-                getPrevoisCoachClassList()
+                if Reachability.isConnectedToNetwork(){
+                    getPrevoisCoachClassList()
+                }
             }
             if isFromBookMarkPage {
                 cell.viewBlur.isHidden = true
@@ -296,7 +308,9 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                     var param = [String:Any]()
                     param[Params.AddRemoveBookmark.coach_class_id] = obj.id
                     param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                    if Reachability.isConnectedToNetwork(){
+                        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                    }
                 }
             }
             
@@ -353,7 +367,9 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                     var param = [String:Any]()
                     param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
                     param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                    self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
+                    if Reachability.isConnectedToNetwork(){
+                        self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
+                    }
                 }
             }
             cell.imgBookMark.image = obj.bookmark == BookmarkType.Yes ? UIImage(named: "BookmarkLight") : UIImage(named: "Bookmark")
@@ -396,7 +412,9 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 }
             default:
                 self.resetVariable()
-                self.getPrevoisCoachClassList()
+                if Reachability.isConnectedToNetwork(){
+                    self.getPrevoisCoachClassList()
+                }
             }
             self.hideLoader()
         } failure: { (error) in
@@ -559,7 +577,9 @@ extension PreviousClassesViewController : UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.resetVariable()
-        getPrevoisCoachClassList()
+        if Reachability.isConnectedToNetwork(){
+            getPrevoisCoachClassList()
+        }
     }
     
 }
