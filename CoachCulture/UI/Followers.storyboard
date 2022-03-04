@@ -698,7 +698,7 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wuI-UK-LY8">
                                                         <rect key="frame" x="0.0" y="0.0" width="130" height="195"/>
                                                         <connections>
-                                                            <action selector="clickToBtnCoachProfile:" destination="a7g-ut-xrg" eventType="touchUpInside" id="TD5-Ou-Bwp"/>
+                                                            <action selector="btnCoachProfileClick:" destination="a7g-ut-xrg" eventType="touchUpInside" id="Kg0-Vk-Cqb"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -2341,10 +2341,10 @@
             </objects>
             <point key="canvasLocation" x="1955.625" y="894.71830985915494"/>
         </scene>
-        <!--Workout StatisticVC-->
+        <!--View Controller-->
         <scene sceneID="vqk-jc-Bbr">
             <objects>
-                <viewController storyboardIdentifier="WorkoutStatisticVC" id="TFz-hx-Ja4" customClass="WorkoutStatisticVC" customModule="CoachCulture" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="TFz-hx-Ja4" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mN8-xy-iFm">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2637,10 +2637,10 @@
             </objects>
             <point key="canvasLocation" x="2602.5" y="892.6056338028169"/>
         </scene>
-        <!--Workout StatisticVC-->
+        <!--View Controller-->
         <scene sceneID="DDq-Js-o8t">
             <objects>
-                <viewController storyboardIdentifier="WorkoutStatisticVC" id="8XA-on-dyq" customClass="WorkoutStatisticVC" customModule="CoachCulture" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="8XA-on-dyq" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="X4Q-wW-U3s">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

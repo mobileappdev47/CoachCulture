@@ -129,11 +129,15 @@ class AddIngredientsForRecipeViewController: BaseViewController {
                         
         var qty_ingredient = [Any]()
         
-        for temp in arrAddIngredientsListData {
-            var param = [String:String]()
-            param["ingredients"] = temp.addIngredients
-            param["quantity"] = temp.qty + temp.unit
-            qty_ingredient.append(param)
+        if arrAddIngredientsListData.isEmpty {
+            Utility.shared.showToast("Select Ingredients")
+        } else {
+            for temp in arrAddIngredientsListData {
+                var param = [String:String]()
+                param["ingredients"] = temp.addIngredients
+                param["quantity"] = temp.qty + temp.unit
+                qty_ingredient.append(param)
+            }
         }
         
         if dietary_restriction.isEmpty {
@@ -145,8 +149,23 @@ class AddIngredientsForRecipeViewController: BaseViewController {
         paramDic["dietary_restriction"] = dietary_restriction
         paramDic["qty_ingredient"] = jsonStringFromDictionaryOrArrayObject(obj: qty_ingredient)
         if dietary_restriction != "" {
-            if Reachability.isConnectedToNetwork(){
-                createRecipe()
+            if arrAddIngredientsListData.count != 0 {
+                for i in arrAddIngredientsListData {
+                    if i.qty == "" {
+                        Utility.shared.showToast("select quntity")
+                    } else if i.unit == "" {
+                        Utility.shared.showToast("select Unit")
+                    } else if i.addIngredients == "" {
+                        Utility.shared.showToast("add Ingredients")
+                    } else {
+                        if Reachability.isConnectedToNetwork(){
+                            createRecipe()
+                        }
+                    }
+                    
+                }
+            } else {
+                Utility.shared.showToast("Please select One Ingredient")
             }
         } else {
             Utility.shared.showToast("Please select dietary restriction")

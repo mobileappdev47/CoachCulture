@@ -90,39 +90,51 @@ class RecipeDetailsViewController: BaseViewController {
         self.showDetailView.tblDescriptionDetail.reloadData()
 
         dropDown.anchorView = btnMore
+        
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            if index == 0 { //Edit
-                let vc = CreateMealRecipeViewController.viewcontroller()
-                vc.isFromEdit = true
-                vc.recipeDetailDataObj = self.recipeDetailDataObj
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-            
-            if index == 1 { //Delete
-                if Reachability.isConnectedToNetwork(){
-                    deleteRecipeDetail()
+        if self.recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+                if index == 0 { //Edit
+                    let vc = CreateMealRecipeViewController.viewcontroller()
+                    vc.isFromEdit = true
+                    vc.recipeDetailDataObj = self.recipeDetailDataObj
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
-            }
-            
-            if index == 2 { //send
                 
-            }
-            
-            if index == 3 {//Template
-                let vc = CreateMealRecipeViewController.viewcontroller()
-                vc.isFromEdit = true
-                vc.isFromTemplate = true
-                self.recipeDetailDataObj.title = ""
-                self.recipeDetailDataObj.thumbnail_image = ""
-                self.recipeDetailDataObj.id = ""
-                vc.recipeDetailDataObj = self.recipeDetailDataObj
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-            
-            if index == 4 { //Rating
-                let vc = GiveRecipeRattingViewController.viewcontroller()
-                vc.recipeDetailDataObj = self.recipeDetailDataObj
-                self.navigationController?.pushViewController(vc, animated: true)
+                if index == 1 { //Delete
+                    if Reachability.isConnectedToNetwork(){
+                        deleteRecipeDetail()
+                    }
+                }
+                
+                if index == 2 { //send
+                    
+                }
+                
+                if index == 3 {//Template
+                    let vc = CreateMealRecipeViewController.viewcontroller()
+                    vc.isFromEdit = true
+                    vc.isFromTemplate = true
+                    self.recipeDetailDataObj.title = ""
+                    self.recipeDetailDataObj.thumbnail_image = ""
+                    self.recipeDetailDataObj.id = ""
+                    vc.recipeDetailDataObj = self.recipeDetailDataObj
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+                if index == 4 { //Rating
+                    let vc = GiveRecipeRattingViewController.viewcontroller()
+                    vc.recipeDetailDataObj = self.recipeDetailDataObj
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            } else {
+                if index == 0 {//send
+                }
+                
+                if index == 1 { //Rating
+                    let vc = GiveRecipeRattingViewController.viewcontroller()
+                    vc.selectedId = self.recipeDetailDataObj.id
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
             }
         }
         
@@ -138,7 +150,7 @@ class RecipeDetailsViewController: BaseViewController {
         if self.recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
             dropDown.dataSource = ["Edit", "Delete", "Send", "Template", "Rating"]
         } else {
-            dropDown.dataSource = ["Send", "Share"]
+            dropDown.dataSource = ["Send", "Rate Class"]
         }
         lblMealType.text = recipeDetailDataObj.arrMealTypeString
         lblRecipeDuration.text = recipeDetailDataObj.duration

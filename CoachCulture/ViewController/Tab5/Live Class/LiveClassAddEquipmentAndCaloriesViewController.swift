@@ -118,7 +118,9 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
             if equipment.isEmpty {
                 equipment = temp.id
             } else {
-                equipment += "," + temp.id
+                if temp.equipment_name != "Select Equipment" {
+                    equipment += "," + temp.id
+                }
             }
         }
        

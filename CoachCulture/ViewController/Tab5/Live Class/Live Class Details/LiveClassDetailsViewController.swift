@@ -87,7 +87,7 @@ class LiveClassDetailsViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        self.showTabBar()
+        self.hideTabBar()
     }
 
     private func setUpUI() {
@@ -660,9 +660,10 @@ extension LiveClassDetailsViewController {
     func deleteClass() {
         showLoader()
         
-        _ =  ApiCallManager.requestApi(method: .post, urlString: API.COACH_CLASS_DELETE + classDetailDataObj.id, parameters: nil, headers: nil) { responseObj in
+        _ =  ApiCallManager.requestApi(method: .delete, urlString: API.COACH_CLASS_DELETE + classDetailDataObj.id, parameters: nil, headers: nil) { responseObj in
             
             let resObj = ResponseDataModel(responseObj: responseObj)
+            self.popVC(animated: true)
             Utility.shared.showToast(resObj.message)
             self.hideLoader()
             

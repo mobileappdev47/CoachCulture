@@ -133,12 +133,11 @@ class OnDemandVideoUploadViewController: BaseViewController {
         
         if isFromEdit {
             setData()
-            lblClassType.text = "Class Type"
-            lblClassDifficulty.text = "Class Difficulty"
         }
         
         if Reachability.isConnectedToNetwork(){
             getClassType()
+            getClassDifficultyList()
         }
         
         
@@ -316,6 +315,12 @@ extension OnDemandVideoUploadViewController {
                 self.tblClassTypeList.layoutIfNeeded()
                 self.tblClassTypeList.reloadData()
                 self.lctTableClassTypeHeight.constant =  self.tblClassTypeList.contentSize.height
+                for i in 0..<self.arrClassTypeList.count {
+                    if self.arrClassTypeList[i].class_type_name == self.classDetailDataObj.class_type {
+                        self.selectClassTypeObj = self.arrClassTypeList[i]
+                        break
+                    }
+                }
 //                if !self.arrClassTypeList.isEmpty {
 //                    self.tableView(self.tblClassTypeList, didSelectRowAt: IndexPath(item: 0, section: 0))
 //                }
@@ -342,6 +347,12 @@ extension OnDemandVideoUploadViewController {
             if responseModel.success {
                 let dataObj = responseObj["data"] as? [Any] ?? [Any]()
                 self.arrClassDifficultyList = ClassDifficultyList.getData(data: dataObj)
+                for i in 0..<self.arrClassDifficultyList.count {
+                    if self.arrClassDifficultyList[i].class_difficulty_name == self.classDetailDataObj.class_difficulty {
+                        self.selectClassDifficultyObj = self.arrClassDifficultyList[i]
+                        break
+                    }
+                }
                 self.tblClassDifficulty.layoutIfNeeded()
                 self.tblClassDifficulty.reloadData()
                 self.lctClassDifficultyHeight.constant =  self.tblClassDifficulty.contentSize.height
