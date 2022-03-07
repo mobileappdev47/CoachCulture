@@ -120,7 +120,7 @@ class RecipeDetailsViewController: BaseViewController {
             if item.lowercased() == "Ratings".lowercased() { //Rating
                 
                 if recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
-                    
+                    // total recipe data
                 } else {
                     let vc = GiveRecipeRattingViewController.viewcontroller()
                     vc.recipeDetailDataObj = self.recipeDetailDataObj
@@ -179,8 +179,8 @@ class RecipeDetailsViewController: BaseViewController {
     }
     
     func deleteView() {
-        logOutView.lblTitle.text = "Delete Class?"
-        logOutView.lblMessage.text = "Are you sure you would like to delete this class?"
+        logOutView.lblTitle.text = "Delete Recipe?"
+        logOutView.lblMessage.text = "Are you sure you would like to delete this Recipe?"
         logOutView.btnLeft.setTitle("Yes", for: .normal)
         logOutView.btnRight.setTitle("Cancel", for: .normal)
         logOutView.tapToBtnLogOut {
@@ -287,7 +287,7 @@ extension RecipeDetailsViewController: UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width =  (clvDietaryRestriction.frame.width - 20 ) / 2
-        return CGSize(width: width, height: 40)
+        return CGSize(width: width, height: 25)
     }
         
 }
