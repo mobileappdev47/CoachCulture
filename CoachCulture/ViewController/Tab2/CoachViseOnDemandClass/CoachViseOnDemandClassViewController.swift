@@ -70,7 +70,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-            setUpUI()
+        setUpUI()
     }
     
     // MARK: - Methods
@@ -99,6 +99,12 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         if Reachability.isConnectedToNetwork(){
             getUserProfile()
             getCoacheSearchHistory()
+            self.resetVariable()
+            self.resetRecipeVariable()
+            if Reachability.isConnectedToNetwork(){
+                self.getCoachesWiseClassList()
+                self.getCoachesWiseRecipeList()
+            }
         }
         setData()
     }

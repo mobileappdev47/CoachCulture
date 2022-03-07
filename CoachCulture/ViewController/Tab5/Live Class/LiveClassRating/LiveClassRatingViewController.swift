@@ -92,7 +92,13 @@ class LiveClassRatingViewController: BaseViewController {
             giveRatting()
         }
     }
-
+    @IBAction func clickOnCoachPro(_ sender: UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = classDetailDataObj.coachDetailsDataObj.id
+        self.navigationController?.pushViewController(vc, animated: true)
+        
+    }
+    
 }
 
 

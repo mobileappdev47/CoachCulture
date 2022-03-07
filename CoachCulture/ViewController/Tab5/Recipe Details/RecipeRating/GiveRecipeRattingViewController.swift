@@ -77,7 +77,12 @@ class GiveRecipeRattingViewController: BaseViewController {
             giveRatting()
         }
     }
-
+    @IBAction func clickToUserProfile(_ sender: UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = recipeDetailDataObj.coachDetailsObj.id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 

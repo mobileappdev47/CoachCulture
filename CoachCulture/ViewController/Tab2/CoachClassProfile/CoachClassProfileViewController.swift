@@ -324,12 +324,6 @@ class CoachClassProfileViewController: BaseViewController {
         }
     }
     
-    @IBAction func clickToBtnCoachProfile( _ sender : UIButton) {
-     
-    }
-    
-    
-    
     @IBAction func clickToBtnUser( _ sender : UIButton) {
         let vc = CoachViseOnDemandClassViewController.viewcontroller()
         if isFromSelectedType == SelectedDemandClass.recipe {

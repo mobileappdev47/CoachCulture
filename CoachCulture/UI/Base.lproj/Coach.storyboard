@@ -1655,6 +1655,7 @@ to +65 xxxx xxxx.</string>
                                             <constraint firstAttribute="width" constant="100" id="7rd-A2-tsD"/>
                                             <constraint firstAttribute="height" constant="40" id="Jrf-n7-7Ta"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="17"/>
                                         <state key="normal" title="OK">
                                             <color key="titleColor" name="textColor"/>
                                         </state>

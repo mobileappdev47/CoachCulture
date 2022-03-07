@@ -16,6 +16,7 @@ class PopularSearchResultCoachRecipeViewController: BaseViewController {
     
     @IBOutlet weak var tblCoachRecipe : UITableView!
     
+    @IBOutlet weak var lblRecipeCenter: UILabel!
     @IBOutlet weak var txtSearch : UITextField!
     
     var arrCoachRecipeData = [CoachRecipeData]()
@@ -78,28 +79,30 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "YourCoachRecipeItemTableViewCell", for: indexPath) as! YourCoachRecipeItemTableViewCell
-        let obj = arrCoachRecipeData[indexPath.row]
-        cell.lblDuration.text = obj.duration
-        cell.lblUserName.text = obj.username
-        cell.lblTitle.text = obj.title
-        cell.lblRecipeType.text = obj.meal_type_name
-        cell.lblDuration.text = obj.duration
-        cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
-        cell.imgUser.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
-        cell.imgThumbnail.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
-        cell.imgThumbnail.blurImage()
-        cell.arrDietaryRestriction = obj.arrDietaryRestrictionName
-        cell.clvDietaryRestriction.reloadData()
-        if obj.bookmark == "no" {
-            cell.imgBookmark.image = UIImage(named: "BookmarkLight")
-        } else {
-            cell.imgBookmark.image = UIImage(named: "Bookmark")
-        }
-        if arrCoachRecipeData.count - 1 == indexPath.row
-        {
-            let coach_only = selectedParam["coach_only"] as? String ?? ""
-            if Reachability.isConnectedToNetwork(){
-                self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
+        if arrCoachRecipeData.count > 0 {
+            let obj = arrCoachRecipeData[indexPath.row]
+            cell.lblDuration.text = obj.duration
+            cell.lblUserName.text = obj.username
+            cell.lblTitle.text = obj.title
+            cell.lblRecipeType.text = obj.meal_type_name
+            cell.lblDuration.text = obj.duration
+            cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
+            cell.imgUser.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
+            cell.imgThumbnail.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
+            cell.imgThumbnail.blurImage()
+            cell.arrDietaryRestriction = obj.arrDietaryRestrictionName
+            cell.clvDietaryRestriction.reloadData()
+            if obj.bookmark == "no" {
+                cell.imgBookmark.image = UIImage(named: "BookmarkLight")
+            } else {
+                cell.imgBookmark.image = UIImage(named: "Bookmark")
+            }
+            if arrCoachRecipeData.count - 1 == indexPath.row
+            {
+                let coach_only = selectedParam["coach_only"] as? String ?? ""
+                if Reachability.isConnectedToNetwork(){
+                    self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
+                }
             }
         }
         
@@ -128,6 +131,7 @@ extension PopularSearchResultCoachRecipeViewController : UITextFieldDelegate {
         
         let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         searchString = finalString
+        textFieldDidEndEditing(textField)
         return true
     }
     
@@ -169,6 +173,12 @@ extension PopularSearchResultCoachRecipeViewController {
            let arr = CoachRecipeData.getData(data: dataObj)
             self.arrCoachRecipeData.append(contentsOf: arr)
             self.tblCoachRecipe.reloadData()
+            
+            if self.arrCoachRecipeData.count == 0 {
+                self.lblRecipeCenter.isHidden = false
+            } else {
+                self.lblRecipeCenter.isHidden = true
+            }
             
             if arr.count < self.perPageCount
             {

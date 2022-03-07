@@ -26,6 +26,7 @@ class PopularCoachRecipeViewController: BaseViewController {
     
     @IBOutlet weak var tblCoachRecipe : UITableView!
     @IBOutlet weak var lctCoachRecipeTableHeight : NSLayoutConstraint!
+    @IBOutlet weak var lblPopularRecipeCenter: UILabel!
     
    private var isDataLoading = false
     private var continueLoadingData = true
@@ -94,6 +95,7 @@ extension PopularCoachRecipeViewController: UICollectionViewDataSource, UICollec
     {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularRecipeItemCollectionViewCell", for: indexPath) as!  PopularRecipeItemCollectionViewCell
         
+        lblPopularRecipeCenter.isHidden = true
         let obj = arrPopularRecipeData[indexPath.row]
         
         cell.lblTitle.text = obj.title

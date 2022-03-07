@@ -45,6 +45,7 @@ class RecipeDetailsViewController: BaseViewController {
     var recipeID = ""
     var isNew = false
     var showDetailView : ShowDetailView!
+    var logOutView:LogOutView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,7 @@ class RecipeDetailsViewController: BaseViewController {
     
     func setUpUI() {
         
+        logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         viwSatFat.applyBorder(4, borderColor: hexStringToUIColor(hex: "#CC2936"))
         viwFat.applyBorder(4, borderColor: hexStringToUIColor(hex: "#4DB748"))
         viwCarbs.applyBorder(4, borderColor: hexStringToUIColor(hex: "#1A82F6"))
@@ -90,25 +92,21 @@ class RecipeDetailsViewController: BaseViewController {
         self.showDetailView.tblDescriptionDetail.reloadData()
 
         dropDown.anchorView = btnMore
+        
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-            if index == 0 { //Edit
+            if item.lowercased() == "Edit".lowercased() { //Edit
                 let vc = CreateMealRecipeViewController.viewcontroller()
                 vc.isFromEdit = true
                 vc.recipeDetailDataObj = self.recipeDetailDataObj
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             
-            if index == 1 { //Delete
-                if Reachability.isConnectedToNetwork(){
-                    deleteRecipeDetail()
-                }
+            if item.lowercased() == "Delete".lowercased() { //Delete
+                self.addConfirmationView()
+                self.deleteView()
             }
             
-            if index == 2 { //send
-                
-            }
-            
-            if index == 3 {//Template
+            if item.lowercased() == "Template".lowercased() { //Template
                 let vc = CreateMealRecipeViewController.viewcontroller()
                 vc.isFromEdit = true
                 vc.isFromTemplate = true
@@ -119,10 +117,26 @@ class RecipeDetailsViewController: BaseViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             
-            if index == 4 { //Rating
-                let vc = GiveRecipeRattingViewController.viewcontroller()
-                vc.recipeDetailDataObj = self.recipeDetailDataObj
-                self.navigationController?.pushViewController(vc, animated: true)
+            if item.lowercased() == "Ratings".lowercased() { //Rating
+                
+                if recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+                    // total recipe data
+                } else {
+                    let vc = GiveRecipeRattingViewController.viewcontroller()
+                    vc.recipeDetailDataObj = self.recipeDetailDataObj
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+                
+            }
+            
+            if item.lowercased() == "Share".lowercased() {
+                let textToShare = [ "" ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                
+                activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+                
+                self.present(activityViewController, animated: true, completion: nil)
             }
         }
         
@@ -136,7 +150,7 @@ class RecipeDetailsViewController: BaseViewController {
     
     func setData() {
         if self.recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
-            dropDown.dataSource = ["Edit", "Delete", "Send", "Template", "Rating"]
+            dropDown.dataSource = ["Edit", "Delete", "Template", "Ratings", "Send", "Share"]
         } else {
             dropDown.dataSource = ["Send", "Share"]
         }
@@ -162,6 +176,30 @@ class RecipeDetailsViewController: BaseViewController {
         self.showDetailView.heightDescriptionDetailTbl.constant = 0.5
         self.showDetailView.hightRecipeIngTbl.constant = 0.5
         tblIntredienta.reloadData()
+    }
+    
+    func deleteView() {
+        logOutView.lblTitle.text = "Delete Recipe?"
+        logOutView.lblMessage.text = "Are you sure you would like to delete this Recipe?"
+        logOutView.btnLeft.setTitle("Yes", for: .normal)
+        logOutView.btnRight.setTitle("Cancel", for: .normal)
+        logOutView.tapToBtnLogOut {
+            if Reachability.isConnectedToNetwork(){
+                self.deleteRecipeDetail()
+            }
+            self.removeConfirmationView()
+        }
+    }
+    
+    func addConfirmationView() {
+        logOutView.frame.size = self.view.frame.size
+        self.view.addSubview(logOutView)
+    }
+    
+    func removeConfirmationView() {
+        if logOutView != nil{
+            logOutView.removeFromSuperview()
+        }
     }
     
     func setShowDetailView() {
@@ -249,7 +287,7 @@ extension RecipeDetailsViewController: UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width =  (clvDietaryRestriction.frame.width - 20 ) / 2
-        return CGSize(width: width, height: 40)
+        return CGSize(width: width, height: 25)
     }
         
 }

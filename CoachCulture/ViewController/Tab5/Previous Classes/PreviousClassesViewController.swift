@@ -201,57 +201,59 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
         
         if viwOnDemandLine.isHidden == false {
             let cell = tableView.dequeueReusableCell(withIdentifier: "SearchResultItemTableViewCell", for: indexPath) as! SearchResultItemTableViewCell
-            let obj = arrCoachClassPrevious[indexPath.row]
-            cell.viewBlur.isHidden = false
-            cell.lblClassType.text = "On demand".uppercased()
-            cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
-            cell.imgUser.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
-            if cell.imgThumbnail.image == nil {
-                cell.imgThumbnail.blurImage()
-            }
-            cell.imgThumbnail.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
-            cell.imgClassCover.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "coverBG")
-            cell.lbltitle.text = obj.class_type_name
-            cell.lblClassDifficultyLevel.text = obj.class_type_name
-            cell.lblClassDate.text = obj.class_subtitle
-            cell.lblUserName.text = "@" + obj.coachDetailsObj.username
-            cell.lblClassTime.text = obj.total_viewers + " Views"
-            cell.lblDuration.text = obj.duration
-            let str = obj.average_rating
-            if let num = NumberFormatter().number(from: str) {
-                let f = CGFloat(truncating: num)
-                cell.viwRating.value = f
-            }
-            cell.viewProfile.addCornerRadius(10)
-            cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-            cell.selectedIndex = indexPath.row
-            if obj.bookmark == "no" {
-                cell.imgBookMark.image = UIImage(named: "BookmarkLight")
-            } else {
-                cell.imgBookMark.image = UIImage(named: "Bookmark")
-            }
-            cell.btnRating.tag = indexPath.row
-            cell.btnRating.addTarget(self, action: #selector(self.clickToBtnRateNow(_:)), for: .touchUpInside)
-            cell.btnUser.tag = indexPath.row
-            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
-            
-            if arrCoachClassPrevious.count - 1 == indexPath.row {
-                if Reachability.isConnectedToNetwork(){
-                    getPrevoisCoachClassList()
-                }
-            }
-            if isFromBookMarkPage {
-                cell.viewBlur.isHidden = true
-                cell.btnBookmark.isEnabled = true
-            } else {
+            if arrCoachClassPrevious.count > 0 {
+                let obj = arrCoachClassPrevious[indexPath.row]
                 cell.viewBlur.isHidden = false
-                cell.btnBookmark.isEnabled = false
-                cell.didTapBookmarkButton = {
-                    var param = [String:Any]()
-                    param[Params.AddRemoveBookmark.coach_class_id] = obj.id
-                    param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                cell.lblClassType.text = "On demand".uppercased()
+                cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
+                cell.imgUser.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
+                if cell.imgThumbnail.image == nil {
+                    cell.imgThumbnail.blurImage()
+                }
+                cell.imgThumbnail.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
+                cell.imgClassCover.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "coverBG")
+                cell.lbltitle.text = obj.class_type_name
+                cell.lblClassDifficultyLevel.text = obj.class_type_name
+                cell.lblClassDate.text = obj.class_subtitle
+                cell.lblUserName.text = "@" + obj.coachDetailsObj.username
+                cell.lblClassTime.text = obj.total_viewers + " Views"
+                cell.lblDuration.text = obj.duration
+                let str = obj.average_rating
+                if let num = NumberFormatter().number(from: str) {
+                    let f = CGFloat(truncating: num)
+                    cell.viwRating.value = f
+                }
+                cell.viewProfile.addCornerRadius(10)
+                cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+                cell.selectedIndex = indexPath.row
+                if obj.bookmark == "no" {
+                    cell.imgBookMark.image = UIImage(named: "BookmarkLight")
+                } else {
+                    cell.imgBookMark.image = UIImage(named: "Bookmark")
+                }
+                cell.btnRating.tag = indexPath.row
+                cell.btnRating.addTarget(self, action: #selector(self.clickToBtnRateNow(_:)), for: .touchUpInside)
+                cell.btnUser.tag = indexPath.row
+                cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+                
+                if arrCoachClassPrevious.count - 1 == indexPath.row {
                     if Reachability.isConnectedToNetwork(){
-                        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                        getPrevoisCoachClassList()
+                    }
+                }
+                if isFromBookMarkPage {
+                    cell.viewBlur.isHidden = true
+                    cell.btnBookmark.isEnabled = true
+                } else {
+                    cell.viewBlur.isHidden = false
+                    cell.btnBookmark.isEnabled = false
+                    cell.didTapBookmarkButton = {
+                        var param = [String:Any]()
+                        param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+                        param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                        if Reachability.isConnectedToNetwork(){
+                            self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                        }
                     }
                 }
             }
@@ -280,9 +282,6 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             if let num = NumberFormatter().number(from: str) {
                 let f = CGFloat(truncating: num)
                 cell.viwRating.value = f
-            }
-            if !obj.userRatingObj.rating.isEmpty {
-                cell.viwRating.value = CGFloat(Double(obj.userRatingObj.rating)!)
             }
             cell.selectedIndex = indexPath.row
             if obj.bookmark == "no" {
@@ -320,10 +319,8 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             cell.viewBlur.isHidden = false
             let obj = arrCoachRecipePrevious[indexPath.row]
             cell.lbltitle.text = obj.title
-            cell.lblUsername.text = "@" + obj.coachDetailsObj.username
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.meal_type_name
-            cell.arrDietaryRestriction = obj.arrdietary_restriction
             cell.clvDietaryRestriction.reloadData()
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
             cell.selectedIndex = indexPath.row
@@ -343,24 +340,26 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 cell.imgProfileBottom.blurImage()
             }
             cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: "")
-            cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             
             let arrSeperatedDietaryRestriction = obj.dietary_restriction_name.components(separatedBy: ",")
-            var arrFilteredDietaryRestriction = [String]()
-            if arrSeperatedDietaryRestriction.count > 2 {
-                arrFilteredDietaryRestriction.append(arrSeperatedDietaryRestriction[0])
-                arrFilteredDietaryRestriction.append(arrSeperatedDietaryRestriction[1])
-                cell.arrDietaryRestriction = arrFilteredDietaryRestriction
-            } else {
-                cell.arrDietaryRestriction = arrSeperatedDietaryRestriction
-            }
-            cell.arrDietaryRestriction = obj.arrdietary_restriction
-
-            cell.clvDietaryRestriction.reloadData()
             if isFromBookMarkPage {
                 cell.viewBlur.isHidden = true
                 cell.btnBookMark.isEnabled = true
+                cell.arrDietaryRestriction = obj.arrdietary_restriction
+                cell.lblUsername.text = "@" + obj.coachDetailsObj.username
+                cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             } else {
+                var arrFilteredDietaryRestriction = [String]()
+                if arrSeperatedDietaryRestriction.count > 2 {
+                    arrFilteredDietaryRestriction.append(arrSeperatedDietaryRestriction[0])
+                    arrFilteredDietaryRestriction.append(arrSeperatedDietaryRestriction[1])
+                    cell.arrDietaryRestriction = arrFilteredDietaryRestriction
+                } else {
+                    cell.arrDietaryRestriction = arrSeperatedDietaryRestriction
+                }
+                cell.lblUsername.text = "@" + obj.username
+                cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: "")
+                cell.clvDietaryRestriction.reloadData()
                 cell.viewBlur.isHidden = false
                 cell.btnBookMark.isEnabled = false
                 cell.didTapBookmarkButton = {
@@ -458,6 +457,8 @@ extension PreviousClassesViewController {
         var param = [String:Any]()
         if isFromBookMarkPage {
             param["bookmark_only"] = "yes"
+        } else {            
+            param["subscription"] = true
         }
         if !class_difficulty_name.isEmpty || class_difficulty_name != "" {
             param["class_difficulty_name"] = class_difficulty_name

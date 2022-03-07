@@ -41,10 +41,10 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bzN-iD-471">
-                                        <rect key="frame" x="10" y="10" width="31.5" height="17"/>
+                                        <rect key="frame" x="10" y="10" width="33" height="17.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNj-do-Xru">
-                                                <rect key="frame" x="5" y="5" width="21.5" height="7"/>
+                                                <rect key="frame" x="5" y="5" width="23" height="7.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="6"/>
                                                 <color key="textColor" name="textColor"/>
@@ -119,7 +119,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CN-io-n5E">
-                                        <rect key="frame" x="10" y="41.5" width="100" height="17.5"/>
+                                        <rect key="frame" x="10" y="41" width="100" height="18"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -151,16 +151,16 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xk2-cK-JwA">
-                                <rect key="frame" x="137" y="15" width="103" height="29"/>
+                                <rect key="frame" x="137" y="15" width="115.5" height="30"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chicken Fajitas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUO-ZE-0Ov">
-                                        <rect key="frame" x="0.0" y="0.0" width="103" height="17.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="115.5" height="18"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lunch, Dinner, Breakfast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2P-Kx-RQa">
-                                        <rect key="frame" x="0.0" y="18.5" width="103" height="10.5"/>
+                                        <rect key="frame" x="0.0" y="19" width="115.5" height="11"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="9"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
