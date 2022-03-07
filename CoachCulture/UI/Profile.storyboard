@@ -3492,13 +3492,13 @@
                                         <rect key="frame" x="0.0" y="44" width="375" height="208"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_body_back_right_part" translatesAutoresizingMaskIntoConstraints="NO" id="hai-Ck-poq" userLabel="ic_body_front">
-                                                <rect key="frame" x="83.5" y="10.5" width="91" height="187"/>
+                                                <rect key="frame" x="82.5" y="10.5" width="91" height="187"/>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="TVZ-99-7cd" userLabel="stackBodyFront">
-                                                <rect key="frame" x="91" y="21" width="76" height="166"/>
+                                                <rect key="frame" x="89" y="21" width="78" height="166"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="-17" translatesAutoresizingMaskIntoConstraints="NO" id="sPx-cH-1TS">
-                                                        <rect key="frame" x="0.0" y="0.0" width="76" height="166"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="-16" translatesAutoresizingMaskIntoConstraints="NO" id="sPx-cH-1TS">
+                                                        <rect key="frame" x="0.0" y="0.0" width="78" height="166"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jio-mT-p1S">
                                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="166"/>
@@ -3518,7 +3518,7 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ayv-7e-d0E">
-                                                                <rect key="frame" x="13" y="0.0" width="50" height="166"/>
+                                                                <rect key="frame" x="14" y="0.0" width="50" height="166"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="-9" translatesAutoresizingMaskIntoConstraints="NO" id="ZFh-hY-v0P" userLabel="rightStackView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="50" height="22"/>
@@ -3656,12 +3656,12 @@
                                                                 </subviews>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="W1O-1P-kEU">
-                                                                <rect key="frame" x="46" y="0.0" width="30" height="166"/>
+                                                                <rect key="frame" x="48" y="0.0" width="30" height="166"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="Kfi-eq-3oy" userLabel="rightStackView">
                                                                         <rect key="frame" x="0.0" y="0.0" width="30" height="166"/>
                                                                         <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Coe-jT-hdk">
+                                                                            <button opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Coe-jT-hdk">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="30" height="108"/>
                                                                                 <state key="normal" image="ic_shoulder_bixeps_forearm_right"/>
                                                                             </button>
@@ -3971,8 +3971,12 @@
                     </view>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
-                        <outlet property="btnAbdominalsFrontLeft" destination="YOb-fw-8PX" id="LvT-m9-fPM"/>
+                        <outlet property="btnAbdominalsFrontLeft" destination="YOb-fw-8PX" id="m0e-20-C4E"/>
                         <outlet property="btnAbdominalsFrontRight" destination="uv2-vB-6Mg" id="T9o-w4-gYm"/>
+                        <outlet property="btnCalfsFrontLeft" destination="FOh-kt-m6X" id="oWS-w3-MYt"/>
+                        <outlet property="btnCalfsFrontRight" destination="hNd-i9-d5o" id="nRV-vJ-xSA"/>
+                        <outlet property="btnChestFrontLeft" destination="DBR-Si-C1s" id="Smd-OW-XQu"/>
+                        <outlet property="btnChestFrontRIght" destination="7oh-dd-IGt" id="3jO-9O-Pyt"/>
                         <outlet property="btnChestLeft" destination="DBR-Si-C1s" id="XLm-7i-qZG"/>
                         <outlet property="btnChestRight" destination="7oh-dd-IGt" id="bX1-9e-6Ae"/>
                         <outlet property="btnImgNeckLeft" destination="dYw-eW-vAm" id="otF-49-759"/>
@@ -3981,6 +3985,8 @@
                         <outlet property="btnObliqueBackRight" destination="lKj-hy-fQL" id="89X-Lm-kih"/>
                         <outlet property="btnObliqueFrontLeft" destination="GzC-IC-rTM" id="G2N-dT-ZSH"/>
                         <outlet property="btnObliqueFrontRight" destination="CYy-e4-ZvZ" id="cQp-iK-KVc"/>
+                        <outlet property="btnQuadricepsFrontLeft" destination="LgI-1f-KS1" id="hyD-DE-Ucs"/>
+                        <outlet property="btnQuadricepsFrontRight" destination="55E-If-aRr" id="44r-YF-aLF"/>
                         <outlet property="btnShoulderBicepsForearmFrontLeft" destination="3T9-W0-VnF" id="yeY-jL-o4U"/>
                         <outlet property="btnShoulderBicepsForearmFrontRight" destination="Coe-jT-hdk" id="la5-Wu-6N5"/>
                         <outlet property="clvMusclesType" destination="zyg-Bo-T7q" id="LUK-JR-X7v"/>
