@@ -129,8 +129,8 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K0b-IS-NAS" userLabel="viewBottom">
                                 <rect key="frame" x="0.0" y="96" width="320" height="44"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fmO-Vz-nDQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="340" height="44"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fmO-Vz-nDQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="390" height="44"/>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="Qcg-vX-ezW" userLabel="leftStack">
                                         <rect key="frame" x="10" y="2.5" width="144" height="39.5"/>
@@ -221,7 +221,7 @@
                                     <constraint firstItem="7oB-18-8O9" firstAttribute="leading" secondItem="j1a-73-wrk" secondAttribute="trailing" constant="5" id="9uy-9P-IqT"/>
                                     <constraint firstAttribute="trailing" secondItem="7oB-18-8O9" secondAttribute="trailing" constant="10" id="A5o-3U-W4b"/>
                                     <constraint firstItem="fmO-Vz-nDQ" firstAttribute="top" secondItem="K0b-IS-NAS" secondAttribute="top" id="CzA-ov-k3a"/>
-                                    <constraint firstAttribute="trailing" secondItem="fmO-Vz-nDQ" secondAttribute="trailing" constant="-20" id="DL8-pw-pHE"/>
+                                    <constraint firstAttribute="trailing" secondItem="fmO-Vz-nDQ" secondAttribute="trailing" constant="-70" id="DL8-pw-pHE"/>
                                     <constraint firstItem="fmO-Vz-nDQ" firstAttribute="leading" secondItem="K0b-IS-NAS" secondAttribute="leading" id="KKC-92-hnO"/>
                                     <constraint firstItem="7oB-18-8O9" firstAttribute="centerY" secondItem="j1a-73-wrk" secondAttribute="centerY" id="LCe-cI-mgJ"/>
                                     <constraint firstItem="Qcg-vX-ezW" firstAttribute="centerY" secondItem="j1a-73-wrk" secondAttribute="centerY" id="MMO-mf-2Ky"/>

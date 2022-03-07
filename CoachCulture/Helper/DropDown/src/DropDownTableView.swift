@@ -82,8 +82,10 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
         cell.selectedBackgroundColor = selectionBackgroundColor
         if let cellConfiguration = cellConfiguration {
             cell.optionLabel.text = cellConfiguration(index, dataSource[index])
+            cell.imgIcon.image = UIImage(named: "ic_\(dataSource[index].lowercased())")
         } else {
             cell.optionLabel.text = dataSource[index]
+            cell.imgIcon.image = UIImage(named: "ic_\(dataSource[index].lowercased())")
         }
         customCellConfiguration?(index, dataSource[index], cell)
     }

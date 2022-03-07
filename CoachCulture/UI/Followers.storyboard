@@ -1614,12 +1614,20 @@
                                             <constraint firstItem="kfs-Cm-6dR" firstAttribute="trailing" secondItem="yqj-p7-W8D" secondAttribute="trailing" id="kGs-Yg-xOu"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular recipe found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5e-3g-OIk">
+                                        <rect key="frame" x="105.33333333333333" y="117" width="217.33333333333337" height="24"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                        <color key="textColor" name="textFieldColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" name="themeColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="kvw-Ly-6Qk" secondAttribute="trailing" id="MyB-VB-zL0"/>
                                     <constraint firstAttribute="bottom" secondItem="kvw-Ly-6Qk" secondAttribute="bottom" id="Xm4-2U-ZS4"/>
+                                    <constraint firstItem="t5e-3g-OIk" firstAttribute="centerY" secondItem="5tK-xO-We0" secondAttribute="centerY" id="bYY-FR-8h3"/>
                                     <constraint firstItem="kvw-Ly-6Qk" firstAttribute="width" secondItem="cy4-iG-XvM" secondAttribute="width" id="cAq-rq-D6f"/>
+                                    <constraint firstItem="t5e-3g-OIk" firstAttribute="centerX" secondItem="5tK-xO-We0" secondAttribute="centerX" id="eM7-T5-OwA"/>
                                     <constraint firstItem="kvw-Ly-6Qk" firstAttribute="top" secondItem="cy4-iG-XvM" secondAttribute="top" id="kdb-nf-pS4"/>
                                     <constraint firstItem="kvw-Ly-6Qk" firstAttribute="leading" secondItem="cy4-iG-XvM" secondAttribute="leading" id="teF-F6-wDq"/>
                                 </constraints>
@@ -1642,6 +1650,7 @@
                     <navigationItem key="navigationItem" id="yMU-3b-1aG"/>
                     <connections>
                         <outlet property="clvPopularRecipeItem" destination="5tK-xO-We0" id="h6z-c3-zqX"/>
+                        <outlet property="lblPopularRecipeCenter" destination="t5e-3g-OIk" id="gLh-Hi-6gr"/>
                         <outlet property="lctCoachRecipeTableHeight" destination="Xhi-l5-CkO" id="rUY-0E-OPI"/>
                         <outlet property="tblCoachRecipe" destination="Fa5-Z7-yNC" id="STL-1s-k6m"/>
                     </connections>
@@ -1761,16 +1770,24 @@
                                 <rect key="frame" x="20" y="204" width="388" height="668"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No recipes data found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xxv-if-q2b">
+                                <rect key="frame" x="114.66666666666667" y="526" width="198.66666666666663" height="24"/>
+                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="JUk-kL-alV"/>
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
                             <constraint firstItem="JUk-kL-alV" firstAttribute="bottom" secondItem="xjz-K1-q3E" secondAttribute="bottom" constant="20" id="6N6-BD-aDn"/>
+                            <constraint firstItem="Xxv-if-q2b" firstAttribute="centerY" secondItem="xjz-K1-q3E" secondAttribute="centerY" id="8Iu-3a-o3q"/>
                             <constraint firstItem="ocn-rs-keZ" firstAttribute="top" secondItem="Jk3-cQ-Ixs" secondAttribute="bottom" constant="10" id="97w-AH-Dtf"/>
                             <constraint firstItem="ocn-rs-keZ" firstAttribute="leading" secondItem="JUk-kL-alV" secondAttribute="leading" constant="20" id="GLg-vC-gtC"/>
                             <constraint firstItem="bgP-pH-ELI" firstAttribute="leading" secondItem="ocn-rs-keZ" secondAttribute="trailing" constant="20" id="ZaT-q4-8Oc"/>
                             <constraint firstItem="xjz-K1-q3E" firstAttribute="leading" secondItem="JUk-kL-alV" secondAttribute="leading" constant="20" id="d2k-Ys-icY"/>
                             <constraint firstItem="JUk-kL-alV" firstAttribute="trailing" secondItem="Jk3-cQ-Ixs" secondAttribute="trailing" id="fP8-O6-BA3"/>
+                            <constraint firstItem="Xxv-if-q2b" firstAttribute="centerX" secondItem="cAi-J7-k6K" secondAttribute="centerX" id="mg5-FW-VbE"/>
                             <constraint firstItem="xjz-K1-q3E" firstAttribute="top" secondItem="ocn-rs-keZ" secondAttribute="bottom" constant="20" id="mrA-ZY-L4x"/>
                             <constraint firstItem="JUk-kL-alV" firstAttribute="trailing" secondItem="bgP-pH-ELI" secondAttribute="trailing" constant="20" id="n1O-ec-0eg"/>
                             <constraint firstItem="bgP-pH-ELI" firstAttribute="top" secondItem="ocn-rs-keZ" secondAttribute="top" id="nZI-42-11N"/>
@@ -1780,6 +1797,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="lblRecipeCenter" destination="Xxv-if-q2b" id="j7X-Y7-T0H"/>
                         <outlet property="tblCoachRecipe" destination="xjz-K1-q3E" id="VkT-SD-e1C"/>
                         <outlet property="txtSearch" destination="s4S-GU-2Jg" id="g6H-91-sCO"/>
                     </connections>
@@ -1932,12 +1950,20 @@
                                                     <constraint firstAttribute="width" secondItem="eNw-DL-lBC" secondAttribute="height" multiplier="1:1" id="t2d-XY-2KF"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minimum Class Duration" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpF-nN-i7k">
-                                                <rect key="frame" x="30" y="15.666666666666686" width="175.66666666666666" height="19"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maximum Preparation Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QpF-nN-i7k">
+                                                <rect key="frame" x="30.000000000000014" y="15.666666666666686" width="197.33333333333337" height="19"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="16"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwD-Br-W6n">
+                                                <rect key="frame" x="311.33333333333331" y="12.666666666666686" width="10" height="25"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="lwD-Br-W6n" secondAttribute="height" multiplier="2:5" id="Lx1-z5-83I"/>
+                                                    <constraint firstAttribute="width" constant="10" id="urU-RA-hCc"/>
+                                                </constraints>
+                                                <state key="normal" image="ic_scroll"/>
+                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0 mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wk8-PZ-JZm">
                                                 <rect key="frame" x="331.33333333333331" y="16.666666666666686" width="41.666666666666686" height="17"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="14"/>
@@ -1955,6 +1981,7 @@
                                         </subviews>
                                         <color key="backgroundColor" red="0.17254901959999999" green="0.2274509804" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstItem="wk8-PZ-JZm" firstAttribute="leading" secondItem="lwD-Br-W6n" secondAttribute="trailing" constant="10" id="60i-2O-rp9"/>
                                             <constraint firstItem="eNw-DL-lBC" firstAttribute="leading" secondItem="swB-jw-6ge" secondAttribute="leading" constant="15" id="BSu-Ew-gcG"/>
                                             <constraint firstItem="QpF-nN-i7k" firstAttribute="leading" secondItem="eNw-DL-lBC" secondAttribute="trailing" constant="15" id="Cpe-kg-5h9"/>
                                             <constraint firstItem="lvl-oq-owx" firstAttribute="leading" secondItem="swB-jw-6ge" secondAttribute="leading" id="Ghh-5l-alI"/>
@@ -1965,6 +1992,7 @@
                                             <constraint firstItem="wk8-PZ-JZm" firstAttribute="centerY" secondItem="swB-jw-6ge" secondAttribute="centerY" id="PRI-QY-dt6"/>
                                             <constraint firstAttribute="trailing" secondItem="lvl-oq-owx" secondAttribute="trailing" id="W8O-O8-mcv"/>
                                             <constraint firstItem="lvl-oq-owx" firstAttribute="top" secondItem="swB-jw-6ge" secondAttribute="top" id="a8o-yr-tHh"/>
+                                            <constraint firstItem="wk8-PZ-JZm" firstAttribute="centerY" secondItem="lwD-Br-W6n" secondAttribute="centerY" id="aND-N5-8FV"/>
                                             <constraint firstItem="eNw-DL-lBC" firstAttribute="centerY" secondItem="swB-jw-6ge" secondAttribute="centerY" id="yfP-Ll-EzE"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
@@ -2963,7 +2991,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="25.666666030883789" height="25.666666030883789"/>
         <image name="Switch" width="17" height="18.333333969116211"/>
-        <image name="Trainers Icon" width="29.333333969116211" height="24"/>
+        <image name="Trainers Icon" width="41.666667938232422" height="36"/>
         <image name="chatting" width="23.666666030883789" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.333333969116211"/>
@@ -2995,6 +3023,7 @@
         <image name="ic_quadriceps_calfs_middle_left" width="5.6666665077209473" height="20.333333969116211"/>
         <image name="ic_quadriceps_calfs_middle_right" width="5.6666665077209473" height="20.333333969116211"/>
         <image name="ic_quadriceps_calfs_right" width="19.666666030883789" height="82.666664123535156"/>
+        <image name="ic_scroll" width="10" height="25"/>
         <image name="ic_shoulder_biceps_foream_back_left_group" width="23.666666030883789" height="63"/>
         <image name="ic_shoulder_biceps_foream_back_right_group" width="26.666666030883789" height="63"/>
         <image name="ic_shoulder_bixeps_forearm_left" width="26.666666030883789" height="63"/>
@@ -3007,6 +3036,9 @@
         <image name="subscriber" width="16" height="15.666666984558105"/>
         <namedColor name="textColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="textFieldColor">
+            <color red="0.32156862745098042" green="0.37254901960784315" blue="0.43529411764705883" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="textfeildBGColor">
             <color red="0.17254901960784313" green="0.22745098039215686" blue="0.29019607843137257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

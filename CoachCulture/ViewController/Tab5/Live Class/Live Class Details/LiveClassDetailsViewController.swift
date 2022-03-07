@@ -120,9 +120,8 @@ class LiveClassDetailsViewController: BaseViewController {
             }
             
             if item.lowercased() == "Delete".lowercased() { //Delete
-                if Reachability.isConnectedToNetwork(){
-                    self.deleteClass()
-                }
+                self.addConfirmationView()
+                self.deleteView()
             }
             
             if item.lowercased() == "Template".lowercased() { //Delete
@@ -149,7 +148,7 @@ class LiveClassDetailsViewController: BaseViewController {
                 }
             }
             
-            if item.lowercased() == "Rate Class".lowercased() { //Rating
+            if item.lowercased() == "Ratings".lowercased() { //Rating
                 
                 if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
                     self.setRatingListPopUpView()
@@ -159,6 +158,16 @@ class LiveClassDetailsViewController: BaseViewController {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
                 
+            }
+            
+            if item.lowercased() == "Share".lowercased() {
+                let textToShare = [ "" ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                
+                activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+                
+                self.present(activityViewController, animated: true, completion: nil)
             }
         }
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
@@ -213,9 +222,9 @@ class LiveClassDetailsViewController: BaseViewController {
 
     func setData() {
         if self.classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id { // personal class
-            dropDown.dataSource  = ["Edit", "Delete", "Send", "Template", "Rate Class"]
+            dropDown.dataSource  = ["Edit", "Delete", "Send", "Template", "Ratings", "Share"]
         } else {
-            dropDown.dataSource  = ["Send", "Rate Class"]
+            dropDown.dataSource  = ["Send", "Share"]
         }
         imgClassCover.setImageFromURL(imgUrl: classDetailDataObj.thumbnail_image, placeholderImage: nil)
         if classDetailDataObj.coach_class_type == CoachClassType.live {
@@ -234,6 +243,8 @@ class LiveClassDetailsViewController: BaseViewController {
             viwClassStartIn.isHidden = true
             lblDate.text = classDetailDataObj.total_viewers + " views"
             lblTime.text = classDetailDataObj.created_atForamted
+            lblTime?.font = UIFont.init(name: "SFProText-Heavy", size: 14)
+            lblTime?.textColor = #colorLiteral(red: 0.1725490196, green: 0.2274509804, blue: 0.2901960784, alpha: 1)
             imgDownload.isHidden = false
             viewRecipeBottomButton.backgroundColor = COLORS.ON_DEMAND_COLOR
             lblViewRecipeBottomButton.text = "Join Class"
@@ -347,6 +358,19 @@ class LiveClassDetailsViewController: BaseViewController {
         } failure: { (error) in
             self.hideLoader()
             return true
+        }
+    }
+    
+    func deleteView() {
+        logOutView.lblTitle.text = "Delete Class?"
+        logOutView.lblMessage.text = "Are you sure you would like to delete this class?"
+        logOutView.btnLeft.setTitle("Yes", for: .normal)
+        logOutView.btnRight.setTitle("Cancel", for: .normal)
+        logOutView.tapToBtnLogOut {
+            if Reachability.isConnectedToNetwork(){
+                self.deleteClass()
+            }
+            self.removeConfirmationView()
         }
     }
     

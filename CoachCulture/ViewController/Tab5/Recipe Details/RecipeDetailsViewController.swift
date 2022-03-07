@@ -45,6 +45,7 @@ class RecipeDetailsViewController: BaseViewController {
     var recipeID = ""
     var isNew = false
     var showDetailView : ShowDetailView!
+    var logOutView:LogOutView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,7 @@ class RecipeDetailsViewController: BaseViewController {
     
     func setUpUI() {
         
+        logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         viwSatFat.applyBorder(4, borderColor: hexStringToUIColor(hex: "#CC2936"))
         viwFat.applyBorder(4, borderColor: hexStringToUIColor(hex: "#4DB748"))
         viwCarbs.applyBorder(4, borderColor: hexStringToUIColor(hex: "#1A82F6"))
@@ -92,49 +94,49 @@ class RecipeDetailsViewController: BaseViewController {
         dropDown.anchorView = btnMore
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
-        if self.recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
-                if index == 0 { //Edit
-                    let vc = CreateMealRecipeViewController.viewcontroller()
-                    vc.isFromEdit = true
-                    vc.recipeDetailDataObj = self.recipeDetailDataObj
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
+            if item.lowercased() == "Edit".lowercased() { //Edit
+                let vc = CreateMealRecipeViewController.viewcontroller()
+                vc.isFromEdit = true
+                vc.recipeDetailDataObj = self.recipeDetailDataObj
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            if item.lowercased() == "Delete".lowercased() { //Delete
+                self.addConfirmationView()
+                self.deleteView()
+            }
+            
+            if item.lowercased() == "Template".lowercased() { //Template
+                let vc = CreateMealRecipeViewController.viewcontroller()
+                vc.isFromEdit = true
+                vc.isFromTemplate = true
+                self.recipeDetailDataObj.title = ""
+                self.recipeDetailDataObj.thumbnail_image = ""
+                self.recipeDetailDataObj.id = ""
+                vc.recipeDetailDataObj = self.recipeDetailDataObj
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            
+            if item.lowercased() == "Ratings".lowercased() { //Rating
                 
-                if index == 1 { //Delete
-                    if Reachability.isConnectedToNetwork(){
-                        deleteRecipeDetail()
-                    }
-                }
-                
-                if index == 2 { //send
+                if recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
                     
-                }
-                
-                if index == 3 {//Template
-                    let vc = CreateMealRecipeViewController.viewcontroller()
-                    vc.isFromEdit = true
-                    vc.isFromTemplate = true
-                    self.recipeDetailDataObj.title = ""
-                    self.recipeDetailDataObj.thumbnail_image = ""
-                    self.recipeDetailDataObj.id = ""
-                    vc.recipeDetailDataObj = self.recipeDetailDataObj
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-                
-                if index == 4 { //Rating
+                } else {
                     let vc = GiveRecipeRattingViewController.viewcontroller()
                     vc.recipeDetailDataObj = self.recipeDetailDataObj
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
-            } else {
-                if index == 0 {//send
-                }
                 
-                if index == 1 { //Rating
-                    let vc = GiveRecipeRattingViewController.viewcontroller()
-                    vc.selectedId = self.recipeDetailDataObj.id
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
+            }
+            
+            if item.lowercased() == "Share".lowercased() {
+                let textToShare = [ "" ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                
+                activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]
+                
+                self.present(activityViewController, animated: true, completion: nil)
             }
         }
         
@@ -148,9 +150,9 @@ class RecipeDetailsViewController: BaseViewController {
     
     func setData() {
         if self.recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
-            dropDown.dataSource = ["Edit", "Delete", "Send", "Template", "Rating"]
+            dropDown.dataSource = ["Edit", "Delete", "Template", "Ratings", "Send", "Share"]
         } else {
-            dropDown.dataSource = ["Send", "Rate Class"]
+            dropDown.dataSource = ["Send", "Share"]
         }
         lblMealType.text = recipeDetailDataObj.arrMealTypeString
         lblRecipeDuration.text = recipeDetailDataObj.duration
@@ -174,6 +176,30 @@ class RecipeDetailsViewController: BaseViewController {
         self.showDetailView.heightDescriptionDetailTbl.constant = 0.5
         self.showDetailView.hightRecipeIngTbl.constant = 0.5
         tblIntredienta.reloadData()
+    }
+    
+    func deleteView() {
+        logOutView.lblTitle.text = "Delete Class?"
+        logOutView.lblMessage.text = "Are you sure you would like to delete this class?"
+        logOutView.btnLeft.setTitle("Yes", for: .normal)
+        logOutView.btnRight.setTitle("Cancel", for: .normal)
+        logOutView.tapToBtnLogOut {
+            if Reachability.isConnectedToNetwork(){
+                self.deleteRecipeDetail()
+            }
+            self.removeConfirmationView()
+        }
+    }
+    
+    func addConfirmationView() {
+        logOutView.frame.size = self.view.frame.size
+        self.view.addSubview(logOutView)
+    }
+    
+    func removeConfirmationView() {
+        if logOutView != nil{
+            logOutView.removeFromSuperview()
+        }
     }
     
     func setShowDetailView() {
