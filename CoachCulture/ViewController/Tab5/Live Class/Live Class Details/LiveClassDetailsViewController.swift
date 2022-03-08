@@ -53,6 +53,8 @@ class LiveClassDetailsViewController: BaseViewController {
     @IBOutlet weak var viwClassType: UIView!
     @IBOutlet weak var viwMoreIngredient: UIView!
     @IBOutlet weak var viwClassStartIn: UIView!
+    @IBOutlet weak var viwScanQr: UIView!
+    @IBOutlet weak var viwJoinClass: UIView!
     
     var classDetailDataObj = ClassDetailData()
     var dropDown = DropDown()
@@ -88,6 +90,13 @@ class LiveClassDetailsViewController: BaseViewController {
         super.viewWillDisappear(animated)
         
         self.hideTabBar()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        viwScanQr.roundCorners(corners: [.bottomLeft], radius: 30)
+        viwJoinClass.roundCorners(corners: [.bottomRight], radius: 30)
     }
 
     private func setUpUI() {

@@ -27,7 +27,7 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         dropDown.textColor = UIColor.white
         
         dropDown.anchorView = btnSelectUnit
-        
+        txtIngredient.delegate = self
     }
     
     func isNav() -> Bool {
@@ -53,6 +53,29 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+}
+
+//MARK: - UITextFieldDelegate
+extension AddIngredientIemTableViewCell : UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        /*
+        let cell = tbl.cellForRow(at: IndexPath(row: textField.tag, section: 0)) as! AddIngredientIemTableViewCell
+        let obj = arrAddIngredientsListData[textField.tag]
+        
+        if textField ==  cell.txtIngredient {
+            obj.addIngredients = finalString
+        }
+        
+        if textField ==  cell.txtQty {
+            obj.qty = finalString
+        }
+        */
+        return true
     }
     
 }

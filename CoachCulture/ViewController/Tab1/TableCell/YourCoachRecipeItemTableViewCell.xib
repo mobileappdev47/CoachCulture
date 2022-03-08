@@ -41,7 +41,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="weP-U6-kaD">
-                                        <rect key="frame" x="10" y="10" width="31.5" height="17"/>
+                                        <rect key="frame" x="5" y="5" width="31.5" height="17"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UEE-AA-UA4">
                                                 <rect key="frame" x="5" y="5" width="21.5" height="7"/>
@@ -74,15 +74,20 @@
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="klu-bE-emg" secondAttribute="bottom" id="66P-V6-fFU"/>
                                     <constraint firstAttribute="height" constant="80" id="6On-GV-5vw"/>
-                                    <constraint firstItem="weP-U6-kaD" firstAttribute="leading" secondItem="Wy4-GA-4U6" secondAttribute="leading" constant="10" id="AGQ-Nn-tg4"/>
+                                    <constraint firstItem="weP-U6-kaD" firstAttribute="leading" secondItem="Wy4-GA-4U6" secondAttribute="leading" constant="5" id="AGQ-Nn-tg4"/>
                                     <constraint firstAttribute="width" constant="120" id="E1R-o4-iEm"/>
-                                    <constraint firstItem="weP-U6-kaD" firstAttribute="top" secondItem="Wy4-GA-4U6" secondAttribute="top" constant="10" id="ELn-2E-MkT"/>
+                                    <constraint firstItem="weP-U6-kaD" firstAttribute="top" secondItem="Wy4-GA-4U6" secondAttribute="top" constant="5" id="ELn-2E-MkT"/>
                                     <constraint firstItem="klu-bE-emg" firstAttribute="leading" secondItem="Wy4-GA-4U6" secondAttribute="leading" id="YOr-Kt-ksK"/>
                                     <constraint firstAttribute="bottom" secondItem="XnR-Ot-Ly7" secondAttribute="bottom" id="cqH-1r-HMZ"/>
                                     <constraint firstItem="klu-bE-emg" firstAttribute="top" secondItem="Wy4-GA-4U6" secondAttribute="top" id="i4v-tC-HZS"/>
@@ -152,7 +157,7 @@
                                     <constraint firstAttribute="trailing" secondItem="h2s-cy-PnC" secondAttribute="trailing" id="rsv-J6-XgN"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raU-DX-hfC" userLabel="Profile">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="raU-DX-hfC" userLabel="Profile">
                                 <rect key="frame" x="245" y="0.0" width="75" height="110"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_img" translatesAutoresizingMaskIntoConstraints="NO" id="0BA-95-Xym">

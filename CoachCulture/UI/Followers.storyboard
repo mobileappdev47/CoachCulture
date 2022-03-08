@@ -224,11 +224,26 @@
                                             <action selector="didTapBack:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="eMn-id-VXp"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tpa-Oa-e3N">
+                                        <rect key="frame" x="398" y="38" width="22" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="22" id="BBt-RH-22P"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="3Dots"/>
+                                        <connections>
+                                            <action selector="clickToBtn3Dots:" destination="hgy-cn-j0V" eventType="touchUpInside" id="fpg-0s-FJZ"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Tpa-Oa-e3N" secondAttribute="trailing" constant="10" id="2JT-o4-TuU"/>
                                     <constraint firstItem="ouP-1W-zRp" firstAttribute="leading" secondItem="vNj-Pd-aX2" secondAttribute="leading" constant="20" id="37i-EM-jmM"/>
                                     <constraint firstAttribute="bottom" secondItem="B4D-1o-usK" secondAttribute="bottom" constant="30" id="Jty-68-Tdg"/>
+                                    <constraint firstItem="Tpa-Oa-e3N" firstAttribute="centerY" secondItem="ouP-1W-zRp" secondAttribute="centerY" id="mjZ-6j-3Hk"/>
+                                    <constraint firstItem="Tpa-Oa-e3N" firstAttribute="width" secondItem="Tpa-Oa-e3N" secondAttribute="height" multiplier="1:1" id="mtR-HR-wqA"/>
                                     <constraint firstItem="B4D-1o-usK" firstAttribute="centerX" secondItem="vNj-Pd-aX2" secondAttribute="centerX" id="pJt-S5-ayC"/>
                                     <constraint firstItem="B4D-1o-usK" firstAttribute="top" secondItem="vNj-Pd-aX2" secondAttribute="top" constant="20" id="uyg-xr-Hqj"/>
                                     <constraint firstAttribute="bottom" secondItem="ouP-1W-zRp" secondAttribute="bottom" constant="20" id="vCd-94-plp"/>
@@ -594,6 +609,8 @@
                     </view>
                     <connections>
                         <outlet property="bottomConstantViewUserProfile" destination="dqD-sy-iBi" id="ZCd-6O-cbF"/>
+                        <outlet property="btn3Dots" destination="Tpa-Oa-e3N" id="Axj-1n-Cku"/>
+                        <outlet property="btnUserProfile" destination="Mz7-9o-DuG" id="jOK-m4-t62"/>
                         <outlet property="heightConstantImgBanner" destination="3PO-ju-VYI" id="wyd-ey-0Sx"/>
                         <outlet property="imgClassCover" destination="xsT-91-XX5" id="26W-42-3Wd"/>
                         <outlet property="imgMovieIcon" destination="Ucd-RQ-UzB" id="AFd-Ot-Xim"/>
@@ -1578,8 +1595,8 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfs-Cm-6dR" userLabel="Popular Recipes">
                                                 <rect key="frame" x="20" y="244" width="388" height="184"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Coach’s Recipes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrF-lp-CUy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="196" height="24"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Recipe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrF-lp-CUy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="108.33333333333333" height="24"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -2034,6 +2051,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="428" height="60"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="clickToBtnApplyFilter:" destination="xCP-PB-2At" eventType="touchUpInside" id="GZV-GI-BdM"/>
                                         </connections>
@@ -2984,6 +3006,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="3Dots" width="6" height="28"/>
         <image name="Calendar Icon" width="18.333333969116211" height="18.333333969116211"/>
         <image name="Filter" width="30" height="18.333333969116211"/>
         <image name="Search" width="55" height="55"/>

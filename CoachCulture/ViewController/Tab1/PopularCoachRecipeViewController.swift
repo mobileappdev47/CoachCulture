@@ -147,7 +147,7 @@ extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDat
         if cell.imgBlurThumbnail.image == nil {
             cell.imgBlurThumbnail.blurImage()
         }
-        
+        cell.arrDietaryRestriction = model.arrdietary_restriction
         cell.viewTime.addCornerRadius(5)
         cell.viewUsername.addCornerRadius(5)
         cell.viewClassType.addCornerRadius(5)
@@ -162,6 +162,15 @@ extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDat
         cell.imgBlurThumbnail.setImageFromURL(imgUrl: model.thumbnail_image, placeholderImage: "")
         
         cell.imgBookmark.image = model.bookmark == BookmarkType.No ? UIImage(named: "BookmarkLight") : UIImage(named: "Bookmark")
+        
+        cell.didTapBookmarkButton = {
+            var param = [String:Any]()
+            param[Params.AddRemoveBookmark.coach_class_id] = model.id
+            param[Params.AddRemoveBookmark.bookmark] = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+            if Reachability.isConnectedToNetwork(){
+                self.addOrRemoveFromBookMark(bookmark: model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No, coach_recipe_id: model.id,  selectedIndex: cell.selectedIndex)
+            }
+        }
         if model.bookmark.lowercased() == "no".lowercased() {
             cell.imgBookmark.image = UIImage(named: "BookmarkLight")
         } else {

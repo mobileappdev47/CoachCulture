@@ -83,9 +83,15 @@ extension DropDown: UITableViewDataSource, UITableViewDelegate {
         if let cellConfiguration = cellConfiguration {
             cell.optionLabel.text = cellConfiguration(index, dataSource[index])
             cell.imgIcon.image = UIImage(named: "ic_\(dataSource[index].lowercased())")
+            if cell.imgIcon.image == nil {
+                cell.imgIcon.isHidden = true
+            }
         } else {
             cell.optionLabel.text = dataSource[index]
             cell.imgIcon.image = UIImage(named: "ic_\(dataSource[index].lowercased())")
+            if cell.imgIcon.image == nil {
+                cell.imgIcon.isHidden = true
+            }
         }
         customCellConfiguration?(index, dataSource[index], cell)
     }
