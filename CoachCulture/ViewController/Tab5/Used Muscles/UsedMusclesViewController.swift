@@ -10,6 +10,8 @@ import UIKit
 class UsedMusclesViewController: BaseViewController {
        
     //MARK: - OUTLET
+    @IBOutlet weak var viewFrontBody: UIView!
+    @IBOutlet weak var viewBackBody: UIView!
     @IBOutlet weak var btnImgBackLeftArm: UIButton!
     @IBOutlet weak var btnImgBackRightArm: UIButton!
     @IBOutlet weak var btnImgBackUpperBackLeft: UIButton!
@@ -87,6 +89,11 @@ class UsedMusclesViewController: BaseViewController {
                 }
             }
         }
+        
+        let frontImage = self.viewFrontBody.asImage()
+        
+        let backImage = self.viewBackBody.asImage()
+        print("")
     }    
     
     //MARK: - Click Event
@@ -390,4 +397,24 @@ struct MuscleGroupName {
     static let Hamstrings = "Hamstrings"
     static let Calfs = "Calfs"
     static let Glutes = "Glutes"
+}
+
+extension UIView {
+
+    func asImage() -> UIImage? {
+        if #available(iOS 10.0, *) {
+            let renderer = UIGraphicsImageRenderer(bounds: bounds)
+            return renderer.image { rendererContext in
+                layer.render(in: rendererContext.cgContext)
+            }
+        } else {
+            UIGraphicsBeginImageContextWithOptions(self.bounds.size, self.isOpaque, 0.0)
+            defer { UIGraphicsEndImageContext() }
+            guard let currentContext = UIGraphicsGetCurrentContext() else {
+                return nil
+            }
+            self.layer.render(in: currentContext)
+            return UIGraphicsGetImageFromCurrentImageContext()
+        }
+    }
 }

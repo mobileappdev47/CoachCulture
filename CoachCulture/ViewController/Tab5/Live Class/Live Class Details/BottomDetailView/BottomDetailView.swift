@@ -17,7 +17,9 @@ class BottomDetailView: UIView {
     @IBOutlet weak var viewDuration: UIView!
     
     @IBOutlet weak var tblEqupment: UITableView!
+    @IBOutlet weak var imgMusclesFront: UIImageView!
     
+    @IBOutlet weak var imgMusclesBack: UIImageView!
     
     @IBOutlet weak var lblCalary: UILabel!
     @IBOutlet weak var lblDuration: UILabel!
@@ -47,11 +49,13 @@ class BottomDetailView: UIView {
         
     }
     
-    func setData(title : String, SubTitle : String, calary: String, duration: String, Data : ClassDetailData) { lblCalary.text = calary
+    func setData(title : String, SubTitle : String, calary: String, duration: String, musclesBackImage: UIImage, musclesFrontImage: UIImage, Data : ClassDetailData) { lblCalary.text = calary
         lblDuration.text = duration
         lblTItle.text = title
         lblSubTitle.text = SubTitle
         classDetailDataObj = Data
+        self.imgMusclesBack.image = musclesBackImage
+        self.imgMusclesFront.image = musclesFrontImage
     }
     
     //MARK:- ACTION
