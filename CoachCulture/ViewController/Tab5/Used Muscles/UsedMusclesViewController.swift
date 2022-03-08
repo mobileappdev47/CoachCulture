@@ -8,37 +8,34 @@
 import UIKit
 
 class UsedMusclesViewController: BaseViewController {
-    
-    static func viewcontroller() -> UsedMusclesViewController {
-        let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "UsedMusclesViewController") as! UsedMusclesViewController
-        return vc
-    }
-    
-    var arrMuscleList = [MuscleList]()
-    var isFromEdit = false
-    var classDetailDataObj = ClassDetailData()
-    
+       
     //MARK: - OUTLET
-
+    @IBOutlet weak var btnImgBackLeftArm: UIButton!
+    @IBOutlet weak var btnImgBackRightArm: UIButton!
+    @IBOutlet weak var btnImgBackUpperBackLeft: UIButton!
+    @IBOutlet weak var btnImgBackUpperBackRight: UIButton!
+    @IBOutlet weak var btnImgBackLowerBackLeft: UIButton!
+    @IBOutlet weak var btnImgBackLowerBackRight: UIButton!
+    @IBOutlet weak var btnImgBackHarmstringsLeft: UIButton!
+    @IBOutlet weak var btnImgBackHarmstringsRight: UIButton!
+    @IBOutlet weak var btnImgBackCalfsLeft: UIButton!
+    @IBOutlet weak var btnImgBackCalfsRight: UIButton!
+    @IBOutlet weak var btnImgBackGlutesLeft: UIButton!
+    @IBOutlet weak var btnImgBackGlutesRight: UIButton!
     @IBOutlet weak var clvMusclesType: UICollectionView!
         
     @IBOutlet weak var btnImgNeckLeft: UIButton!
     @IBOutlet weak var btnImgNeckRight: UIButton!
-    
     @IBOutlet weak var btnChestLeft: UIButton!
     @IBOutlet weak var btnChestRight: UIButton!
-    
     @IBOutlet weak var btnObliqueFrontLeft: UIButton!
     @IBOutlet weak var btnObliqueFrontRight: UIButton!
     @IBOutlet weak var btnObliqueBackLeft: UIButton!
     @IBOutlet weak var btnObliqueBackRight: UIButton!
-    
     @IBOutlet weak var btnAbdominalsFrontLeft: UIButton!
     @IBOutlet weak var btnAbdominalsFrontRight: UIButton!
-    
     @IBOutlet weak var btnShoulderBicepsForearmFrontLeft: UIButton!
     @IBOutlet weak var btnShoulderBicepsForearmFrontRight: UIButton!
-    
     @IBOutlet weak var btnChestFrontLeft: UIButton!
     @IBOutlet weak var btnChestFrontRIght: UIButton!
     @IBOutlet weak var btnQuadricepsFrontLeft: UIButton!
@@ -47,7 +44,15 @@ class UsedMusclesViewController: BaseViewController {
     @IBOutlet weak var btnCalfsFrontRight: UIButton!
     
     var paramDic = [String : Any]()
+    static func viewcontroller() -> UsedMusclesViewController {
+        let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "UsedMusclesViewController") as! UsedMusclesViewController
+        return vc
+    }
     
+    var arrMuscleList = [MuscleList]()
+    var isFromEdit = false
+    var classDetailDataObj = ClassDetailData()
+
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,18 +73,21 @@ class UsedMusclesViewController: BaseViewController {
     }
     
     func setData() {
+        let tempArrMuscleList = arrMuscleList
         
-        for temp in arrMuscleList {
-            let ind = classDetailDataObj.arrMuscleGroupList.firstIndex { obj in
-                return obj.muscle_group_id == temp.id
-            }
-            
-            if ind != nil {
-                arrMuscleList[ind!].isSelected = true
+        for (indexMain, temp) in arrMuscleList.enumerated() {
+            for (_ , model) in classDetailDataObj.arrMuscleGroupList.enumerated() {
+                if model.muscle_group_id == temp.id {
+                    print("model.muscle_group_name: \(model.muscle_group_name)")
+                    print("obj.muscle_group_id: \(model.muscle_group_id)")
+                    print("temp.id: \(temp.id)")
+                    tempArrMuscleList[indexMain].isSelected = true
+                    self.manageMusclesActivity(musclesModel: tempArrMuscleList[indexMain])
+                    break
+                }
             }
         }
-    }
-    
+    }    
     
     //MARK: - Click Event
     @IBAction func clickToBtnUsedMuscles( _ sender: UIButton) {
@@ -175,49 +183,82 @@ extension UsedMusclesViewController: UICollectionViewDataSource, UICollectionVie
     {
         let obj  = arrMuscleList[indexPath.row]
         obj.isSelected = !obj.isSelected
-        self.manageMusclesActivity()
+        self.manageMusclesActivity(musclesModel: obj)
         DispatchQueue.main.async {
             collectionView.reloadData()
         }
     }
     
-    func manageMusclesActivity() {
-        self.arrMuscleList.forEach { (musclesModel) in
-            let muscleGroupName = musclesModel.muscle_group_name
-            let isSelected = musclesModel.isSelected
-            
-            switch muscleGroupName {
-            case MuscleGroupName.Neck:
-                self.setNeckMuscles(isSelected: isSelected)
-            case MuscleGroupName.Shoulder, MuscleGroupName.Biceps, MuscleGroupName.Forearm:
-                self.setShoulderBicepsForearmMuscles()
-            case MuscleGroupName.Chest:
-                self.setChestMuscles(isSelected: isSelected)
-            case MuscleGroupName.Abdominals:
-                self.setAbdominalsMuscles(isSelected: isSelected)
-            case MuscleGroupName.Oblique:
-                self.setObliqueMuscles(isSelected: isSelected)
-            case MuscleGroupName.Quadriceps:
-                self.setQuadricepsMuscles(isSelected: isSelected)
-            case MuscleGroupName.Calfs:
-                self.setCalfsMuscles(isSelected: isSelected)
-            /*case MuscleGroupName.Neck:
-                self.setNeckMuscles(isSelected: isSelected)
-            case MuscleGroupName.Neck:
-                self.setNeckMuscles(isSelected: isSelected)
-            case MuscleGroupName.Neck:
-                self.setNeckMuscles(isSelected: isSelected)*/
-            default:
-                break
-            }
+    func manageMusclesActivity(musclesModel: MuscleList) {
+        let muscleGroupName = musclesModel.muscle_group_name
+        let isSelected = musclesModel.isSelected
+        
+        switch muscleGroupName {
+        case MuscleGroupName.Neck:
+            self.setNeckMuscles(isSelected: isSelected)
+        case MuscleGroupName.Shoulder, MuscleGroupName.Biceps, MuscleGroupName.Forearm:
+            self.setShoulderBicepsForearmMuscles()
+        case MuscleGroupName.Chest:
+            self.setChestMuscles(isSelected: isSelected)
+        case MuscleGroupName.Abdominals:
+            self.setAbdominalsMuscles(isSelected: isSelected)
+        case MuscleGroupName.Oblique:
+            self.setObliqueMuscles(isSelected: isSelected)
+        case MuscleGroupName.Quadriceps:
+            self.setQuadricepsMuscles(isSelected: isSelected)
+        case MuscleGroupName.Calfs:
+            self.setCalfsMuscles(isSelected: isSelected)
+        case MuscleGroupName.UpperBack:
+            self.setUpperBackMuscles(isSelected: isSelected)
+        case MuscleGroupName.LowerBack:
+            self.setLowerBackMuscles(isSelected: isSelected)
+        case MuscleGroupName.Hamstrings:
+            self.setHarmstringsMuscles(isSelected: isSelected)
+        case MuscleGroupName.Glutes:
+            self.setGlutesMuscles(isSelected: isSelected)
+        default:
+            break
         }
     }
     
+    func setGlutesMuscles(isSelected: Bool) {
+        btnImgBackGlutesLeft.setImage(UIImage(named: "ic_glutes_left")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackGlutesLeft.tintColor = isSelected ? COLORS.THEME_RED : .white
+        btnImgBackGlutesRight.setImage(UIImage(named: "ic_glutes_right")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackGlutesRight.tintColor = isSelected ? COLORS.THEME_RED : .white
+    }
+
+    func setHarmstringsMuscles(isSelected: Bool) {
+        btnImgBackHarmstringsLeft.setImage(UIImage(named: "ic_hamstrings_left")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackHarmstringsLeft.tintColor = isSelected ? COLORS.THEME_RED : .white
+        btnImgBackHarmstringsRight.setImage(UIImage(named: "ic_hamstrings_right")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackHarmstringsRight.tintColor = isSelected ? COLORS.THEME_RED : .white
+    }
+
+    func setLowerBackMuscles(isSelected: Bool) {
+        btnImgBackLowerBackLeft.setImage(UIImage(named: "ic_lower_back_left")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackLowerBackLeft.tintColor = isSelected ? COLORS.THEME_RED : .white
+        btnImgBackLowerBackRight.setImage(UIImage(named: "ic_lower_back_right")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackLowerBackRight.tintColor = isSelected ? COLORS.THEME_RED : .white
+    }
+
+    func setUpperBackMuscles(isSelected: Bool) {
+        btnImgBackUpperBackLeft.setImage(UIImage(named: "ic_upper_back_right")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackUpperBackLeft.tintColor = isSelected ? COLORS.THEME_RED : .white
+        btnImgBackUpperBackRight.setImage(UIImage(named: "ic_upper_back_left")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackUpperBackRight.tintColor = isSelected ? COLORS.THEME_RED : .white
+    }
+
     func setCalfsMuscles(isSelected: Bool) {
         btnCalfsFrontLeft.setImage(UIImage(named: "ic_calfs_front_left")?.withRenderingMode(.alwaysTemplate), for: .normal)
         btnCalfsFrontLeft.tintColor = isSelected ? COLORS.THEME_RED : .white
         btnCalfsFrontRight.setImage(UIImage(named: "ic_calfs_front_right")?.withRenderingMode(.alwaysTemplate), for: .normal)
         btnCalfsFrontRight.tintColor = isSelected ? COLORS.THEME_RED : .white
+        
+        btnImgBackCalfsLeft.setImage(UIImage(named: "ic_calfs_left")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackCalfsLeft.tintColor = isSelected ? COLORS.THEME_RED : .white
+        btnImgBackCalfsRight.setImage(UIImage(named: "ic_calfs_right")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnImgBackCalfsRight.tintColor = isSelected ? COLORS.THEME_RED : .white
     }
 
     func setQuadricepsMuscles(isSelected: Bool) {
@@ -228,6 +269,11 @@ extension UsedMusclesViewController: UICollectionViewDataSource, UICollectionVie
     }
 
     func setObliqueMuscles(isSelected: Bool) {
+        btnObliqueBackLeft.setImage(UIImage(named: "ic_oblique__back_left")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnObliqueBackLeft.tintColor = isSelected ? COLORS.THEME_RED : .white
+        btnObliqueBackRight.setImage(UIImage(named: "ic_oblique__back_right")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btnObliqueBackRight.tintColor = isSelected ? COLORS.THEME_RED : .white
+
         btnObliqueFrontLeft.setImage(UIImage(named: "ic_oblique_left")?.withRenderingMode(.alwaysTemplate), for: .normal)
         btnObliqueFrontLeft.tintColor = isSelected ? COLORS.THEME_RED : .white
         btnObliqueFrontRight.setImage(UIImage(named: "ic_oblique_right")?.withRenderingMode(.alwaysTemplate), for: .normal)
@@ -270,33 +316,54 @@ extension UsedMusclesViewController: UICollectionViewDataSource, UICollectionVie
             }
         }
         
-        btnShoulderBicepsForearmFrontRight.setImage(nil, for: .normal)
-        btnShoulderBicepsForearmFrontLeft.setImage(nil, for: .normal)
-
         if shoulderSelected && bicepsSelected && forearmSelected {
             btnShoulderBicepsForearmFrontLeft.setImage(UIImage(named: "ic_shoulder_biceps_forearm_selected_front_left"), for: .normal)
             btnShoulderBicepsForearmFrontRight.setImage(UIImage(named: "ic_shoulder_biceps_forearm_selected_front_right"), for: .normal)
+            
+            btnImgBackLeftArm.setImage(UIImage(named: "ic_back_left_shoulder_forearm_bothselected"), for: .normal)
+            btnImgBackRightArm.setImage(UIImage(named: "ic_back_right_shoulder_forearm_bothselected"), for: .normal)
         } else if forearmSelected && bicepsSelected {            
             self.btnShoulderBicepsForearmFrontLeft.setImage(UIImage(named: "ic_shoulder_biceps_forearm_bothselected_front_left"), for: .normal)
             self.btnShoulderBicepsForearmFrontRight.setImage(UIImage(named: "ic_shoulder_biceps_forearm_bothselected_front_right"), for: .normal)
+            
+            btnImgBackLeftArm.setImage(UIImage(named: "ic_back_left_shoulder_forearm_selectedonly"), for: .normal)
+            btnImgBackRightArm.setImage(UIImage(named: "ic_back_right_shoulder_forearm_selectedonly"), for: .normal)
         } else if shoulderSelected && bicepsSelected {
             btnShoulderBicepsForearmFrontLeft.setImage(UIImage(named: "ic_shoulder_biceps_bothselected_forearm_front_left"), for: .normal)
             btnShoulderBicepsForearmFrontRight.setImage(UIImage(named: "ic_shoulder_biceps_bothselected_forearm_front_right"), for: .normal)
+            
+            btnImgBackLeftArm.setImage(UIImage(named: "ic_back_left_shoulder_selectedonly_forearm"), for: .normal)
+            btnImgBackRightArm.setImage(UIImage(named: "ic_back_right_shoulder_selectedonly_forearm"), for: .normal)
         } else if shoulderSelected && forearmSelected {
             btnShoulderBicepsForearmFrontLeft.setImage(UIImage(named: "ic_shoulder_forearm_bothselected_biceps_front_left"), for: .normal)
             btnShoulderBicepsForearmFrontRight.setImage(UIImage(named: "ic_shoulder_forearm_bothselected_biceps_front_right"), for: .normal)
+            
+            btnImgBackLeftArm.setImage(UIImage(named: "ic_back_left_shoulder_forearm_bothselected"), for: .normal)
+            btnImgBackRightArm.setImage(UIImage(named: "ic_back_right_shoulder_forearm_bothselected"), for: .normal)
         } else if shoulderSelected {
             btnShoulderBicepsForearmFrontLeft.setImage(UIImage(named: "ic_shoulder_selectedonly_biceps_forearm_front_left"), for: .normal)
             btnShoulderBicepsForearmFrontRight.setImage(UIImage(named: "ic_shoulder_selectedonly_biceps_forearm_front_right"), for: .normal)
+            
+            btnImgBackLeftArm.setImage(UIImage(named: "ic_back_left_shoulder_selectedonly_forearm"), for: .normal)
+            btnImgBackRightArm.setImage(UIImage(named: "ic_back_right_shoulder_selectedonly_forearm"), for: .normal)
         } else if bicepsSelected {
             btnShoulderBicepsForearmFrontLeft.setImage(UIImage(named: "ic_shoulder_biceps_selectedonly_forearm_front_left"), for: .normal)
             btnShoulderBicepsForearmFrontRight.setImage(UIImage(named: "ic_shoulder_biceps_selectedonly_forearm_front_right"), for: .normal)
+            
+            btnImgBackLeftArm.setImage(UIImage(named: "ic_back_left_shoulder_forearm"), for: .normal)
+            btnImgBackRightArm.setImage(UIImage(named: "ic_back_right_shoulder_forearm"), for: .normal)
         } else if forearmSelected {
             btnShoulderBicepsForearmFrontLeft.setImage(UIImage(named: "ic_shoulder_biceps_forearm_selectedonly_front_left"), for: .normal)
             btnShoulderBicepsForearmFrontRight.setImage(UIImage(named: "ic_shoulder_biceps_forearm_selectedonly_front_right"), for: .normal)
+            
+            btnImgBackLeftArm.setImage(UIImage(named: "ic_back_left_shoulder_forearm_selectedonly"), for: .normal)
+            btnImgBackRightArm.setImage(UIImage(named: "ic_back_right_shoulder_forearm_selectedonly"), for: .normal)
         } else {
             btnShoulderBicepsForearmFrontLeft.setImage(UIImage(named: "ic_shoulder_biceps_forearm_front_left_group"), for: .normal)
             btnShoulderBicepsForearmFrontRight.setImage(UIImage(named: "ic_shoulder_biceps_forearm_front_left_right"), for: .normal)
+            
+            btnImgBackLeftArm.setImage(UIImage(named: "ic_back_left_shoulder_forearm"), for: .normal)
+            btnImgBackRightArm.setImage(UIImage(named: "ic_back_right_shoulder_forearm"), for: .normal)
         }
         self.view.layoutIfNeeded()
     }
