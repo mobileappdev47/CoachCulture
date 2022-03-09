@@ -80,21 +80,15 @@ class UsedMusclesViewController: BaseViewController {
         for (indexMain, temp) in arrMuscleList.enumerated() {
             for (_ , model) in classDetailDataObj.arrMuscleGroupList.enumerated() {
                 if model.muscle_group_id == temp.id {
-                    print("model.muscle_group_name: \(model.muscle_group_name)")
-                    print("obj.muscle_group_id: \(model.muscle_group_id)")
-                    print("temp.id: \(temp.id)")
                     tempArrMuscleList[indexMain].isSelected = true
                     self.manageMusclesActivity(musclesModel: tempArrMuscleList[indexMain])
                     break
                 }
             }
         }
-        
-        let frontImage = self.viewFrontBody.asImage()
-        
-        let backImage = self.viewBackBody.asImage()
-        print("")
-    }    
+        arrMuscleList = tempArrMuscleList
+        self.clvMusclesType.reloadData()
+    }
     
     //MARK: - Click Event
     @IBAction func clickToBtnUsedMuscles( _ sender: UIButton) {
@@ -118,6 +112,7 @@ class UsedMusclesViewController: BaseViewController {
         } else {
             paramDic["muscle_group"] = muscle_group
             let vc = AddEquipmentAndCaloriesViewController.viewcontroller()
+            vc.classDetailDataObj = self.classDetailDataObj
             vc.paramDic = paramDic
             vc.isFromEdit = self.isFromEdit
             self.navigationController?.pushViewController(vc, animated: true)
@@ -137,7 +132,6 @@ extension UsedMusclesViewController {
                 let dataObj = responseObj["data"] as? [Any] ?? [Any]()
                 self.arrMuscleList = MuscleList.getData(data: dataObj)
                 self.clvMusclesType.reloadData()
-                
             }
             self.hideLoader()
             if self.isFromEdit {

@@ -257,17 +257,18 @@ extension AddEquipmentAndCaloriesViewController {
             
             let responseModel = ResponseDataModel(responseObj: responseObj)
             
-            let dic = responseModel.map.data?["coach_class"] as! [String:Any]
-            let classId = dic["class_id"] as! Int
-            let vc = LiveClassDetailsViewController.viewcontroller()
-            vc.selectedId = "\(classId)"
-            vc.isNew = true
-            self.navigationController?.pushViewController(vc, animated: true)
-            
-            if responseModel.success {
-                let dataObj = responseObj["data"] as? [Any] ?? [Any]()
+            if let dic = responseModel.map.data?["coach_class"] as? [String:Any] {
+                let classId = dic["class_id"] as! Int
+                let vc = LiveClassDetailsViewController.viewcontroller()
+                vc.selectedId = "\(classId)"
+                vc.isNew = true
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+                if responseModel.success {
+                    let dataObj = responseObj["data"] as? [Any] ?? [Any]()
+                }
+                Utility.shared.showToast(responseModel.message)
             }
-            Utility.shared.showToast(responseModel.message)
             self.hideLoader()
             
         } failure: { (error) in
