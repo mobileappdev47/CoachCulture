@@ -288,7 +288,11 @@ class LiveClassDetailsViewController: BaseViewController {
             lblTime.text = classDetailDataObj.class_time
             imgDownload.isHidden = true
             viewRecipeBottomButton.backgroundColor = COLORS.THEME_RED
-            lblViewRecipeBottomButton.text = "Start Class"
+            if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+                lblViewRecipeBottomButton.text = "Start Class"
+            } else {
+                lblViewRecipeBottomButton.text = "Join Class"
+            }
             imgViewRecipeBottomButton.image = UIImage(named: "joinVideo")
         } else {
             lblClassType.text = "ON DEMAND"

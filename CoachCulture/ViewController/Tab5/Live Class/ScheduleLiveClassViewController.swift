@@ -306,7 +306,8 @@ class ScheduleLiveClassViewController: BaseViewController {
             param["thumbnail_image"] = thumbailUrl
             param["base_currency"] = baseCurrency
                     
-            let vc = UserMusclesForLiveClassViewController.viewcontroller()
+            let vc = UsedMusclesViewController.viewcontroller()
+            vc.isFromLive = true
             vc.paramDic = param
             vc.classDetailDataObj = self.classDetailDataObj
             if isFromTemplate {

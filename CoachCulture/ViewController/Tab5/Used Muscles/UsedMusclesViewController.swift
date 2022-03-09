@@ -53,6 +53,7 @@ class UsedMusclesViewController: BaseViewController {
     
     var arrMuscleList = [MuscleList]()
     var isFromEdit = false
+    var isFromLive = false
     var classDetailDataObj = ClassDetailData()
 
     //MARK: - Life cycle
@@ -111,11 +112,19 @@ class UsedMusclesViewController: BaseViewController {
             Utility.shared.showToast("Please select used muscles")
         } else {
             paramDic["muscle_group"] = muscle_group
-            let vc = AddEquipmentAndCaloriesViewController.viewcontroller()
-            vc.classDetailDataObj = self.classDetailDataObj
-            vc.paramDic = paramDic
-            vc.isFromEdit = self.isFromEdit
-            self.navigationController?.pushViewController(vc, animated: true)
+            if isFromLive {
+                let vc = LiveClassAddEquipmentAndCaloriesViewController.viewcontroller()
+                vc.paramDic = paramDic
+                vc.isFromEdit = self.isFromEdit
+                vc.classDetailDataObj = self.classDetailDataObj
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let vc = AddEquipmentAndCaloriesViewController.viewcontroller()
+                vc.classDetailDataObj = self.classDetailDataObj
+                vc.paramDic = paramDic
+                vc.isFromEdit = self.isFromEdit
+                self.navigationController?.pushViewController(vc, animated: true)                
+            }
         }
     }
 }
