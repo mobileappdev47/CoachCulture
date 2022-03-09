@@ -19,14 +19,33 @@ class AddIngredientIemTableViewCell: UITableViewCell {
     @IBOutlet weak var btnDelete : UIButton!
     @IBOutlet weak var btnSelectUnit : UIButton!
     var dropDown = DropDown()
+    var dropDown2 = DropDown()
+    var ddArr = [ "Chopped Raw Vegetables",
+                  "Nuts and Seeds",
+                  "Dried Fruit",
+                  "Baked Tortilla or Pita Chips",
+                  "Fresh Fruit",
+                  "Beans and Legumes",
+                  "Whole Grains"]
+    var ddDelegete = AddIngredientsForRecipeViewController()
 
     override func awakeFromNib() {
         super.awakeFromNib()
         dropDown.dataSource  = ["gm", "kg", "mg"]
+        dropDown2.dataSource  = ddArr
+        
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
         
+        dropDown2.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+        dropDown2.textColor = UIColor.white
+        
         dropDown.anchorView = btnSelectUnit
+        dropDown2.anchorView = txtIngredient
+        
+        dropDown.cellHeight = 50
+        dropDown2.cellHeight = 50
+        
         txtIngredient.delegate = self
     }
     
@@ -61,20 +80,11 @@ class AddIngredientIemTableViewCell: UITableViewCell {
 extension AddIngredientIemTableViewCell : UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        /*
-        let cell = tbl.cellForRow(at: IndexPath(row: textField.tag, section: 0)) as! AddIngredientIemTableViewCell
-        let obj = arrAddIngredientsListData[textField.tag]
-        
-        if textField ==  cell.txtIngredient {
-            obj.addIngredients = finalString
-        }
-        
-        if textField ==  cell.txtQty {
-            obj.qty = finalString
-        }
-        */
+        dropDown2.show()
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return true
     }
     

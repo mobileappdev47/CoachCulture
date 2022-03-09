@@ -108,6 +108,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
             self.removeAddPhotoView()
         }
         
+        dropDown.cellHeight = 50
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "US$".lowercased() {
                 lblSubscriptionCurrentSym.text = item
@@ -258,6 +259,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
             param["base_currency"] = baseCurrency
             
             let vc = UsedMusclesViewController.viewcontroller()
+            vc.classDetailDataObj = self.classDetailDataObj
             vc.paramDic = param
             if isFromTemplate {
                 vc.isFromEdit = false

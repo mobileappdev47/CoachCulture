@@ -221,6 +221,7 @@ class CreateMealRecipeViewController: BaseViewController {
             paramDic["meal_type"] = meal_type
             
             let vc = AddIngredientsForRecipeViewController.viewcontroller()
+            vc.recipeDetailDataObj = recipeDetailDataObj
             vc.paramDic = paramDic
             if isFromTemplate {
                 vc.isFromEdit = false

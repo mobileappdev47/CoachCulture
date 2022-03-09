@@ -112,6 +112,7 @@ class LiveClassDetailsViewController: BaseViewController {
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
         
         dropDown.anchorView = btnMore
+        dropDown.cellHeight = 50
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "Edit".lowercased() { //Edit
                 

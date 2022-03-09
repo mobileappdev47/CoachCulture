@@ -6085,13 +6085,13 @@
         <image name="ic_abdominals_left" width="8.5" height="37.5"/>
         <image name="ic_abdominals_right" width="8.5" height="37.5"/>
         <image name="ic_back" width="11.897000312805176" height="18.731000900268555"/>
+        <image name="ic_banner" width="21" height="17"/>
         <image name="ic_body_back_bg" width="92" height="187"/>
         <image name="ic_body_back_right_part" width="91" height="187"/>
         <image name="ic_calfs_front_left" width="15" height="40.5"/>
         <image name="ic_calfs_front_right" width="15" height="40.5"/>
         <image name="ic_calfs_left" width="13.5" height="29"/>
         <image name="ic_calfs_right" width="13.5" height="29"/>
-        <image name="ic_banner" width="21" height="17"/>
         <image name="ic_call" width="14.5" height="16"/>
         <image name="ic_checked" width="16" height="16"/>
         <image name="ic_chest_left" width="20.5" height="23.5"/>
@@ -6106,6 +6106,7 @@
         <image name="ic_img" width="123" height="190"/>
         <image name="ic_lower_back_left" width="20" height="25.5"/>
         <image name="ic_lower_back_right" width="20" height="25.5"/>
+        <image name="ic_nationality" width="23.003999710083008" height="23.000999450683594"/>
         <image name="ic_neck_left" width="12.5" height="11.5"/>
         <image name="ic_neck_right" width="12.5" height="11.5"/>
         <image name="ic_oblique__back_left" width="5" height="10"/>
@@ -6114,7 +6115,6 @@
         <image name="ic_oblique_back_right_extra" width="9" height="3.5"/>
         <image name="ic_oblique_left" width="10" height="33"/>
         <image name="ic_oblique_right" width="10" height="33"/>
-        <image name="ic_nationality" width="23.003999710083008" height="23.000999450683594"/>
         <image name="ic_password" width="14" height="18"/>
         <image name="ic_payment_methods" width="26" height="18.5"/>
         <image name="ic_quadriceps_calfs_left" width="20" height="82.5"/>

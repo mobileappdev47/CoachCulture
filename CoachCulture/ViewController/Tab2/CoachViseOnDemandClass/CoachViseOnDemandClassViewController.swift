@@ -99,6 +99,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         tblOndemand.register(UINib(nibName: "CoachViseRecipeItemTableViewCell", bundle: nil), forCellReuseIdentifier: "CoachViseRecipeItemTableViewCell")
         tblOndemand.delegate = self
         tblOndemand.dataSource = self
+        dropDown.cellHeight = 50
         dropDown.dataSource  = ["Profile Link", "Share"]
         dropDown.anchorView = btn3Dots
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in

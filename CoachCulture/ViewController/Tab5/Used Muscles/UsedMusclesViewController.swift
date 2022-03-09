@@ -103,6 +103,7 @@ class UsedMusclesViewController: BaseViewController {
         } else {
             paramDic["muscle_group"] = muscle_group
             let vc = AddEquipmentAndCaloriesViewController.viewcontroller()
+            vc.classDetailDataObj = self.classDetailDataObj
             vc.paramDic = paramDic
             vc.isFromEdit = self.isFromEdit
             self.navigationController?.pushViewController(vc, animated: true)

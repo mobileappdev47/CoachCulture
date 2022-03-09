@@ -101,7 +101,7 @@ class ScheduleLiveClassViewController: BaseViewController {
             self.loadCameraView()
             self.removeAddPhotoView()
         }
-        
+        dropDown.cellHeight = 50
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "US$".lowercased() {
                 lblSubscriptionCurrentSym.text = item
@@ -308,6 +308,7 @@ class ScheduleLiveClassViewController: BaseViewController {
                     
             let vc = UserMusclesForLiveClassViewController.viewcontroller()
             vc.paramDic = param
+            vc.classDetailDataObj = self.classDetailDataObj
             if isFromTemplate {
                 vc.isFromEdit = false
             } else {

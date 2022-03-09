@@ -94,7 +94,7 @@ class EditCoachProfileViewController: BaseViewController {
         
         imgUserProfile.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936"))
         imgUserProfile.addCornerRadius(5)
-        
+        dropDown.cellHeight = 50
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if fromCurrency {
                 if item.lowercased() == "US$".lowercased() {

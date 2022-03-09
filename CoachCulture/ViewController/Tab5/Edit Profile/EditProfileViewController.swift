@@ -94,6 +94,7 @@ class EditProfileViewController: BaseViewController {
             self.countryCodeDesc = countryCode
         }
         
+        dropDown.cellHeight = 50
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if fromCurrency {
                 if item.lowercased() == "US$".lowercased() {

@@ -1596,7 +1596,7 @@
                                                 <rect key="frame" x="20" y="244" width="280" height="184"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Recipe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrF-lp-CUy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="108.33333333333333" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="108.5" height="24"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -3007,8 +3007,8 @@
     </scenes>
     <resources>
         <image name="3Dots" width="6" height="28"/>
-        <image name="Calendar Icon" width="18.333333969116211" height="18.333333969116211"/>
-        <image name="Filter" width="30" height="18.333333969116211"/>
+        <image name="Calendar Icon" width="18.5" height="18.5"/>
+        <image name="Filter" width="30" height="18.5"/>
         <image name="Search" width="55" height="55"/>
         <image name="Searchicon" width="22.5" height="23"/>
         <image name="Send" width="22" height="22"/>

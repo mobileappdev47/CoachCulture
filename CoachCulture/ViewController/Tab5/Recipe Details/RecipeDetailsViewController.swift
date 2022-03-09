@@ -100,6 +100,8 @@ class RecipeDetailsViewController: BaseViewController {
 
         dropDown.anchorView = btnMore
         
+        dropDown.cellHeight = 50
+        
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "Edit".lowercased() { //Edit
                 let vc = CreateMealRecipeViewController.viewcontroller()
