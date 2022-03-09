@@ -57,6 +57,8 @@ class LiveClassDetailsViewController: BaseViewController {
     @IBOutlet weak var viwClassType: UIView!
     @IBOutlet weak var viwMoreIngredient: UIView!
     @IBOutlet weak var viwClassStartIn: UIView!
+    @IBOutlet weak var viwScanQr: UIView!
+    @IBOutlet weak var viwJoinClass: UIView!
     
     
     @IBOutlet weak var btnImgBackLeftArm: UIButton!
@@ -127,6 +129,13 @@ class LiveClassDetailsViewController: BaseViewController {
         
         self.hideTabBar()
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        viwScanQr.roundCorners(corners: [.bottomLeft], radius: 30)
+        viwJoinClass.roundCorners(corners: [.bottomRight], radius: 30)
+    }
 
     private func setUpUI() {
         DispatchQueue.main.async {
@@ -146,6 +155,7 @@ class LiveClassDetailsViewController: BaseViewController {
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
         
         dropDown.anchorView = btnMore
+        dropDown.cellHeight = 50
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "Edit".lowercased() { //Edit
                 

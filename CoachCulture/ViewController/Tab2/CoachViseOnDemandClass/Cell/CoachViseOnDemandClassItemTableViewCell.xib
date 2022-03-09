@@ -26,7 +26,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="120"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Otb-LL-zlP">
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Otb-LL-zlP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                         <subviews>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygu-hb-2zM" userLabel="left">
@@ -41,7 +41,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vuv-VE-1oN">
-                                        <rect key="frame" x="10" y="10" width="40.5" height="16"/>
+                                        <rect key="frame" x="5" y="5" width="40.5" height="16"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ON DEMAND" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rng-Gz-0hQ">
                                                 <rect key="frame" x="5" y="5" width="30.5" height="6"/>
@@ -82,9 +82,9 @@
                                     <constraint firstAttribute="height" constant="80" id="6dX-pv-33H"/>
                                     <constraint firstAttribute="trailing" secondItem="inu-MQ-ZC0" secondAttribute="trailing" id="8bc-Op-IED"/>
                                     <constraint firstItem="inu-MQ-ZC0" firstAttribute="leading" secondItem="Ygu-hb-2zM" secondAttribute="leading" id="PjK-4c-NxS"/>
-                                    <constraint firstItem="vuv-VE-1oN" firstAttribute="top" secondItem="Ygu-hb-2zM" secondAttribute="top" constant="10" id="QRl-Di-rBC"/>
+                                    <constraint firstItem="vuv-VE-1oN" firstAttribute="top" secondItem="Ygu-hb-2zM" secondAttribute="top" constant="5" id="QRl-Di-rBC"/>
                                     <constraint firstAttribute="width" constant="120" id="VS5-60-nMg"/>
-                                    <constraint firstItem="vuv-VE-1oN" firstAttribute="leading" secondItem="Ygu-hb-2zM" secondAttribute="leading" constant="10" id="bVg-vF-aRN"/>
+                                    <constraint firstItem="vuv-VE-1oN" firstAttribute="leading" secondItem="Ygu-hb-2zM" secondAttribute="leading" constant="5" id="bVg-vF-aRN"/>
                                     <constraint firstAttribute="trailing" secondItem="OBW-Bq-MZi" secondAttribute="trailing" id="d5c-PN-sli"/>
                                     <constraint firstItem="inu-MQ-ZC0" firstAttribute="top" secondItem="Ygu-hb-2zM" secondAttribute="top" id="jWY-nt-g4G"/>
                                     <constraint firstAttribute="bottom" secondItem="OBW-Bq-MZi" secondAttribute="bottom" id="tau-vB-7mH"/>

@@ -39,6 +39,7 @@ class RecipeDetailsViewController: BaseViewController {
     @IBOutlet weak var viwSodium: UIView!
     @IBOutlet weak var viwNutritionFacts: UIView!
     @IBOutlet weak var viwViewRecipe: UIView!
+    @IBOutlet weak var imgUserBlur: UIImageView!
     
     var recipeDetailDataObj = RecipeDetailData()
     var dropDown = DropDown()
@@ -46,6 +47,8 @@ class RecipeDetailsViewController: BaseViewController {
     var isNew = false
     var showDetailView : ShowDetailView!
     var logOutView:LogOutView!
+    var ratingListPopUp : RatingListPopUp!
+    var arrClassRatingList = [ClassRatingList]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -75,11 +78,15 @@ class RecipeDetailsViewController: BaseViewController {
         viwSugar.applyBorder(4, borderColor: hexStringToUIColor(hex: "#D5A82C"))
         viwProtein.applyBorder(4, borderColor: hexStringToUIColor(hex: "#FEDC31"))
         viwSodium.applyBorder(4, borderColor: hexStringToUIColor(hex: "#C731FA"))
-                        
+        
+        ratingListPopUp = Bundle.main.loadNibNamed("RatingListPopUp", owner: nil, options: nil)?.first as? RatingListPopUp
+        
         clvDietaryRestriction.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
         clvDietaryRestriction.delegate = self
         clvDietaryRestriction.dataSource = self
         
+        imgUserBlur.setImageFromURL(imgUrl: recipeDetailDataObj.coachDetailsObj.user_image, placeholderImage: nil)
+        imgUserBlur.blurImage()
         
         tblIntredienta.register(UINib(nibName: "RecipeIngredientTableViewCell", bundle: nil), forCellReuseIdentifier: "RecipeIngredientTableViewCell")
         tblIntredienta.delegate = self
@@ -92,6 +99,8 @@ class RecipeDetailsViewController: BaseViewController {
         self.showDetailView.tblDescriptionDetail.reloadData()
 
         dropDown.anchorView = btnMore
+        
+        dropDown.cellHeight = 50
         
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "Edit".lowercased() { //Edit
@@ -120,7 +129,7 @@ class RecipeDetailsViewController: BaseViewController {
             if item.lowercased() == "Ratings".lowercased() { //Rating
                 
                 if recipeDetailDataObj.coachDetailsObj.id == AppPrefsManager.sharedInstance.getUserData().id {
-                    // total recipe data
+                    self.setRatingListPopUpView()
                 } else {
                     let vc = GiveRecipeRattingViewController.viewcontroller()
                     vc.recipeDetailDataObj = self.recipeDetailDataObj
@@ -202,6 +211,11 @@ class RecipeDetailsViewController: BaseViewController {
         }
     }
     
+    func setRatingListPopUpView() {
+        ratingListPopUp.frame.size = self.view.frame.size
+        self.view.addSubview(ratingListPopUp)
+    }
+    
     func setShowDetailView() {
         showDetailView.frame.size = self.view.frame.size
         self.view.addSubview(showDetailView)
@@ -278,6 +292,7 @@ extension RecipeDetailsViewController: UICollectionViewDataSource, UICollectionV
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
         let obj = recipeDetailDataObj.arrDietaryRestrictionListData[indexPath.row]
         cell.lblTitle.text = obj.dietary_restriction_name
+        cell.lblTitle.font = UIFont(name: cell.lblTitle.font.fontName, size: 11)
         cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#061424")
        
         return cell
@@ -337,6 +352,30 @@ extension RecipeDetailsViewController {
             self.setData()
             
             self.hideLoader()
+            
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
+    
+    func getClassRating() {
+        //showLoader()
+        let param = ["coach_class_id" : recipeID,
+                     "page_no" : "1",
+                     "per_page" : "10"
+        ]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.RECIPE_RATING, parameters: param, headers: nil) { responseObj in
+            
+            let dataObj = responseObj["data"] as? [String:Any] ?? [String:Any]()
+            let coach_class_rating = dataObj["coach_class_rating"] as? [Any] ?? [Any]()
+            let ratevalue = (dataObj["average_rating"] as? NSNumber)?.stringValue ?? ""
+            self.arrClassRatingList = ClassRatingList.getData(data: coach_class_rating)
+            self.ratingListPopUp.setData(title: self.recipeDetailDataObj.title, SubTitle: self.recipeDetailDataObj.sub_title, rateValue: ratevalue)
+            self.ratingListPopUp.arrClassRatingList = self.arrClassRatingList
+            self.ratingListPopUp.reloadTable()
+            // self.hideLoader()
             
         } failure: { (error) in
             self.hideLoader()

@@ -213,10 +213,12 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 cell.imgThumbnail.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
                 cell.imgClassCover.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "coverBG")
                 cell.lbltitle.text = obj.class_type_name
-                cell.lblClassDifficultyLevel.text = obj.class_type_name
-                cell.lblClassDate.text = obj.class_subtitle
+                cell.lblClassDifficultyLevel.text = obj.class_subtitle
+                cell.lblClassDate.text = getRealDate(date: obj.created_at)
                 cell.lblUserName.text = "@" + obj.coachDetailsObj.username
                 cell.lblClassTime.text = obj.total_viewers + " Views"
+                cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
+                cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 12)
                 cell.lblDuration.text = obj.duration
                 let str = obj.average_rating
                 if let num = NumberFormatter().number(from: str) {
@@ -243,17 +245,15 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 }
                 if isFromBookMarkPage {
                     cell.viewBlur.isHidden = true
-                    cell.btnBookmark.isEnabled = true
                 } else {
                     cell.viewBlur.isHidden = false
-                    cell.btnBookmark.isEnabled = false
-                    cell.didTapBookmarkButton = {
-                        var param = [String:Any]()
-                        param[Params.AddRemoveBookmark.coach_class_id] = obj.id
-                        param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                        if Reachability.isConnectedToNetwork(){
-                            self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
-                        }
+                }
+                cell.didTapBookmarkButton = {
+                    var param = [String:Any]()
+                    param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+                    param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                    if Reachability.isConnectedToNetwork(){
+                        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
                     }
                 }
             }
@@ -273,11 +273,17 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             cell.imgThumbnail.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "coverBG")
             cell.imgClassCover.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "coverBG")
             cell.lbltitle.text = obj.class_type_name
-            cell.lblClassDifficultyLevel.text = obj.class_type_name
-            cell.lblClassDate.text = obj.class_subtitle
+            cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.lblUserName.text = "@" + obj.coachDetailsObj.username
-            cell.lblClassTime.text = obj.total_viewers + " Views"
             cell.lblDuration.text = obj.duration
+            
+            cell.lblClassDate.text = getRealDate(date: obj.created_at)
+            cell.lblClassTime.text = obj.class_time
+            cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
+            cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 14)
+            cell.lblClassDate.sizeToFit()
+            cell.lblClassTime.sizeToFit()
+            
             let str = obj.average_rating
             if let num = NumberFormatter().number(from: str) {
                 let f = CGFloat(truncating: num)
@@ -299,17 +305,15 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             }
             if isFromBookMarkPage {
                 cell.viewBlur.isHidden = true
-                cell.btnBookmark.isEnabled = true
             } else {
                 cell.viewBlur.isHidden = false
-                cell.btnBookmark.isEnabled = false
-                cell.didTapBookmarkButton = {
-                    var param = [String:Any]()
-                    param[Params.AddRemoveBookmark.coach_class_id] = obj.id
-                    param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                    if Reachability.isConnectedToNetwork(){
-                        self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
-                    }
+            }
+            cell.didTapBookmarkButton = {
+                var param = [String:Any]()
+                param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+                param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
                 }
             }
             
@@ -344,7 +348,6 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             let arrSeperatedDietaryRestriction = obj.dietary_restriction_name.components(separatedBy: ",")
             if isFromBookMarkPage {
                 cell.viewBlur.isHidden = true
-                cell.btnBookMark.isEnabled = true
                 cell.arrDietaryRestriction = obj.arrdietary_restriction
                 cell.lblUsername.text = "@" + obj.coachDetailsObj.username
                 cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
@@ -361,14 +364,13 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: "")
                 cell.clvDietaryRestriction.reloadData()
                 cell.viewBlur.isHidden = false
-                cell.btnBookMark.isEnabled = false
-                cell.didTapBookmarkButton = {
-                    var param = [String:Any]()
-                    param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
-                    param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                    if Reachability.isConnectedToNetwork(){
-                        self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
-                    }
+            }
+            cell.didTapBookmarkButton = {
+                var param = [String:Any]()
+                param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
+                param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
                 }
             }
             cell.imgBookMark.image = obj.bookmark == BookmarkType.Yes ? UIImage(named: "BookmarkLight") : UIImage(named: "Bookmark")

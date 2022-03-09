@@ -80,7 +80,10 @@ extension CoachViseRecipeItemTableViewCell: UICollectionViewDataSource, UICollec
         cell.lblTitle.sizeToFit()
         
         return cell
-        
-        
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width / 3, height: 20)
+    }
+    
 }

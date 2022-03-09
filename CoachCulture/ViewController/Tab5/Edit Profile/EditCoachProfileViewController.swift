@@ -56,6 +56,14 @@ class EditCoachProfileViewController: BaseViewController {
     @IBOutlet weak var imgUserProfile: UIImageView!
     @IBOutlet weak var imgCountryCode: UIImageView!
 
+    @IBOutlet weak var imgFirstNameError: UIImageView!
+    @IBOutlet weak var imgLastNameError: UIImageView!
+    @IBOutlet weak var imgEmailError: UIImageView!
+    @IBOutlet weak var imgBirthError: UIImageView!
+    @IBOutlet weak var imgNationalityError: UIImageView!
+    @IBOutlet weak var imgPassportError: UIImageView!
+    @IBOutlet weak var imgUploadPassError: UIImageView!
+    @IBOutlet weak var imgAcCurrencyError: UIImageView!
     
     var customDatePickerForBirthDate:CustomDatePickerViewForTextFeild!
     
@@ -86,7 +94,7 @@ class EditCoachProfileViewController: BaseViewController {
         
         imgUserProfile.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936"))
         imgUserProfile.addCornerRadius(5)
-        
+        dropDown.cellHeight = 50
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if fromCurrency {
                 if item.lowercased() == "US$".lowercased() {
@@ -226,6 +234,17 @@ class EditCoachProfileViewController: BaseViewController {
         }
     }
     
+    func errorForBlankText(_ fName: Bool, _ lName: Bool, _ email: Bool, _ birth: Bool, _ nationality: Bool, _ passport: Bool, _ uploadPass: Bool, _  acCurrency: Bool) {
+        imgFirstNameError.isHidden = !fName
+        imgLastNameError.isHidden = !lName
+        imgEmailError.isHidden = !email
+        imgBirthError.isHidden = !birth
+        imgNationalityError.isHidden = !nationality
+        imgPassportError.isHidden = !passport
+        imgUploadPassError.isHidden = !uploadPass
+        imgAcCurrencyError.isHidden = !acCurrency
+    }
+    
     // MARK: - Click Event
     @IBAction func clickToBtnSignUpAsCoach(_ sender : UIButton) {
         
@@ -276,25 +295,40 @@ class EditCoachProfileViewController: BaseViewController {
     @IBAction func clickTobBtnSubmit(_ sender: UIButton) {
         if txtFirstName.text!.isEmpty {
             Utility.shared.showToast("First name is required.")
+            errorForBlankText(true, false, false, false, false, false, false, false)
         } else if txtFirstName.text!.isEmpty {
+            Utility.shared.showToast("First name is required.")
+            errorForBlankText(true, false, false, false, false, false, false, false)
+        } else if txtLastName.text!.isEmpty {
             Utility.shared.showToast("Last name is required.")
-        }
-        else if txtEmail.text!.isEmpty {
+            errorForBlankText(false, true, false, false, false, false, false, false)
+        } else if txtLastName.text!.isEmpty {
+            Utility.shared.showToast("Last name is required.")
+            errorForBlankText(false, true, false, false, false, false, false, false)
+        } else if txtEmail.text!.isEmpty {
             Utility.shared.showToast("Email is required.")
+            errorForBlankText(false, false, true, false, false, false, false, false)
         } else  if !txtEmail.text!.isValidEmail {
             Utility.shared.showToast("Email is not valid.")
+            errorForBlankText(false, false, true, false, false, false, false, false)
         }  else if dateOfBirth.isEmpty {
             Utility.shared.showToast("Date of birth is required.")
+            errorForBlankText(false, false, false, true, false, false, false, false)
         } else if lblNationality.text?.lowercased() == "Nationality".lowercased() {
             Utility.shared.showToast("Nationality is required.")
+            errorForBlankText(false, false, false, false, true, false, false, false)
         } else if txtPasswordIdNUmber.text!.isEmpty {
             Utility.shared.showToast("Passport/Id number is required.")
+            errorForBlankText(false, false, false, false, false, true, false, false)
         } else if photoData == nil {
             Utility.shared.showToast("Upload passport image/ID  is required.")
+            errorForBlankText(false, false, false, false, false, false, true, false)
         } else if txtMonthlySubFee.text!.isEmpty {
             Utility.shared.showToast("Enter your monthly subscription fee")
+            errorForBlankText(false, false, false, false, false, false, false, true)
         } else if imgTermsCondition.isHighlighted == false {
             Utility.shared.showToast("Accept terms and condition")
+            errorForBlankText(false, false, false, false, false, false, false, false)
         } else {
             if Reachability.isConnectedToNetwork(){
                 self.registerAsCoach()

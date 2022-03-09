@@ -108,6 +108,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
             self.removeAddPhotoView()
         }
         
+        dropDown.cellHeight = 50
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "US$".lowercased() {
                 lblSubscriptionCurrentSym.text = item

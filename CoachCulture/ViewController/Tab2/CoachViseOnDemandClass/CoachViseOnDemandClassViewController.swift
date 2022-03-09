@@ -44,11 +44,14 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     @IBOutlet weak var tblOndemand: UITableView!
     @IBOutlet weak var lctOndemandTableHeight: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var btn3Dots: UIButton!
+    @IBOutlet weak var btnUserProfile: UIButton!
     
     var arrCoachClassInfoList = [CoachClassInfoList]()
     var coachInfoDataObj = CoachInfoData()
     var selectedCoachId = ""
     var arrCoachRecipe = [PopularRecipeData]()
+    var dropDown = DropDown()
     
     var isDataLoading = false
     var continueLoadingData = true
@@ -96,6 +99,26 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         tblOndemand.register(UINib(nibName: "CoachViseRecipeItemTableViewCell", bundle: nil), forCellReuseIdentifier: "CoachViseRecipeItemTableViewCell")
         tblOndemand.delegate = self
         tblOndemand.dataSource = self
+        dropDown.cellHeight = 50
+        dropDown.dataSource  = ["Profile Link", "Share"]
+        dropDown.anchorView = btn3Dots
+        dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
+            if item.lowercased() == "Profile Link".lowercased() {
+                Utility.shared.showToast("Profile Link Copied Sucessfully")
+            }
+            
+            if item.lowercased() == "Share".lowercased() {
+                let textToShare = [ "" ]
+                let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+                activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
+                activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]                
+                self.present(activityViewController, animated: true, completion: nil)
+            }
+        }
+        dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
+        dropDown.textColor = UIColor.white
+        dropDown.selectionBackgroundColor = .clear
+        
         if Reachability.isConnectedToNetwork(){
             getUserProfile()
             getCoacheSearchHistory()
@@ -237,6 +260,14 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     @IBAction func clickToBtnAddFollow( _ sender : UIButton) {
         if Reachability.isConnectedToNetwork(){
             addRemoveFollowers(isShowLoader: true)
+        }
+    }
+    
+    @IBAction func clickToBtn3Dots(_ sender: UIButton) {
+        if Reachability.isConnectedToNetwork() {
+            dropDown.show()
+        } else{
+            Utility.shared.showToast("No internet connection available")
         }
     }
     

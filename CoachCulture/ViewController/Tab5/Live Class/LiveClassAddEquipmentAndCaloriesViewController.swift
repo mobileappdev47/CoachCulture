@@ -40,6 +40,7 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        txtDescription.delegate = self
         setUpUI()
     }
     
@@ -56,7 +57,6 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
         tblEquipmentList.delegate = self
         tblEquipmentList.dataSource = self
         tblEquipmentList.isHidden = true
-        
         viwBurntCalories.applyBorder(8.0, borderColor: hexStringToUIColor(hex: "#CC2936"))
         
     }
@@ -73,7 +73,6 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
         self.tblAddEquipment.layoutIfNeeded()
         self.tblAddEquipment.reloadData()
         self.lctAddEquipmentTableHeight.constant = self.tblAddEquipment.contentSize.height
-        lblCharCount.text = "\(txtDescription.text.count)" + "/300"
         
     }
     
@@ -222,6 +221,7 @@ extension LiveClassAddEquipmentAndCaloriesViewController {
                 self.lctEquipmentListTableHeight.constant = self.tblEquipmentList.contentSize.height
                 
             }
+            self.lblCharCount.text = "\(self.txtDescription.text.count)" + "/300"
             
             if self.isFromEdit {
                 self.setData()

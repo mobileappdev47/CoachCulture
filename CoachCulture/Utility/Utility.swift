@@ -454,6 +454,18 @@ func convertUTCToLocalDate(dateStr:String, sourceFormate: String, destinationFor
     return Date()
 }
 
+func getRealDate(date: String) -> String {  
+    let dateFormatter = DateFormatter()
+    
+    dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+    let dateFromString : NSDate = dateFormatter.date(from: date)! as NSDate
+    dateFormatter.dateFormat = "dd MMM yyyy"
+    let datenew = dateFormatter.string(from: dateFromString as Date)
+    
+    return datenew
+}
+
+
 func convertUTCToLocal(dateStr:String, sourceFormate: String, destinationFormate: String) -> String {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = sourceFormate

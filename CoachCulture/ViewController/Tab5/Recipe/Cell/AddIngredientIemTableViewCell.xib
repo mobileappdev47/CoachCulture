@@ -112,6 +112,9 @@
                                                 <color key="value" name="textColor"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="KGk-i7-Jjw" id="sJS-GV-hNj"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.17254901959999999" green="0.2274509804" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -172,7 +175,7 @@
                 <outlet property="btnDelete" destination="mPi-hb-DDT" id="xTc-ep-Mau"/>
                 <outlet property="btnSelectUnit" destination="pqH-45-1On" id="ya6-EZ-bQF"/>
                 <outlet property="lblUnit" destination="7U6-dC-cbS" id="U5w-6u-rdH"/>
-                <outlet property="txtIngredient" destination="3cO-Dc-Jep" id="mYP-hp-ArH"/>
+                <outlet property="txtIngredient" destination="3cO-Dc-Jep" id="Kk1-nC-Ehz"/>
                 <outlet property="txtQty" destination="gBN-1h-BRA" id="pxl-ln-uXw"/>
             </connections>
             <point key="canvasLocation" x="26.086956521739133" y="60.9375"/>

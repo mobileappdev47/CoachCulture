@@ -361,7 +361,7 @@
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KC4-Pz-oha">
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KC4-Pz-oha">
                                                         <rect key="frame" x="0.0" y="33.5" width="335" height="225"/>
                                                         <subviews>
                                                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jic-B8-R0x" userLabel="Class Type">
@@ -525,7 +525,7 @@
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
-                                                                        <real key="value" value="10"/>
+                                                                        <real key="value" value="0.0"/>
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </view>
@@ -1464,6 +1464,11 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="60"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" title="Button"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                <real key="value" value="10"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <action selector="clickToBtnApplyFilter:" destination="Kdt-jv-Q1t" eventType="touchUpInside" id="99z-yM-mEQ"/>
                                             <action selector="clickToBtnSearch:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="PHG-SC-rdK"/>

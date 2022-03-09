@@ -9,8 +9,8 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="SFProText-Semibold.otf">
-            <string>SFProText-Semibold</string>
+        <array key="SFProText-Heavy.otf">
+            <string>SFProText-Heavy</string>
         </array>
     </customFonts>
     <objects>
@@ -27,20 +27,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="60" height="25"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hdq-hG-BwI">
-                                <rect key="frame" x="5" y="5" width="50" height="15"/>
-                                <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="9"/>
+                                <rect key="frame" x="5" y="7" width="50" height="11"/>
+                                <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="9"/>
                                 <color key="textColor" name="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.26666666666666666" green="0.30588235294117649" blue="0.3529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="hdq-hG-BwI" firstAttribute="top" secondItem="ZvO-OD-pmw" secondAttribute="top" constant="5" id="3yO-zK-L66"/>
-                            <constraint firstAttribute="bottom" secondItem="hdq-hG-BwI" secondAttribute="bottom" constant="5" id="C6X-oF-hOq"/>
-                            <constraint firstAttribute="trailing" secondItem="hdq-hG-BwI" secondAttribute="trailing" constant="5" id="IcX-XP-6Hz"/>
+                            <constraint firstItem="hdq-hG-BwI" firstAttribute="leading" secondItem="ZvO-OD-pmw" secondAttribute="leading" constant="5" id="Bq1-md-myI"/>
                             <constraint firstItem="hdq-hG-BwI" firstAttribute="centerY" secondItem="ZvO-OD-pmw" secondAttribute="centerY" id="IqX-kZ-hkG"/>
-                            <constraint firstItem="hdq-hG-BwI" firstAttribute="leading" secondItem="ZvO-OD-pmw" secondAttribute="leading" constant="5" id="kA7-tL-xuk"/>
-                            <constraint firstItem="hdq-hG-BwI" firstAttribute="centerX" secondItem="ZvO-OD-pmw" secondAttribute="centerX" id="lY3-om-ENV"/>
+                            <constraint firstAttribute="trailing" secondItem="hdq-hG-BwI" secondAttribute="trailing" constant="5" id="Lb4-UC-Rmh"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
@@ -62,7 +59,7 @@
                 <outlet property="lblTitle" destination="hdq-hG-BwI" id="QdP-Bc-3gk"/>
                 <outlet property="viwContainer" destination="ZvO-OD-pmw" id="xM0-U6-CXJ"/>
             </connections>
-            <point key="canvasLocation" x="219.56521739130437" y="91.741071428571431"/>
+            <point key="canvasLocation" x="218.84057971014494" y="91.40625"/>
         </collectionViewCell>
     </objects>
     <resources>

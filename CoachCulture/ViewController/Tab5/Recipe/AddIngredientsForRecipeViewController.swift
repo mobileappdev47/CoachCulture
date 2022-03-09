@@ -42,8 +42,7 @@ class AddIngredientsForRecipeViewController: BaseViewController {
     func setUpUI() {
         
         dropDown.dataSource  = ["Option 1", "Option 2", "Option 3"]
-        
-       
+        dropDown.cellHeight = 50       
         
         clvDietaryRestriction.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
         clvDietaryRestriction.delegate = self
@@ -299,12 +298,18 @@ extension AddIngredientsForRecipeViewController : UITableViewDelegate, UITableVi
         cell.lblUnit.tag = indexPath.row
         cell.txtIngredient.tag = indexPath.row
         cell.txtQty.tag = indexPath.row
-
+        
         cell.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             let obj = arrAddIngredientsListData[cell.lblUnit.tag]
             obj.unit = item
             cell.lblUnit.text = item
         }
+        cell.dropDown2.selectionAction = { [unowned self] (index: Int, item: String) in
+            let obj = arrAddIngredientsListData[cell.txtIngredient.tag]
+            obj.unit = item
+            cell.txtIngredient.text = item
+        }
+        cell.ddDelegete = self
         cell.txtQty.delegate = self
         cell.txtIngredient.delegate = self
         
@@ -335,6 +340,8 @@ extension AddIngredientsForRecipeViewController : UITextFieldDelegate {
         let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
         let cell = tblIntredienta.cellForRow(at: IndexPath(row: textField.tag, section: 0)) as! AddIngredientIemTableViewCell
+        cell.dropDown2.show()
+        /*
         let obj = arrAddIngredientsListData[textField.tag]
         
         if textField ==  cell.txtIngredient {
@@ -343,7 +350,7 @@ extension AddIngredientsForRecipeViewController : UITextFieldDelegate {
         
         if textField ==  cell.txtQty {
             obj.qty = finalString
-        }
+        }*/
                 
         return true
     }

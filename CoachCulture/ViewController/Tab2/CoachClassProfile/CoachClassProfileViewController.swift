@@ -409,18 +409,20 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             }
             cell.viewProfile.addCornerRadius(10)
             cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-            cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
             cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.btnUser.tag = indexPath.row
             cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
-            cell.lbltitle.text = obj.class_type_name
-            cell.lbltitle.text = obj.class_subtitle
-            //cell.lblClassDate.text = obj.created_atFormated // uncomment code
             cell.selectedIndex = indexPath.row
+            cell.lbltitle.text = obj.class_type_name
+            cell.lblClassDifficultyLevel.text = obj.class_subtitle
+            cell.lblClassDate.text = getRealDate(date: obj.created_at)
+            cell.lblUsername.text = "@" + obj.coachDetailsObj.username
             cell.lblClassTime.text = obj.total_viewers + " Views"
-            
+            cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
+            cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 12)
+            cell.lblDuration.text = obj.duration
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
@@ -450,27 +452,33 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             cell.selectedIndex = indexPath.row
             let obj = arrCoachClassInfoList[indexPath.row]
-            cell.lblDuration.text = obj.duration
-            
             cell.viewProfile.isHidden = false
             if cell.imgProfileBottom.image == nil {
                 cell.imgProfileBottom.blurImage()
             }
             cell.viewProfile.addCornerRadius(10)
             cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-            cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
             cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.btnUser.tag = indexPath.row
             cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
 
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
-            cell.lbltitle.text = obj.class_type_name
-            cell.lbltitle.text = obj.class_subtitle
             //cell.lblClassDate.text = obj.created_atFormated
             cell.lblClassTime.text = obj.total_viewers + " Views"
             
-            cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
+            cell.lbltitle.text = obj.class_type_name
+            cell.lblClassDifficultyLevel.text = obj.class_subtitle
+            cell.lblUsername.text = "@" + obj.coachDetailsObj.username
+            cell.lblDuration.text = obj.duration
+            
+            cell.lblClassDate.text = getRealDate(date: obj.created_at)
+            cell.lblClassTime.text = obj.class_time
+            cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
+            cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 14)
+            cell.lblClassDate.sizeToFit()
+            cell.lblClassTime.sizeToFit()
+            
             cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBottom.blurImage()
