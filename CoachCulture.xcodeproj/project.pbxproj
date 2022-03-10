@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		510A93B827DA00C1000EDFF3 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */; };
 		510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */; };
 		510C1D9427BE6C2F007228E9 /* HeaderTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */; };
 		512ABB922717FD72008CB198 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB912717FD72008CB198 /* AppDelegate.swift */; };
@@ -49,10 +50,10 @@
 		512BBE6A27C5F01B002AF2B8 /* NewClassesTBLViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */; };
 		512BBE6D27C6143A002AF2B8 /* HomeNewClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */; };
 		512BBE7027C615DF002AF2B8 /* HomeNewClassHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */; };
+		519CDD7427D9DC98001958B8 /* JoinLiveClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */; };
 		BD24B26A27CA4CEE00176981 /* BottomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24B26827CA4CEE00176981 /* BottomDetailView.swift */; };
 		BD24B26B27CA4CEE00176981 /* BottomDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD24B26927CA4CEE00176981 /* BottomDetailView.xib */; };
 		BD25A6BD27C740CB0048CF15 /* continent.json in Resources */ = {isa = PBXBuildFile; fileRef = BD25A6BC27C740CB0048CF15 /* continent.json */; };
-		BD94720827CF8FD0000FFE05 /* WorkoutStatisticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD94720727CF8FD0000FFE05 /* WorkoutStatisticVC.swift */; };
 		BDD3663427C8A11500911E4E /* ShowDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3663227C8A11500911E4E /* ShowDetailView.swift */; };
 		BDD3663527C8A11500911E4E /* ShowDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDD3663327C8A11500911E4E /* ShowDetailView.xib */; };
 		BDD3663927C8B12D00911E4E /* RecipeTestCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3663727C8B12D00911E4E /* RecipeTestCellTableViewCell.swift */; };
@@ -484,6 +485,7 @@
 /* Begin PBXFileReference section */
 		2797DA3766B97BEE907AE49E /* Pods-CoachCulture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.debug.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.debug.xcconfig"; sourceTree = "<group>"; };
 		3DE6240B202CBFA8415C8744 /* Pods_CoachCulture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoachCulture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 		510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStatisticVC.swift; sourceTree = "<group>"; };
 		510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTableView.xib; sourceTree = "<group>"; };
 		5121A5E72718247F00B15581 /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -533,11 +535,12 @@
 		512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewClassesTBLViewCell.xib; sourceTree = "<group>"; };
 		512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeNewClassHeaderView.xib; sourceTree = "<group>"; };
 		512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewClassHeaderView.swift; sourceTree = "<group>"; };
+		519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLiveClassVC.swift; sourceTree = "<group>"; };
+		519CDE0027D9E073001958B8 /* AmazonIVSPlayer.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AmazonIVSPlayer.xcframework; path = Pods/AmazonIVSPlayer/AmazonIVSPlayer.xcframework; sourceTree = "<group>"; };
 		8D2B8E0B4D497DEC5D11191E /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
 		BD24B26827CA4CEE00176981 /* BottomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomDetailView.swift; sourceTree = "<group>"; };
 		BD24B26927CA4CEE00176981 /* BottomDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomDetailView.xib; sourceTree = "<group>"; };
 		BD25A6BC27C740CB0048CF15 /* continent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = continent.json; sourceTree = "<group>"; };
-		BD94720727CF8FD0000FFE05 /* WorkoutStatisticVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkoutStatisticVC.swift; sourceTree = "<group>"; };
 		BDD3663227C8A11500911E4E /* ShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailView.swift; sourceTree = "<group>"; };
 		BDD3663327C8A11500911E4E /* ShowDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowDetailView.xib; sourceTree = "<group>"; };
 		BDD3663727C8B12D00911E4E /* RecipeTestCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTestCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -1140,6 +1143,7 @@
 		512ABC6027180D05008CB198 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */,
 				D4156CE62764868300328E4F /* DropDown */,
 				D4D2863D27587C1600970987 /* CustomTabBar */,
 				D4677F6E2757809F00DD7E70 /* AppPrefsManager.swift */,
@@ -1184,9 +1188,18 @@
 			path = "Custom Fonts";
 			sourceTree = "<group>";
 		};
+		519CDD7227D9DC7F001958B8 /* JoinLiveClass */ = {
+			isa = PBXGroup;
+			children = (
+				519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */,
+			);
+			path = JoinLiveClass;
+			sourceTree = "<group>";
+		};
 		533AC96274B021FB7C560472 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				519CDE0027D9E073001958B8 /* AmazonIVSPlayer.xcframework */,
 				3DE6240B202CBFA8415C8744 /* Pods_CoachCulture.framework */,
 			);
 			name = Frameworks;
@@ -1208,14 +1221,6 @@
 				BD24B26927CA4CEE00176981 /* BottomDetailView.xib */,
 			);
 			path = BottomDetailView;
-			sourceTree = "<group>";
-		};
-		BD94720627CF8FD0000FFE05 /* WorkoutStatistic */ = {
-			isa = PBXGroup;
-			children = (
-				BD94720727CF8FD0000FFE05 /* WorkoutStatisticVC.swift */,
-			);
-			path = WorkoutStatistic;
 			sourceTree = "<group>";
 		};
 		D40136C12758D74400E36A39 /* Tab5 */ = {
@@ -1619,6 +1624,7 @@
 		D4CE254A2769B12B00743FFC /* Live Class */ = {
 			isa = PBXGroup;
 			children = (
+				519CDD7227D9DC7F001958B8 /* JoinLiveClass */,
 				D485B178276C5F4700EC101E /* LiveClassRating */,
 				D4CE25512769C05600743FFC /* Live Class Details */,
 				D4CE254B2769B14400743FFC /* ScheduleLiveClassViewController.swift */,
@@ -2563,6 +2569,7 @@
 				D4122BDE275B44AF00A68E56 /* EditCoachProfileViewController.swift in Sources */,
 				D48F453D2770D0B700B0EAD8 /* RecipeFilterViewController.swift in Sources */,
 				D4D286552758884C00970987 /* PopularClassesCollectionViewCell.swift in Sources */,
+				510A93B827DA00C1000EDFF3 /* LoadingIndicatorView.swift in Sources */,
 				D4C8B499276DDEBE006749F2 /* ClassDescriptionView.swift in Sources */,
 				D417985827632825001FA192 /* AddIngredientIemTableViewCell.swift in Sources */,
 				D4122BDC275B216D00A68E56 /* AddPhotoPopUp.swift in Sources */,
@@ -2626,6 +2633,7 @@
 				512ABC13271804B3008CB198 /* String+LocalizeTableName.swift in Sources */,
 				512ABDA827180D08008CB198 /* BasicTransitionAnimator.swift in Sources */,
 				D48AC8CB277D9B9A00D1D370 /* CancelSubScription.swift in Sources */,
+				519CDD7427D9DC98001958B8 /* JoinLiveClassVC.swift in Sources */,
 				D4D2864127587C1600970987 /* CustomTabBarController.swift in Sources */,
 				D4E54BE4275F695F00D6A80F /* ClassDuration.swift in Sources */,
 				D4078987275E623C003FBE1E /* OnDemandVideoUploadModel.swift in Sources */,

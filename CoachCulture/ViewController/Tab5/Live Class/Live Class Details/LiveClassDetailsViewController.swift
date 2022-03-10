@@ -112,7 +112,8 @@ class LiveClassDetailsViewController: BaseViewController {
     var deleteID = Int()
     var isFromSubscriptionPurchase = false
     var arrMuscleList = [MuscleList]()
-
+    var streamObj : StreamInfo?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -670,6 +671,9 @@ class LiveClassDetailsViewController: BaseViewController {
 
     func goStepForwardAfterSubscribed() {
         if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+            if Reachability.isConnectedToNetwork() {
+                getAWSDetails()
+            }
         } else {
             let folderName = self.classDetailDataObj.id + "_" + self.classDetailDataObj.class_subtitle
             let directoryUrl =  URL(fileURLWithPath: getDirectoryPath() + "/" + folderName + "/")
@@ -700,6 +704,14 @@ class LiveClassDetailsViewController: BaseViewController {
                 }
             }
         }
+    }
+    
+    private func goToStartClass() {
+        let vc = JoinLiveClassVC.instantiate(fromAppStoryboard: .Recipe)
+        if let url = URL(string: "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.YtnrVcQbttF0.m3u8") {
+            vc.stream = self.streamObj
+        }
+        self.pushVC(To: vc, animated: false)
     }
     
     private func navigateToDashboard() {
@@ -887,6 +899,28 @@ extension LiveClassDetailsViewController {
             if responseModel.success {
                 let dataObj = responseObj["data"] as? [Any] ?? [Any]()
                 self.arrMuscleList = MuscleList.getData(data: dataObj)                
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
+
+    func getAWSDetails() {
+        showLoader()
+        let param = ["class_id" : self.classDetailDataObj.id]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_AWS_DETAILS, parameters: param, headers: nil) { responseObj in
+            
+            let responseModel = ResponseDataModel(responseObj: responseObj)
+            if responseModel.success {
+                if let dataObj = responseObj["data"] as? [String:Any] {
+                    self.streamObj = StreamInfo(responseObj: dataObj)
+                }
+                self.hideLoader()
+                if Reachability.isConnectedToNetwork() {
+                    self.goToStartClass()
+                }
             }
         } failure: { (error) in
             self.hideLoader()

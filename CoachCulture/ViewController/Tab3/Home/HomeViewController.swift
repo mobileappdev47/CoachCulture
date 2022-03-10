@@ -156,11 +156,15 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if collectionView == clvPopularClasses {
             let vc = LiveClassDetailsViewController.viewcontroller()
             vc.selectedId = arrPopularClassList[indexPath.row].coach_class_id
-            self.navigationController?.pushViewController(vc, animated: true)
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         } else {
             let vc = CoachViseOnDemandClassViewController.viewcontroller()
             vc.selectedCoachId = arrPopularTrainerList[indexPath.row].coach_id
-            self.navigationController?.pushViewController(vc, animated: true)
+            DispatchQueue.main.async {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
 }
