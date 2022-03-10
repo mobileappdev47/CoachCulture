@@ -54,6 +54,7 @@ class CoachClassProfileViewController: BaseViewController {
     var continueLoadingDataRecipe = true
     var pageNoRecipe = 1
     var perPageCountRecipe = 10
+    var maxMin = 0.0
     let role = AppPrefsManager.sharedInstance.getUserRole()
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
     var userWorkoutStatisticsModel = UserWorkoutStatisticsModel()
@@ -111,6 +112,7 @@ class CoachClassProfileViewController: BaseViewController {
         xAxis.axisMinimum                   = 0.0
         xAxis.labelFont = NSUIFont(name: "SFProText-Semibold", size: 7.0) ?? NSUIFont.systemFont(ofSize: 10)
         xAxis.granularity                   = 1.0
+        xAxis.axisMinimum                   = -0.5
         xAxis.valueFormatter                = BarChartFormatter()
         xAxis.centerAxisLabelsEnabled = false
         xAxis.setLabelCount(ITEM_COUNT, force: true)
@@ -123,7 +125,7 @@ class CoachClassProfileViewController: BaseViewController {
         let leftAxis                        = chartView.leftAxis
         leftAxis.drawGridLinesEnabled       = false
         leftAxis.drawLabelsEnabled = false
-        leftAxis.axisMinimum                = 0.0
+        leftAxis.axisMinimum                = 0.5
         
         //leftAxis.nameAxis = "left Axis"
         //leftAxis.nameAxisEnabled = true
@@ -155,8 +157,8 @@ class CoachClassProfileViewController: BaseViewController {
     
     func setChartData() {
         let data = CombinedChartData()
-        data.lineData = generateLineData()
         data.barData = generateBarData()
+        data.lineData = generateLineData()
         chartView.xAxis.axisMaximum = data.xMax + 0.25
         chartView.data = data
     }
@@ -166,7 +168,7 @@ class CoachClassProfileViewController: BaseViewController {
         var entries = [ChartDataEntry]()
                 
         for (index, model) in self.userWorkoutStatisticsModel.arrWeeklyDataObj.enumerated() {
-            entries.append(ChartDataEntry(x: Double(index), y: Double(model.user_total_burn_calories) ?? 0.0))
+            entries.append(ChartDataEntry(x: Double(index), y: Double(model.user_total_burn_calories)! / maxMin))
         }
         
         // MARK: LineChartDataSet
@@ -195,6 +197,9 @@ class CoachClassProfileViewController: BaseViewController {
         for index in 0..<ITEM_COUNT {
             let user_total_duration = self.userWorkoutStatisticsModel.arrWeeklyDataObj[index].user_total_duration.components(separatedBy: .whitespaces).first
             entries1.append(BarChartDataEntry(x: Double(index), y: Double(user_total_duration ?? "0.0") ?? 0.0))
+            if Double(user_total_duration ?? "")! > maxMin {
+                maxMin = Double(user_total_duration!)!
+            }
         }
         
         // MARK: BarChartDataSet

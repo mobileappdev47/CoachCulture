@@ -171,7 +171,7 @@ open class ChartUtils
         NSUIGraphicsPopContext()
     }
     
-    open class func drawText(context: CGContext, text: String, point: CGPoint, align: NSTextAlignment, attributes: [NSAttributedString.Key : Any]?)
+    open class func drawText(context: CGContext, text: String, point: CGPoint, align: NSTextAlignment, attributes: [NSAttributedString.Key : Any]?, boolTF: Bool)
     {
         var point = point
         
@@ -185,8 +185,11 @@ open class ChartUtils
         }
         
         NSUIGraphicsPushContext(context)
-        
-        (text as NSString).draw(at: point, withAttributes: attributes)
+        if boolTF {
+            (text + " kcal" as NSString).draw(at: point, withAttributes: attributes)
+        } else {
+            (text as NSString).draw(at: point, withAttributes: attributes)
+        }
         
         NSUIGraphicsPopContext()
     }
