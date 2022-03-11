@@ -27,6 +27,13 @@ class JoinLiveClassVC: BaseViewController {
     
     // MARK: IBAction
     
+    @IBAction func btnBackClick(_ sender: Any) {
+        if didEndStreamingBlock != nil {
+            didEndStreamingBlock()
+            self.popVC(animated: true)
+        }
+    }
+    
     @IBAction private func didTapMute(_ sender: Any) {
         if let player = player {
             toggleMuteStatus(!player.muted)
@@ -73,10 +80,12 @@ class JoinLiveClassVC: BaseViewController {
     var streamUrl: URL?
     private var gradientTop: CAGradientLayer?
     private var gradientBottom: CAGradientLayer?
+    var didEndStreamingBlock: (() -> Void)!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        didSupportAllOrientation = true
         checkMicrophonePermission()
     }
     
@@ -85,6 +94,17 @@ class JoinLiveClassVC: BaseViewController {
         
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        DispatchQueue.main.async {
+            didSupportAllOrientation = false
+            let value = UIInterfaceOrientationMask.portrait.rawValue
+            UIDevice.current.setValue(value, forKey: "orientation")
+            self.view.layoutIfNeeded()
+        }
+    }
+
     func checkMicrophonePermission() {
         AVAudioSession.sharedInstance().requestRecordPermission { granted in
             if granted {
@@ -119,8 +139,8 @@ class JoinLiveClassVC: BaseViewController {
             
             playerView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapPlayerView)))
             
-            gradientTop == nil ? gradientTop = appendGradient(to: topGradientView, startAlpha: 0.6, endAlpha: 0) : ()
-            gradientBottom == nil ? gradientBottom = appendGradient(to: detailsView, startAlpha: 0, endAlpha: 0.6) : ()
+            //gradientTop == nil ? gradientTop = appendGradient(to: topGradientView, startAlpha: 0.6, endAlpha: 0) : ()
+            //gradientBottom == nil ? gradientBottom = appendGradient(to: detailsView, startAlpha: 0, endAlpha: 0.6) : ()
             
             loadStream()
         }
@@ -176,7 +196,7 @@ class JoinLiveClassVC: BaseViewController {
                 print("ℹ️ Player initialized: version \(player.version)")
             }
             
-            let streamUrl = URL(string: "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.YtnrVcQbttF0.m3u8")
+            let streamUrl = URL(string: stream?.playbackurl ?? "")
             if let streamUrl = streamUrl, self.streamUrl == nil {
                 player.load(streamUrl)
                 self.streamUrl = streamUrl
@@ -230,6 +250,12 @@ class JoinLiveClassVC: BaseViewController {
 extension JoinLiveClassVC: IVSPlayer.Delegate {
     func player(_ player: IVSPlayer, didChangeState state: IVSPlayer.State) {
         updateForState(state)
+        if state == .ended {
+            if didEndStreamingBlock != nil {
+                didEndStreamingBlock()
+                self.popVC(animated: true)
+            }
+        }
     }
     
     func player(_ player: IVSPlayer, didFailWithError error: Error) {

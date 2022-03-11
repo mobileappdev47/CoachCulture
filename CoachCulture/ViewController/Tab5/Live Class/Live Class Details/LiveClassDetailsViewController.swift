@@ -270,7 +270,7 @@ class LiveClassDetailsViewController: BaseViewController {
         let tempCounter = counter / 60
         counter = tempCounter.rounded() <= 0.0 ? 1.0 : tempCounter
         if Reachability.isConnectedToNetwork(){
-            self.callEndLiveClassAPI()
+            self.callEndLiveClassAPI(isFromLiveStream: false)
         }
     }
 
@@ -708,9 +708,12 @@ class LiveClassDetailsViewController: BaseViewController {
     
     private func goToStartClass() {
         let vc = JoinLiveClassVC.instantiate(fromAppStoryboard: .Recipe)
-        if let url = URL(string: "https://fcc3ddae59ed.us-west-2.playback.live-video.net/api/video/v1/us-west-2.893648527354.channel.YtnrVcQbttF0.m3u8") {
-            vc.stream = self.streamObj
+        vc.didEndStreamingBlock = {
+            if Reachability.isConnectedToNetwork() {
+                self.callEndLiveClassAPI(isFromLiveStream: true)
+            }
         }
+        vc.stream = self.streamObj
         self.pushVC(To: vc, animated: false)
     }
     
@@ -919,6 +922,7 @@ extension LiveClassDetailsViewController {
                 }
                 self.hideLoader()
                 if Reachability.isConnectedToNetwork() {
+                    self.callJoinSessionsAPI()
                     self.goToStartClass()
                 }
             }
@@ -1084,13 +1088,15 @@ extension LiveClassDetailsViewController {
         }
     }
     
-    func callEndLiveClassAPI() {
+    func callEndLiveClassAPI(isFromLiveStream: Bool) {
         isStatusUpdatedForVideoEnd = true
-        let param = [
-            Params.EndLiveClass.class_id: self.classDetailDataObj.id,
-            Params.EndLiveClass.duration: Int(self.counter),
-            Params.EndLiveClass.user_coach_history_id: self.userCoachHistoryID ?? 0
-        ] as [String : Any]
+        var param = [String:Any]()
+        
+        param[Params.EndLiveClass.class_id] = self.classDetailDataObj.id
+        if !isFromLiveStream {
+            param[Params.EndLiveClass.duration] = Int(self.counter)
+        }
+        param[Params.EndLiveClass.user_coach_history_id] = self.userCoachHistoryID ?? 0
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.END_LIVE_CLASS, parameters: param, headers: nil) { responseObj in
             _ = ResponseDataModel(responseObj: responseObj)
@@ -1143,7 +1149,7 @@ extension LiveClassDetailsViewController: AVPlayerViewControllerDelegate {
             let tempCounter = counter / 60
             counter = tempCounter.rounded() <= 0.0 ? 1.0 : tempCounter
             if Reachability.isConnectedToNetwork(){
-                self.callEndLiveClassAPI()
+                self.callEndLiveClassAPI(isFromLiveStream: false)
             }
         }
     }

@@ -4360,7 +4360,7 @@
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                         </state>
                                         <connections>
-                                            <action selector="didTapBack:" destination="ybX-KB-d3G" eventType="touchUpInside" id="naV-CM-hPV"/>
+                                            <action selector="btnBackClick:" destination="ybX-KB-d3G" eventType="touchUpInside" id="axy-WE-ctT"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="olp-5t-Owj">
