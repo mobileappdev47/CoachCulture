@@ -10,6 +10,7 @@ import Foundation
 class ClassDetailData {
     var map: Map!
     var id = ""
+    var class_completed = false
     var coach_class_type = ""
     var class_subtitle = ""
     var duration = ""
@@ -38,6 +39,7 @@ class ClassDetailData {
     var responseDic = [String : Any]()
     var subscription = false
     var coach_class_subscription_id = 0
+    var started_at = ""
     
     init() {}
     
@@ -46,6 +48,8 @@ class ClassDetailData {
         self.responseDic = responseObj
         
         id = map.value("id") ?? ""
+        started_at = map.value("started_at") ?? ""
+        class_completed = map.value("class_completed") ?? false
         coach_class_subscription_id = map.value("coach_class_subscription_id") ?? 0
         coach_class_type = map.value("coach_class_type") ?? ""
         subscription = map.value("subscription") ?? false

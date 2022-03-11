@@ -15,6 +15,7 @@ class LiveClassDetailsViewController: BaseViewController {
         let vc = UIStoryboard(name: "Recipe", bundle: nil).instantiateViewController(withIdentifier: "LiveClassDetailsViewController") as! LiveClassDetailsViewController
         return vc
     }
+    @IBOutlet weak var btnJoinClass: UIButton!
     @IBOutlet weak var imgMusclesFront: UIImageView!
     @IBOutlet weak var imgMusclesBack: UIImageView!
 
@@ -311,7 +312,7 @@ class LiveClassDetailsViewController: BaseViewController {
         
         lblClassDifficultyLevel.text = classDetailDataObj.class_difficulty
         lblDuration.text = classDetailDataObj.duration
-        lblClassStartIn.text = "Class starts in: " + classDetailDataObj.class_time
+        //lblClassStartIn.text = "Class starts in: " + classDetailDataObj.class_time
         lblClassTitle.text = classDetailDataObj.class_type
         lblClassSubTitle.text = classDetailDataObj.class_subtitle
         
@@ -669,39 +670,33 @@ class LiveClassDetailsViewController: BaseViewController {
         }
     }
 
-    func goStepForwardAfterSubscribed() {
-        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
-            if Reachability.isConnectedToNetwork() {
-                getAWSDetails()
+    func goToPlayOndemandClass() {
+        let folderName = self.classDetailDataObj.id + "_" + self.classDetailDataObj.class_subtitle
+        let directoryUrl =  URL(fileURLWithPath: getDirectoryPath() + "/" + folderName + "/")
+        
+        var destinationFileUrl = ""
+        isStatusUpdatedForVideoEnd = false
+        var videoURL : URL?
+
+        if Reachability.isConnectedToNetwork() {
+            destinationFileUrl = self.classDetailDataObj.thumbnail_video
+            if let tempVideoURL = URL(string: destinationFileUrl.addingPercentEncoding(withAllowedCharacters: .urlAllowedCharacters) ?? "") {
+                videoURL = tempVideoURL
             }
         } else {
-            let folderName = self.classDetailDataObj.id + "_" + self.classDetailDataObj.class_subtitle
-            let directoryUrl =  URL(fileURLWithPath: getDirectoryPath() + "/" + folderName + "/")
-            
-            var destinationFileUrl = ""
+            destinationFileUrl = directoryUrl.appendingPathComponent(self.classDetailDataObj.thumbnail_video_file).absoluteString
+            let url = destinationFileUrl.replacingOccurrences(of: "file://", with: "")
+//            let abc = url.replacingOccurrences(of: "%20", with: " ")
+            videoURL = URL(fileURLWithPath: url.removingPercentEncoding ?? "")
             isStatusUpdatedForVideoEnd = false
-            var videoURL : URL?
-
-            if Reachability.isConnectedToNetwork() {
-                destinationFileUrl = self.classDetailDataObj.thumbnail_video
-                if let tempVideoURL = URL(string: destinationFileUrl.addingPercentEncoding(withAllowedCharacters: .urlAllowedCharacters) ?? "") {
-                    videoURL = tempVideoURL
-                }
-            } else {
-                destinationFileUrl = directoryUrl.appendingPathComponent(self.classDetailDataObj.thumbnail_video_file).absoluteString
-                let url = destinationFileUrl.replacingOccurrences(of: "file://", with: "")
-    //            let abc = url.replacingOccurrences(of: "%20", with: " ")
-                videoURL = URL(fileURLWithPath: url.removingPercentEncoding ?? "")
-                isStatusUpdatedForVideoEnd = false
-            }
-            if let finalUrl = videoURL {
-                let player = AVPlayer(url: finalUrl)
-                let playerViewController = AVPlayerViewController()
-                playerViewController.delegate = self
-                playerViewController.player = player
-                self.present(playerViewController, animated: true) {
-                    playerViewController.player!.play()
-                }
+        }
+        if let finalUrl = videoURL {
+            let player = AVPlayer(url: finalUrl)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.delegate = self
+            playerViewController.player = player
+            self.present(playerViewController, animated: true) {
+                playerViewController.player!.play()
             }
         }
     }
@@ -806,36 +801,57 @@ class LiveClassDetailsViewController: BaseViewController {
             self.popVC(animated: true)
          }
     }
+    
     @IBAction func clickToBtnScanQr( _ sender: UIButton) {
         
     }
     
     @IBAction func clickToBtnJoinClass( _ sender: UIButton) {
         if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
-            self.goStepForwardAfterSubscribed()
-        } else {
-            var fees = ""
-            var recdCurrency = ""
-            
-            if self.classDetailDataObj.subscription {
-                fees = classDetailDataObj.feesDataObj.subscriber_fee
-                recdCurrency = classDetailDataObj.feesDataObj.base_currency
-            } else {
-                fees = classDetailDataObj.feesDataObj.non_subscriber_fee
-                recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
-            }
-            if Reachability.isConnectedToNetwork(){
-                self.checkUserSubscribedClassAPI { (isSubscribed) in
-                    if isSubscribed {
-                        if self.isFromSubscriptionPurchase {
-                            self.getClassDetails()
-                        } else {
-                            self.goStepForwardAfterSubscribed()
-                        }
-                    } else {
-                        self.addConfirmationView()
-                        self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
+            if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+                if !classDetailDataObj.class_completed {
+                    if Reachability.isConnectedToNetwork() {
+                        self.getAWSDetails(isFromBroadcasting: true)
                     }
+                }
+            } else {
+                self.goToPlayOndemandClass()
+            }
+        } else {
+            checkUserSubscriptionOfClass()
+        }
+    }
+    
+    func goForBroadcastAWSClass() {
+        let vc = BroadcastClassVC.instantiate(fromAppStoryboard: .Recipe)
+        vc.streamObj = self.streamObj
+        self.pushVC(To: vc, animated: false)
+    }
+    
+    func checkUserSubscriptionOfClass() {
+        var fees = ""
+        var recdCurrency = ""
+        
+        if self.classDetailDataObj.subscription {
+            fees = classDetailDataObj.feesDataObj.subscriber_fee
+            recdCurrency = classDetailDataObj.feesDataObj.base_currency
+        } else {
+            fees = classDetailDataObj.feesDataObj.non_subscriber_fee
+            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
+        }
+        if Reachability.isConnectedToNetwork(){
+            self.checkUserSubscribedClassAPI { (isSubscribed) in
+                if isSubscribed {
+                    if self.isFromSubscriptionPurchase {
+                        self.getClassDetails()
+                    } else if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+                        self.getAWSDetails(isFromBroadcasting: false)
+                    } else {
+                        self.goToPlayOndemandClass()
+                    }
+                } else {
+                    self.addConfirmationView()
+                    self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
                 }
             }
         }
@@ -909,7 +925,7 @@ extension LiveClassDetailsViewController {
         }
     }
 
-    func getAWSDetails() {
+    func getAWSDetails(isFromBroadcasting: Bool) {
         showLoader()
         let param = ["class_id" : self.classDetailDataObj.id]
         
@@ -921,9 +937,15 @@ extension LiveClassDetailsViewController {
                     self.streamObj = StreamInfo(responseObj: dataObj)
                 }
                 self.hideLoader()
-                if Reachability.isConnectedToNetwork() {
-                    self.callJoinSessionsAPI()
-                    self.goToStartClass()
+                if isFromBroadcasting {
+                    if Reachability.isConnectedToNetwork() {
+                        self.goForBroadcastAWSClass()
+                    }
+                } else {
+                    if Reachability.isConnectedToNetwork() {
+                        self.callJoinSessionsAPI()
+                        self.goToStartClass()
+                    }
                 }
             }
         } failure: { (error) in
@@ -932,6 +954,79 @@ extension LiveClassDetailsViewController {
         }
     }
 
+    func setupAfterClassStatusUpdation() {
+        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+            viwClassStartIn.isHidden = false
+            if classDetailDataObj.class_completed {
+                lblClassStartIn.text = "Class has ended"
+                btnJoinClass.isEnabled = false
+            } else {
+                let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm", timezone: TimeZone.current.abbreviation()!)
+                let classStartDateTime = convertUTCToLocalDate(dateStr: "\(classDetailDataObj.class_date) \(classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm")
+                let diffClass = Calendar.current.dateComponents([.day, .hour, .minute], from: currentDateTime, to: classStartDateTime)
+                if diffClass.day ?? 0 == 0 {
+                    if diffClass.hour ?? 0 == 0 {
+                        if (diffClass.minute ?? 0 > 0) || (diffClass.second ?? 0 > 0) {
+                            self.lblClassStartIn.text = "start timer"
+                        } else {
+                            if classDetailDataObj.started_at.isEmpty || classDetailDataObj.started_at == "" {
+                                //start timer to join class
+                            } else {
+                                if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+                                    if (diffClass.minute ?? 0 < -15) {
+                                        self.lblClassStartIn.text = "coach was missed to start the class"
+                                        btnJoinClass.isEnabled = false
+                                    } else {
+                                        self.lblClassStartIn.text = "Class will start shortly"
+                                        //start timer to join class
+                                    }
+                                } else {
+                                    if (diffClass.minute ?? 0 < -15) {
+                                        self.lblClassStartIn.text = "You was misssed to start this class"
+                                        btnJoinClass.isEnabled = false
+                                    } else {
+                                        self.lblClassStartIn.text = "Start your class now"
+                                        //start timer to join class
+                                    }
+                                }
+                            }
+                        }
+                    } else if diffClass.hour ?? 0 > 0 {
+                        let todayEndDayTime = "23:59".getDateWithFormate(formate: "HH:mm", timezone: TimeZone.current.abbreviation()!)
+                        let currentHourTime = Date().getDateStringWithFormate("HH:mm", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "HH:mm", timezone: TimeZone.current.abbreviation()!)
+                        if todayEndDayTime > currentHourTime {
+                            self.lblClassStartIn.text = "Class starts today at \(classDetailDataObj.class_time)"
+                        } else {
+                            self.lblClassStartIn.text = "Class starts at \(classDetailDataObj.class_time)"
+                        }
+                    } else if diffClass.hour ?? 0 < 0 {
+                        if !classDetailDataObj.started_at.isEmpty || classDetailDataObj.started_at != "" {
+                            //start class timer
+                        } else {
+                            if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+                                self.lblClassStartIn.text = "You was missed to start the class"
+                            } else {
+                                self.lblClassStartIn.text = "coach was missed to start the class"
+                            }
+                            btnJoinClass.isEnabled = false
+                        }
+                    }
+                } else if diffClass.day ?? 0 < 0 {
+                    if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+                        self.lblClassStartIn.text = "You was missed to start the class"
+                    } else {
+                        self.lblClassStartIn.text = "coach was missed to start the class"
+                    }
+                    btnJoinClass.isEnabled = false
+                } else if diffClass.day ?? 0 > 0 {
+                    self.lblClassStartIn.text = "Class starts at \(classDetailDataObj.class_date) \(classDetailDataObj.class_time)"
+                }
+            }
+        } else {
+            viwClassStartIn.isHidden = true
+        }
+    }
+    
     func getClassDetails() {
         if !self.isFromSubscriptionPurchase {
             showLoader()
@@ -943,8 +1038,9 @@ extension LiveClassDetailsViewController {
             let dataObj = responseObj["coach_class"] as? [String:Any] ?? [String:Any]()
             self.classDetailDataObj = ClassDetailData(responseObj: dataObj)
             if self.isFromSubscriptionPurchase {
-                self.goStepForwardAfterSubscribed()
+                self.getAWSDetails(isFromBroadcasting: false)
             } else {
+                self.setupAfterClassStatusUpdation()
                 self.checkIfDataIsUpdated()
                 self.getClassRating()
                 self.setData()
@@ -953,7 +1049,7 @@ extension LiveClassDetailsViewController {
             if Reachability.isConnectedToNetwork(){
                 self.getClassRating()
             }
-                    } failure: { (error) in
+        } failure: { (error) in
             self.hideLoader()
             return true
         }

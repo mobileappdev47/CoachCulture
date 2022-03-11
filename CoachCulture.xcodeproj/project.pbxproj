@@ -50,6 +50,11 @@
 		512BBE6A27C5F01B002AF2B8 /* NewClassesTBLViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */; };
 		512BBE6D27C6143A002AF2B8 /* HomeNewClassHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */; };
 		512BBE7027C615DF002AF2B8 /* HomeNewClassHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */; };
+		516E134127DB24F9008EEC72 /* BroadcastClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E134027DB24F9008EEC72 /* BroadcastClassVC.swift */; };
+		516E135327DB314C008EEC72 /* UserDefaultsAuthDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E135027DB314C008EEC72 /* UserDefaultsAuthDao.swift */; };
+		516E135427DB314C008EEC72 /* UserDefaultsDao.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E135127DB314C008EEC72 /* UserDefaultsDao.swift */; };
+		516E135527DB314C008EEC72 /* AuthItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E135227DB314C008EEC72 /* AuthItem.swift */; };
+		516E135827DB31A2008EEC72 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E135727DB31A2008EEC72 /* Utils.swift */; };
 		519CDD7427D9DC98001958B8 /* JoinLiveClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */; };
 		BD24B26A27CA4CEE00176981 /* BottomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24B26827CA4CEE00176981 /* BottomDetailView.swift */; };
 		BD24B26B27CA4CEE00176981 /* BottomDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD24B26927CA4CEE00176981 /* BottomDetailView.xib */; };
@@ -535,6 +540,11 @@
 		512BBE6827C5F01B002AF2B8 /* NewClassesTBLViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewClassesTBLViewCell.xib; sourceTree = "<group>"; };
 		512BBE6C27C6143A002AF2B8 /* HomeNewClassHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeNewClassHeaderView.xib; sourceTree = "<group>"; };
 		512BBE6F27C615DF002AF2B8 /* HomeNewClassHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeNewClassHeaderView.swift; sourceTree = "<group>"; };
+		516E134027DB24F9008EEC72 /* BroadcastClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BroadcastClassVC.swift; sourceTree = "<group>"; };
+		516E135027DB314C008EEC72 /* UserDefaultsAuthDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsAuthDao.swift; sourceTree = "<group>"; };
+		516E135127DB314C008EEC72 /* UserDefaultsDao.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultsDao.swift; sourceTree = "<group>"; };
+		516E135227DB314C008EEC72 /* AuthItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthItem.swift; sourceTree = "<group>"; };
+		516E135727DB31A2008EEC72 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLiveClassVC.swift; sourceTree = "<group>"; };
 		519CDE0027D9E073001958B8 /* AmazonIVSPlayer.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AmazonIVSPlayer.xcframework; path = Pods/AmazonIVSPlayer/AmazonIVSPlayer.xcframework; sourceTree = "<group>"; };
 		8D2B8E0B4D497DEC5D11191E /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
@@ -1188,6 +1198,26 @@
 			path = "Custom Fonts";
 			sourceTree = "<group>";
 		};
+		516E133F27DB24D8008EEC72 /* BroacastClass */ = {
+			isa = PBXGroup;
+			children = (
+				516E134F27DB314C008EEC72 /* Storage */,
+				516E134027DB24F9008EEC72 /* BroadcastClassVC.swift */,
+			);
+			path = BroacastClass;
+			sourceTree = "<group>";
+		};
+		516E134F27DB314C008EEC72 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				516E135727DB31A2008EEC72 /* Utils.swift */,
+				516E135027DB314C008EEC72 /* UserDefaultsAuthDao.swift */,
+				516E135127DB314C008EEC72 /* UserDefaultsDao.swift */,
+				516E135227DB314C008EEC72 /* AuthItem.swift */,
+			);
+			path = Storage;
+			sourceTree = "<group>";
+		};
 		519CDD7227D9DC7F001958B8 /* JoinLiveClass */ = {
 			isa = PBXGroup;
 			children = (
@@ -1624,6 +1654,7 @@
 		D4CE254A2769B12B00743FFC /* Live Class */ = {
 			isa = PBXGroup;
 			children = (
+				516E133F27DB24D8008EEC72 /* BroacastClass */,
 				519CDD7227D9DC7F001958B8 /* JoinLiveClass */,
 				D485B178276C5F4700EC101E /* LiveClassRating */,
 				D4CE25512769C05600743FFC /* Live Class Details */,
@@ -2577,6 +2608,7 @@
 				D4C887A72759DA480068F7A9 /* HomeViewModel.swift in Sources */,
 				D48F45322770B17E00B0EAD8 /* PopularCoachRecipeModel.swift in Sources */,
 				F10C0411272A5C5D004E46F7 /* CoachContentEditViewController.swift in Sources */,
+				516E135427DB314C008EEC72 /* UserDefaultsDao.swift in Sources */,
 				D4E6FA3C2772DEC900E3593C /* PreviousClassesViewController.swift in Sources */,
 				D4156CF52764868400328E4F /* DPDKeyboardListener.swift in Sources */,
 				D42928852775918500712055 /* PaymentModel.swift in Sources */,
@@ -2655,12 +2687,15 @@
 				D417985227631793001FA192 /* AddStepOfRecipeTableViewCell.swift in Sources */,
 				D417985527632512001FA192 /* AddIngredientsForRecipeViewController.swift in Sources */,
 				F196388D272BABBB00D19373 /* SignupUserModel.swift in Sources */,
+				516E135327DB314C008EEC72 /* UserDefaultsAuthDao.swift in Sources */,
 				D48AC8CE277DB43C00D1D370 /* PreviousUploadViewController.swift in Sources */,
 				D4D49ED3275B890F009221EE /* NationalityTableViewCell.swift in Sources */,
 				D442AD2927707C270061DA91 /* CoachFollowerModel.swift in Sources */,
+				516E134127DB24F9008EEC72 /* BroadcastClassVC.swift in Sources */,
 				D4F3C71227745E41001EDDE1 /* TransactionItemTableViewCell.swift in Sources */,
 				D41DB04927704433007FC5F7 /* ClassFilterViewController.swift in Sources */,
 				BD24B26A27CA4CEE00176981 /* BottomDetailView.swift in Sources */,
+				516E135827DB31A2008EEC72 /* Utils.swift in Sources */,
 				D4E54BDE275F254D00D6A80F /* ClassTypeListItemTableViewCell.swift in Sources */,
 				D4156CE327647DAF00328E4F /* RecipeIngredientTableViewCell.swift in Sources */,
 				F10C0413272A5C7A004E46F7 /* CoachContentViewController.swift in Sources */,
@@ -2669,6 +2704,7 @@
 				512ABEBD27180D09008CB198 /* GradientView.swift in Sources */,
 				510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */,
 				D4E6FA4327732A2100E3593C /* PaymentMethodViewController.swift in Sources */,
+				516E135527DB314C008EEC72 /* AuthItem.swift in Sources */,
 				D40136C92758DCFC00E36A39 /* LogOutView.swift in Sources */,
 				D4677F6D27577CC300DD7E70 /* ResponseDataModel.swift in Sources */,
 				D48F45232770921C00B0EAD8 /* CoachViseOnDemandClassItemTableViewCell.swift in Sources */,
