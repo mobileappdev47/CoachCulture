@@ -442,7 +442,7 @@ open class XAxisRenderer: AxisRendererBase
             text: label,
             point: point,
             align: align,
-            attributes: attributes
+            attributes: attributes, boolTF: false
         )
     }
 }

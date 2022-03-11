@@ -31,7 +31,7 @@ class WorkoutStatisticVC: BaseViewController {
     var perPageCount = 10
     var isDataLoading = false
     var continueLoadingData = true
-
+    var maxMin = 0.0
     var ITEM_COUNT  = 0
     
     //MARK: - VIEW CONTROLLER LIFE CYCLE
@@ -66,8 +66,8 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: xAxis
         let xAxis                           = chartView.xAxis
         xAxis.labelPosition                 = .bottom
-        xAxis.labelFont = NSUIFont(name: "SFProText-Bold", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)
-        xAxis.axisMinimum                   = 0.0
+        xAxis.labelFont = NSUIFont(name: "SFProText-Bold", size: 8.0) ?? NSUIFont.systemFont(ofSize: 10)
+        xAxis.axisMinimum                   = -0.5
         xAxis.granularity                   = 1.0
         xAxis.valueFormatter                = BarChartFormatter()
         xAxis.centerAxisLabelsEnabled = false
@@ -80,7 +80,7 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: leftAxis
         let leftAxis                        = chartView.leftAxis
         leftAxis.drawGridLinesEnabled       = false
-        leftAxis.drawLabelsEnabled = false
+//        leftAxis.drawLabelsEnabled = false
         leftAxis.axisMinimum                = 0.0
         
         //leftAxis.nameAxis = "left Axis"
@@ -113,8 +113,8 @@ class WorkoutStatisticVC: BaseViewController {
     
     func setChartData() {
         let data = CombinedChartData()
-        data.lineData = generateLineData()
         data.barData = generateBarData()
+        data.lineData = generateLineData()
         chartView.xAxis.axisMaximum = data.xMax + 0.25
         chartView.data = data
     }
@@ -124,7 +124,7 @@ class WorkoutStatisticVC: BaseViewController {
         var entries = [ChartDataEntry]()
                 
         for (index, model) in self.userWorkoutStatisticsModel.arrWeeklyDataObj.enumerated() {
-            entries.append(ChartDataEntry(x: Double(index), y: Double(model.user_total_burn_calories) ?? 0.0))
+            entries.append(ChartDataEntry(x: Double(index), y: Double(model.user_total_burn_calories)! / maxMin))
         }
         
         // MARK: LineChartDataSet
@@ -132,7 +132,7 @@ class WorkoutStatisticVC: BaseViewController {
 
         set.colors = [COLORS.RECIPE_COLOR]
         set.lineWidth = 2.5
-        
+        set.drawCirclesEnabled = false
         set.circleColors = [COLORS.RECIPE_COLOR]
         set.circleHoleRadius = 2.5
         set.fillColor = COLORS.RECIPE_COLOR
@@ -140,6 +140,7 @@ class WorkoutStatisticVC: BaseViewController {
         set.mode = .cubicBezier
         set.drawValuesEnabled = true
         set.valueFont = NSUIFont(name: "SFProText-Bold", size: 9) ?? NSUIFont.systemFont(ofSize: CGFloat(9.0))
+        set.valueColors = [COLORS.RECIPE_COLOR]
         set.valueTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         set.axisDependency = .left
         
@@ -156,6 +157,9 @@ class WorkoutStatisticVC: BaseViewController {
         for index in 0..<ITEM_COUNT {
             let user_total_duration = self.userWorkoutStatisticsModel.arrWeeklyDataObj[index].user_total_duration.components(separatedBy: .whitespaces).first
             entries1.append(BarChartDataEntry(x: Double(index), y: Double(user_total_duration ?? "0.0") ?? 0.0))
+            if Double(user_total_duration ?? "")! > maxMin {
+                maxMin = Double(user_total_duration!)!
+            }
         }
         
         // MARK: BarChartDataSet
