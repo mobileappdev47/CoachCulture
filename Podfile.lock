@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (5.4.3)
+  - AmazonIVSBroadcast (1.3.0)
+  - AmazonIVSPlayer (1.8.0)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -190,6 +192,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - AmazonIVSBroadcast
+  - AmazonIVSPlayer
   - AWSCognito
   - AWSCore
   - AWSS3
@@ -220,6 +224,8 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AmazonIVSBroadcast
+    - AmazonIVSPlayer
     - AppAuth
     - AWSCognito
     - AWSCore
@@ -264,6 +270,8 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  AmazonIVSBroadcast: c08e6e48e14fa2b8a77a171161e3f59ee6a2c714
+  AmazonIVSPlayer: e4f8df3ece5ff03eb8d557242711476730af294d
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   AWSCognito: f50de600804941d083af37a7568905f31a774727
   AWSCore: 55c154ae27efc5c98bdc30a0eeea5a35d10a2ab5
@@ -306,6 +314,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: d6da56b1dd6690b938e7416f84f7bc1fbddb8cf5
+PODFILE CHECKSUM: 8fae45f4101800567d5717eb39206bce622c6c1e
 
 COCOAPODS: 1.11.2

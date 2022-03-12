@@ -12,6 +12,7 @@ import Firebase
 import AWSCore
 import GoogleSignIn
 
+var didSupportAllOrientation : Bool?
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUserNotificationCenterDelegate {
@@ -47,6 +48,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         return true
     }
     
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        if didSupportAllOrientation ?? false {
+            return UIInterfaceOrientationMask.all
+        } else {
+            return UIInterfaceOrientationMask.portrait
+        }
+    }
+
     // MARK: UISceneSession Lifecycle
     
     @available(iOS 13.0, *)
