@@ -80,8 +80,8 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: leftAxis
         let leftAxis                        = chartView.leftAxis
         leftAxis.drawGridLinesEnabled       = false
-//        leftAxis.drawLabelsEnabled = false
-        leftAxis.axisMinimum                = 0.0
+        leftAxis.axisMinimum                = -0.5
+        leftAxis.drawLabelsEnabled = false
         
         //leftAxis.nameAxis = "left Axis"
         //leftAxis.nameAxisEnabled = true
@@ -89,7 +89,7 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: rightAxis
         let rightAxis                       = chartView.rightAxis
         rightAxis.drawGridLinesEnabled      = false
-        rightAxis.axisMinimum               = 0.0
+        rightAxis.axisMinimum               = -0.5
         rightAxis.drawLabelsEnabled = false
 
         //rightAxis.nameAxis = "right Axis"
@@ -111,6 +111,18 @@ class WorkoutStatisticVC: BaseViewController {
         setChartData()
     }
     
+    private func getGradientFilling() -> CGGradient {
+        // Setting fill gradient color
+        let coloTop = UIColor(red: 141/255, green: 133/255, blue: 220/255, alpha: 1).cgColor
+        let colorBottom = UIColor(red: 230/255, green: 155/255, blue: 210/255, alpha: 1).cgColor
+        // Colors of the gradient
+        let gradientColors = [coloTop, colorBottom] as CFArray
+        // Positioning of the gradient
+        let colorLocations: [CGFloat] = [0.7, 0.0]
+        // Gradient Object
+        return CGGradient.init(colorsSpace: CGColorSpaceCreateDeviceRGB(), colors: gradientColors, locations: colorLocations)!
+    }
+
     func setChartData() {
         let data = CombinedChartData()
         data.barData = generateBarData()
@@ -124,7 +136,10 @@ class WorkoutStatisticVC: BaseViewController {
         var entries = [ChartDataEntry]()
                 
         for (index, model) in self.userWorkoutStatisticsModel.arrWeeklyDataObj.enumerated() {
-            entries.append(ChartDataEntry(x: Double(index), y: Double(model.user_total_burn_calories)! / maxMin))
+            let value = Double(model.user_total_burn_calories)! * 1000
+            let devideValue = value / maxMin
+            let mainValue = devideValue / 1000
+            entries.append(ChartDataEntry(x: Double(index), y: mainValue))
         }
         
         // MARK: LineChartDataSet
@@ -164,7 +179,7 @@ class WorkoutStatisticVC: BaseViewController {
         
         // MARK: BarChartDataSet
         let set1            = BarChartDataSet(entries: entries1)
-        set1.colors         = [COLORS.BARCHART_BG_COLOR]
+        set1.colors         = [UIColor(cgColor: #colorLiteral(red: 0, green: 0.9607843137, blue: 1, alpha: 1)),UIColor(cgColor: #colorLiteral(red: 0.8862745098, green: 0, blue: 1, alpha: 1))]
         set1.valueTextColor = .white
         set1.valueFont      = NSUIFont(name: "SFProText-Bold", size: 10) ?? NSUIFont.systemFont(ofSize: CGFloat(10.0))
         set1.axisDependency = .left
@@ -262,6 +277,7 @@ class WorkoutStatisticVC: BaseViewController {
                 self.userWorkoutStatisticsModel = UserWorkoutStatisticsModel(responseObj: user_workout_statistics)
                 self.ITEM_COUNT = self.userWorkoutStatisticsModel.arrWeeklyDataObj.count
                 if self.ITEM_COUNT > 0 {
+                    arrMonths = []
                     self.userWorkoutStatisticsModel.arrWeeklyDataObj.forEach { (allModel) in
                         arrMonths.append(convertUTCToLocal(dateStr: allModel.date, sourceFormate: "yyyy-MM-dd", destinationFormate: "dd MMM"))
                     }
@@ -487,7 +503,7 @@ extension WorkoutStatisticVC: ChartViewDelegate {
         public func stringForValue(_ value: Double, axis: AxisBase?) -> String
         {
             let modu =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
-            return months[Int(modu) ]
+            return months[Int(modu)]
         }
     }
 }

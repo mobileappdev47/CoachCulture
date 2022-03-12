@@ -20,6 +20,9 @@ import CoreGraphics
 import Cocoa
 #endif
 
+var arr = [Float]()
+var maxMin = Float()
+
 extension Comparable
 {
     func clamped(to range: ClosedRange<Self>) -> Self
@@ -128,6 +131,8 @@ open class ChartUtils
 {
     private static var _defaultValueFormatter: IValueFormatter = ChartUtils.generateDefaultValueFormatter()
     
+    static let trueFalse = false
+    
     open class func drawImage(
         context: CGContext,
         image: NSUIImage,
@@ -174,7 +179,10 @@ open class ChartUtils
     open class func drawText(context: CGContext, text: String, point: CGPoint, align: NSTextAlignment, attributes: [NSAttributedString.Key : Any]?, boolTF: Bool)
     {
         var point = point
-        
+        let firstAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor(cgColor: #colorLiteral(red: 0.3019607843, green: 0.7176470588, blue: 0.2823529412, alpha: 1)),
+                                                              NSAttributedString.Key.kern: 0.1,
+                                                              NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)),
+                                                              NSAttributedString.Key.font: NSUIFont(name: "SFProText-Bold", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
         if align == .center
         {
             point.x -= text.size(withAttributes: attributes).width / 2.0
@@ -186,9 +194,18 @@ open class ChartUtils
         
         NSUIGraphicsPushContext(context)
         if boolTF {
-            (text + " kcal" as NSString).draw(at: point, withAttributes: attributes)
+            ("\(Int(Float(text)! * maxMin))" + " kcal" as NSString).draw(at: point, withAttributes: firstAttributes)
         } else {
-            (text as NSString).draw(at: point, withAttributes: attributes)
+            if text.last == "s" {
+                let conStr = text.replacingOccurrences(of: " Mins", with: "")
+                arr.append(Float(conStr)!)
+                if Float(conStr)! > maxMin {
+                    (maxMin) = Float(conStr)!
+                }
+//                (text as NSString).draw(at: point, withAttributes: attributes)
+            } else {
+                (text as NSString).draw(at: point, withAttributes: attributes)
+            }
         }
         
         NSUIGraphicsPopContext()
@@ -296,8 +313,16 @@ open class ChartUtils
     
     internal class func drawMultilineText(context: CGContext, text: String, point: CGPoint, attributes: [NSAttributedString.Key : Any]?, constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
     {
-        let rect = text.boundingRect(with: constrainedToSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-        drawMultilineText(context: context, text: text, knownTextSize: rect.size, point: point, attributes: attributes, constrainedToSize: constrainedToSize, anchor: anchor, angleRadians: angleRadians)
+        
+        let firstAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor(cgColor: #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)),
+                                                              NSAttributedString.Key.kern: 0.1,
+                                                              NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)),
+                                                              NSAttributedString.Key.font: NSUIFont(name: "SFProText-Bold", size: 7.0) ?? NSUIFont.systemFont(ofSize: 10)
+                                                              
+        ]
+        
+        let rect = text.boundingRect(with: constrainedToSize, options: .usesLineFragmentOrigin, attributes: firstAttributes, context: nil)
+        drawMultilineText(context: context, text: text, knownTextSize: rect.size, point: point, attributes: firstAttributes, constrainedToSize: constrainedToSize, anchor: anchor, angleRadians: angleRadians)
     }
 
     private class func generateDefaultValueFormatter() -> IValueFormatter

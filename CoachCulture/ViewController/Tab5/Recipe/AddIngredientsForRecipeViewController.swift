@@ -340,8 +340,8 @@ extension AddIngredientsForRecipeViewController : UITextFieldDelegate {
         let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
         let cell = tblIntredienta.cellForRow(at: IndexPath(row: textField.tag, section: 0)) as! AddIngredientIemTableViewCell
-        cell.dropDown2.show()
-        /*
+//        cell.dropDown2.show()
+        
         let obj = arrAddIngredientsListData[textField.tag]
         
         if textField ==  cell.txtIngredient {
@@ -350,7 +350,7 @@ extension AddIngredientsForRecipeViewController : UITextFieldDelegate {
         
         if textField ==  cell.txtQty {
             obj.qty = finalString
-        }*/
+        }
                 
         return true
     }

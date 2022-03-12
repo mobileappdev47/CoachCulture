@@ -80,7 +80,7 @@ class AddIngredientIemTableViewCell: UITableViewCell {
 extension AddIngredientIemTableViewCell : UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        dropDown2.show()
+//        dropDown2.show()
         return true
     }
     

@@ -106,7 +106,7 @@ open class XAxisRenderer: AxisRendererBase
         }
         else if xAxis.labelPosition == .bottom
         {
-            drawLabels(context: context, pos: viewPortHandler.contentBottom + yOffset, anchor: CGPoint(x: 0.5, y: 0.0))
+            drawLabels(context: context, pos: viewPortHandler.contentBottom + yOffset, anchor: CGPoint(x: 0.0, y: 0.0))
         }
         else if xAxis.labelPosition == .bottomInside
         {
