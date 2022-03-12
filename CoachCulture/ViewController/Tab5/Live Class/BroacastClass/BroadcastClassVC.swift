@@ -8,20 +8,22 @@ class BroadcastClassVC: BaseViewController {
 
     // UI Outlets
     @IBOutlet private var startButton: UIButton!
-
     @IBOutlet private var previewView: UIView!
     @IBOutlet private var connectionView: UIView!
-
     @IBOutlet private var cameraButton: UIButton!
     @IBOutlet private var microphoneButton: UIButton!
     @IBOutlet private var muteButton: UIButton!
 
     // State management
+    var didEndStreamingBlock: ((_ isSuccessfullyJoinned: Bool) -> Void)!
+
     private var isRunning = false {
         didSet {
-            startButton.setTitle(isRunning ? "Stop" : "Start", for: .normal)
+            startButton.setTitle(isRunning ? "End" : "Start", for: .normal)
+            startButton.backgroundColor = isRunning ? COLORS.ON_DEMAND_COLOR : COLORS.THEME_RED
         }
     }
+    
     private var isMuted = false {
         didSet {
             applyMute()
@@ -50,19 +52,21 @@ class BroadcastClassVC: BaseViewController {
     // This broadcast session is the main interaction point with the SDK
     private var broadcastSession: IVSBroadcastSession?
     var streamObj : StreamInfo?
+    var isSuccessfullyJoinned = false
 
     // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        isMuted = false // trigger didSet because Storyboards don't support iOS version checks.
-
-        // Tapping on the preview image will dismiss the keyboard
-        let tap = UITapGestureRecognizer(target: self, action: #selector(previewTapped))
-        previewView.addGestureRecognizer(tap)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.initialSetup()
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         // The SDK will not handle disabling the idle timer for you because that might
@@ -92,6 +96,7 @@ class BroadcastClassVC: BaseViewController {
             // Stop the session if we're running
             broadcastSession?.stop()
             isRunning = false
+            self.classEndedBlock()
         } else {
             // Start the session if we're not running.
             guard let endpointPath = streamObj?.ingest_endpoint, let url = URL(string: "rtmps://\(endpointPath)/app"), let key = streamObj?.streamdata else {
@@ -126,7 +131,18 @@ class BroadcastClassVC: BaseViewController {
     @IBAction private func muteTapped(_ sender: UIButton) {
         isMuted.toggle()
     }
+    
+    func initialSetup() {
+        isMuted = false // trigger didSet because Storyboards don't support iOS version checks.
 
+        // Tapping on the preview image will dismiss the keyboard
+        let tap = UITapGestureRecognizer(target: self, action: #selector(previewTapped))
+        previewView.addGestureRecognizer(tap)
+        
+        connectionView.addCornerRadius(connectionView.frame.height / 2)
+        startButton.addCornerRadius(7)
+    }
+    
     private func applyMute() {
         // It is important to note that when muting a microphone by adjusting the gain, the microphone will still be recording.
         // The orange light indicator on iOS devices will remain active. The SDK is still receiving all the real audio
@@ -151,13 +167,8 @@ class BroadcastClassVC: BaseViewController {
             }
         }
 
-        if #available(iOS 13.0, *) {
-            let imageName = isMuted ? "speaker.slash" : "speaker"
-            muteButton.setImage(UIImage(systemName: imageName), for: .normal)
-        } else {
-            let title = isMuted ? "Unmute" : "Mute"
-            muteButton.setTitle(title, for: .normal)
-        }
+        let imageName = isMuted ? "ic_mute" : "ic_unmute"
+        muteButton.setImage(UIImage(systemName: imageName), for: .normal)
     }
 
     private func chooseDevice(_ sender: UIButton, type: IVSDeviceType, deviceName: String, deviceSelected: @escaping (IVSDeviceDescriptor) -> Void) {
@@ -254,20 +265,36 @@ extension BroadcastClassVC : IVSBroadcastSession.Delegate {
         print("IVSBroadcastSession state did change to \(state.rawValue)")
         DispatchQueue.main.async {
             switch state {
-            case .invalid: self.connectionView.backgroundColor = .darkGray
+            case .invalid:
+                self.connectionView.backgroundColor = .darkGray
+                self.isSuccessfullyJoinned = false
             case .connecting: self.connectionView.backgroundColor = .yellow
             case .connected: self.connectionView.backgroundColor = .green
+                self.isSuccessfullyJoinned = true
             case .disconnected:
                 self.connectionView.backgroundColor = .darkGray
                 self.isRunning = false
+                if !self.isSuccessfullyJoinned {
+                    self.isSuccessfullyJoinned = false
+                }
+                self.classEndedBlock()
             case .error:
                 self.connectionView.backgroundColor = .red
                 self.isRunning = false
+                self.isSuccessfullyJoinned = false
+                self.classEndedBlock()
             @unknown default: self.connectionView.backgroundColor = .darkGray
             }
         }
     }
-
+    
+    func classEndedBlock() {
+        if didEndStreamingBlock != nil {
+            didEndStreamingBlock(self.isSuccessfullyJoinned)
+            self.popVC(animated: true)
+        }
+    }
+    
     func broadcastSession(_ session: IVSBroadcastSession, didEmitError error: Error) {
         DispatchQueue.main.async {
             self.displayErrorAlert(error, "in SDK")
