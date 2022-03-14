@@ -13,7 +13,6 @@ class NotificationVC: BaseViewController {
     var arrNotificationList = [ModelNotificationClass]()
     var kCoachViseOnDemandClassItemTableViewCell = "CoachViseOnDemandClassItemTableViewCell"
     var kCoachViseRecipeItemTableViewCell = "CoachViseRecipeItemTableViewCell"
-    var isFromBookMark = false
     
     //MARK: - VIEW CONTROLLER LIFE CYCLE
     
@@ -80,7 +79,6 @@ class NotificationVC: BaseViewController {
                     if selectedIndex == index {
                         model.meta.bookmark = model.meta.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
                         self.arrNotificationList[index] = model
-                        self.isFromBookMark = true
                         DispatchQueue.main.async {
                             self.tblNotificationView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
                             self.tblNotificationView.endUpdates()
@@ -127,7 +125,6 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let obj = arrNotificationList[indexPath.row]
-        let recdDate = convertUTCToLocalDate(dateStr: obj.datetime, sourceFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", destinationFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ")
 
         if obj.notification_type == NotificationType.on_demand {
             let cell = tableView.dequeueReusableCell(withIdentifier: kCoachViseOnDemandClassItemTableViewCell, for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
