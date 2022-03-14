@@ -304,6 +304,13 @@ class CoachClassProfileViewController: BaseViewController {
     
     // MARK: - CLICK EVENTS
     
+    @IBAction func banNotificationClick(_ sender: Any) {
+        let nextVC = NotificationVC.instantiate(fromAppStoryboard: .Followers)
+        DispatchQueue.main.async {
+            self.pushVC(To: nextVC, animated: true)
+        }
+    }
+    
     @IBAction func btnWorkoutStatisticsClick(_ sender: Any) {
         let nextVC = WorkoutStatisticVC.instantiate(fromAppStoryboard: .Followers)
         self.pushVC(To: nextVC, animated: true)

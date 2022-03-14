@@ -29,7 +29,7 @@ class JoinLiveClassVC: BaseViewController {
     
     @IBAction func btnBackClick(_ sender: Any) {
         if didEndStreamingBlock != nil {
-            didEndStreamingBlock()
+            didEndStreamingBlock(self.isSuccessfullyJoinned)
             self.popVC(animated: true)
         }
     }
@@ -80,8 +80,9 @@ class JoinLiveClassVC: BaseViewController {
     var streamUrl: URL?
     private var gradientTop: CAGradientLayer?
     private var gradientBottom: CAGradientLayer?
-    var didEndStreamingBlock: (() -> Void)!
-    
+    var didEndStreamingBlock: ((_ isSuccessfullyJoinned: Bool) -> Void)!
+    var isSuccessfullyJoinned = false
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -252,13 +253,16 @@ extension JoinLiveClassVC: IVSPlayer.Delegate {
         updateForState(state)
         if state == .ended {
             if didEndStreamingBlock != nil {
-                didEndStreamingBlock()
+                didEndStreamingBlock(self.isSuccessfullyJoinned)
                 self.popVC(animated: true)
             }
+        } else if state == .playing {
+            self.isSuccessfullyJoinned = true
         }
     }
     
     func player(_ player: IVSPlayer, didFailWithError error: Error) {
+        self.isSuccessfullyJoinned = false
         delegate?.presentError(error, componentName: "Player")
     }
     
