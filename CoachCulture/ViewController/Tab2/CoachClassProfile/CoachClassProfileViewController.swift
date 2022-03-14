@@ -204,7 +204,7 @@ class CoachClassProfileViewController: BaseViewController {
         
         // MARK: BarChartDataSet
         let set1            = BarChartDataSet(entries: entries1)
-        set1.colors         = [COLORS.BARCHART_BG_COLOR]
+        set1.colors         = [UIColor(cgColor: #colorLiteral(red: 0, green: 0.9607843137, blue: 1, alpha: 1)),UIColor(cgColor: #colorLiteral(red: 0.8862745098, green: 0, blue: 1, alpha: 1))]
         set1.valueTextColor = .clear
         set1.axisDependency = .left
                 
@@ -768,7 +768,6 @@ extension CoachClassProfileViewController: ChartViewDelegate {
     public class BarChartFormatter: NSObject, IAxisValueFormatter
     {
         var months: [String]! = arrMonths
-        
         public func stringForValue(_ value: Double, axis: AxisBase?) -> String
         {
             let modu =  Double(value).truncatingRemainder(dividingBy: Double(months.count))

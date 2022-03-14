@@ -14,7 +14,7 @@ import Foundation
 open class ChartDataEntryBase: NSObject
 {
     /// the y value
-    @objc open var y = 0.0
+    @objc open var y = 0.00000000
     
     /// optional spot for additional data this Entry represents
     @objc open var data: Any?

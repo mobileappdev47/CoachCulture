@@ -400,7 +400,8 @@ extension LoginSignUpVc {
             "base_currency":base_currency,
             "phonecode":txtCountryCode.text!,
             "phoneno":txtPhone.text!,
-            "email":txtEmail.text!
+            "email":txtEmail.text!,
+            "device_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC81Mi43My4yMDYuMzdcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2NDYyODc4MDEsImV4cCI6MTY3NzgyMzgwMSwibmJmIjoxNjQ2Mjg3ODAxLCJqdGkiOiJpM1I2OHJLSjlDbkNZaUJSIiwic3ViIjoxMjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kl3knqt_VeKveza9YK9de2dy6Ps9yYxu3bRUsuCmKhg",
         ]
         
         apimanager.callMultiPartDataWebServiceNew(type: SignupUserModel.self, image: nil, to: API.REGISTER_USER, params: param) { userModel, statusCode in
