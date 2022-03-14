@@ -866,10 +866,10 @@ class LiveClassDetailsViewController: BaseViewController {
             fees = classDetailDataObj.feesDataObj.non_subscriber_fee
             recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
         }
-        if Reachability.isConnectedToNetwork(){
+        if Reachability.isConnectedToNetwork() {
             self.checkUserSubscribedClassAPI { (isSubscribed) in
                 if isSubscribed {
-                    if self.isFromSubscriptionPurchase {
+                    if self.isFromSubscriptionPurchase && self.classDetailDataObj.coach_class_type == CoachClassType.live {
                         self.getClassDetails(isFromTimerToCheckClassStatus: false)
                     } else if self.classDetailDataObj.coach_class_type == CoachClassType.live {
                         self.getAWSDetails(isFromBroadcasting: false)

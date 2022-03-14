@@ -169,9 +169,10 @@ class ModelMeta {
     var total_viewers = ""
     var class_time = ""
     var class_date = ""
-    var class_type_name = ""
+    var class_type = ""
     var class_difficulty_name = ""
     var coachDetailsObj = CoachDetailsData()
+    var coach = CoachDetailsData()
     var userRatingObj = UserRating()
     var username = ""
     var created_at = ""
@@ -205,11 +206,12 @@ class ModelMeta {
         coach_class_type = map.value("coach_class_type") ?? ""
         class_subtitle = map.value("class_subtitle") ?? ""
         duration = map.value("duration") ?? ""
-        coachDetailsObj = CoachDetailsData(responseObj: responseObj["coach"] as? [String : Any] ?? [String : Any]())
+        coachDetailsObj = CoachDetailsData(responseObj: responseObj["coach_details"] as? [String : Any] ?? [String : Any]())
+        coach = CoachDetailsData(responseObj: responseObj["coach"] as? [String : Any] ?? [String : Any]())
         userRatingObj = UserRating(responseObj: responseObj["user_rating"] as? [String : Any] ?? [String : Any]())
         total_viewers = map.value("total_viewers") ?? ""
         thumbnail_video = map.value("thumbnail_video") ?? ""
-        class_type_name = map.value("class_type_name") ?? ""
+        class_type = map.value("class_type") ?? ""
         status = map.value("status") ?? ""
         bookmark = map.value("bookmark") ?? ""
         class_difficulty_name = map.value("class_difficulty_name") ?? ""

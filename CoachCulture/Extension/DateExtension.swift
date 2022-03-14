@@ -2,6 +2,26 @@
 import Foundation
 
 extension Date {
+    
+    func getDateStringVariation(from datetime: String) -> String {
+        let calendar = Calendar.current
+        let recdDate = convertUTCToLocalDate(dateStr: datetime, sourceFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", destinationFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ")
+        
+        if calendar.isDateInToday(recdDate) {
+            return convertUTCToLocalDate(dateStr: datetime, sourceFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", destinationFormate: "HH:mm").getDateStringWithFormate("HH:mm", timezone: TimeZone.current.abbreviation()!)
+        } else if calendar.isDateInYesterday(recdDate) {
+            return "Yesterday"
+        } else {
+            let fromDate = self.addDays(-7)
+            let range = fromDate...self
+            if range.contains(recdDate) {
+                return convertUTCToLocalDate(dateStr: datetime, sourceFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", destinationFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ").getDateStringWithFormate("EEEE", timezone: TimeZone.current.abbreviation()!)
+            } else {
+                return convertUTCToLocalDate(dateStr: datetime, sourceFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", destinationFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ").getDateStringWithFormate("MMM dd,yyyy", timezone: TimeZone.current.abbreviation()!)
+            }
+        }
+    }
+    
     func getDateStringWithFormate(_ formate: String, timezone: String) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = formate

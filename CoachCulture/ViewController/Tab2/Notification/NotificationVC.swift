@@ -13,6 +13,7 @@ class NotificationVC: BaseViewController {
     var arrNotificationList = [ModelNotificationClass]()
     var kCoachViseOnDemandClassItemTableViewCell = "CoachViseOnDemandClassItemTableViewCell"
     var kCoachViseRecipeItemTableViewCell = "CoachViseRecipeItemTableViewCell"
+    var isFromBookMark = false
     
     //MARK: - VIEW CONTROLLER LIFE CYCLE
     
@@ -65,6 +66,54 @@ class NotificationVC: BaseViewController {
             return true
         }
     }
+    
+    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], recdType : String, selectedIndex: Int) {
+        showLoader()
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
+            
+            if let message = responseObj["message"] as? String {
+                Utility.shared.showToast(message)
+            }
+            switch recdType {
+            case SelectedDemandClass.onDemand, SelectedDemandClass.live, SelectedDemandClass.recipe:
+                for (index, model) in self.arrNotificationList.enumerated() {
+                    if selectedIndex == index {
+                        model.meta.bookmark = model.meta.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                        self.arrNotificationList[index] = model
+                        self.isFromBookMark = true
+                        DispatchQueue.main.async {
+                            self.tblNotificationView.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                            self.tblNotificationView.endUpdates()
+                        }
+                        break
+                    }
+                }
+            default:
+                if Reachability.isConnectedToNetwork() {
+                    self.getNotificationListAPI()
+                }
+            }
+            self.hideLoader()
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
+    }
+    
+    //MARK: - ACTION
+    
+    @IBAction func clickToBtnUser( _ sender : UIButton) {
+        var coachID = String()
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        if self.arrNotificationList[sender.tag].meta.coachDetailsObj.id.isEmpty || self.arrNotificationList[sender.tag].meta.coachDetailsObj.id != "" {
+            coachID = self.arrNotificationList[sender.tag].meta.coachDetailsObj.id
+        } else {
+            coachID = self.arrNotificationList[sender.tag].meta.coach.id
+        }
+        vc.selectedCoachId = coachID
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 //MARK: - EXTENSION TABLE DATASOURCE AND DELEGATE
@@ -78,7 +127,8 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let obj = arrNotificationList[indexPath.row]
-        
+        let recdDate = convertUTCToLocalDate(dateStr: obj.datetime, sourceFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", destinationFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ")
+
         if obj.notification_type == NotificationType.on_demand {
             let cell = tableView.dequeueReusableCell(withIdentifier: kCoachViseOnDemandClassItemTableViewCell, for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
             
@@ -97,23 +147,24 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             cell.imgProfileBottom.setImageFromURL(imgUrl: metaObj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: metaObj.coachDetailsObj.user_image, placeholderImage: "")
             cell.btnUser.tag = indexPath.row
-            //cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
             cell.imgUser.setImageFromURL(imgUrl: metaObj.thumbnail_image, placeholderImage: "")
             cell.selectedIndex = indexPath.row
-            cell.lbltitle.text = metaObj.class_type_name
+            cell.lbltitle.text = metaObj.class_type
             cell.lblClassDifficultyLevel.text = metaObj.class_subtitle
             cell.lblClassDate.text = getRealDate(date: metaObj.created_at)
             cell.lblUsername.text = "@" + metaObj.coachDetailsObj.username
-            cell.lblClassTime.text = metaObj.total_viewers + " Views"
+            cell.lblClassTime.text = metaObj.viewers + " Views"
             cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
             cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 12)
             cell.lblDuration.text = metaObj.duration
             cell.didTapBookmarkButton = {
+                self.tblNotificationView.beginUpdates()
                 var param = [String:Any]()
-                param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+                param[Params.AddRemoveBookmark.coach_class_id] = obj.meta.id
                 param[Params.AddRemoveBookmark.bookmark] = metaObj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                if Reachability.isConnectedToNetwork(){
-                    //self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                if Reachability.isConnectedToNetwork() {
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
                 }
             }
             if metaObj.bookmark == "no" {
@@ -121,8 +172,9 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             } else {
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
+            
+            cell.lblSubscribedTime.text = Date().getDateStringVariation(from: obj.datetime)
             cell.lblSubscribedName.text = obj.message
-            cell.lblSubscribedTime.text = convertUTCToLocal(dateStr: obj.datetime, sourceFormate: "yyyy-MM-ddTHH:mm:ss.SSSSSSZ", destinationFormate: "MMM dd,yyyy")
 
             cell.layoutIfNeeded()
             return cell
@@ -143,19 +195,17 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             cell.imgProfileBottom.setImageFromURL(imgUrl: metaObj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: metaObj.coachDetailsObj.user_image, placeholderImage: "")
             cell.btnUser.tag = indexPath.row
-            //cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
             
             cell.imgUser.setImageFromURL(imgUrl: metaObj.thumbnail_image, placeholderImage: "")
             //cell.lblClassDate.text = obj.created_atFormated
-            cell.lblClassTime.text = metaObj.total_viewers + " Views"
-            
-            cell.lbltitle.text = metaObj.class_type_name
+            cell.lbltitle.text = metaObj.class_type
             cell.lblClassDifficultyLevel.text = metaObj.class_subtitle
             cell.lblUsername.text = "@" + metaObj.coachDetailsObj.username
             cell.lblDuration.text = metaObj.duration
             
             cell.lblClassDate.text = getRealDate(date: metaObj.created_at)
-            cell.lblClassTime.text = metaObj.class_time
+            cell.lblClassTime.text = convertUTCToLocal(dateStr: metaObj.class_time, sourceFormate: "HH:mm:ss", destinationFormate: "HH:mm")
             cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
             cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 14)
             cell.lblClassDate.sizeToFit()
@@ -163,14 +213,13 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             
             cell.imgProfileBottom.setImageFromURL(imgUrl: metaObj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: metaObj.coachDetailsObj.user_image, placeholderImage: "")
-            cell.imgProfileBottom.blurImage()
             
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
-                param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+                param[Params.AddRemoveBookmark.coach_class_id] = obj.meta.id
                 param[Params.AddRemoveBookmark.bookmark] = metaObj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
                 if Reachability.isConnectedToNetwork(){
-                    //self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
                 }
             }
             if metaObj.bookmark == "no" {
@@ -178,8 +227,9 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             } else {
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
+            
+            cell.lblSubscribedTime.text = Date().getDateStringVariation(from: obj.datetime)
             cell.lblSubscribedName.text = obj.message
-            cell.lblSubscribedTime.text = convertUTCToLocal(dateStr: obj.datetime, sourceFormate: "yyyy-MM-ddTHH:mm:ss.SSSSSSZ", destinationFormate: "MMM dd,yyyy")
 
             cell.layoutIfNeeded()
             return cell
@@ -190,10 +240,10 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             let metaObj = arrNotificationList[indexPath.row].meta
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
-                param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
+                param[Params.AddRemoveBookmark.coach_recipe_id] = obj.meta.id
                 param[Params.AddRemoveBookmark.bookmark] = metaObj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
                 if Reachability.isConnectedToNetwork(){
-                    //self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
                 }
             }
             cell.selectedIndex = indexPath.row
@@ -201,7 +251,7 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             cell.lblDuration.text = metaObj.duration
             cell.lblRecipeType.text = metaObj.arrMealTypeString
             cell.btnUser.tag = indexPath.row
-            //cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
             
             var arrFilteredDietaryRestriction = [String]()
             
@@ -221,7 +271,7 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             }
             cell.viewProfile.addCornerRadius(10)
             cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-            cell.lblUsername.text = "@\(metaObj.coachDetailsObj.username)"
+            cell.lblUsername.text = "@\(metaObj.coach.username)"
             cell.imgProfileBottom.setImageFromURL(imgUrl: metaObj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: metaObj.coachDetailsObj.user_image, placeholderImage: "")
             
@@ -231,16 +281,20 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             } else {
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
+            
+            cell.lblSubscribedTime.text = Date().getDateStringVariation(from: obj.datetime)
             cell.lblSubscribedName.text = obj.message
-            cell.lblSubscribedTime.text = convertUTCToLocal(dateStr: obj.datetime, sourceFormate: "yyyy-MM-ddTHH:mm:ss.SSSSSSZ", destinationFormate: "MMM dd,yyyy")
+
             cell.layoutIfNeeded()
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: kCoachViseOnDemandClassItemTableViewCell, for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
             cell.viewSubscribe.isHidden = false
             cell.viewClassDetail.isHidden = true
+            
+            cell.lblSubscribedTime.text = Date().getDateStringVariation(from: obj.datetime)
             cell.lblSubscribedName.text = obj.message
-            cell.lblSubscribedTime.text = convertUTCToLocal(dateStr: obj.datetime, sourceFormate: "yyyy-MM-ddTHH:mm:ss.SSSSSSZ", destinationFormate: "MMM dd,yyyy")
+
             cell.layoutIfNeeded()
             return cell
         }
