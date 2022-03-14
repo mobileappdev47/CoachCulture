@@ -1299,10 +1299,14 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="30" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="HlI-Mm-7Df">
-                                <rect key="frame" x="0.0" y="62" width="320" height="506"/>
+                                <rect key="frame" x="20" y="62" width="280" height="506"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Rsr-So-5E8" id="rRB-1G-yXH"/>
+                                    <outlet property="delegate" destination="Rsr-So-5E8" id="VCC-Of-PxY"/>
+                                </connections>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ArT-tP-MFf">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ArT-tP-MFf">
                                 <rect key="frame" x="0.0" y="62" width="320" height="506"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No notification found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xcd-29-e9P">
@@ -1325,12 +1329,12 @@
                             <constraint firstItem="n2Y-Dm-ANY" firstAttribute="bottom" secondItem="HlI-Mm-7Df" secondAttribute="bottom" id="0Ew-bU-ElO"/>
                             <constraint firstItem="ArT-tP-MFf" firstAttribute="top" secondItem="rwg-eG-AeR" secondAttribute="bottom" id="0Tr-xB-Sx9"/>
                             <constraint firstItem="xVm-5r-Vgk" firstAttribute="top" secondItem="1gc-ow-doD" secondAttribute="top" id="EX1-QP-e3S"/>
-                            <constraint firstItem="HlI-Mm-7Df" firstAttribute="leading" secondItem="n2Y-Dm-ANY" secondAttribute="leading" id="Emo-0x-sd9"/>
+                            <constraint firstItem="HlI-Mm-7Df" firstAttribute="leading" secondItem="n2Y-Dm-ANY" secondAttribute="leading" constant="20" id="Emo-0x-sd9"/>
                             <constraint firstItem="HlI-Mm-7Df" firstAttribute="top" secondItem="rwg-eG-AeR" secondAttribute="bottom" id="F3N-wN-1lT"/>
                             <constraint firstItem="n2Y-Dm-ANY" firstAttribute="trailing" secondItem="rwg-eG-AeR" secondAttribute="trailing" id="I1K-eI-xeC"/>
                             <constraint firstItem="n2Y-Dm-ANY" firstAttribute="trailing" secondItem="ArT-tP-MFf" secondAttribute="trailing" id="Rm5-v4-fDe"/>
                             <constraint firstItem="rwg-eG-AeR" firstAttribute="top" secondItem="n2Y-Dm-ANY" secondAttribute="top" id="T5C-a5-iCO"/>
-                            <constraint firstItem="n2Y-Dm-ANY" firstAttribute="trailing" secondItem="HlI-Mm-7Df" secondAttribute="trailing" id="a1N-K3-mCf"/>
+                            <constraint firstItem="n2Y-Dm-ANY" firstAttribute="trailing" secondItem="HlI-Mm-7Df" secondAttribute="trailing" constant="20" id="a1N-K3-mCf"/>
                             <constraint firstItem="n2Y-Dm-ANY" firstAttribute="bottom" secondItem="ArT-tP-MFf" secondAttribute="bottom" id="cYM-a2-U9o"/>
                             <constraint firstItem="xVm-5r-Vgk" firstAttribute="leading" secondItem="1gc-ow-doD" secondAttribute="leading" id="eBe-Df-5AT"/>
                             <constraint firstAttribute="trailing" secondItem="xVm-5r-Vgk" secondAttribute="trailing" id="lCD-xx-5ag"/>
@@ -1340,6 +1344,10 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="ST1-5d-dZE"/>
+                    <connections>
+                        <outlet property="tblNotificationView" destination="HlI-Mm-7Df" id="zyZ-w3-BbG"/>
+                        <outlet property="viewNoDataFound" destination="ArT-tP-MFf" id="R5r-mO-XTc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A7l-iI-PUS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -2424,10 +2432,10 @@
                                         </connections>
                                     </tableView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctO-1d-me7">
-                                        <rect key="frame" x="20" y="373.5" width="280" height="115"/>
+                                        <rect key="frame" x="20" y="373.5" width="280" height="151"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No previous class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-tc-Ssu">
-                                                <rect key="frame" x="32" y="46" width="216" height="23.5"/>
+                                                <rect key="frame" x="32" y="64" width="216" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>

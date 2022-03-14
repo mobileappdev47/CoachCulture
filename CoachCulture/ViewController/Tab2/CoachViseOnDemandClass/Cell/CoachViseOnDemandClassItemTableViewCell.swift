@@ -9,6 +9,10 @@ import UIKit
 
 class CoachViseOnDemandClassItemTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var viewClassDetail: UIView!
+    @IBOutlet weak var viewSubscribe: UIView!
+    @IBOutlet weak var lblSubscribedTime: UILabel!
+    @IBOutlet weak var lblSubscribedName: UILabel!
     @IBOutlet weak var lblClassDifficultyLevel : UILabel!
     @IBOutlet weak var lbltitle : UILabel!
     @IBOutlet weak var lblClassDate : UILabel!

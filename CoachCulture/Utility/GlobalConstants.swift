@@ -97,6 +97,7 @@ struct API {
     static let GET_USER_WORKOUT_STATISTIC = BASE_URL + "api/auth/get-user-workout-statistics"
     static let GET_USER_PREVIOUS_CLASS = BASE_URL + "api/auth/get-user-previous-class"
     static let GET_AWS_DETAILS = BASE_URL + "api/coach-class/aws-details"
+    static let GET_NOTIFICATION_LIST = BASE_URL + "api/notification-list"
 }
 
 // MARK: - PARAMS KEYS
