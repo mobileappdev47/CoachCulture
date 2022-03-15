@@ -30,10 +30,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-13" translatesAutoresizingMaskIntoConstraints="NO" id="HlN-g9-LGi">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="142"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                         <subviews>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Woo-Kn-h7V" userLabel="viewSubscribeDetail">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="45"/>
+                            <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Woo-Kn-h7V" userLabel="viewSubscribeDetail">
+                                <rect key="frame" x="0.0" y="-45" width="320" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="asas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWn-dG-3Bc">
                                         <rect key="frame" x="7" y="9" width="268" height="16.5"/>
@@ -69,7 +69,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Otb-LL-zlP" userLabel="viewClassDetail">
-                                <rect key="frame" x="0.0" y="32" width="320" height="110"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="110"/>
                                 <subviews>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ygu-hb-2zM" userLabel="left">
                                         <rect key="frame" x="7" y="15" width="120" height="80"/>
