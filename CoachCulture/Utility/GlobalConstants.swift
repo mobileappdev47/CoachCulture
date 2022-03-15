@@ -20,9 +20,14 @@ struct DEFAULTS_KEY {
     static let USER_PASSWORD = "UserPassword"
 }
 
+struct STRIPE_API {
+    static let BASE_URL = "https://api.stripe.com/v1/"
+
+    static let payment_methods = BASE_URL + "payment_methods"
+}
+
 struct API {
     static let BASE_URL                      = "http://52.73.206.37/"
-    
     static let REGISTER_USER                 = BASE_URL + "api/auth/register"
     static let LOGIN                         = BASE_URL + "api/auth/login"
     static let VERIFY_USER                         = BASE_URL + "api/auth/verify-user"
@@ -98,9 +103,62 @@ struct API {
     static let GET_USER_PREVIOUS_CLASS = BASE_URL + "api/auth/get-user-previous-class"
     static let GET_AWS_DETAILS = BASE_URL + "api/coach-class/aws-details"
     static let GET_NOTIFICATION_LIST = BASE_URL + "api/notification-list"
+    
+    
 }
 
 // MARK: - PARAMS KEYS
+
+enum StripeConstant : String {
+    case Secret_key = "sk_test_51K7Y7mSD6FO6JDp9leFH54xc3eC116doMwtXV5oehkEA75EKVuuJMOkVl1JyVUtYUvLenlU7Zsh3GEq5CNfVdyWP00KnMrIvg1"
+    case Publishable_key = "pk_test_51K7Y7mSD6FO6JDp9JVBJCXDqH84LNDhdGwWEeJzdjJSLCYugjje1svaFLrykhoAbP7DYNW215N8a8TXgjxaQOzpS00mlApAIZc"
+}
+
+struct StripeParams {
+    struct PaymentMethods {
+        static let type = "type"
+        static let card = "card"
+        static let metadata = "metadata"
+        static let billing_details = "billing_details"
+    }
+    
+    struct Card {
+        static let number = "number"
+        static let exp_month = "exp_month"
+        static let exp_year = "exp_year"
+        static let cvc = "cvc"
+    }
+    
+    struct Metadata {
+        static let holder_name = "holder_name"
+        static let card_number = "card_number"
+        static let card_type = "card_type"
+    }
+    
+    struct BillingDetails {
+        static let address = "address"
+        struct Address {
+            static let city = "city"
+            static let country = "country"
+            static let line1 = "line1"
+            static let line2 = "line2"
+            static let postal_code = "postal_code"
+            static let state = "state"
+        }
+        static let email = "email"
+        static let name = "name"
+        static let phone = "phone"
+    }
+    
+    struct PaymentMethodsAttach {
+        static let customer = "customer"
+    }
+    
+    struct Cards {
+        static let type = "type"
+        static let customer = "customer"
+    }
+}
 
 struct Params {
     struct Login {

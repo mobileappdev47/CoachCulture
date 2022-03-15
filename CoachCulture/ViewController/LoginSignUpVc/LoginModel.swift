@@ -34,13 +34,14 @@ class UserData {
     var total_followers = ""
     var feesDataObj = FeesData()
     var is_coach_subscribed = false
+    var stripe_customer_id = ""
     
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
         coach_banner_file = map.value("coach_banner_file") ?? ""
-        
+        stripe_customer_id = map.value("stripe_customer_id") ?? ""
         coach_trailer_file = map.value("coach_trailer_file") ?? ""
         is_followed = map.value("is_followed") ?? false
         lastName = map.value("lastName") ?? ""
