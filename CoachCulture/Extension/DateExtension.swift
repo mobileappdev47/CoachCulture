@@ -12,7 +12,7 @@ extension Date {
         } else if calendar.isDateInYesterday(recdDate) {
             return "Yesterday"
         } else {
-            let fromDate = self.addDays(-7)
+            let fromDate = self.addDays(-6)
             let range = fromDate...self
             if range.contains(recdDate) {
                 return convertUTCToLocalDate(dateStr: datetime, sourceFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ", destinationFormate: "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ").getDateStringWithFormate("EEEE", timezone: TimeZone.current.abbreviation()!)
