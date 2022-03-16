@@ -32,7 +32,8 @@ pod 'iOSDropDown'
 pod 'HCSStarRatingView'
 pod 'FormTextField'
 pod 'Charts'
-
+pod 'CarLensCollectionViewLayout', '~> 1.2.0'
+#pod 'Stripe'
 
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!

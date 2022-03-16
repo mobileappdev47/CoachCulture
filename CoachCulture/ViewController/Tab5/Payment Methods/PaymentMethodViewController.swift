@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import CarLensCollectionViewLayout
 
 class PaymentMethodViewController: BaseViewController {
     
@@ -20,7 +20,8 @@ class PaymentMethodViewController: BaseViewController {
     @IBOutlet weak var pageControl: UIPageControl!
 
     var arrCards = [StripeCardsDataModel]()
-
+    var selectedCellIndex : Int?
+    private var currentSelectedIndex = 0
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +40,8 @@ class PaymentMethodViewController: BaseViewController {
     //MARK: -  methods
     func setUpUI() {
         hideTabBar()
+        let options = CarLensCollectionViewLayoutOptions(minimumSpacing: 20)
+        clvCard.collectionViewLayout = CarLensCollectionViewLayout(options: options)
         clvCard.register(UINib(nibName: "PaymentCardItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PaymentCardItemCollectionViewCell")
         clvCard.delegate = self
         clvCard.dataSource = self
@@ -104,6 +107,8 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "PaymentCardItemCollectionViewCell", for: indexPath) as!  PaymentCardItemCollectionViewCell
+        
+        selectedCellIndex = indexPath.row
         let model = arrCards[indexPath.row]
         cell.lblCardHolderName.text = model.metadata.holder_name
         cell.lblValidThrough.text = "\(model.card.exp_month)/\(model.card.exp_year.suffix(2))"
@@ -118,14 +123,43 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         cell.lblCardNo.text = subCardNo.appending("\(model.card.last4)")
         return cell
     }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width - 30, height: 186)
-    }
-    
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        if let indexpath = clvCard.indexPathsForVisibleItems.first {
-            pageControl.currentPage = indexpath.row
+        
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        DispatchQueue.main.async {
+            guard scrollView == self.clvCard else {
+                return
+            }
+            
+            targetContentOffset.pointee = scrollView.contentOffset
+            
+            let flowLayout = self.clvCard.collectionViewLayout as! CarLensCollectionViewLayout
+            let cellWidthIncludingSpacing = flowLayout.itemSize.width + flowLayout.minimumLineSpacing
+            let offset = targetContentOffset.pointee
+            let horizontalVelocity = velocity.x
+                        
+            switch horizontalVelocity {
+            // On swiping
+            case _ where horizontalVelocity > 0 :
+                self.currentSelectedIndex += 1
+            case _ where horizontalVelocity < 0:
+                self.currentSelectedIndex -= 1
+                
+            // On dragging
+            case _ where horizontalVelocity == 0:
+                let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+                let roundedIndex = round(index)
+                
+                self.currentSelectedIndex = Int(roundedIndex)
+            default:
+                print("Incorrect velocity for collection view")
+            }
+            
+            let safeIndex = max(0, min(self.currentSelectedIndex, self.arrCards.count - 1))
+            let selectedIndexPath = IndexPath(row: safeIndex, section: 0)
+                   
+            self.currentSelectedIndex = selectedIndexPath.row
+            self.pageControl.currentPage = safeIndex
         }
     }
 }
