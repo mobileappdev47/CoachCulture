@@ -168,6 +168,21 @@ class StripeCardsDataModel {
         type = map.value("type") ?? ""
     }
     
+    class func getCardDictionary(from responseModel: StripeCardsDataModel) -> [String:Any]? {
+        var cardTempDict = [String:Any]()
+        
+        cardTempDict["id"] = responseModel.id
+        cardTempDict["object"] =  responseModel.object
+        cardTempDict["metadata"] = MetaDataModel.getMetadataDictionary(from: responseModel.metadata)
+        cardTempDict["billing_details"] = BillingDetailsDataModel.getBillingDetailsDictionary(from: responseModel.billing_details)
+        cardTempDict["card"] = CardDataModel.getCardDataDictionary(from: responseModel.card)
+        cardTempDict["created"] =  responseModel.created
+        cardTempDict["customer"] =  responseModel.customer
+        cardTempDict["livemode"] =  responseModel.livemode
+        cardTempDict["type"] = responseModel.type
+        return cardTempDict
+    }
+    
     class func getData(data : [Any]) -> [StripeCardsDataModel] {
         var arrTemp = [StripeCardsDataModel]()
         for temp in data {
@@ -191,6 +206,15 @@ class ChecksDataModel {
         address_postal_code_check =  map.value("address_postal_code_check") ?? ""
         cvc_check =  map.value("cvc_check") ?? ""
     }
+    
+    class func getChecksDataDictionary(from responseModel: ChecksDataModel) -> [String:Any]? {
+        var checksDataTempDict = [String:Any]()
+        
+        checksDataTempDict["address_line1_check"] = responseModel.address_line1_check
+        checksDataTempDict["address_postal_code_check"] =  responseModel.address_postal_code_check
+        checksDataTempDict["cvc_check"] = responseModel.cvc_check
+        return checksDataTempDict
+    }
 }
 
 class MetaDataModel {
@@ -206,6 +230,15 @@ class MetaDataModel {
         card_type =  map.value("card_type") ?? ""
         card_number =  map.value("card_number") ?? ""
         holder_name =  map.value("holder_name") ?? ""
+    }
+    
+    class func getMetadataDictionary(from responseModel: MetaDataModel) -> [String:Any]? {
+        var metaDataTempDict = [String:Any]()
+        
+        metaDataTempDict["card_type"] = responseModel.card_type
+        metaDataTempDict["card_number"] =  responseModel.card_number
+        metaDataTempDict["holder_name"] = responseModel.holder_name
+        return metaDataTempDict
     }
 }
 
@@ -240,6 +273,23 @@ class CardDataModel {
         country =  map.value("country") ?? ""
         exp_month =  map.value("exp_month") ?? ""
     }
+    
+    class func getCardDataDictionary(from responseModel: CardDataModel) -> [String:Any]? {
+        var cardDataTempDict = [String:Any]()
+        
+        cardDataTempDict["wallet"] = responseModel.wallet
+        cardDataTempDict["last4"] =  responseModel.last4
+        cardDataTempDict["generated_from"] = responseModel.generated_from
+        cardDataTempDict["billing_details"] = responseModel.funding
+        cardDataTempDict["fingerprint"] = responseModel.fingerprint
+        cardDataTempDict["exp_year"] =  responseModel.exp_year
+        cardDataTempDict["checks"] =  ChecksDataModel.getChecksDataDictionary(from: responseModel.checks)
+        cardDataTempDict["metadata"] =  MetaDataModel.getMetadataDictionary(from: responseModel.metadata)
+        cardDataTempDict["brand"] = responseModel.brand
+        cardDataTempDict["country"] = responseModel.country
+        cardDataTempDict["exp_month"] = responseModel.exp_month
+        return cardDataTempDict
+    }
 }
 
 class BillingDetailsDataModel {
@@ -257,6 +307,16 @@ class BillingDetailsDataModel {
         email =  map.value("email") ?? ""
         name =  map.value("name") ?? ""
         phone =  map.value("phone") ?? ""
+    }
+    
+    class func getBillingDetailsDictionary(from responseModel: BillingDetailsDataModel) -> [String:Any]? {
+        var billingDetailsTempDict = [String:Any]()
+        
+        billingDetailsTempDict["address"] = AddressDataModel.getAddressDataDictionary(from: responseModel.address)
+        billingDetailsTempDict["email"] =  responseModel.email
+        billingDetailsTempDict["name"] = responseModel.name
+        billingDetailsTempDict["phone"] = responseModel.phone
+        return billingDetailsTempDict
     }
 }
 
@@ -279,5 +339,17 @@ class AddressDataModel {
         line2 =  map.value("line2") ?? ""
         postal_code =  map.value("postal_code") ?? ""
         state = map.value("state") ?? ""
+    }
+    
+    class func getAddressDataDictionary(from responseModel: AddressDataModel) -> [String:Any]? {
+        var addressDataTempDict = [String:Any]()
+        
+        addressDataTempDict["city"] = responseModel.city
+        addressDataTempDict["country"] =  responseModel.country
+        addressDataTempDict["line1"] = responseModel.line1
+        addressDataTempDict["line2"] = responseModel.line2
+        addressDataTempDict["postal_code"] = responseModel.postal_code
+        addressDataTempDict["state"] = responseModel.state
+        return addressDataTempDict
     }
 }

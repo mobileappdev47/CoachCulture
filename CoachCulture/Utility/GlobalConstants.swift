@@ -24,6 +24,7 @@ struct STRIPE_API {
     static let BASE_URL = "https://api.stripe.com/v1/"
 
     static let payment_methods = BASE_URL + "payment_methods"
+    static let payment_intents = BASE_URL + "payment_intents"
 }
 
 struct API {
@@ -112,6 +113,7 @@ struct API {
 enum StripeConstant : String {
     case Secret_key = "sk_test_51K7Y7mSD6FO6JDp9leFH54xc3eC116doMwtXV5oehkEA75EKVuuJMOkVl1JyVUtYUvLenlU7Zsh3GEq5CNfVdyWP00KnMrIvg1"
     case Publishable_key = "pk_test_51K7Y7mSD6FO6JDp9JVBJCXDqH84LNDhdGwWEeJzdjJSLCYugjje1svaFLrykhoAbP7DYNW215N8a8TXgjxaQOzpS00mlApAIZc"
+    case CallBack_URL = "http://healthline.brainbinaryinfotech.com/hook"
 }
 
 struct StripeParams {
@@ -157,6 +159,20 @@ struct StripeParams {
     struct Cards {
         static let type = "type"
         static let customer = "customer"
+    }
+    
+    struct PaymentIntents {
+        static let amount = "amount"
+        static let currency = "currency"
+        static let customer = "customer"
+        static let payment_method = "payment_method"
+        static let confirm = "confirm"
+    }
+    
+    struct PaymentIntentsConfirm {
+        static let intent = "intent"
+        static let payment_method = "payment_method"
+        static let return_url = "return_url"
     }
 }
 

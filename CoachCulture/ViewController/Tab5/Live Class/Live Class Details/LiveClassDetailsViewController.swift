@@ -611,10 +611,10 @@ class LiveClassDetailsViewController: BaseViewController {
        
     }
     
-    func callAddUserToCoachClassAPI() {
+    func callAddUserToCoachClassAPI(transaction_id: String) {
         showLoader()
         let param = [ "coach_class_id" : classDetailDataObj.id,
-                      "transaction_id" : "pi_3KYlygSD6FO6JDp91vNaiTqa",
+                      "transaction_id" : transaction_id,
                       
         ] as [String : Any]
         
@@ -623,6 +623,7 @@ class LiveClassDetailsViewController: BaseViewController {
             let responseObj = ResponseDataModel(responseObj: responseObj)
             Utility.shared.showToast(responseObj.message)
             self.isFromSubscriptionPurchase = true
+            self.goToPlayOndemandClass()
         } failure: { (error) in
             self.hideLoader()
             return true
@@ -655,11 +656,33 @@ class LiveClassDetailsViewController: BaseViewController {
         logOutView.btnLeft.setTitle("Confirm", for: .normal)
         logOutView.btnRight.setTitle("Cancel", for: .normal)
         logOutView.tapToBtnLogOut {
-            if Reachability.isConnectedToNetwork(){
-                self.callAddUserToCoachClassAPI()
-            }
+            self.redirectToPaymentMethod()
             self.removeConfirmationView()
         }
+    }
+    
+    func redirectToPaymentMethod() {
+        var fees = ""
+        var recdCurrency = ""
+        
+        if self.classDetailDataObj.subscription {
+            fees = classDetailDataObj.feesDataObj.subscriber_fee
+            recdCurrency = classDetailDataObj.feesDataObj.base_currency
+        } else {
+            fees = classDetailDataObj.feesDataObj.non_subscriber_fee
+            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
+        }
+
+        let vc = PaymentMethodViewController.viewcontroller()
+        vc.didCompletePaymentBlock = { transaction_id in
+            if Reachability.isConnectedToNetwork(){
+                self.callAddUserToCoachClassAPI(transaction_id: transaction_id)
+            }
+        }
+        vc.fees = fees
+        vc.recdCurrency = recdCurrency
+        vc.isFromLiveClass = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func addConfirmationView() {

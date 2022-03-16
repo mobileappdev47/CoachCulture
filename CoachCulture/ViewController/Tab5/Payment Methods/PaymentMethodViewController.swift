@@ -14,7 +14,9 @@ class PaymentMethodViewController: BaseViewController {
         let vc = UIStoryboard(name: "Payment", bundle: nil).instantiateViewController(withIdentifier: "PaymentMethodViewController") as! PaymentMethodViewController
         return vc
     }
-    
+    @IBOutlet weak var viewManageSubscription: UIView!
+    @IBOutlet weak var viewBalance: UIView!
+    @IBOutlet weak var viewConfirmPayment: UIView!
     @IBOutlet weak var clvCard: UICollectionView!
     @IBOutlet weak var lblAccountBalance: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
@@ -22,7 +24,11 @@ class PaymentMethodViewController: BaseViewController {
     var arrCards = [StripeCardsDataModel]()
     private var currentSelectedIndex = 0
     private var isFromInitialLoading = true
-    
+    var isFromLiveClass = false
+    var fees = ""
+    var recdCurrency = ""
+    var didCompletePaymentBlock : ((_ transaction_id: String) -> Void)!
+
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,12 +40,13 @@ class PaymentMethodViewController: BaseViewController {
         super.viewWillAppear(animated)
         
         if Reachability.isConnectedToNetwork() {
-            callGetCardsAPI()
+            callGetCardsAPI(isShowLoader: true)
         }
     }
     
     //MARK: -  methods
     func setUpUI() {
+        self.manageViews(isFromLiveClass: self.isFromLiveClass)
         hideTabBar()
         let options = CarLensCollectionViewLayoutOptions(minimumSpacing: 20)
         clvCard.collectionViewLayout = CarLensCollectionViewLayout(options: options)
@@ -48,10 +55,18 @@ class PaymentMethodViewController: BaseViewController {
         clvCard.dataSource = self
     }
     
+    func manageViews(isFromLiveClass: Bool) {
+        self.viewConfirmPayment.isHidden = !isFromLiveClass
+        self.viewBalance.isHidden = isFromLiveClass
+        self.viewManageSubscription.isHidden = isFromLiveClass
+    }
+    
     //MARK: - API CALL
     
-    func callGetCardsAPI() {
-        showLoader()
+    func callGetCardsAPI(isShowLoader: Bool) {
+        if isShowLoader {
+            showLoader()
+        }
                 
         let apiUrl = "\(STRIPE_API.payment_methods)?\(StripeParams.Cards.customer)=\(AppPrefsManager.sharedInstance.getUserData().stripe_customer_id)&\(StripeParams.Cards.type)=card"
         
@@ -82,7 +97,91 @@ class PaymentMethodViewController: BaseViewController {
         }
     }
     
+    func callPaymentIntentsAPI(isShowLoader: Bool) {
+        if isShowLoader {
+            showLoader()
+        }
+        var mainParams = [String:Any]()
+        var customer = ""
+        var id = ""
+        
+        if let tempcustomer = AppPrefsManager.sharedInstance.getSelectedPrefferedCardData()?.customer, !tempcustomer.isEmpty {
+            customer = tempcustomer
+        } else {
+            customer = self.arrCards[0].customer
+        }
+        if let tempID = AppPrefsManager.sharedInstance.getSelectedPrefferedCardData()?.id, !tempID.isEmpty {
+            id = tempID
+        } else {
+            id = self.arrCards[0].id
+        }
+
+        mainParams[StripeParams.PaymentIntents.amount] = fees
+        mainParams[StripeParams.PaymentIntents.currency] = recdCurrency
+        mainParams[StripeParams.PaymentIntents.customer] = customer
+        mainParams[StripeParams.PaymentIntents.payment_method] = id
+        mainParams[StripeParams.PaymentIntents.confirm] = true
+                
+        let apiUrl = STRIPE_API.payment_intents
+        
+        _ =  ApiCallManager.requestApiStripe(method: .post, urlString: apiUrl, parameters: mainParams, headers: nil) { responseObj, statusCode in
+            if statusCode == RESPONSE_CODE.SUCCESS {
+                if Reachability.isConnectedToNetwork() {
+                    if let id = responseObj["id"] as? String {
+                        if let payment_method = responseObj["payment_method"] as? String {
+                            self.callPaymentIntentsConfirmAPI(intent: id, payment_method: payment_method)
+                        }
+                    }
+                }
+            } else {
+                self.hideLoader()
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
+    }
+    
+    func callPaymentIntentsConfirmAPI(intent: String, payment_method: String) {
+        var mainParams = [String:Any]()
+
+        mainParams[StripeParams.PaymentIntentsConfirm.return_url] = StripeConstant.CallBack_URL.rawValue
+        mainParams[StripeParams.PaymentIntentsConfirm.payment_method] = payment_method
+                
+        let apiUrl = "\(STRIPE_API.payment_intents)/\(intent)/confirm"
+        
+        _ =  ApiCallManager.requestApiStripe(method: .post, urlString: apiUrl, parameters: mainParams, headers: nil) { responseObj, statusCode in
+            if statusCode == RESPONSE_CODE.SUCCESS {
+                self.hideLoader()
+                if let next_action = responseObj["next_action"] as? [String:Any] {
+                    if let redirect_to_url = next_action["redirect_to_url"] as? [String:Any] {
+                        if let url = redirect_to_url["url"] as? String {
+                            Utility.shared.openURLFor(urlStr: url)
+                            print(url)
+                        }
+                    }
+                }
+                /*if self.didCompletePaymentBlock != nil {
+                    self.didCompletePaymentBlock(payment_method)
+                }*/
+            } else {
+                self.hideLoader()
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
+    }
+    
     //MARK: - CLICK EVENTS
+    
+    @IBAction func btnConfirmPaymentClick( _ sender : UIButton) {
+        if Reachability.isConnectedToNetwork() {
+            callPaymentIntentsAPI(isShowLoader: true)
+        }
+    }
     
     @IBAction func clickTobtnAddPaymentMethod( _ sender : UIButton) {
         let vc = AddPaymentMethodViewController.viewcontroller()
@@ -98,8 +197,6 @@ class PaymentMethodViewController: BaseViewController {
         let vc = AccountBalanceListViewController.viewcontroller()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-
 }
 
 
@@ -121,12 +218,12 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         cell.viewPrefferedMethodMainBG.backgroundColor = randomColor
         cell.viewDeleteConfirmationMain.backgroundColor = randomColor
         
-        if model.isPrefferedSelected {
-            cell.viewPrefferedMethodMainBG.isHidden = false
-            cell.viewDeleteConfirmationMain.isHidden = true
-        } else if model.isDeleteSelected {
+        if model.isPrefferedSelected && model.isDeleteSelected {
             cell.viewDeleteConfirmationMain.isHidden = false
             cell.viewPrefferedMethodMainBG.isHidden = true
+        } else if model.isPrefferedSelected {
+            cell.viewPrefferedMethodMainBG.isHidden = false
+            cell.viewDeleteConfirmationMain.isHidden = true
         } else {
             cell.viewDeleteConfirmationMain.isHidden = true
             cell.viewPrefferedMethodMainBG.isHidden = true
@@ -140,6 +237,10 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         }
         let subCardNo = hastrickCardNo.pairs.joined(separator: " ").dropLast(4) //1234 5678 9012 3456 789
         cell.lblCardNo.text = subCardNo.appending("\(model.card.last4)")
+        
+        cell.btnSelectPreffered.tag = indexPath.row
+        cell.btnSelectPreffered.removeTarget(self, action: #selector(btnSelectPrefferedClick(_:)), for: .touchUpInside)
+        cell.btnSelectPreffered.addTarget(self, action: #selector(btnSelectPrefferedClick(_:)), for: .touchUpInside)
         
         cell.btnDelete.tag = indexPath.row
         cell.btnDelete.removeTarget(self, action: #selector(btnDeleteClick(_:)), for: .touchUpInside)
@@ -156,15 +257,54 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         return cell
     }
     
+    func callPaymentMethodsDetachAPI(model: StripeCardsDataModel?) {
+        showLoader()
+        let apiUrl = "\(STRIPE_API.payment_methods)/\(model?.id ?? AppPrefsManager.sharedInstance.getUserData().stripe_customer_id)/detach"
+        
+        _ =  ApiCallManager.requestApiStripe(method: .post, urlString: apiUrl, parameters: nil, headers: nil) { responseObj, statusCode in
+            if statusCode == RESPONSE_CODE.SUCCESS {
+                self.callGetCardsAPI(isShowLoader: false)
+            } else {
+                self.hideLoader()
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
+    }
+
+    @IBAction func btnSelectPrefferedClick( _ sender : UIButton) {
+        let model = arrCards[sender.tag]
+        if let cardDict = StripeCardsDataModel.getCardDictionary(from: model) {
+            AppPrefsManager.sharedInstance.saveSelectedPrefferedCardData(userData: cardDict)
+        }
+        model.isPrefferedSelected = false
+        model.isDeleteSelected = false
+        DispatchQueue.main.async {
+            self.clvCard.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
+        }
+    }
+
     @IBAction func btnYesClick( _ sender : UIButton) {
+        let model = arrCards[sender.tag]
+        if Reachability.isConnectedToNetwork() {
+            self.callPaymentMethodsDetachAPI(model: model)
+        }
     }
     
     @IBAction func btnNoClick( _ sender : UIButton) {
+        let model = arrCards[sender.tag]
+        model.isPrefferedSelected = false
+        model.isDeleteSelected = false
+        DispatchQueue.main.async {
+            self.clvCard.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
+        }
     }
 
     @IBAction func btnDeleteClick( _ sender : UIButton) {
         let model = arrCards[sender.tag]
-        model.isPrefferedSelected = false
+//        model.isPrefferedSelected = false
         model.isDeleteSelected = !model.isDeleteSelected
         DispatchQueue.main.async {
             self.clvCard.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
@@ -173,7 +313,15 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let model = arrCards[indexPath.row]
-        model.isPrefferedSelected = !model.isPrefferedSelected
+        if model.isPrefferedSelected && model.isDeleteSelected {
+            model.isPrefferedSelected = false
+            model.isDeleteSelected = false
+        } else if !model.isPrefferedSelected {
+            model.isPrefferedSelected = !model.isPrefferedSelected
+        } else {
+            model.isPrefferedSelected = false
+            model.isDeleteSelected = false
+        }
         DispatchQueue.main.async {
             self.clvCard.reloadItems(at: [indexPath])
         }

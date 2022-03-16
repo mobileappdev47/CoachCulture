@@ -16,7 +16,7 @@ class AppPrefsManager: NSObject
     let SAVE_USER_TOKEN           =   "SAVE_USER_TOKEN"
     let SAVE_USER_ROLE           =   "SAVE_USER_ROLE"
     let CLASS_DATA           =   "CLASS_DATA"
-
+    let SELECTED_PREFFERED_CARD = "SELECTED_PREFFERED_CARD"
     
     func setDataToPreference(data: AnyObject, forKey key: String)
     {
@@ -53,6 +53,15 @@ class AppPrefsManager: NSObject
     }
     
     //MARK: - Device token
+    
+    func saveSelectedPrefferedCardData(userData: [String:Any]) {
+        setDataToPreference(data: userData as AnyObject, forKey: SELECTED_PREFFERED_CARD)
+    }
+
+    func getSelectedPrefferedCardData() -> StripeCardsDataModel? {
+        return StripeCardsDataModel(responseObj: getDataFromPreference(key: SELECTED_PREFFERED_CARD) as? [String:Any] ?? [String:Any]())
+    }
+
     func saveUserData(userData: [String:Any])
     {
         setDataToPreference(data: userData as AnyObject, forKey: USER_DATA)
