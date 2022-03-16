@@ -20,8 +20,9 @@ class PaymentMethodViewController: BaseViewController {
     @IBOutlet weak var pageControl: UIPageControl!
 
     var arrCards = [StripeCardsDataModel]()
-    var selectedCellIndex : Int?
     private var currentSelectedIndex = 0
+    private var isFromInitialLoading = true
+    
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,6 +66,11 @@ class PaymentMethodViewController: BaseViewController {
                         self.pageControl.numberOfPages = self.arrCards.count
                         DispatchQueue.main.async {
                             self.clvCard.reloadData()
+                            var arrIndexPaths: [IndexPath] = []
+                            for index in 0..<self.arrCards.count {
+                                arrIndexPaths.append(IndexPath(item: index, section: 0))
+                            }
+                            self.clvCard.reloadItems(at: arrIndexPaths)
                         }
                     }
                 }
@@ -75,6 +81,7 @@ class PaymentMethodViewController: BaseViewController {
             return true
         }
     }
+    
     //MARK: - CLICK EVENTS
     
     @IBAction func clickTobtnAddPaymentMethod( _ sender : UIButton) {
@@ -107,9 +114,23 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "PaymentCardItemCollectionViewCell", for: indexPath) as!  PaymentCardItemCollectionViewCell
-        
-        selectedCellIndex = indexPath.row
         let model = arrCards[indexPath.row]
+
+        let randomColor = UIColor.random
+        cell.viwMainContainer.backgroundColor = randomColor
+        cell.viewPrefferedMethodMainBG.backgroundColor = randomColor
+        cell.viewDeleteConfirmationMain.backgroundColor = randomColor
+        
+        if model.isPrefferedSelected {
+            cell.viewPrefferedMethodMainBG.isHidden = false
+            cell.viewDeleteConfirmationMain.isHidden = true
+        } else if model.isDeleteSelected {
+            cell.viewDeleteConfirmationMain.isHidden = false
+            cell.viewPrefferedMethodMainBG.isHidden = true
+        } else {
+            cell.viewDeleteConfirmationMain.isHidden = true
+            cell.viewPrefferedMethodMainBG.isHidden = true
+        }
         cell.lblCardHolderName.text = model.metadata.holder_name
         cell.lblValidThrough.text = "\(model.card.exp_month)/\(model.card.exp_year.suffix(2))"
         
@@ -117,15 +138,50 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         for _ in model.metadata.card_number.trimmingCharacters(in: .whitespacesAndNewlines).enumerated() {
             hastrickCardNo.append("*")
         }
-        
         let subCardNo = hastrickCardNo.pairs.joined(separator: " ").dropLast(4) //1234 5678 9012 3456 789
-        
         cell.lblCardNo.text = subCardNo.appending("\(model.card.last4)")
+        
+        cell.btnDelete.tag = indexPath.row
+        cell.btnDelete.removeTarget(self, action: #selector(btnDeleteClick(_:)), for: .touchUpInside)
+        cell.btnDelete.addTarget(self, action: #selector(btnDeleteClick(_:)), for: .touchUpInside)
+
+        cell.btnYes.tag = indexPath.row
+        cell.btnYes.removeTarget(self, action: #selector(btnYesClick(_:)), for: .touchUpInside)
+        cell.btnYes.addTarget(self, action: #selector(btnYesClick(_:)), for: .touchUpInside)
+
+        cell.btnNo.tag = indexPath.row
+        cell.btnNo.removeTarget(self, action: #selector(btnNoClick(_:)), for: .touchUpInside)
+        cell.btnNo.addTarget(self, action: #selector(btnNoClick(_:)), for: .touchUpInside)
+
         return cell
     }
-        
+    
+    @IBAction func btnYesClick( _ sender : UIButton) {
+    }
+    
+    @IBAction func btnNoClick( _ sender : UIButton) {
+    }
+
+    @IBAction func btnDeleteClick( _ sender : UIButton) {
+        let model = arrCards[sender.tag]
+        model.isPrefferedSelected = false
+        model.isDeleteSelected = !model.isDeleteSelected
+        DispatchQueue.main.async {
+            self.clvCard.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let model = arrCards[indexPath.row]
+        model.isPrefferedSelected = !model.isPrefferedSelected
+        DispatchQueue.main.async {
+            self.clvCard.reloadItems(at: [indexPath])
+        }
+    }
+    
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
+        isFromInitialLoading = false
         DispatchQueue.main.async {
             guard scrollView == self.clvCard else {
                 return
@@ -172,5 +228,16 @@ extension String {
             result.append(String(chars[index..<min(index+4, chars.count)]))
         }
         return result
+    }
+}
+
+extension UIColor {
+    static var random: UIColor {
+        return UIColor(
+            red: .random(in: 0...1),
+            green: .random(in: 0...1),
+            blue: .random(in: 0...1),
+            alpha: 1.0
+        )
     }
 }

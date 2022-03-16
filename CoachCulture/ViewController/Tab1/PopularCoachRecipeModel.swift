@@ -150,7 +150,9 @@ class StripeCardsDataModel {
     var customer = ""
     var livemode = false
     var type = ""
-    
+    var isPrefferedSelected = false
+    var isDeleteSelected = false
+
     init() {}
     
     init(responseObj: [String : Any]) {
