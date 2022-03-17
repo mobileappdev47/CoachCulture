@@ -181,6 +181,7 @@ struct Params {
         static let google_id = "google_id"
         static let login_type = "login_type"
         static let facebook_id = "facebook_id"
+        static let device_token = "device_token"
     }
     
     struct AddRemoveBookmark {
@@ -211,10 +212,10 @@ struct BookmarkType {
     static let No = "no"
 }
 
-struct LoginType {
-    static let Facebook = 2
-    static let Google = 1
-    static let Standard = 0
+enum LoginTypeConst: Int {
+    case Facebook = 2
+    case Google = 1
+    case Standard = 0
 }
 
 // MARK: - RESPONSE CODE

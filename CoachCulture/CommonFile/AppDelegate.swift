@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
         AppDelegate.shared().window?.rootViewController = navigationController
         
         IQKeyboardManager.shared.enable = true
-        // FirebaseApp.configure()
+        FirebaseApp.configure()
         if #available(iOS 10.0, *) {
             UNUserNotificationCenter.current().delegate = self
             let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
@@ -36,7 +36,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate, UNUser
                 completionHandler: {_, _ in })
         } else {
             let settings: UIUserNotificationSettings =
-            UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
             application.registerUserNotificationSettings(settings)
             //Messaging.messaging().delegate = self
         }

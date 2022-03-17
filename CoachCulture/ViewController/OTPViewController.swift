@@ -41,7 +41,7 @@ class OTPViewController: BaseViewController {
     var isFromForgotPassword = false
     var emaiOrPhone = ""
     var phoneX = ""
-    
+    var LoginType = LoginTypeConst(rawValue: 0)
     var paramDic = [String:Any]()
     var isFromInitial = false
     
@@ -119,20 +119,26 @@ extension OTPViewController {
     
     func verifyAPI() {
         
-        let param = [
-            "username": username,
-            "password": password,
-            "countrycode":countryCode,
-            "phonecode":phoneCode,
-            "phoneno":phoneNo,
-            "verification_code": otp,
-            "device_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC81Mi43My4yMDYuMzdcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2NDYyODc4MDEsImV4cCI6MTY3NzgyMzgwMSwibmJmIjoxNjQ2Mjg3ODAxLCJqdGkiOiJpM1I2OHJLSjlDbkNZaUJSIiwic3ViIjoxMjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kl3knqt_VeKveza9YK9de2dy6Ps9yYxu3bRUsuCmKhg",
-        ]
+        var param = [String:Any]()
         
-        
+        if LoginType == LoginTypeConst.Google {
+            param["signup_type"] = LoginTypeConst.Google.rawValue
+        } else if LoginType == LoginTypeConst.Facebook {
+            param["signup_type"] = LoginTypeConst.Facebook.rawValue
+        } else {
+            param["signup_type"] = LoginTypeConst.Standard.rawValue
+            param["password"] = password
+        }
+
+        param["username"] = username
+        param["countrycode"] = countryCode
+        param["phonecode"] = phoneCode
+        param["phoneno"] = phoneNo
+        param["verification_code"] = otp
+        param["device_token"] = DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.VERIFY_USER, parameters: param, headers: nil) { responseObj in
-              let resObj = responseObj as? [String:Any] ?? [String:Any]()
+            let resObj = responseObj as? [String:Any] ?? [String:Any]()
             print(resObj)
             
             let responseModel = ResponseDataModel(responseObj: resObj)
@@ -147,29 +153,29 @@ extension OTPViewController {
             
             Utility.shared.showToast(responseModel.message)
             
-           
-              
-          } failure: { (error) in
+            
+            
+        } failure: { (error) in
             print(error.localizedDescription)
-              return true
-          }
+            return true
+        }
         
         
-//        apimanager.callMultiPartDataWebServiceNew(type: LoginUserModel.self, image: nil, to: API.VERIFY_USER, params: param) { userModel, statusCode in
-//            print("statusCode == == ",statusCode)
-//            print(userModel)
-//            if statusCode != 201 && statusCode != 200 {
-//                self.showAlert(withTitle: "Error!", message: userModel?.message ?? "")
-//            } else {
-//                print(userModel)
-//                Utility.shared.storeUserData(model: userModel?.data?.user)
-//                DispatchQueue.main.async {
-//                    self.window?.setTabAsRoot()
-//                }
-//            }
-//        } failure: { error, statusCode in
-//            print(error.localizedDescription)
-//        }
+        //        apimanager.callMultiPartDataWebServiceNew(type: LoginUserModel.self, image: nil, to: API.VERIFY_USER, params: param) { userModel, statusCode in
+        //            print("statusCode == == ",statusCode)
+        //            print(userModel)
+        //            if statusCode != 201 && statusCode != 200 {
+        //                self.showAlert(withTitle: "Error!", message: userModel?.message ?? "")
+        //            } else {
+        //                print(userModel)
+        //                Utility.shared.storeUserData(model: userModel?.data?.user)
+        //                DispatchQueue.main.async {
+        //                    self.window?.setTabAsRoot()
+        //                }
+        //            }
+        //        } failure: { error, statusCode in
+        //            print(error.localizedDescription)
+        //        }
     }
     
     func resendOtpAPI() {

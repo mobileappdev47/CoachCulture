@@ -19,9 +19,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb{your-app-id}</string>
+				<string>fb636156314250496</string>
 			</array>
 		</dict>
 		<dict>
@@ -32,13 +34,21 @@
 				<string>https://hooks.stripe.com</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.244242725166-uvpj8a0t7mgsoe2mv1ln10llbhgl628l</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>FacebookAppID</key>
-	<string>{your-app-id}</string>
+	<string>636156314250496</string>
 	<key>FacebookDisplayName</key>
-	<string>{your-app-name}</string>
+	<string>$(PRODUCT_NAME)</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>

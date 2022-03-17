@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class SettingsViewController: BaseViewController {
     
@@ -38,6 +39,7 @@ class SettingsViewController: BaseViewController {
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         logOutView.tapToBtnLogOut {
             self.removeCountryView()
+            GIDSignIn.sharedInstance.signOut()
             AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: false)
             let Login = LandingVC.viewcontroller()
             self.navigationController?.pushViewController(Login, animated: false)

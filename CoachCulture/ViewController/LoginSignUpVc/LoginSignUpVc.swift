@@ -57,9 +57,12 @@ class LoginSignUpVc: BaseViewController {
     let apimanager = ApiManager()
     var countryCodeDesc = ""
     var base_currency = ""
-    
+    var LoginType = LoginTypeConst(rawValue: 0)
     let txtPlaceholders = ["Username", "Password", "Username", "Email", "", "Phone", "Password", "Retype Password"]
     var loginParams = [String:Any]()
+    var username = ""
+    var email = ""
+    var socialID = ""
 
     //MARK: - VIEW CONTROLLER LIFE CYCLE
     
@@ -215,7 +218,7 @@ class LoginSignUpVc: BaseViewController {
             loginParams = [
                 "username": txtUsernameLogin.text!,
                 "password": txtPasswordLogin.text!,
-                "device_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC81Mi43My4yMDYuMzdcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2NDYyODc4MDEsImV4cCI6MTY3NzgyMzgwMSwibmJmIjoxNjQ2Mjg3ODAxLCJqdGkiOiJpM1I2OHJLSjlDbkNZaUJSIiwic3ViIjoxMjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kl3knqt_VeKveza9YK9de2dy6Ps9yYxu3bRUsuCmKhg",
+                "device_token": DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? "",
                 "login_type": 0
             ]
             if Reachability.isConnectedToNetwork(){
@@ -252,10 +255,20 @@ class LoginSignUpVc: BaseViewController {
                 return
             }
             //let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
+            
+            self.socialID = idToken
             loginParams = [
                 Params.Login.google_id: idToken,
-                Params.Login.login_type: LoginType.Google,
+                Params.Login.login_type: LoginTypeConst.Google.rawValue,
+                Params.Login.device_token: DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
             ]
+            if let email = user?.profile?.email {
+                self.email = email
+            }
+            if let username = user?.profile?.name {
+                self.username = username
+            }
+            LoginType = LoginTypeConst.Google
             loginAPI()
         }
     }
@@ -274,10 +287,13 @@ class LoginSignUpVc: BaseViewController {
                     return
                 }
                 Profile.loadCurrentProfile { (profile, error) in
+                    self?.socialID = result.token?.tokenString ?? ""
                     self?.loginParams = [
-                        Params.Login.facebook_id: result.token ?? "",
-                        Params.Login.login_type: LoginType.Facebook,
+                        Params.Login.facebook_id: result.token?.tokenString ?? "",
+                        Params.Login.login_type: LoginTypeConst.Facebook.rawValue,
+                        Params.Login.device_token: DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
                     ]
+                    self?.LoginType = LoginTypeConst.Facebook
                     self?.loginAPI()
                     //print(Profile.current?.name)
                 }
@@ -318,17 +334,16 @@ class LoginSignUpVc: BaseViewController {
         } else if !(txtPhone.text?.isEmpty ?? false) && !Utility.shared.checkPhoneNumberValidation(number: phoneNo, countryCodeStr: dialCode) {
             Utility.shared.showToast("Please enter a valid phone")
             return false
-        } else  if txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        } else  if txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
             Utility.shared.showToast("Password is mandatory field")
             return false
-        } else  if txtPassword.text?.isValidPassword ?? false {
+        } else  if txtPassword.text?.isValidPassword ?? false && LoginType == LoginTypeConst.Standard  {
             Utility.shared.showToast("Password must be contain uppercase, lowercase, digit, sign letter")
             return false
-        } else  if txtRePassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        } else  if txtRePassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
             Utility.shared.showToast("Re-Type password is mandatory field")
             return false
-        } else if txtPassword.text! != txtRePassword.text! {
-            
+        } else if txtPassword.text! != txtRePassword.text! && LoginType == LoginTypeConst.Standard {
             Utility.shared.showToast("Password and ReEnter password not matched")
             return false
         } else if isAcceptTermsAndCondition == false {
@@ -393,16 +408,26 @@ extension LoginSignUpVc {
     
     func signupAPI() {
         
-        let param = [
-            "username": txtUsername.text!,
-            "password": txtPassword.text!,
-            "countrycode":countryCodeDesc,
-            "base_currency":base_currency,
-            "phonecode":txtCountryCode.text!,
-            "phoneno":txtPhone.text!,
-            "email":txtEmail.text!,
-            "device_token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC81Mi43My4yMDYuMzdcL2FwaVwvYXV0aFwvbG9naW4iLCJpYXQiOjE2NDYyODc4MDEsImV4cCI6MTY3NzgyMzgwMSwibmJmIjoxNjQ2Mjg3ODAxLCJqdGkiOiJpM1I2OHJLSjlDbkNZaUJSIiwic3ViIjoxMjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.kl3knqt_VeKveza9YK9de2dy6Ps9yYxu3bRUsuCmKhg",
-        ]
+        var param = [String:Any]()
+        
+        if LoginType == LoginTypeConst.Google {
+            param["signup_type"] = LoginTypeConst.Google.rawValue
+            param[Params.Login.google_id] = self.socialID
+        } else if LoginType == LoginTypeConst.Facebook {
+            param["signup_type"] = LoginTypeConst.Facebook.rawValue
+            param[Params.Login.facebook_id] = self.socialID
+        } else {
+            param["signup_type"] = LoginTypeConst.Standard.rawValue
+            param["password"] = txtPassword.text!
+        }
+        
+        param["username"] = txtUsername.text!
+        param["countrycode"] = countryCodeDesc
+        param["base_currency"] = base_currency
+        param["phonecode"] = txtCountryCode.text!
+        param["phoneno"]  = txtPhone.text!
+        param["email"] = txtEmail.text!
+        param["device_token"] = DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
         
         apimanager.callMultiPartDataWebServiceNew(type: SignupUserModel.self, image: nil, to: API.REGISTER_USER, params: param) { userModel, statusCode in
             print("statusCode == == ",statusCode)
@@ -411,8 +436,9 @@ extension LoginSignUpVc {
                 self.showAlert(withTitle: "Error!", message: userModel?.message ?? "")
             } else {
                 if let userr = userModel {
-//                    guard let self = self else {return}
+                    //                    guard let self = self else {return}
                     let vc = OTPViewController.viewcontroller()
+                    vc.LoginType = self.LoginType
                     vc.countryCode = self.countryCodeDesc
                     vc.phoneCode = self.txtCountryCode.text!
                     vc.phoneNo = self.txtPhone.text!
@@ -420,7 +446,7 @@ extension LoginSignUpVc {
                     vc.password = self.txtPassword.text!
                     DEFAULTS.setValue(self.txtPassword.text, forKey: DEFAULTS_KEY.USER_PASSWORD)
                     AppPrefsManager.sharedInstance.saveUserRole(role: "user")
-//                    vc.verifyotp = "\(userr.user?.verificationCode ?? 1234)"
+                    //                    vc.verifyotp = "\(userr.user?.verificationCode ?? 1234)"
                     DispatchQueue.main.async {
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
@@ -449,7 +475,6 @@ extension LoginSignUpVc {
             let responseModel = ResponseDataModel(responseObj: resObj)
             
             if responseModel.success {
-                
                 let dataObj = resObj["data"] as? [String:Any] ?? [String:Any]()
                 AppPrefsManager.sharedInstance.saveUserAccessToken(token: dataObj["access_token"] as? String ?? "")
                 AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: true)
@@ -462,8 +487,16 @@ extension LoginSignUpVc {
                 let role = userObj["role"] as? String ?? ""
                 AppPrefsManager.sharedInstance.saveUserRole(role: role)
                 self.goToTabBar()
+            } else {
+                if self.LoginType == LoginTypeConst.Google || self.LoginType == LoginTypeConst.Facebook {
+                    self.viewPasswordSignUp.isHidden = true
+                    self.viewRetypePasswordSignUp.isHidden = true
+                    self.txtEmail.text = self.email
+                    self.txtUsername.text = self.username
+                } else {
+                    Utility.shared.showToast(responseModel.message)
+                }
             }
-            Utility.shared.showToast(responseModel.message)
             self.hideLoader()
         } failure: { (error) in
             self.hideLoader()

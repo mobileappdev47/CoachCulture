@@ -742,6 +742,9 @@
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Az6-yf-66v">
                                         <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                                        <connections>
+                                            <action selector="clickToBtnGoogleSignIn:" destination="gib-HW-w1f" eventType="touchUpInside" id="6XD-mS-VoX"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -767,6 +770,9 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7rm-bD-Dz9">
                                         <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <action selector="clickToBtnFacebookLogin:" destination="gib-HW-w1f" eventType="touchUpInside" id="dHU-bb-1FR"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
