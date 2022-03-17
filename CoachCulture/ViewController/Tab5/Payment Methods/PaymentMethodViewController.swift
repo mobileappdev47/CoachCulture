@@ -7,6 +7,7 @@
 
 import UIKit
 import CarLensCollectionViewLayout
+import Stripe
 
 class PaymentMethodViewController: BaseViewController {
     
@@ -249,7 +250,7 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         for _ in model.metadata.card_number.trimmingCharacters(in: .whitespacesAndNewlines).enumerated() {
             hastrickCardNo.append("*")
         }
-        let subCardNo = hastrickCardNo.pairs.joined(separator: " ").dropLast(4) //1234 5678 9012 3456 789
+        let subCardNo = hastrickCardNo.pairs.joined(separator: " ").dropLast(4)
         cell.lblCardNo.text = subCardNo.appending("\(model.card.last4)")
         
         cell.btnSelectPreffered.tag = indexPath.row
@@ -268,6 +269,10 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         cell.btnNo.removeTarget(self, action: #selector(btnNoClick(_:)), for: .touchUpInside)
         cell.btnNo.addTarget(self, action: #selector(btnNoClick(_:)), for: .touchUpInside)
 
+        let cardBrand = STPCardValidator.brand(forNumber: model.metadata.card_number)
+        let cardImage = STPImageLibrary.cardBrandImage(for: cardBrand)
+        cell.imgCardType.image = cardImage
+        
         return cell
     }
     
