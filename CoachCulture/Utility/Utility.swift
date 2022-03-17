@@ -389,7 +389,7 @@ func DLog(_ items: Any?..., function: String = #function, file: String = #file, 
 
 enum AppStoryboard: String {
     
-    case Coach, Followers, Recipe
+    case Coach, Followers, Recipe, Payment
     
     var instance: UIStoryboard {
         return UIStoryboard(name: self.rawValue, bundle: Bundle.main)
@@ -502,4 +502,15 @@ func getCurrencySymbol(from currency: String) -> String {
         currencySybmol = ""
     }
     return currencySybmol
+}
+
+func getValueFromQueryParam(key: String, components: NSURLComponents) -> String? {
+    if let queryParam = components.queryItems, !queryParam.isEmpty{
+        for param in queryParam{
+            if param.name == key{
+                return param.value
+            }
+        }
+    }
+    return nil
 }

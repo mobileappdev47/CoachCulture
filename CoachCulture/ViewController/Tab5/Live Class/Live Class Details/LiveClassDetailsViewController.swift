@@ -116,16 +116,17 @@ class LiveClassDetailsViewController: BaseViewController {
     var arrMuscleList = [MuscleList]()
     var streamObj : StreamInfo?
     var isFutureClass = false
+    var isFromPaymentFlow = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+     
+        setUpUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setUpUI()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -623,7 +624,9 @@ class LiveClassDetailsViewController: BaseViewController {
             let responseObj = ResponseDataModel(responseObj: responseObj)
             Utility.shared.showToast(responseObj.message)
             self.isFromSubscriptionPurchase = true
-            self.goToPlayOndemandClass()
+            if Reachability.isConnectedToNetwork() {
+                self.getClassDetails(isFromTimerToCheckClassStatus: false)
+            }
         } failure: { (error) in
             self.hideLoader()
             return true
@@ -674,9 +677,14 @@ class LiveClassDetailsViewController: BaseViewController {
         }
 
         let vc = PaymentMethodViewController.viewcontroller()
-        vc.didCompletePaymentBlock = { transaction_id in
-            if Reachability.isConnectedToNetwork(){
-                self.callAddUserToCoachClassAPI(transaction_id: transaction_id)
+        vc.didFinishPaymentBlock = { transaction_id, status in
+            if status {
+                if Reachability.isConnectedToNetwork() {
+                    self.isFromPaymentFlow = true
+                    self.callAddUserToCoachClassAPI(transaction_id: transaction_id)
+                }
+            } else {
+                Utility.shared.showToast("Ooops!! Something went wrong!")
             }
         }
         vc.fees = fees
@@ -1159,7 +1167,10 @@ extension LiveClassDetailsViewController {
             
             let dataObj = responseObj["coach_class"] as? [String:Any] ?? [String:Any]()
             self.classDetailDataObj = ClassDetailData(responseObj: dataObj)
-            if self.isFromSubscriptionPurchase {
+            if self.isFromPaymentFlow {
+                self.isFromPaymentFlow = false
+                self.checkUserSubscriptionOfClass()
+            } else if self.isFromSubscriptionPurchase {
                 self.getAWSDetails(isFromBroadcasting: false)
             } else {
                 if isFromTimerToCheckClassStatus {

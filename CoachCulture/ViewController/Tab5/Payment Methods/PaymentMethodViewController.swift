@@ -27,7 +27,7 @@ class PaymentMethodViewController: BaseViewController {
     var isFromLiveClass = false
     var fees = ""
     var recdCurrency = ""
-    var didCompletePaymentBlock : ((_ transaction_id: String) -> Void)!
+    var didFinishPaymentBlock : ((_ transaction_id: String, _ status: Bool) -> Void)!
 
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -156,15 +156,15 @@ class PaymentMethodViewController: BaseViewController {
                 self.hideLoader()
                 if let next_action = responseObj["next_action"] as? [String:Any] {
                     if let redirect_to_url = next_action["redirect_to_url"] as? [String:Any] {
-                        if let url = redirect_to_url["url"] as? String {
-                            Utility.shared.openURLFor(urlStr: url)
-                            print(url)
+                        if let urlStr = redirect_to_url["url"] as? String {
+                            if let finalURL = URL(string: urlStr) {
+                                if let recdID = responseObj["id"] as? String {
+                                    self.redirectToWebView(webURL: finalURL, transaction_id: recdID)
+                                }
+                            }
                         }
                     }
                 }
-                /*if self.didCompletePaymentBlock != nil {
-                    self.didCompletePaymentBlock(payment_method)
-                }*/
             } else {
                 self.hideLoader()
             }
@@ -173,6 +173,18 @@ class PaymentMethodViewController: BaseViewController {
             Utility.shared.showToast(error.localizedDescription)
             return true
         }
+    }
+    
+    func redirectToWebView(webURL: URL, transaction_id: String) {
+        let nextVC = CommonWebViewVC.instantiate(fromAppStoryboard: .Payment)
+        nextVC.transaction_id = transaction_id
+        nextVC.didLoadPaymentURLBlock = { transaction_id, status in
+            if self.didFinishPaymentBlock != nil {
+                self.didFinishPaymentBlock(transaction_id, status)
+            }
+        }
+        nextVC.webURL = webURL
+        self.pushVC(To: nextVC, animated: true)
     }
     
     //MARK: - CLICK EVENTS
@@ -229,7 +241,9 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
             cell.viewPrefferedMethodMainBG.isHidden = true
         }
         cell.lblCardHolderName.text = model.metadata.holder_name
-        cell.lblValidThrough.text = "\(model.card.exp_month)/\(model.card.exp_year.suffix(2))"
+        let exp_month = Int(model.card.exp_month) ?? 0
+        
+        cell.lblValidThrough.text = "\(String(format: "%02d", exp_month))/\(model.card.exp_year.suffix(2))"
         
         var hastrickCardNo = ""
         for _ in model.metadata.card_number.trimmingCharacters(in: .whitespacesAndNewlines).enumerated() {

@@ -1090,6 +1090,100 @@
             </objects>
             <point key="canvasLocation" x="2161" y="33"/>
         </scene>
+        <!--Common Web ViewVC-->
+        <scene sceneID="QzK-2h-9Ou">
+            <objects>
+                <viewController storyboardIdentifier="CommonWebViewVC" id="pk0-WQ-We2" customClass="CommonWebViewVC" customModule="CoachCulture" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="50A-z8-kI1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="700"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TBS-1W-2ek">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VSY-2Z-AjC">
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
+                                        <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
+                                        <color key="textColor" name="themeRedColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oRu-t7-ruY">
+                                        <rect key="frame" x="20" y="38" width="22" height="22"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="oRu-t7-ruY" secondAttribute="height" multiplier="1:1" id="yFY-M9-x4s"/>
+                                        </constraints>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="ic_back"/>
+                                        <connections>
+                                            <action selector="didTapBack:" destination="pk0-WQ-We2" eventType="touchUpInside" id="nF8-NW-cRJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="oRu-t7-ruY" secondAttribute="bottom" constant="20" id="76m-RN-PVl"/>
+                                    <constraint firstItem="oRu-t7-ruY" firstAttribute="leading" secondItem="TBS-1W-2ek" secondAttribute="leading" constant="20" id="7Fp-Nu-tBf"/>
+                                    <constraint firstItem="VSY-2Z-AjC" firstAttribute="top" secondItem="TBS-1W-2ek" secondAttribute="top" constant="20" id="E0q-Gw-fmb"/>
+                                    <constraint firstAttribute="bottom" secondItem="VSY-2Z-AjC" secondAttribute="bottom" constant="30" id="JtG-lX-d2O"/>
+                                    <constraint firstItem="VSY-2Z-AjC" firstAttribute="centerX" secondItem="TBS-1W-2ek" secondAttribute="centerX" id="pkk-fn-s1X"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kos-0l-8Nq">
+                                <rect key="frame" x="0.0" y="80" width="375" height="620"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rWA-FW-yOD">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="620"/>
+                                        <subviews>
+                                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GPc-1Z-3D1">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="620"/>
+                                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <wkWebViewConfiguration key="configuration">
+                                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                                    <wkPreferences key="preferences"/>
+                                                </wkWebViewConfiguration>
+                                            </wkWebView>
+                                        </subviews>
+                                        <color key="backgroundColor" name="themeColor"/>
+                                        <constraints>
+                                            <constraint firstItem="GPc-1Z-3D1" firstAttribute="top" secondItem="rWA-FW-yOD" secondAttribute="top" id="4XZ-q3-XU0"/>
+                                            <constraint firstItem="GPc-1Z-3D1" firstAttribute="leading" secondItem="rWA-FW-yOD" secondAttribute="leading" id="HB5-gg-FtB"/>
+                                            <constraint firstAttribute="trailing" secondItem="GPc-1Z-3D1" secondAttribute="trailing" id="IPD-Xc-1Ze"/>
+                                            <constraint firstAttribute="bottom" secondItem="GPc-1Z-3D1" secondAttribute="bottom" id="mf4-WW-4jB"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" name="themeColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="rWA-FW-yOD" secondAttribute="trailing" id="2kj-8d-HdH"/>
+                                    <constraint firstItem="rWA-FW-yOD" firstAttribute="width" secondItem="Kos-0l-8Nq" secondAttribute="width" id="3Bw-Lx-dMm"/>
+                                    <constraint firstItem="rWA-FW-yOD" firstAttribute="leading" secondItem="Kos-0l-8Nq" secondAttribute="leading" id="9MO-I3-vLM"/>
+                                    <constraint firstAttribute="bottom" secondItem="rWA-FW-yOD" secondAttribute="bottom" id="AYP-vW-Eje"/>
+                                    <constraint firstItem="rWA-FW-yOD" firstAttribute="height" secondItem="Kos-0l-8Nq" secondAttribute="height" id="JfJ-qj-Upu"/>
+                                    <constraint firstItem="rWA-FW-yOD" firstAttribute="top" secondItem="Kos-0l-8Nq" secondAttribute="top" id="wuJ-0n-BDa"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="eRJ-dg-uNF"/>
+                        <color key="backgroundColor" name="themeColor"/>
+                        <constraints>
+                            <constraint firstItem="Kos-0l-8Nq" firstAttribute="leading" secondItem="eRJ-dg-uNF" secondAttribute="leading" id="1kf-DV-n3G"/>
+                            <constraint firstItem="eRJ-dg-uNF" firstAttribute="trailing" secondItem="TBS-1W-2ek" secondAttribute="trailing" id="BTx-iM-Q8f"/>
+                            <constraint firstItem="eRJ-dg-uNF" firstAttribute="bottom" secondItem="Kos-0l-8Nq" secondAttribute="bottom" id="Wm6-s6-DaM"/>
+                            <constraint firstItem="eRJ-dg-uNF" firstAttribute="trailing" secondItem="Kos-0l-8Nq" secondAttribute="trailing" id="Xha-Ny-qgh"/>
+                            <constraint firstItem="TBS-1W-2ek" firstAttribute="leading" secondItem="50A-z8-kI1" secondAttribute="leading" id="dhc-ja-ec8"/>
+                            <constraint firstItem="Kos-0l-8Nq" firstAttribute="top" secondItem="TBS-1W-2ek" secondAttribute="bottom" id="qcn-cg-vdr"/>
+                            <constraint firstItem="TBS-1W-2ek" firstAttribute="top" secondItem="eRJ-dg-uNF" secondAttribute="top" id="t3h-QC-Ly0"/>
+                        </constraints>
+                    </view>
+                    <size key="freeformSize" width="375" height="700"/>
+                    <connections>
+                        <outlet property="globalWebView" destination="GPc-1Z-3D1" id="ALI-e7-rvR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h33-S5-Q5W" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="58" y="734"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="7Mw-7k-n0C">
@@ -1104,7 +1198,7 @@
     </designables>
     <resources>
         <image name="Searchicon" width="22.5" height="23"/>
-        <image name="Trainers Icon" width="29.5" height="24"/>
+        <image name="Trainers Icon" width="42" height="36"/>
         <image name="Wallet Button" width="49" height="49"/>
         <image name="accountListHeader" width="716" height="368"/>
         <image name="credit-card" width="31.5" height="23"/>

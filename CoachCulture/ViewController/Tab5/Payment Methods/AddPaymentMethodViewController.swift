@@ -38,7 +38,7 @@ class AddPaymentMethodViewController: BaseViewController {
     func setUpUI() {
         txtCardNumber.inputType = .integer
         txtCardNumber.formatter = CardNumberFormatter()
-        txtCardNumber.textColor = UIColor.white
+        txtCardNumber.defaultTextColor = .white
         var validation = Validation()
         validation.maximumLength = "1234 5678 1234 5678".count
         validation.minimumLength = "1234 5678 1234 5678".count
@@ -49,15 +49,13 @@ class AddPaymentMethodViewController: BaseViewController {
         txtCardNumber.inputValidator = inputValidator
         txtCardNumber.clearButtonColor = .clear
 
-
         txtCardDate.formatter = CardExpirationDateFormatter()
         txtCardDate.inputType = .integer
         var validationDate = Validation()
         validationDate.minimumLength = 1
         let inputValidator1 = CardExpirationDateInputValidator(validation: validationDate)
         txtCardDate.inputValidator = inputValidator1
-        txtCardNumber.textColor = UIColor.white
-        
+        txtCardDate.defaultTextColor = .white
         
         txtCVV.inputType = .integer
         var validation1 = Validation()
@@ -66,8 +64,7 @@ class AddPaymentMethodViewController: BaseViewController {
         validation1.characterSet = CharacterSet.decimalDigits
         let inputValidator12 = InputValidator(validation: validation1)
         txtCVV.inputValidator = inputValidator12
-        txtCardNumber.textColor = UIColor.white
-        
+        txtCVV.defaultTextColor = .white
     }
     
     //MARK: - API CALL
@@ -107,6 +104,13 @@ class AddPaymentMethodViewController: BaseViewController {
                 if let id = responseObj["id"] as? String {
                     if Reachability.isConnectedToNetwork() {
                         self.callPaymentMethodsAttachAPI(customerID: id)
+                    }
+                }
+            } else {
+                self.hideLoader()
+                if let error = responseObj["error"] as? [String:Any] {
+                    if let message = error["message"] as? String {
+                        Utility.shared.showToast(message)
                     }
                 }
             }
