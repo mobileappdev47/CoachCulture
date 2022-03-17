@@ -280,7 +280,9 @@ class LiveClassDetailsViewController: BaseViewController {
     }
 
     func setData() {
-        if self.classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id { // personal class
+        if self.classDetailDataObj.class_completed {
+            dropDown.dataSource  = ["Send", "Template", "Ratings", "Share"]
+        } else if self.classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id { // personal class
             dropDown.dataSource  = ["Edit", "Delete", "Send", "Template", "Ratings", "Share"]
         } else {
             dropDown.dataSource  = ["Send", "Share"]
