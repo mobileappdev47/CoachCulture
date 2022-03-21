@@ -66,7 +66,7 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: xAxis
         let xAxis                           = chartView.xAxis
         xAxis.labelPosition                 = .bottom
-        xAxis.labelFont = NSUIFont(name: "SFProText-Bold", size: 8.0) ?? NSUIFont.systemFont(ofSize: 10)
+        xAxis.labelFont = NSUIFont(name: "SFProText-Regular", size: 8.0) ?? NSUIFont.systemFont(ofSize: 10)
         xAxis.axisMinimum                   = -0.5
         xAxis.granularity                   = 1.0
         xAxis.valueFormatter                = BarChartFormatter()
@@ -154,7 +154,7 @@ class WorkoutStatisticVC: BaseViewController {
         
         set.mode = .cubicBezier
         set.drawValuesEnabled = true
-        set.valueFont = NSUIFont(name: "SFProText-Bold", size: 9) ?? NSUIFont.systemFont(ofSize: CGFloat(9.0))
+        set.valueFont = NSUIFont(name: "SFProText-Regular", size: 9) ?? NSUIFont.systemFont(ofSize: CGFloat(9.0))
         set.valueColors = [COLORS.RECIPE_COLOR]
         set.valueTextColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
         set.axisDependency = .left
@@ -181,7 +181,7 @@ class WorkoutStatisticVC: BaseViewController {
         let set1            = BarChartDataSet(entries: entries1)
         set1.colors         = [UIColor(cgColor: #colorLiteral(red: 0, green: 0.9607843137, blue: 1, alpha: 1)),UIColor(cgColor: #colorLiteral(red: 0.8862745098, green: 0, blue: 1, alpha: 1))]
         set1.valueTextColor = .white
-        set1.valueFont      = NSUIFont(name: "SFProText-Bold", size: 10) ?? NSUIFont.systemFont(ofSize: CGFloat(10.0))
+        set1.valueFont      = NSUIFont(name: "SFProText-Regular", size: 10) ?? NSUIFont.systemFont(ofSize: CGFloat(10.0))
         set1.axisDependency = .left
                 
         // MARK: BarChartData
@@ -502,7 +502,8 @@ extension WorkoutStatisticVC: ChartViewDelegate {
         
         public func stringForValue(_ value: Double, axis: AxisBase?) -> String
         {
-            let modu =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
+            let tempValue = Double(value).truncatingRemainder(dividingBy: Double(months.count)).rounded()
+            let modu = tempValue <= 0 ? 0 : tempValue
             return months[Int(modu)]
         }
     }

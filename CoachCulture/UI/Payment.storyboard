@@ -137,6 +137,22 @@
                                                     <constraint firstItem="BIH-B8-6Je" firstAttribute="leading" secondItem="Tyh-0L-4Lq" secondAttribute="leading" id="ebv-U7-H8t"/>
                                                 </constraints>
                                             </view>
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhn-QY-fZQ" userLabel="nopaymentfound">
+                                                <rect key="frame" x="0.0" y="49.5" width="375" height="256"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No payment method found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAu-cs-wuU">
+                                                        <rect key="frame" x="67.5" y="116.5" width="240.5" height="23.5"/>
+                                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" name="themeColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="iAu-cs-wuU" firstAttribute="centerX" secondItem="bhn-QY-fZQ" secondAttribute="centerX" id="DTK-ta-hOk"/>
+                                                    <constraint firstItem="iAu-cs-wuU" firstAttribute="centerY" secondItem="bhn-QY-fZQ" secondAttribute="centerY" id="uFp-nI-suX"/>
+                                                </constraints>
+                                            </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xlh-M7-THI">
                                                 <rect key="frame" x="30" y="325.5" width="315" height="317"/>
                                                 <subviews>
@@ -340,9 +356,12 @@
                                         <color key="backgroundColor" name="themeColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Cup-xa-vZu" secondAttribute="trailing" constant="10" id="12y-NK-BdO"/>
+                                            <constraint firstItem="bhn-QY-fZQ" firstAttribute="trailing" secondItem="J7L-6d-ubu" secondAttribute="trailing" id="4wg-9g-wI9"/>
                                             <constraint firstItem="Tyh-0L-4Lq" firstAttribute="centerX" secondItem="C4v-f5-oid" secondAttribute="centerX" id="67e-OT-Ygg"/>
                                             <constraint firstItem="Cup-xa-vZu" firstAttribute="leading" secondItem="C4v-f5-oid" secondAttribute="leading" constant="10" id="7lN-Kb-YFE"/>
+                                            <constraint firstItem="bhn-QY-fZQ" firstAttribute="leading" secondItem="J7L-6d-ubu" secondAttribute="leading" id="CcD-ZK-R3v"/>
                                             <constraint firstItem="J7L-6d-ubu" firstAttribute="leading" secondItem="C4v-f5-oid" secondAttribute="leading" id="Cve-sj-NBM"/>
+                                            <constraint firstItem="bhn-QY-fZQ" firstAttribute="bottom" secondItem="Tyh-0L-4Lq" secondAttribute="bottom" id="RY0-He-IvH"/>
                                             <constraint firstItem="Cup-xa-vZu" firstAttribute="top" secondItem="C4v-f5-oid" secondAttribute="top" constant="10" id="VEc-hF-8LW"/>
                                             <constraint firstItem="hdf-wn-cMO" firstAttribute="centerX" secondItem="C4v-f5-oid" secondAttribute="centerX" id="Z0V-0C-XRH"/>
                                             <constraint firstItem="J7L-6d-ubu" firstAttribute="top" secondItem="Cup-xa-vZu" secondAttribute="bottom" constant="10" id="bFG-YY-DWz"/>
@@ -350,6 +369,7 @@
                                             <constraint firstAttribute="bottom" secondItem="xlh-M7-THI" secondAttribute="bottom" constant="20" id="cpd-IH-p4m"/>
                                             <constraint firstItem="xlh-M7-THI" firstAttribute="top" secondItem="Tyh-0L-4Lq" secondAttribute="bottom" constant="20" id="hmY-DO-ZPi"/>
                                             <constraint firstItem="hdf-wn-cMO" firstAttribute="top" secondItem="J7L-6d-ubu" secondAttribute="bottom" constant="10" id="kb9-uY-HlC"/>
+                                            <constraint firstItem="bhn-QY-fZQ" firstAttribute="top" secondItem="J7L-6d-ubu" secondAttribute="top" id="nvb-YN-IR8"/>
                                             <constraint firstAttribute="trailing" secondItem="xlh-M7-THI" secondAttribute="trailing" constant="30" id="oEy-Uz-WAo"/>
                                             <constraint firstItem="xlh-M7-THI" firstAttribute="leading" secondItem="C4v-f5-oid" secondAttribute="leading" constant="30" id="pKh-RT-pWZ"/>
                                             <constraint firstItem="Tyh-0L-4Lq" firstAttribute="top" secondItem="hdf-wn-cMO" secondAttribute="bottom" constant="10" id="ptb-LL-ZH2"/>
@@ -386,6 +406,7 @@
                         <outlet property="viewBalance" destination="163-To-uwX" id="LPV-Wh-AZa"/>
                         <outlet property="viewConfirmPayment" destination="7NB-33-0bA" id="cbk-IV-xU7"/>
                         <outlet property="viewManageSubscription" destination="FC4-oF-Enx" id="ngS-qb-4z0"/>
+                        <outlet property="viewNoDataFound" destination="bhn-QY-fZQ" id="B7j-2B-8qA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -401,16 +422,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4qG-lC-WXF">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="79.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hkC-yv-nIl">
-                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="29.5"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ffo-47-66W">
-                                        <rect key="frame" x="20" y="38" width="22" height="22"/>
+                                        <rect key="frame" x="20" y="37.5" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="ffo-47-66W" secondAttribute="height" multiplier="1:1" id="REN-6v-ulQ"/>
                                         </constraints>
@@ -431,22 +452,22 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UBh-yx-PA9">
-                                <rect key="frame" x="0.0" y="80" width="375" height="587"/>
+                                <rect key="frame" x="0.0" y="79.5" width="375" height="587.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eVK-3T-9gy">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="564"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="563"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BOJ-Oe-3sP">
-                                                <rect key="frame" x="20" y="20" width="335" height="178"/>
+                                                <rect key="frame" x="20" y="20" width="335" height="177.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Methods" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OiB-vg-vbo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="29.5"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="25"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uEx-ht-SEu" userLabel="Credit">
-                                                        <rect key="frame" x="0.0" y="50" width="335" height="54"/>
+                                                        <rect key="frame" x="0.0" y="49.5" width="335" height="54"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="credit-card" translatesAutoresizingMaskIntoConstraints="NO" id="Qg1-5X-0Fo">
                                                                 <rect key="frame" x="15" y="15.5" width="31.5" height="23"/>
@@ -485,7 +506,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SFt-j4-eaF" userLabel="debit">
-                                                        <rect key="frame" x="0.0" y="124" width="335" height="54"/>
+                                                        <rect key="frame" x="0.0" y="123.5" width="335" height="54"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="debit-card" translatesAutoresizingMaskIntoConstraints="NO" id="FgU-Ek-IMi">
                                                                 <rect key="frame" x="15" y="15.5" width="31.5" height="23"/>
@@ -539,19 +560,19 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p2N-Cd-l8V">
-                                                <rect key="frame" x="20" y="238" width="335" height="306"/>
+                                                <rect key="frame" x="20" y="237.5" width="335" height="305.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Details" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WtL-4o-YoF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="29.5"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="25"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rob-tk-Hzw" userLabel="CardNo">
-                                                        <rect key="frame" x="0.0" y="50" width="335" height="54"/>
+                                                        <rect key="frame" x="0.0" y="49.5" width="335" height="54"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Card Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="klO-Fd-9ov" customClass="FormTextField" customModule="FormTextField">
-                                                                <rect key="frame" x="10" y="5" width="258.5" height="44"/>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Card Number" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="klO-Fd-9ov" customClass="FormTextField" customModule="FormTextField">
+                                                                <rect key="frame" x="10" y="5" width="258" height="44"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="textColor" name="textColor"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="16"/>
@@ -562,18 +583,26 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="debit-card" translatesAutoresizingMaskIntoConstraints="NO" id="GGi-EH-WCZ">
-                                                                <rect key="frame" x="288.5" y="15.5" width="31.5" height="23"/>
-                                                            </imageView>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="FIV-t6-mUL">
+                                                                <rect key="frame" x="288" y="16.5" width="32" height="21"/>
+                                                                <subviews>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stp_card_unknown.png" translatesAutoresizingMaskIntoConstraints="NO" id="GGi-EH-WCZ">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="21"/>
+                                                                    </imageView>
+                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert_red" translatesAutoresizingMaskIntoConstraints="NO" id="3Ka-RE-oRW">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="21"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" name="textfeildBGColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="GGi-EH-WCZ" secondAttribute="trailing" constant="15" id="LoZ-13-t8L"/>
+                                                            <constraint firstItem="FIV-t6-mUL" firstAttribute="leading" secondItem="klO-Fd-9ov" secondAttribute="trailing" constant="20" id="dOF-mf-ZJo"/>
                                                             <constraint firstItem="klO-Fd-9ov" firstAttribute="top" secondItem="rob-tk-Hzw" secondAttribute="top" constant="5" id="hRy-NM-fh2"/>
                                                             <constraint firstAttribute="height" constant="54" id="iwa-RN-DZY"/>
-                                                            <constraint firstItem="GGi-EH-WCZ" firstAttribute="centerY" secondItem="rob-tk-Hzw" secondAttribute="centerY" id="nnx-RN-io6"/>
                                                             <constraint firstItem="klO-Fd-9ov" firstAttribute="leading" secondItem="rob-tk-Hzw" secondAttribute="leading" constant="10" id="pd8-Qm-Fyh"/>
-                                                            <constraint firstItem="GGi-EH-WCZ" firstAttribute="leading" secondItem="klO-Fd-9ov" secondAttribute="trailing" constant="20" id="wWh-Aa-VBZ"/>
+                                                            <constraint firstAttribute="trailing" secondItem="FIV-t6-mUL" secondAttribute="trailing" constant="15" id="sLa-Km-2xm"/>
+                                                            <constraint firstItem="FIV-t6-mUL" firstAttribute="centerY" secondItem="klO-Fd-9ov" secondAttribute="centerY" id="uQD-vv-rg6"/>
                                                             <constraint firstAttribute="bottom" secondItem="klO-Fd-9ov" secondAttribute="bottom" constant="5" id="wvk-6s-ayK"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
@@ -583,10 +612,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HfY-Gv-pBA" userLabel="Card Name">
-                                                        <rect key="frame" x="0.0" y="114" width="335" height="54"/>
+                                                        <rect key="frame" x="0.0" y="113.5" width="335" height="54"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Cardholder Full Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T3v-KN-Zqe">
-                                                                <rect key="frame" x="10" y="5" width="315" height="44"/>
+                                                                <rect key="frame" x="20" y="5" width="156.5" height="44"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="textColor" name="textColor"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="16"/>
@@ -597,14 +626,24 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HUp-rG-1uT">
+                                                                <rect key="frame" x="196.5" y="27" width="123.5" height="0.0"/>
+                                                                <subviews>
+                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert_red" translatesAutoresizingMaskIntoConstraints="NO" id="aEa-CD-ROl">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="15"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" name="textfeildBGColor"/>
                                                         <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="HUp-rG-1uT" secondAttribute="trailing" constant="15" id="9Sx-v3-wHa"/>
                                                             <constraint firstItem="T3v-KN-Zqe" firstAttribute="top" secondItem="HfY-Gv-pBA" secondAttribute="top" constant="5" id="ANc-bW-mUS"/>
-                                                            <constraint firstAttribute="trailing" secondItem="T3v-KN-Zqe" secondAttribute="trailing" constant="10" id="Jmh-b9-f71"/>
                                                             <constraint firstAttribute="bottom" secondItem="T3v-KN-Zqe" secondAttribute="bottom" constant="5" id="axA-YQ-OyN"/>
+                                                            <constraint firstItem="HUp-rG-1uT" firstAttribute="leading" secondItem="T3v-KN-Zqe" secondAttribute="trailing" constant="20" id="ej9-os-Xqk"/>
                                                             <constraint firstAttribute="height" constant="54" id="lqh-KO-PRb"/>
-                                                            <constraint firstItem="T3v-KN-Zqe" firstAttribute="leading" secondItem="HfY-Gv-pBA" secondAttribute="leading" constant="10" id="t7u-1e-hsb"/>
+                                                            <constraint firstItem="T3v-KN-Zqe" firstAttribute="leading" secondItem="HfY-Gv-pBA" secondAttribute="leading" constant="20" id="t7u-1e-hsb"/>
+                                                            <constraint firstItem="HUp-rG-1uT" firstAttribute="centerY" secondItem="T3v-KN-Zqe" secondAttribute="centerY" id="wCW-5G-Ir2"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
@@ -613,10 +652,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="f8q-QD-2yL" userLabel="Date">
-                                                        <rect key="frame" x="0.0" y="178" width="195" height="54"/>
+                                                        <rect key="frame" x="0.0" y="177.5" width="195" height="54"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/YYYY" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bhX-39-zdH" customClass="FormTextField" customModule="FormTextField">
-                                                                <rect key="frame" x="10" y="5" width="175" height="44"/>
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Expiration Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="bhX-39-zdH" customClass="FormTextField" customModule="FormTextField">
+                                                                <rect key="frame" x="10" y="5" width="110" height="44"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="textColor" name="textColor"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="16"/>
@@ -627,11 +666,21 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1SN-GR-dEO">
+                                                                <rect key="frame" x="140" y="27" width="40" height="0.0"/>
+                                                                <subviews>
+                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert_red" translatesAutoresizingMaskIntoConstraints="NO" id="ASJ-jO-W6h">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="15"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" name="textfeildBGColor"/>
                                                         <constraints>
                                                             <constraint firstItem="bhX-39-zdH" firstAttribute="leading" secondItem="f8q-QD-2yL" secondAttribute="leading" constant="10" id="2kO-YF-4V9"/>
-                                                            <constraint firstAttribute="trailing" secondItem="bhX-39-zdH" secondAttribute="trailing" constant="10" id="Dui-h1-A02"/>
+                                                            <constraint firstAttribute="trailing" secondItem="1SN-GR-dEO" secondAttribute="trailing" constant="15" id="Chq-hp-HjC"/>
+                                                            <constraint firstItem="1SN-GR-dEO" firstAttribute="centerY" secondItem="bhX-39-zdH" secondAttribute="centerY" id="ClC-gI-BGu"/>
+                                                            <constraint firstItem="1SN-GR-dEO" firstAttribute="leading" secondItem="bhX-39-zdH" secondAttribute="trailing" constant="20" id="GJB-d3-W6Y"/>
                                                             <constraint firstAttribute="height" constant="54" id="GgR-mZ-cfc"/>
                                                             <constraint firstAttribute="bottom" secondItem="bhX-39-zdH" secondAttribute="bottom" constant="5" id="hZW-Nl-E1j"/>
                                                             <constraint firstItem="bhX-39-zdH" firstAttribute="top" secondItem="f8q-QD-2yL" secondAttribute="top" constant="5" id="rLd-eb-Q2H"/>
@@ -643,10 +692,10 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GFM-Ps-atZ" userLabel="CVV">
-                                                        <rect key="frame" x="215" y="178" width="120" height="54"/>
+                                                        <rect key="frame" x="215" y="177.5" width="120" height="54"/>
                                                         <subviews>
                                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CVV" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7Mw-7k-n0C" customClass="FormTextField" customModule="FormTextField">
-                                                                <rect key="frame" x="10" y="5" width="100" height="44"/>
+                                                                <rect key="frame" x="10" y="5" width="70" height="44"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="textColor" name="textColor"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="16"/>
@@ -657,15 +706,28 @@
                                                                     </userDefinedRuntimeAttribute>
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="ArM-lq-e8B">
+                                                                <rect key="frame" x="85" y="27" width="20" height="0.0"/>
+                                                                <subviews>
+                                                                    <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert_red" translatesAutoresizingMaskIntoConstraints="NO" id="Gxl-IL-8w9">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="15"/>
+                                                                    </imageView>
+                                                                </subviews>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="width" constant="20" id="Z8F-Lh-iog"/>
+                                                                </constraints>
+                                                            </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" name="textfeildBGColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="120" id="Dau-mr-TJu"/>
                                                             <constraint firstAttribute="height" constant="54" id="GOX-1z-H82"/>
-                                                            <constraint firstAttribute="trailing" secondItem="7Mw-7k-n0C" secondAttribute="trailing" constant="10" id="MZ1-4A-Hrh"/>
                                                             <constraint firstItem="7Mw-7k-n0C" firstAttribute="top" secondItem="GFM-Ps-atZ" secondAttribute="top" constant="5" id="QU8-fX-RMP"/>
+                                                            <constraint firstAttribute="trailing" secondItem="ArM-lq-e8B" secondAttribute="trailing" constant="15" id="ZJ1-D7-2K5"/>
                                                             <constraint firstItem="7Mw-7k-n0C" firstAttribute="leading" secondItem="GFM-Ps-atZ" secondAttribute="leading" constant="10" id="fbf-HH-Hm3"/>
+                                                            <constraint firstItem="ArM-lq-e8B" firstAttribute="centerY" secondItem="7Mw-7k-n0C" secondAttribute="centerY" id="jVy-Ub-pQb"/>
                                                             <constraint firstAttribute="bottom" secondItem="7Mw-7k-n0C" secondAttribute="bottom" constant="5" id="rhz-iM-1Ky"/>
+                                                            <constraint firstItem="ArM-lq-e8B" firstAttribute="leading" secondItem="7Mw-7k-n0C" secondAttribute="trailing" constant="5" id="tq2-x9-J5z"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
@@ -674,7 +736,7 @@
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fBp-7d-vh2" userLabel="Add Payment">
-                                                        <rect key="frame" x="0.0" y="252" width="335" height="54"/>
+                                                        <rect key="frame" x="0.0" y="251.5" width="335" height="54"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="axy-oW-Waa">
                                                                 <rect key="frame" x="147.5" y="16.5" width="40" height="21"/>
@@ -768,6 +830,11 @@
                     <connections>
                         <outlet property="btnCreditCard" destination="Yo2-6p-4vT" id="5Pu-6Q-qce"/>
                         <outlet property="btnDebitCard" destination="LBO-3V-3nT" id="UgS-6k-a1s"/>
+                        <outlet property="imgAlertCVV" destination="Gxl-IL-8w9" id="3fz-7s-bvt"/>
+                        <outlet property="imgAlertCardDate" destination="ASJ-jO-W6h" id="RoJ-CW-Xex"/>
+                        <outlet property="imgAlertCardName" destination="aEa-CD-ROl" id="2Hy-w1-6fV"/>
+                        <outlet property="imgAlertCardNumber" destination="3Ka-RE-oRW" id="xEL-0Z-ubJ"/>
+                        <outlet property="imgCard" destination="GGi-EH-WCZ" id="sjq-M6-8nW"/>
                         <outlet property="txtCVV" destination="7Mw-7k-n0C" id="L5f-Dy-22F"/>
                         <outlet property="txtCardDate" destination="bhX-39-zdH" id="QdF-tJ-9WD"/>
                         <outlet property="txtCardHolderName" destination="T3v-KN-Zqe" id="6hj-9h-4yb"/>
@@ -1190,7 +1257,7 @@
             <size key="intrinsicContentSize" width="31.5" height="19"/>
         </designable>
         <designable name="bhX-39-zdH">
-            <size key="intrinsicContentSize" width="75" height="20.5"/>
+            <size key="intrinsicContentSize" width="110" height="20.5"/>
         </designable>
         <designable name="klO-Fd-9ov">
             <size key="intrinsicContentSize" width="97" height="20.5"/>
@@ -1198,15 +1265,17 @@
     </designables>
     <resources>
         <image name="Searchicon" width="22.5" height="23"/>
-        <image name="Trainers Icon" width="42" height="36"/>
+        <image name="Trainers Icon" width="29.5" height="24"/>
         <image name="Wallet Button" width="49" height="49"/>
         <image name="accountListHeader" width="716" height="368"/>
         <image name="credit-card" width="31.5" height="23"/>
         <image name="debit-card" width="31.5" height="23"/>
+        <image name="ic_alert_red" width="15" height="15"/>
         <image name="ic_back" width="11.897000312805176" height="18.731000900268555"/>
         <image name="plus" width="18" height="18"/>
         <image name="rightWhite" width="22.5" height="22.5"/>
         <image name="sendAccoiunt" width="50" height="50"/>
+        <image name="stp_card_unknown.png" width="32" height="21"/>
         <namedColor name="textColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

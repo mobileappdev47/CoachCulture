@@ -49,7 +49,10 @@ public struct CreditCardValidator {
         .jcb,
         .discover,
         .unionPay,
-        .mir
+        .mir,
+        .hipercard,
+        .elo,
+        .visaElectron
     ]
     
     private let string: String

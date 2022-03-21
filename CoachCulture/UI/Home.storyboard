@@ -101,16 +101,36 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPR-h9-jf5" userLabel="viewNoDataFoundPopularTrainers">
+                                                        <rect key="frame" x="0.0" y="29" width="335" height="165"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular trainers found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkZ-wY-w92">
+                                                                <rect key="frame" x="53" y="70.5" width="229" height="24"/>
+                                                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                                                <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="themeColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="gkZ-wY-w92" firstAttribute="centerX" secondItem="fPR-h9-jf5" secondAttribute="centerX" id="6KN-UP-PnC"/>
+                                                            <constraint firstItem="gkZ-wY-w92" firstAttribute="centerY" secondItem="fPR-h9-jf5" secondAttribute="centerY" id="sob-wb-66f"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="nXE-95-bKK" firstAttribute="leading" secondItem="VrI-eL-8yU" secondAttribute="leading" id="8Wr-EA-0Y8"/>
                                                     <constraint firstAttribute="trailing" secondItem="nXE-95-bKK" secondAttribute="trailing" id="BHk-HQ-vhV"/>
                                                     <constraint firstItem="nXE-95-bKK" firstAttribute="top" secondItem="hAi-Jy-mTF" secondAttribute="bottom" constant="5" id="CXJ-cL-8Io"/>
+                                                    <constraint firstItem="fPR-h9-jf5" firstAttribute="leading" secondItem="nXE-95-bKK" secondAttribute="leading" id="EFX-8Q-x4p"/>
                                                     <constraint firstItem="hAi-Jy-mTF" firstAttribute="top" secondItem="VrI-eL-8yU" secondAttribute="top" id="Gkf-Cb-Gdz"/>
                                                     <constraint firstAttribute="bottom" secondItem="nXE-95-bKK" secondAttribute="bottom" id="Oos-YS-Iq5"/>
+                                                    <constraint firstItem="fPR-h9-jf5" firstAttribute="trailing" secondItem="nXE-95-bKK" secondAttribute="trailing" id="Tiw-it-bnb"/>
+                                                    <constraint firstItem="fPR-h9-jf5" firstAttribute="bottom" secondItem="nXE-95-bKK" secondAttribute="bottom" id="ZzF-ZY-rs6"/>
                                                     <constraint firstItem="hAi-Jy-mTF" firstAttribute="leading" secondItem="VrI-eL-8yU" secondAttribute="leading" id="dVY-7m-w7j"/>
                                                     <constraint firstAttribute="trailing" secondItem="hAi-Jy-mTF" secondAttribute="trailing" id="de7-OT-F6c"/>
+                                                    <constraint firstItem="fPR-h9-jf5" firstAttribute="top" secondItem="nXE-95-bKK" secondAttribute="top" id="htU-Qm-00X"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbC-iX-8TS" userLabel="PopClass">
@@ -158,16 +178,36 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iA2-FX-D7P" userLabel="viewNoDataFoundPopularTrainers">
+                                                        <rect key="frame" x="0.0" y="29" width="335" height="190"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular classes found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rS-da-E3D">
+                                                                <rect key="frame" x="53" y="83" width="229" height="24"/>
+                                                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                                                <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" name="themeColor"/>
+                                                        <constraints>
+                                                            <constraint firstItem="7rS-da-E3D" firstAttribute="centerX" secondItem="iA2-FX-D7P" secondAttribute="centerX" id="qqt-AY-cop"/>
+                                                            <constraint firstItem="7rS-da-E3D" firstAttribute="centerY" secondItem="iA2-FX-D7P" secondAttribute="centerY" id="zgc-dQ-Aqj"/>
+                                                        </constraints>
+                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="Joj-m7-K1B" secondAttribute="trailing" id="1Pi-xY-JNK"/>
                                                     <constraint firstItem="Joj-m7-K1B" firstAttribute="leading" secondItem="YbC-iX-8TS" secondAttribute="leading" id="2d3-Au-mkD"/>
+                                                    <constraint firstItem="iA2-FX-D7P" firstAttribute="top" secondItem="inA-hx-nfq" secondAttribute="top" id="3fa-1a-jGm"/>
                                                     <constraint firstItem="Joj-m7-K1B" firstAttribute="top" secondItem="YbC-iX-8TS" secondAttribute="top" id="4r0-Sj-JRM"/>
                                                     <constraint firstAttribute="trailing" secondItem="inA-hx-nfq" secondAttribute="trailing" id="70b-xF-Bih"/>
+                                                    <constraint firstItem="iA2-FX-D7P" firstAttribute="bottom" secondItem="inA-hx-nfq" secondAttribute="bottom" id="cVX-Mk-u54"/>
                                                     <constraint firstItem="inA-hx-nfq" firstAttribute="leading" secondItem="YbC-iX-8TS" secondAttribute="leading" id="hT4-7z-uvJ"/>
                                                     <constraint firstItem="inA-hx-nfq" firstAttribute="top" secondItem="Joj-m7-K1B" secondAttribute="bottom" constant="5" id="l8O-g0-Qqw"/>
+                                                    <constraint firstItem="iA2-FX-D7P" firstAttribute="leading" secondItem="inA-hx-nfq" secondAttribute="leading" id="pka-nJ-c0c"/>
                                                     <constraint firstAttribute="bottom" secondItem="inA-hx-nfq" secondAttribute="bottom" id="ylW-Ln-30E"/>
+                                                    <constraint firstItem="iA2-FX-D7P" firstAttribute="trailing" secondItem="inA-hx-nfq" secondAttribute="trailing" id="yuN-Et-MiH"/>
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="30" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Duj-xG-TXn">
@@ -250,6 +290,8 @@
                         <outlet property="scrollView" destination="4G8-aM-mhO" id="CM1-lN-fFt"/>
                         <outlet property="tblNewClass" destination="Duj-xG-TXn" id="WXy-xs-k2h"/>
                         <outlet property="viewNoDataFoundNewClass" destination="6gY-up-mth" id="UxN-gE-TSt"/>
+                        <outlet property="viewNoDataFoundPopularClasses" destination="iA2-FX-D7P" id="gVM-Tc-JQ5"/>
+                        <outlet property="viewNoDataFoundPopularTrainers" destination="fPR-h9-jf5" id="0mO-wF-2O8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

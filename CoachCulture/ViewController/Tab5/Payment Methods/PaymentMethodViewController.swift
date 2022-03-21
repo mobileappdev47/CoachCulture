@@ -15,6 +15,7 @@ class PaymentMethodViewController: BaseViewController {
         let vc = UIStoryboard(name: "Payment", bundle: nil).instantiateViewController(withIdentifier: "PaymentMethodViewController") as! PaymentMethodViewController
         return vc
     }
+    @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var viewManageSubscription: UIView!
     @IBOutlet weak var viewBalance: UIView!
     @IBOutlet weak var viewConfirmPayment: UIView!
@@ -78,6 +79,7 @@ class PaymentMethodViewController: BaseViewController {
                     self.arrCards.removeAll()
                     self.arrCards = StripeCardsDataModel.getData(data: arrData)
                     if self.arrCards.count > 0 {
+                        self.viewNoDataFound.isHidden = true
                         self.pageControl.currentPage = 0
                         self.pageControl.numberOfPages = self.arrCards.count
                         DispatchQueue.main.async {
@@ -88,10 +90,15 @@ class PaymentMethodViewController: BaseViewController {
                             }
                             self.clvCard.reloadItems(at: arrIndexPaths)
                         }
+                    } else {
+                        self.viewNoDataFound.isHidden = false
                     }
                 }
+            } else {
+                self.viewNoDataFound.isHidden = false
             }
         } failure: { (error) in
+            self.viewNoDataFound.isHidden = false
             self.hideLoader()
             Utility.shared.showToast(error.localizedDescription)
             return true

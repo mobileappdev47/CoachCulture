@@ -7,6 +7,7 @@
 
 import UIKit
 import FormTextField
+import Stripe
 
 class AddPaymentMethodViewController: BaseViewController {
     
@@ -14,7 +15,11 @@ class AddPaymentMethodViewController: BaseViewController {
         let vc = UIStoryboard(name: "Payment", bundle: nil).instantiateViewController(withIdentifier: "AddPaymentMethodViewController") as! AddPaymentMethodViewController
         return vc
     }
-
+    @IBOutlet weak var imgAlertCVV: UIImageView!
+    @IBOutlet weak var imgAlertCardDate: UIImageView!
+    @IBOutlet weak var imgAlertCardName: UIImageView!
+    @IBOutlet weak var imgAlertCardNumber: UIImageView!
+    @IBOutlet weak var imgCard: UIImageView!
     @IBOutlet weak var txtCardNumber : FormTextField!
     @IBOutlet weak var txtCardDate : FormTextField!
     @IBOutlet weak var txtCardHolderName : UITextField!
@@ -27,6 +32,9 @@ class AddPaymentMethodViewController: BaseViewController {
     @IBOutlet weak var btnDebitCard : UIView!
     
     var selectedCardType = CardType.credit.rawValue
+    var minimumLength = 0
+    var maximumLength = 0
+    var isCardValid = false
     
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -36,12 +44,15 @@ class AddPaymentMethodViewController: BaseViewController {
     
     // MARK: - Methods
     func setUpUI() {
+        txtCardHolderName.delegate = self
+        
         txtCardNumber.inputType = .integer
         txtCardNumber.formatter = CardNumberFormatter()
+        txtCardNumber.delegate = self
         txtCardNumber.defaultTextColor = .white
         var validation = Validation()
-        validation.maximumLength = "1234 5678 1234 5678".count
-        validation.minimumLength = "1234 5678 1234 5678".count
+        validation.minimumLength = self.minimumLength
+        validation.maximumLength = self.maximumLength
         let characterSet = NSMutableCharacterSet.decimalDigit()
         characterSet.addCharacters(in: " ")
         validation.characterSet = characterSet as CharacterSet
@@ -50,16 +61,19 @@ class AddPaymentMethodViewController: BaseViewController {
         txtCardNumber.clearButtonColor = .clear
 
         txtCardDate.formatter = CardExpirationDateFormatter()
+        txtCardDate.delegate = self
         txtCardDate.inputType = .integer
         var validationDate = Validation()
         validationDate.minimumLength = 1
+        validationDate.maximumLength = 4
         let inputValidator1 = CardExpirationDateInputValidator(validation: validationDate)
         txtCardDate.inputValidator = inputValidator1
         txtCardDate.defaultTextColor = .white
         
         txtCVV.inputType = .integer
+        txtCVV.delegate = self
         var validation1 = Validation()
-        validation1.maximumLength = "CVC".count
+        validation1.maximumLength = 4
         validation1.minimumLength = "CVC".count
         validation1.characterSet = CharacterSet.decimalDigits
         let inputValidator12 = InputValidator(validation: validation1)
@@ -139,6 +153,33 @@ class AddPaymentMethodViewController: BaseViewController {
         }
     }
     
+    func checkValidation() -> Bool {
+        if txtCardNumber.text?.isEmpty ?? false {
+            Utility.shared.showToast("Card number is mandatory field")
+            return false
+        } else if !isCardValid {
+            Utility.shared.showToast("Card number is invalid")
+            return false
+        } else if txtCardHolderName.text?.isEmpty ?? false {
+            Utility.shared.showToast("Card holder name is mandatory field")
+            imgAlertCardName.isHidden = false
+            return false
+        } else if txtCardDate.text?.isEmpty ?? false {
+            Utility.shared.showToast("Expiration date is mandatory field")
+            imgAlertCardDate.isHidden = false
+            return false
+        } else if txtCVV.text?.isEmpty ?? false {
+            Utility.shared.showToast("CVV is mandatory field")
+            imgAlertCVV.isHidden = false
+            return false
+        } else {
+            imgAlertCVV.isHidden = true
+            imgAlertCardDate.isHidden = true
+            imgAlertCardName.isHidden = true
+            return true
+        }
+    }
+    
     //MARK: - CLICK EVENTS
     
     @IBAction func clickTobtnAddPaymentMethod( _ sender : UIButton) {
@@ -154,8 +195,10 @@ class AddPaymentMethodViewController: BaseViewController {
     }
     
     @IBAction func clickTobtnAddSave( _ sender : UIButton) {
-        if Reachability.isConnectedToNetwork() {
-            callPaymentMethodsAPI()
+        if checkValidation() {
+            if Reachability.isConnectedToNetwork() {
+                callPaymentMethodsAPI()
+            }
         }
     }
 }
@@ -163,4 +206,103 @@ class AddPaymentMethodViewController: BaseViewController {
 enum CardType: String {
     case credit = "credit"
     case debit = "debit"
+}
+
+extension AddPaymentMethodViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let fullStr = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        if textField == txtCardNumber {
+            self.minimumLength = 12
+            if fullStr.count == 0 {
+                self.maximumLength = 0
+            }
+            let cardBrand = STPCardValidator.brand(forNumber: fullStr)
+            let cardImage = STPImageLibrary.cardBrandImage(for: cardBrand)
+            imgCard.image = cardImage
+            
+            self.maximumLength = getMaxLength(cardBrand: cardBrand)
+            
+            if CreditCardValidator(fullStr).isValid(for: .amex) || CreditCardValidator(fullStr).isValid(for: .dinersClub) || CreditCardValidator(fullStr).isValid(for: .discover) || CreditCardValidator(fullStr).isValid(for: .elo) || CreditCardValidator(fullStr).isValid(for: .hipercard) || CreditCardValidator(fullStr).isValid(for: .jcb) || CreditCardValidator(fullStr).isValid(for: .maestro) || CreditCardValidator(fullStr).isValid(for: .masterCard) || CreditCardValidator(fullStr).isValid(for: .mir) || CreditCardValidator(fullStr).isValid(for: .unionPay) || CreditCardValidator(fullStr).isValid(for: .visa) || CreditCardValidator(fullStr).isValid(for: .visaElectron) {
+                imgAlertCardNumber.isHidden = false
+                imgAlertCardNumber.image = UIImage(named: "successRight")
+                isCardValid = true
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.txtCardNumber.resignFirstResponder()
+                }
+            } else {
+                if fullStr.replacingOccurrences(of: " ", with: "").count == self.maximumLength {
+                    isCardValid = false
+                    imgAlertCardNumber.image = UIImage(named: "ic_wrong")
+                    imgAlertCardNumber.isHidden = false
+                }
+            }
+            return fullStr.replacingOccurrences(of: " ", with: "").count <= self.maximumLength
+        } else if textField == txtCardHolderName {
+            if fullStr.isEmpty {
+                imgAlertCardName.isHidden = false
+            } else {
+                imgAlertCardName.isHidden = true
+            }
+            return true
+        } else if textField == txtCardDate {
+            if fullStr.isEmpty {
+                imgAlertCardDate.isHidden = false
+            } else {
+                imgAlertCardDate.isHidden = true
+            }
+            return fullStr.count <= 7
+        } else if textField == txtCVV {
+            if fullStr.isEmpty {
+                imgAlertCVV.isHidden = false
+            } else {
+                imgAlertCVV.isHidden = true
+            }
+            return fullStr.count <= 4
+        }
+        imgAlertCVV.isHidden = true
+        imgAlertCardDate.isHidden = true
+        imgAlertCardName.isHidden = true
+        return true
+    }
+}
+
+enum CardBrand: String {
+    /// Visa card
+    case visa
+    /// American Express card
+    case amex
+    /// Mastercard card
+    case mastercard
+    /// Discover card
+    case discover
+    /// JCB card
+    case JCB
+    /// Diners Club card
+    case dinersClub
+    /// UnionPay card
+    case unionPay
+    /// An unknown card brand type
+    case maestro
+    case mir
+    case hipercard
+    case unknown
+}
+
+func getMaxLength(cardBrand: STPCardBrand) -> Int {
+    switch cardBrand {
+    case .visa:
+        return 16
+    case .amex:
+        return 15
+    case .maestro:
+        return 19
+    case .dinersClub:
+        return 19
+    case .JCB, .discover, .unionPay, .mir:
+        return 19
+    case .hipercard:
+        return 16
+    default:
+        return 16
+    }
 }

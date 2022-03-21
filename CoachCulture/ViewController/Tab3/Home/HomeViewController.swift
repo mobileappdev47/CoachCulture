@@ -20,7 +20,8 @@ class HomeViewController: BaseViewController {
         let vc = UIStoryboard(name: "Home", bundle: nil).instantiateViewController(withIdentifier: "HomeViewNavVc") as! UINavigationController
         return vc
     }
-    
+    @IBOutlet weak var viewNoDataFoundPopularClasses: UIView!
+    @IBOutlet weak var viewNoDataFoundPopularTrainers: UIView!
     @IBOutlet weak var viewNoDataFoundNewClass: UIView!
     @IBOutlet weak var tblNewClass: UITableView!
     @IBOutlet weak var lblPopularTitle : UILabel!
@@ -225,7 +226,12 @@ extension HomeViewController {
             
             let dataObj = responseObj["popular_class_list"] as? [Any] ?? [Any]()
             self.arrPopularClassList =  PopularClassList.getData(data: dataObj)
-            self.clvPopularClasses.reloadData()
+            if self.arrPopularClassList.count == 0 {
+                self.viewNoDataFoundPopularClasses.isHidden = false
+            } else {
+                self.viewNoDataFoundPopularClasses.isHidden = true
+                self.clvPopularClasses.reloadData()
+            }
             self.hideLoader()
             
         } failure: { (error) in
@@ -240,7 +246,12 @@ extension HomeViewController {
             
             let dataObj = responseObj["coach_list"] as? [Any] ?? [Any]()
             self.arrPopularTrainerList =  PopularTrainerList.getData(data: dataObj)
-            self.clvPopularTrainer.reloadData()
+            if self.arrPopularTrainerList.count == 0 {
+                self.viewNoDataFoundPopularTrainers.isHidden = false
+            } else {
+                self.viewNoDataFoundPopularTrainers.isHidden = true
+                self.clvPopularTrainer.reloadData()
+            }
             self.hideLoader()
             
         } failure: { (error) in

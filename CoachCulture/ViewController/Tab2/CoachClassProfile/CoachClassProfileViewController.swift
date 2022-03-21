@@ -770,8 +770,9 @@ extension CoachClassProfileViewController: ChartViewDelegate {
         var months: [String]! = arrMonths
         public func stringForValue(_ value: Double, axis: AxisBase?) -> String
         {
-            let modu =  Double(value).truncatingRemainder(dividingBy: Double(months.count))
-            return months[Int(modu) ]
+            let tempValue = Double(value).truncatingRemainder(dividingBy: Double(months.count)).rounded()
+            let modu = tempValue <= 0 ? 0 : tempValue
+            return months[Int(modu)]
         }
     }
 }
