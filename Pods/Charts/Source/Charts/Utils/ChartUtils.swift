@@ -183,6 +183,16 @@ open class ChartUtils
                                                               NSAttributedString.Key.kern: 0.1,
                                                               NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)),
                                                               NSAttributedString.Key.font: NSUIFont(name: "SFProText-Bold", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
+        
+        let barAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor(cgColor: #colorLiteral(red: 0.8862745098, green: 0, blue: 1, alpha: 1)),
+                                                              NSAttributedString.Key.kern: 0.1,
+                                                              NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)),
+                                                              NSAttributedString.Key.font: NSUIFont(name: "SFProText-Regular", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
+        let barZeroValueAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.clear,
+                                                              NSAttributedString.Key.kern: 0.1,
+                                                              NSAttributedString.Key.foregroundColor: UIColor.clear,
+                                                              NSAttributedString.Key.font: NSUIFont(name: "SFProText-Regular", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
+
         if align == .center
         {
             point.x -= text.size(withAttributes: attributes).width / 2.0
@@ -194,11 +204,17 @@ open class ChartUtils
         
         NSUIGraphicsPushContext(context)
         if boolTF {
-            ("\(Int(Float(text)! * maxMin))" + " kcal" as NSString).draw(at: point, withAttributes: firstAttributes)
+            let value = (Int(Float(text)! * maxMin))
+            ("\(value.delimiter)" + " kcal" as NSString).draw(at: point, withAttributes: firstAttributes)
         } else {
             if text.last == "s" {
                 let conStr = text.replacingOccurrences(of: " Mins", with: "")
-                arr.append(Float(conStr)!)
+                if Int(Float(conStr)!) > 0 {
+                    ("\(Int(Float(conStr)!).delimiter)" + " Mins" as NSString).draw(at: point, withAttributes: barAttributes)
+                } else {
+                    ("\(Int(Float(conStr)!).delimiter)" + " Mins" as NSString).draw(at: point, withAttributes: barZeroValueAttributes)
+                }
+                //arr.append(Float(conStr)!)
                 if Float(conStr)! > maxMin {
                     (maxMin) = Float(conStr)!
                 }
@@ -335,5 +351,18 @@ open class ChartUtils
     open class func defaultValueFormatter() -> IValueFormatter
     {
         return _defaultValueFormatter
+    }
+}
+
+extension Int {
+    private static var numberFormatter: NumberFormatter = {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+
+        return numberFormatter
+    }()
+
+    var delimiter: String {
+        return Int.numberFormatter.string(from: NSNumber(value: self)) ?? ""
     }
 }

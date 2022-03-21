@@ -10,6 +10,10 @@
 		510A93B827DA00C1000EDFF3 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */; };
 		510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */; };
 		510C1D9427BE6C2F007228E9 /* HeaderTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */; };
+		5121C4DE27E325A900940649 /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5121C4DD27E325A900940649 /* CreditCardValidator.swift */; };
+		5121C51827E345CE00940649 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5121C51727E345CE00940649 /* GoogleService-Info.plist */; };
+		512403B327E2EC9A00C8D952 /* CommonWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403B227E2EC9A00C8D952 /* CommonWebViewVC.swift */; };
+		5125332527DCC27300910318 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125332427DCC27300910318 /* NotificationVC.swift */; };
 		512ABB922717FD72008CB198 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB912717FD72008CB198 /* AppDelegate.swift */; };
 		512ABB962717FD72008CB198 /* LoginSignUpVc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB952717FD72008CB198 /* LoginSignUpVc.swift */; };
 		512ABB992717FD73008CB198 /* Coach.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 512ABB972717FD73008CB198 /* Coach.storyboard */; };
@@ -496,6 +500,10 @@
 		5121A5E72718247F00B15581 /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-SemiBold.ttf"; sourceTree = "<group>"; };
 		5121A5E82718247F00B15581 /* Karla-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Medium.ttf"; sourceTree = "<group>"; };
 		5121A5E92718248000B15581 /* Karla-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Light.ttf"; sourceTree = "<group>"; };
+		5121C4DD27E325A900940649 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
+		5121C51727E345CE00940649 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		512403B227E2EC9A00C8D952 /* CommonWebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWebViewVC.swift; sourceTree = "<group>"; };
+		5125332427DCC27300910318 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		512ABB8E2717FD72008CB198 /* CoachCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoachCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		512ABB912717FD72008CB198 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		512ABB952717FD72008CB198 /* LoginSignUpVc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSignUpVc.swift; sourceTree = "<group>"; };
@@ -1015,6 +1023,22 @@
 			path = LoginSignUpVc;
 			sourceTree = "<group>";
 		};
+		512403AF27E2EC7D00C8D952 /* CommonWebView */ = {
+			isa = PBXGroup;
+			children = (
+				512403B227E2EC9A00C8D952 /* CommonWebViewVC.swift */,
+			);
+			path = CommonWebView;
+			sourceTree = "<group>";
+		};
+		5125332327DCC25B00910318 /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				5125332427DCC27300910318 /* NotificationVC.swift */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
 		512ABB852717FD72008CB198 = {
 			isa = PBXGroup;
 			children = (
@@ -1074,6 +1098,7 @@
 				D4CE25572769CC2A00743FFC /* Assets.xcassets */,
 				D4CE25542769CC2A00743FFC /* Base.lproj */,
 				512ABB9C2717FD74008CB198 /* LaunchScreen.storyboard */,
+				5121C51727E345CE00940649 /* GoogleService-Info.plist */,
 				512ABB9F2717FD74008CB198 /* Info.plist */,
 			);
 			path = CommonFile;
@@ -1256,6 +1281,8 @@
 		D40136C12758D74400E36A39 /* Tab5 */ = {
 			isa = PBXGroup;
 			children = (
+				5121C4DD27E325A900940649 /* CreditCardValidator.swift */,
+				512403AF27E2EC7D00C8D952 /* CommonWebView */,
 				D48AC8CC277DB42100D1D370 /* PreviousUpload */,
 				D49B186F2776EA8C004CE00D /* Download Class */,
 				D4E6FA41277329F000E3593C /* Payment Methods */,
@@ -1409,6 +1436,7 @@
 		D41DB04A2770538A007FC5F7 /* Tab2 */ = {
 			isa = PBXGroup;
 			children = (
+				5125332327DCC25B00910318 /* Notification */,
 				510B86FE27CDEEEA00FD09A8 /* WorkoutStatistic */,
 				D495BC852782D93E0013C292 /* CoachClassProfile */,
 				D48F451D2770893500B0EAD8 /* CoachViseOnDemandClass */,
@@ -2372,6 +2400,7 @@
 				F1963A0C272BB78600D19373 /* KP.png in Resources */,
 				F1963A4E272BB78600D19373 /* QA.png in Resources */,
 				F19639BD272BB78600D19373 /* CH.png in Resources */,
+				5121C51827E345CE00940649 /* GoogleService-Info.plist in Resources */,
 				F1963A45272BB78600D19373 /* PK.png in Resources */,
 				F19639D2272BB78600D19373 /* EE.png in Resources */,
 				F1963A5A272BB78600D19373 /* SH.png in Resources */,
@@ -2656,6 +2685,8 @@
 				F1963A95272BCF2E00D19373 /* OTPViewController.swift in Sources */,
 				D4D49ECD275B883F009221EE /* NationalityView.swift in Sources */,
 				D48F451F2770895300B0EAD8 /* CoachViseOnDemandClassViewController.swift in Sources */,
+				5121C4DE27E325A900940649 /* CreditCardValidator.swift in Sources */,
+				5125332527DCC27300910318 /* NotificationVC.swift in Sources */,
 				D492C559276E1144007CE556 /* MainSearchViewController.swift in Sources */,
 				D4156CF42764868400328E4F /* DPDConstants.swift in Sources */,
 				D4F3C71527746412001EDDE1 /* ManageSubscriptionListViewController.swift in Sources */,
@@ -2702,6 +2733,7 @@
 				D48F452F2770A8EE00B0EAD8 /* PopularRecipeItemCollectionViewCell.swift in Sources */,
 				512ABC072718020C008CB198 /* StringExtension.swift in Sources */,
 				512ABEBD27180D09008CB198 /* GradientView.swift in Sources */,
+				512403B327E2EC9A00C8D952 /* CommonWebViewVC.swift in Sources */,
 				510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */,
 				D4E6FA4327732A2100E3593C /* PaymentMethodViewController.swift in Sources */,
 				516E135527DB314C008EEC72 /* AuthItem.swift in Sources */,
@@ -2882,7 +2914,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = StackApp.CoachCulture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.coachcultureproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2902,7 +2934,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = StackApp.CoachCulture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.coachcultureproject;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

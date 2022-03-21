@@ -1,5 +1,7 @@
 PODS:
   - Alamofire (5.4.3)
+  - AmazonIVSBroadcast (1.3.0)
+  - AmazonIVSPlayer (1.8.0)
   - AppAuth (1.4.0):
     - AppAuth/Core (= 1.4.0)
     - AppAuth/ExternalUserAgent (= 1.4.0)
@@ -10,6 +12,7 @@ PODS:
   - AWSCore (2.19.1)
   - AWSS3 (2.19.1):
     - AWSCore (= 2.19.1)
+  - CarLensCollectionViewLayout (1.2.0)
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
@@ -185,14 +188,27 @@ PODS:
   - SDWebImage (5.11.1):
     - SDWebImage/Core (= 5.11.1)
   - SDWebImage/Core (5.11.1)
+  - Stripe (21.11.1):
+    - Stripe/Stripe3DS2 (= 21.11.1)
+    - StripeCore (= 21.11.1)
+    - StripeUICore (= 21.11.1)
+  - Stripe/Stripe3DS2 (21.11.1):
+    - StripeCore (= 21.11.1)
+    - StripeUICore (= 21.11.1)
+  - StripeCore (21.11.1)
+  - StripeUICore (21.11.1):
+    - StripeCore (= 21.11.1)
   - SVProgressHUD (2.2.5)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
   - Alamofire
+  - AmazonIVSBroadcast
+  - AmazonIVSPlayer
   - AWSCognito
   - AWSCore
   - AWSS3
+  - CarLensCollectionViewLayout (~> 1.2.0)
   - Charts
   - DPOTPView
   - FacebookCore
@@ -214,16 +230,20 @@ DEPENDENCIES:
   - libPhoneNumber-iOS
   - PhoneNumberKit
   - SDWebImage
+  - Stripe
   - SVProgressHUD
   - Toast-Swift
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - AmazonIVSBroadcast
+    - AmazonIVSPlayer
     - AppAuth
     - AWSCognito
     - AWSCore
     - AWSS3
+    - CarLensCollectionViewLayout
     - Charts
     - DPOTPView
     - FacebookCore
@@ -259,15 +279,21 @@ SPEC REPOS:
     - PhoneNumberKit
     - PromisesObjC
     - SDWebImage
+    - Stripe
+    - StripeCore
+    - StripeUICore
     - SVProgressHUD
     - Toast-Swift
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  AmazonIVSBroadcast: c08e6e48e14fa2b8a77a171161e3f59ee6a2c714
+  AmazonIVSPlayer: e4f8df3ece5ff03eb8d557242711476730af294d
   AppAuth: 31bcec809a638d7bd2f86ea8a52bd45f6e81e7c7
   AWSCognito: f50de600804941d083af37a7568905f31a774727
   AWSCore: 55c154ae27efc5c98bdc30a0eeea5a35d10a2ab5
   AWSS3: 2272253b098d07803af8dd20ce6ce7302bcffb47
+  CarLensCollectionViewLayout: 75a28307dbd7dbacbba417d13501415ff3471a68
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
   DPOTPView: 28d8a0a84a2ff4b1e4a7712065aba1cbb14e2704
   FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
@@ -303,9 +329,12 @@ SPEC CHECKSUMS:
   PhoneNumberKit: 4ce83273551c4d2ae10b7361162f4283dd02835f
   PromisesObjC: 68159ce6952d93e17b2dfe273b8c40907db5ba58
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
+  Stripe: f2bed8369154c35c8ec794704e042e05240d6f21
+  StripeCore: 36571be19dae15e90c8ad47e1af45712aea93f5a
+  StripeUICore: 1b32566d6a69581be786609a032872b0fb5a6823
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: d6da56b1dd6690b938e7416f84f7bc1fbddb8cf5
+PODFILE CHECKSUM: 8499ebaf70021dcc5fc694b1222b1e6474e447ed
 
 COCOAPODS: 1.11.2

@@ -4,6 +4,7 @@ ${BUILT_PRODUCTS_DIR}/AWSCore/AWSCore.framework
 ${BUILT_PRODUCTS_DIR}/AWSS3/AWSS3.framework
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework
+${BUILT_PRODUCTS_DIR}/CarLensCollectionViewLayout/CarLensCollectionViewLayout.framework
 ${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
 ${BUILT_PRODUCTS_DIR}/DPOTPView/DPOTPView.framework
 ${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework
@@ -33,8 +34,13 @@ ${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework
 ${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework
+${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework
+${BUILT_PRODUCTS_DIR}/StripeCore/StripeCore.framework
+${BUILT_PRODUCTS_DIR}/StripeUICore/StripeUICore.framework
 ${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework
 ${BUILT_PRODUCTS_DIR}/iOSDropDown/iOSDropDown.framework
 ${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework
 ${BUILT_PRODUCTS_DIR}/libPhoneNumber-iOS/libPhoneNumber_iOS.framework
 ${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework
+${PODS_XCFRAMEWORKS_BUILD_DIR}/AmazonIVSBroadcast/AmazonIVSBroadcast.framework/AmazonIVSBroadcast
+${PODS_XCFRAMEWORKS_BUILD_DIR}/AmazonIVSPlayer/AmazonIVSPlayer.framework/AmazonIVSPlayer

@@ -110,7 +110,7 @@ class CoachClassProfileViewController: BaseViewController {
         let xAxis                           = chartView.xAxis
         xAxis.labelPosition                 = .bottom
         xAxis.axisMinimum                   = 0.0
-        xAxis.labelFont = NSUIFont(name: "SFProText-Semibold", size: 7.0) ?? NSUIFont.systemFont(ofSize: 10)
+        xAxis.labelFont = NSUIFont(name: "SFProText-Regular", size: 5.0) ?? NSUIFont.systemFont(ofSize: 10)
         xAxis.granularity                   = 1.0
         xAxis.axisMinimum                   = -0.5
         xAxis.valueFormatter                = BarChartFormatter()
@@ -146,7 +146,7 @@ class CoachClassProfileViewController: BaseViewController {
         legend.verticalAlignment            = .bottom
         legend.orientation                  = .horizontal
         legend.drawInside                   = false
-        
+        legend.font = NSUIFont(name: "SFProText-Regular", size: 5.0) ?? NSUIFont.systemFont(ofSize: 5)
         legend.form = .none
         legend.textColor = .clear
         // MARK: description
@@ -173,7 +173,7 @@ class CoachClassProfileViewController: BaseViewController {
         
         // MARK: LineChartDataSet
         let set = LineChartDataSet(entries: entries)
-
+        set.valueFont = NSUIFont(name: "SFProText-Regular", size: 5) ?? NSUIFont.systemFont(ofSize: CGFloat(5.0))
         set.colors = [COLORS.RECIPE_COLOR]
         set.lineWidth = 2.5
         
@@ -207,7 +207,8 @@ class CoachClassProfileViewController: BaseViewController {
         set1.colors         = [UIColor(cgColor: #colorLiteral(red: 0, green: 0.9607843137, blue: 1, alpha: 1)),UIColor(cgColor: #colorLiteral(red: 0.8862745098, green: 0, blue: 1, alpha: 1))]
         set1.valueTextColor = .clear
         set1.axisDependency = .left
-                
+        set1.valueFont      = NSUIFont(name: "SFProText-Regular", size: 5) ?? NSUIFont.systemFont(ofSize: CGFloat(5.0))
+
         // MARK: BarChartData
         let groupSpace = 0.06
         let barSpace = 0.01

@@ -26,6 +26,9 @@ import Foundation
     case unionPay
     /// An unknown card brand type
     case unknown
+    case maestro
+    case mir
+    case hipercard
 }
 
 /// :nodoc:
@@ -58,6 +61,12 @@ public class STPCardBrandUtilities: NSObject {
             return "UnionPay"
         case .visa:
             return "Visa"
+        case .maestro:
+            return "maestro"
+        case .mir:
+            return "mir"
+        case .hipercard:
+            return "hipercard"
         case .unknown:
             return "Unknown"
         }
