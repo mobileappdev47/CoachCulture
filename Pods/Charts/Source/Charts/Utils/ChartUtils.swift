@@ -205,14 +205,16 @@ open class ChartUtils
         NSUIGraphicsPushContext(context)
         if boolTF {
             let value = (Int(Float(text)! * maxMin))
-            ("\(value.delimiter)" + " kcal" as NSString).draw(at: point, withAttributes: firstAttributes)
+            let formattedValue = " \(value.delimiter)" + " kcal " as String
+            
+            (formattedValue).draw(at: point, withAttributes: firstAttributes)
         } else {
             if text.last == "s" {
                 let conStr = text.replacingOccurrences(of: " Mins", with: "")
                 if Int(Float(conStr)!) > 0 {
-                    ("\(Int(Float(conStr)!).delimiter)" + " Mins" as NSString).draw(at: point, withAttributes: barAttributes)
+                    (" \(Int(Float(conStr)!).delimiter)" + " Mins " as NSString).draw(at: point, withAttributes: barAttributes)
                 } else {
-                    ("\(Int(Float(conStr)!).delimiter)" + " Mins" as NSString).draw(at: point, withAttributes: barZeroValueAttributes)
+                    (" \(Int(Float(conStr)!).delimiter)" + " Mins " as NSString).draw(at: point, withAttributes: barZeroValueAttributes)
                 }
                 //arr.append(Float(conStr)!)
                 if Float(conStr)! > maxMin {

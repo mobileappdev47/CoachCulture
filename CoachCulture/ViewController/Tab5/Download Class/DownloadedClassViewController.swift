@@ -14,6 +14,8 @@ class DownloadedClassViewController: BaseViewController {
         let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "DownloadedClassViewController") as! DownloadedClassViewController
         return vc
     }
+    @IBOutlet weak var viewNoDataFound: UIView!
+    @IBOutlet weak var lblNoDataFound: UILabel!
     @IBOutlet weak var tblOndemand: UITableView!
     var arrCoachClassPrevious = [ClassDetailData]()
     var arrMainCoachClassPrevious = [ClassDetailData]()
@@ -44,6 +46,12 @@ class DownloadedClassViewController: BaseViewController {
             arrCoachClassPrevious = AppPrefsManager.sharedInstance.getClassData()
             arrMainCoachClassPrevious = AppPrefsManager.sharedInstance.getClassData()
 
+            if self.arrCoachClassPrevious.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+            }
+            
             self.tblOndemand.reloadData()
         }
             
@@ -158,6 +166,12 @@ extension DownloadedClassViewController {
             self.arrCoachClassPrevious = ClassDetailData.getData(data: dataObj)
             self.arrMainCoachClassPrevious = ClassDetailData.getData(data: dataObj)
 
+            if self.arrCoachClassPrevious.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+            }
+            
             self.tblOndemand.reloadData()
             self.hideLoader()
             

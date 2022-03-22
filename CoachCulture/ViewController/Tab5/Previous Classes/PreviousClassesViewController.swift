@@ -14,6 +14,8 @@ class PreviousClassesViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var lblNoDataFound: UILabel!
+    @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var viwOnDemandLine: UIView!
     @IBOutlet weak var viwLiveLine: UIView!
     @IBOutlet weak var viwRecipeLine: UIView!
@@ -128,6 +130,7 @@ class PreviousClassesViewController: BaseViewController {
         }
         
         if sender == btnRecipe {
+            class_type.removeAll()
             viwRecipeLine.isHidden = false
             resetRecipeVariable()
             if Reachability.isConnectedToNetwork(){
@@ -488,6 +491,13 @@ extension PreviousClassesViewController {
             self.arrCoachClassPrevious.append(contentsOf: arr)
             self.tblOndemand.reloadData()
             
+            if self.arrCoachClassPrevious.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+                self.lblNoDataFound.text = self.class_type == CoachClassType.onDemand ? "No on demand class found" : "No live class found"
+            }
+            
             if arr.count < self.perPageCount
             {
                 self.continueLoadingData = false
@@ -548,6 +558,14 @@ extension PreviousClassesViewController {
             }
             let arr = PopularRecipeData.getData(data: dataObj)
             self.arrCoachRecipePrevious.append(contentsOf: arr)
+            
+            if self.arrCoachRecipePrevious.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+                self.lblNoDataFound.text = "No recipe found"
+            }
+            
             self.tblOndemand.reloadData()
             
             if arr.count < self.perPageCountRecipe
@@ -580,9 +598,13 @@ extension PreviousClassesViewController : UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.resetVariable()
-        if Reachability.isConnectedToNetwork(){
-            getPrevoisCoachClassList()
+        if Reachability.isConnectedToNetwork() {
+            switch class_type {
+            case CoachClassType.onDemand, CoachClassType.live:
+                getPrevoisCoachClassList()
+            default:
+                getPrevoisCoachRecipeList()
+            }
         }
     }
-    
 }
