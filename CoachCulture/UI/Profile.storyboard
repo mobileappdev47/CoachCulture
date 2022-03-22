@@ -216,7 +216,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UsV-cu-O9a">
                                                         <rect key="frame" x="0.0" y="210" width="315" height="55"/>
                                                         <subviews>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Bookmark" translatesAutoresizingMaskIntoConstraints="NO" id="iTD-Yd-Zlo">
+                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BookmarkLight" translatesAutoresizingMaskIntoConstraints="NO" id="iTD-Yd-Zlo">
                                                                 <rect key="frame" x="20" y="12.5" width="27.5" height="30"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="30" id="iUy-EW-kog"/>
@@ -321,6 +321,9 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="315" height="55"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <state key="normal" title="Button"/>
+                                                                <connections>
+                                                                    <action selector="btnCustomerService:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="rzX-8I-REK"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <color key="backgroundColor" red="0.17254901959999999" green="0.2274509804" blue="0.2901960784" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -4148,7 +4151,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aYj-SB-4WZ">
-                                        <rect key="frame" x="78" y="20" width="219.5" height="30"/>
+                                        <rect key="frame" x="86.5" y="20" width="202" height="30"/>
                                         <fontDescription key="fontDescription" name="Kontanter-Bold" family="Kontanter" pointSize="25"/>
                                         <color key="textColor" name="themeRedColor"/>
                                         <nil key="highlightedColor"/>
@@ -4190,7 +4193,7 @@
                                                                 <rect key="frame" x="50" y="54" width="137.5" height="35"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="guH-NI-YTS">
-                                                                        <rect key="frame" x="53.5" y="8.5" width="30.5" height="18"/>
+                                                                        <rect key="frame" x="55" y="8.5" width="28" height="18"/>
                                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                                         <color key="textColor" name="textColor"/>
                                                                         <nil key="highlightedColor"/>
@@ -4294,7 +4297,7 @@
                                                                         <rect key="frame" x="77.5" y="0.0" width="50" height="35"/>
                                                                         <subviews>
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yur-9V-f9i">
-                                                                                <rect key="frame" x="9.5" y="8.5" width="31" height="18"/>
+                                                                                <rect key="frame" x="11.5" y="8.5" width="27.5" height="18"/>
                                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                                                 <color key="textColor" name="textColor"/>
                                                                                 <nil key="highlightedColor"/>
@@ -4360,7 +4363,7 @@
                                                 <rect key="frame" x="10" y="262" width="355" height="260"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="300/300" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZp-T5-49A">
-                                                        <rect key="frame" x="274.5" y="231" width="70.5" height="19"/>
+                                                        <rect key="frame" x="286" y="231" width="59" height="19"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="16"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -4399,7 +4402,7 @@
                                                 <rect key="frame" x="10" y="542" width="355" height="45"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p4s-7b-Db2">
-                                                        <rect key="frame" x="155" y="12" width="45" height="21"/>
+                                                        <rect key="frame" x="157.5" y="12" width="40" height="21"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="18"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -5886,8 +5889,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hd3-1I-l3C">
                                 <rect key="frame" x="0.0" y="80" width="375" height="100"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloaded Classes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zf-qD-283">
-                                        <rect key="frame" x="20" y="0.0" width="236.5" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Downloaded" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7zf-qD-283">
+                                        <rect key="frame" x="20" y="0.0" width="141.5" height="30"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="25"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -6152,7 +6155,7 @@
     </scenes>
     <resources>
         <image name="Birthday" width="19.5" height="19.5"/>
-        <image name="Bookmark" width="15.5" height="25"/>
+        <image name="BookmarkLight" width="18" height="29.5"/>
         <image name="CustomerService" width="30.5" height="30"/>
         <image name="Downloading" width="27.5" height="24"/>
         <image name="Edit" width="23" height="23"/>

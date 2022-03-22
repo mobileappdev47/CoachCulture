@@ -34,6 +34,10 @@ public class Reachability {
         let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
         let ret = (isReachable && !needsConnection)
 
+        if !ret {
+            Utility.shared.showToast(CONSTANTS.VERIFY_INTERNET_CONNECTION)
+        }
+        
         return ret
 
     }

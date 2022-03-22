@@ -788,6 +788,8 @@
                         <outlet property="lblUserName" destination="ptC-Th-Oi7" id="NE3-Zz-azE"/>
                         <outlet property="lblViews" destination="Cg4-nr-69v" id="XEz-Cu-d4C"/>
                         <outlet property="tblIntredienta" destination="9Uw-s8-CHK" id="XSq-wC-qpu"/>
+                        <outlet property="viewMealType" destination="R00-k6-pez" id="9Sf-e6-lfm"/>
+                        <outlet property="viewRecipeDuration" destination="p1U-gc-d0U" id="WfJ-ze-XoB"/>
                         <outlet property="viwCarbs" destination="e22-NR-Fyr" id="HMw-ES-oze"/>
                         <outlet property="viwFat" destination="189-7l-JE0" id="Xee-VR-7pn"/>
                         <outlet property="viwNutritionFacts" destination="cGy-9t-o4j" id="8PR-Y8-knu"/>
@@ -4671,6 +4673,14 @@
             <point key="canvasLocation" x="2474.2990654205605" y="-1596.5442764578834"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="CpG-bk-cey">
+            <size key="intrinsicContentSize" width="268" height="44"/>
+        </designable>
+        <designable name="ZqS-EK-QPa">
+            <size key="intrinsicContentSize" width="268" height="44"/>
+        </designable>
+    </designables>
     <resources>
         <image name="3Dots" width="6" height="28"/>
         <image name="Birthday" width="19.5" height="19.5"/>

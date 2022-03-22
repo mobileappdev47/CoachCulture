@@ -392,7 +392,8 @@ class ClassFilterViewController: BaseViewController {
             if previousClassVC != nil {
                 previousClassVC!.resetVariable()
                 previousClassVC!.coach_only = btnMyCoachExtra.isSelected ? "yes" : "no"
-                
+                previousClassVC!.bookmark_only = isFromBookMarkPage ? "yes" : (btnBookMark.isSelected ? "yes" : "no")
+
                 if self.btnDuration.isSelected {
                     previousClassVC!.duration = self.lblMaxClassDurationExtra.text! == "0 mins" ? "" : self.lblMaxClassDurationExtra.text!
                 } else {

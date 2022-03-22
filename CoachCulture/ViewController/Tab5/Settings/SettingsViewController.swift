@@ -7,6 +7,7 @@
 
 import UIKit
 import GoogleSignIn
+import MessageUI
 
 class SettingsViewController: BaseViewController {
     
@@ -60,8 +61,25 @@ class SettingsViewController: BaseViewController {
         
     }
     
+    func sendEmail() {
+        if MFMailComposeViewController.canSendMail() {
+            let mail = MFMailComposeViewController()
+            mail.mailComposeDelegate = self
+            mail.setToRecipients(["support@coachculture.com"])
+            mail.setMessageBody("", isHTML: true)
+
+            present(mail, animated: true)
+        } else {
+            Utility.shared.showToast("Mail service not available!")
+        }
+    }
     
     // MARK: - Click Events
+    
+    @IBAction func btnCustomerService(_ sender: UIButton) {
+        sendEmail()
+    }
+    
     @IBAction func clickToBtnLogout(_ sender: UIButton) {
         hideTabBar()
         setCountryView()
@@ -110,6 +128,10 @@ class SettingsViewController: BaseViewController {
         let vc = DownloadedClassViewController.viewcontroller()
         self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
+}
+
+extension SettingsViewController: MFMailComposeViewControllerDelegate {
+    func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+        controller.dismiss(animated: true)
+    }
 }

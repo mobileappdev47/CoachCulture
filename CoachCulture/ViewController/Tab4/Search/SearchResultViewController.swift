@@ -209,54 +209,55 @@ extension SearchResultViewController : UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseOnDemandClassItemTableViewCell", for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
         
-        let obj = arrCoachClassList[indexPath.row]
+        if indexPath.row < arrCoachClassList.count {
+            let obj = arrCoachClassList[indexPath.row]
 
-        if class_type == CoachClassType.live {
-            cell.lblClassType.text = "Live".uppercased()
-            cell.lblClassTime.text = convertUTCToLocal(dateStr: obj.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm")
-            cell.viwClassTypeContainer.backgroundColor = COLORS.THEME_RED
-        } else {
-            cell.lblClassType.text = "On demand".uppercased()
-            cell.lblClassTime.text = obj.total_viewers + " Views"
-            cell.viwClassTypeContainer.backgroundColor = COLORS.ON_DEMAND_COLOR
-        }
-        cell.lblDuration.text = obj.duration
-        
-        cell.viewProfile.isHidden = false
-        if cell.imgProfileBottom.image == nil {
-            cell.imgProfileBottom.blurImage()
-        }
-        cell.viewProfile.addCornerRadius(10)
-        cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-        cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
-        cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
-        cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
-        
-        cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
-        cell.lbltitle.text = obj.class_type_name
-        cell.lblClassDifficultyLevel.text = obj.class_subtitle
-        cell.lblClassDate.text = convertUTCToLocal(dateStr: obj.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
-        cell.selectedIndex = indexPath.row
-                
-        cell.didTapBookmarkButton = {
-            var param = [String:Any]()
-            param[Params.AddRemoveBookmark.coach_class_id] = obj.id
-            param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-            if Reachability.isConnectedToNetwork(){
-                self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+            if class_type == CoachClassType.live {
+                cell.lblClassType.text = "Live".uppercased()
+                cell.lblClassTime.text = convertUTCToLocal(dateStr: obj.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm")
+                cell.viwClassTypeContainer.backgroundColor = COLORS.THEME_RED
+            } else {
+                cell.lblClassType.text = "On demand".uppercased()
+                cell.lblClassTime.text = obj.total_viewers + " Views"
+                cell.viwClassTypeContainer.backgroundColor = COLORS.ON_DEMAND_COLOR
+            }
+            cell.lblDuration.text = obj.duration
+            
+            cell.viewProfile.isHidden = false
+            if cell.imgProfileBottom.image == nil {
+                cell.imgProfileBottom.blurImage()
+            }
+            cell.viewProfile.addCornerRadius(10)
+            cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
+            cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
+            cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
+            cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
+            
+            cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
+            cell.lbltitle.text = obj.class_type_name
+            cell.lblClassDifficultyLevel.text = obj.class_subtitle
+            cell.lblClassDate.text = convertUTCToLocal(dateStr: obj.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
+            cell.selectedIndex = indexPath.row
+                    
+            cell.didTapBookmarkButton = {
+                var param = [String:Any]()
+                param[Params.AddRemoveBookmark.coach_class_id] = obj.id
+                param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.onDemand, selectedIndex: cell.selectedIndex)
+                }
+            }
+            if obj.bookmark == "no" {
+                cell.imgBookMark.image = UIImage(named: "BookmarkLight")
+            } else {
+                cell.imgBookMark.image = UIImage(named: "Bookmark")
+            }
+            
+            if arrCoachClassList.count - 1 == indexPath.row {
+               
+                getAllCoachClassList()
             }
         }
-        if obj.bookmark == "no" {
-            cell.imgBookMark.image = UIImage(named: "BookmarkLight")
-        } else {
-            cell.imgBookMark.image = UIImage(named: "Bookmark")
-        }
-        
-        if arrCoachClassList.count - 1 == indexPath.row {
-           
-            getAllCoachClassList()
-        }
-
         cell.layoutIfNeeded()
         return cell
     }
