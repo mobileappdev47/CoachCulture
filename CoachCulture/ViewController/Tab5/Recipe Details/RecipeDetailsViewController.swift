@@ -13,6 +13,8 @@ class RecipeDetailsViewController: BaseViewController {
         let vc = UIStoryboard(name: "Recipe", bundle: nil).instantiateViewController(withIdentifier: "RecipeDetailsViewController") as! RecipeDetailsViewController
         return vc
     }
+    @IBOutlet weak var viewMealType: UIView!
+    @IBOutlet weak var viewRecipeDuration: UIView!
     
     @IBOutlet weak var lblMealType: UILabel!
     @IBOutlet weak var lblRecipeDuration: UILabel!
@@ -70,7 +72,11 @@ class RecipeDetailsViewController: BaseViewController {
     
     
     func setUpUI() {
-        
+        viewRecipeDuration.addCornerRadius(5.0)
+        viewRecipeDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+        viewMealType.addCornerRadius(5.0)
+        viewMealType.layer.maskedCorners = [.layerMaxXMinYCorner]
+
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         viwSatFat.applyBorder(4, borderColor: hexStringToUIColor(hex: "#CC2936"))
         viwFat.applyBorder(4, borderColor: hexStringToUIColor(hex: "#4DB748"))

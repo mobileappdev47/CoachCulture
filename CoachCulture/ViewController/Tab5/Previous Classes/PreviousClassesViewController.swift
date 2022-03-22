@@ -14,6 +14,8 @@ class PreviousClassesViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var lblNoDataFound: UILabel!
+    @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var viwOnDemandLine: UIView!
     @IBOutlet weak var viwLiveLine: UIView!
     @IBOutlet weak var viwRecipeLine: UIView!
@@ -91,7 +93,7 @@ class PreviousClassesViewController: BaseViewController {
         
         lblTitle.text = "Previous Classes"
         if isFromBookMarkPage {
-            lblTitle.text = "Bookmark Classes"
+            lblTitle.text = "Bookmarked"
         }
         
     }
@@ -128,6 +130,7 @@ class PreviousClassesViewController: BaseViewController {
         }
         
         if sender == btnRecipe {
+            class_type.removeAll()
             viwRecipeLine.isHidden = false
             resetRecipeVariable()
             if Reachability.isConnectedToNetwork(){
@@ -373,7 +376,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                     self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
                 }
             }
-            cell.imgBookMark.image = obj.bookmark == BookmarkType.Yes ? UIImage(named: "BookmarkLight") : UIImage(named: "Bookmark")
+            cell.imgBookMark.image = obj.bookmark == BookmarkType.Yes ? UIImage(named: "Bookmark") : UIImage(named: "BookmarkLight")
             
             return cell
         }
@@ -392,10 +395,18 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             case SelectedDemandClass.onDemand, SelectedDemandClass.live:
                 for (index, model) in self.arrCoachClassPrevious.enumerated() {
                     if selectedIndex == index {
-                        model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                        self.arrCoachClassPrevious[index] = model
-                        DispatchQueue.main.async {
-                            self.tblOndemand.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                        if !self.isFromBookMarkPage {
+                            model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                            self.arrCoachClassPrevious[index] = model
+                            DispatchQueue.main.async {
+                                self.tblOndemand.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                            }
+                        } else {
+                            self.arrCoachClassPrevious.remove(at: index)
+                            DispatchQueue.main.async {
+                                self.tblOndemand.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+                                self.tblOndemand.reloadData()
+                            }
                         }
                         break
                     }
@@ -403,10 +414,18 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             case SelectedDemandClass.recipe:
                 for (index, model) in self.arrCoachRecipePrevious.enumerated() {
                     if selectedIndex == index {
-                        model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
-                        self.arrCoachRecipePrevious[index] = model
-                        DispatchQueue.main.async {
-                            self.tblOndemand.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                        if !self.isFromBookMarkPage {
+                            model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                            self.arrCoachRecipePrevious[index] = model
+                            DispatchQueue.main.async {
+                                self.tblOndemand.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                            }
+                        } else {
+                            self.arrCoachRecipePrevious.remove(at: index)
+                            DispatchQueue.main.async {
+                                self.tblOndemand.deleteRows(at: [IndexPath(row: index, section: 0)], with: .fade)
+                                self.tblOndemand.reloadData()
+                            }
                         }
                         break
                     }
@@ -457,9 +476,13 @@ extension PreviousClassesViewController {
         showLoader()
         
         var param = [String:Any]()
+        if !searchString.isEmpty {
+            param["search"] = searchString
+        }
         if isFromBookMarkPage {
             param["bookmark_only"] = "yes"
-        } else {            
+        } else {
+            param["bookmark_only"] = bookmark_only
             param["subscription"] = true
         }
         if !class_difficulty_name.isEmpty || class_difficulty_name != "" {
@@ -478,7 +501,8 @@ extension PreviousClassesViewController {
         param["page_no"] = "\(pageNo)"
         param["per_page"] = "\(perPageCount)"
         param["class_type"] = class_type
-        
+        param["coach_only"] = coach_only
+
         paramForApi =  param
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_FILTER_CLASS_LIST, parameters: param, headers: nil) { responseObj in
@@ -487,6 +511,13 @@ extension PreviousClassesViewController {
             let arr = CoachClassPrevious.getData(data: dataObj)
             self.arrCoachClassPrevious.append(contentsOf: arr)
             self.tblOndemand.reloadData()
+            
+            if self.arrCoachClassPrevious.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+                self.lblNoDataFound.text = self.class_type == CoachClassType.onDemand ? "No on demand class found" : "No live class found"
+            }
             
             if arr.count < self.perPageCount
             {
@@ -514,6 +545,9 @@ extension PreviousClassesViewController {
         
         var param = [String:Any]()
         
+        if !searchString.isEmpty {
+            param["search"] = searchString
+        }
         param["page_no"] = "\(pageNoRecipe)"
         param["per_page"] = "\(perPageCountRecipe)"
         if !duration.isEmpty || duration != "" {
@@ -532,6 +566,7 @@ extension PreviousClassesViewController {
         var url = API.GET_ALL_COACH_RECIPE_LIST
         if isFromBookMarkPage {
             url = API.GET_USER_BOOKMARK_LIST
+            param["coach_only"] = coach_only
         } else {
             param["bookmark_only"] = "no"
             param["previous"] = "yes"
@@ -548,6 +583,14 @@ extension PreviousClassesViewController {
             }
             let arr = PopularRecipeData.getData(data: dataObj)
             self.arrCoachRecipePrevious.append(contentsOf: arr)
+            
+            if self.arrCoachRecipePrevious.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+                self.lblNoDataFound.text = "No recipe found"
+            }
+            
             self.tblOndemand.reloadData()
             
             if arr.count < self.perPageCountRecipe
@@ -580,9 +623,15 @@ extension PreviousClassesViewController : UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.resetVariable()
-        if Reachability.isConnectedToNetwork(){
-            getPrevoisCoachClassList()
+        if Reachability.isConnectedToNetwork() {
+            switch class_type {
+            case CoachClassType.onDemand, CoachClassType.live:
+                resetVariable()
+                getPrevoisCoachClassList()
+            default:
+                resetRecipeVariable()
+                getPrevoisCoachRecipeList()
+            }
         }
     }
-    
 }
