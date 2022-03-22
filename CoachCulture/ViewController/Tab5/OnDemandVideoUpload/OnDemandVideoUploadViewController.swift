@@ -51,6 +51,16 @@ class OnDemandVideoUploadViewController: BaseViewController {
     @IBOutlet weak var txtClassSubTitile : UITextField!
     @IBOutlet weak var txtSubscriberFee : UITextField!
     @IBOutlet weak var txtNonSubscriberFee : UITextField!
+    @IBOutlet weak var txtClassType: UITextField!
+    @IBOutlet weak var txtClassDifficulty: UITextField!
+    @IBOutlet weak var txtClassDuration: UITextField!
+    
+    @IBOutlet weak var imgErrClassType: UIImageView!
+    @IBOutlet weak var imgErrSubTitle: UIImageView!
+    @IBOutlet weak var imgErrDifficulty: UIImageView!
+    @IBOutlet weak var imgErrDuration: UIImageView!
+    @IBOutlet weak var imgErrSubFee: UIImageView!
+    @IBOutlet weak var imgErrNonSubFee: UIImageView!
     
     var classDuration : ClassDuration!
     var selectedButton = UIButton()
@@ -207,9 +217,34 @@ class OnDemandVideoUploadViewController: BaseViewController {
         
     }
     
+    func errorTextEditProfile(subFee: Bool, difficulty: Bool, nonSub: Bool, subTitle: Bool, classType: Bool, duration: Bool) {
+        imgErrClassType.isHidden = classType
+        imgErrSubTitle.isHidden = subTitle
+        imgErrDifficulty.isHidden = difficulty
+        imgErrDuration.isHidden = duration
+        imgErrSubFee.isHidden = subFee
+        imgErrNonSubFee.isHidden = nonSub
+    }
+    
+    func removeAllErr() {
+        txtClassSubTitile.setError()
+        txtSubscriberFee.setError()
+        txtNonSubscriberFee.setError()
+        txtClassType.setError()
+        txtClassDifficulty.setError()
+        txtClassDuration.setError()
+        
+    }
+    
     // MARK: - Click Event
     @IBAction func clickToBtnClassType(_ sender : UIButton) {
         tblClassTypeList.isHidden = !tblClassTypeList.isHidden
+    }
+    
+    @IBAction func onClkBack(_ sender: UIButton) {
+        self.popVC(animated: true)
+        errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+        removeAllErr()
     }
     
     @IBAction func clickToBtnClassDifficulty(_ sender : UIButton) {
@@ -232,18 +267,26 @@ class OnDemandVideoUploadViewController: BaseViewController {
         } else if  thumbailUrl.isEmpty {
             Utility.shared.showToast("Please select thumbnail Image")
         } else if selectClassTypeObj.id.isEmpty {
-            Utility.shared.showToast("Class type is required")
+            errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: false, duration: true)
+            txtClassType.setError("Class type is required", show: true)
         } else if txtClassSubTitile.text!.isEmpty {
-            Utility.shared.showToast("Class subtitle is required")
+            errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: false, classType: true, duration: true)
+            txtClassSubTitile.setError("Class subtitle is required", show: true)
         } else if selectClassDifficultyObj.id.isEmpty {
-            Utility.shared.showToast("Class difficulty level is required")
+            errorTextEditProfile(subFee: true, difficulty: false, nonSub: true, subTitle: true, classType: true, duration: true)
+            txtClassDifficulty.setError("Class difficulty level is required", show: true)
         } else if lblClassDuration.text!.lowercased() == "0 mins" {
-            Utility.shared.showToast("Class duration is required")
+            errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: false)
+            txtClassDuration.setError("Class duration is required", show: true)
         } else if txtSubscriberFee.text!.isEmpty {
-            Utility.shared.showToast("Subscriber fee is required")
+            errorTextEditProfile(subFee: false, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            txtSubscriberFee.setError("Subscriber fee is required", show: true)
         } else if txtNonSubscriberFee.text!.isEmpty {
-            Utility.shared.showToast("Non-Subscriber fee is required")
+            errorTextEditProfile(subFee: true, difficulty: true, nonSub: false, subTitle: true, classType: true, duration: true)
+            txtNonSubscriberFee.setError("Non-Subscriber fee is required", show: true)
         } else {
+            errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            removeAllErr()
             var param = [String : Any]()
             param["coach_class_type"] = "on_demand"
             param["class_subtitle"] = txtClassSubTitile.text!

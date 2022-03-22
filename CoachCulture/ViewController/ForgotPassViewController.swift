@@ -38,10 +38,13 @@ class ForgotPassViewController: BaseViewController {
     
     @IBOutlet weak var txtCountryCode: UITextField!
     @IBOutlet weak var imgCountryCode: UIImageView!
+    
+    @IBOutlet weak var imgErrPhone: UIImageView!
+    @IBOutlet weak var imgErrEmail: UIImageView!
+    
     var countryCodeDesc = ""
 
     let txtPlaceholders = ["Phone Number",  "Email"]
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,22 +109,27 @@ class ForgotPassViewController: BaseViewController {
         if viwEmail.isHidden == false { // reset by email
             
             if (txtEmail.text!.isEmpty) {
-               self.showAlert(withTitle: "Invalid Email", message: "Please enter valid email")
+                txtEmail.setError("Email is mandatory field", show: true)
+                imgErrEmail.isHidden = false
             } else if !(txtEmail.text!.isValidEmail) {
-                self.showAlert(withTitle: "Invalid Email", message: "Please enter valid email")
-             }
-            else {
+                txtEmail.setError("Wrong formate for email address", show: true)
+                imgErrEmail.isHidden = false
+            } else {
                 if Reachability.isConnectedToNetwork(){
                     resendOTP()
+                    txtEmail.setError("", show: false)
+                    imgErrEmail.isHidden = true
                 }
             }
         } else {
             if (txtPhone.text!.isEmpty) {
-               self.showAlert(withTitle: "Invalid Phone Number", message: "Please enter valid phone number")
-               
+                txtPhone.setError("Mobile number is mandatory field", show: true)
+                imgErrPhone.isHidden = false
             }  else {
                 if Reachability.isConnectedToNetwork(){
                     resendOTP()
+                    txtPhone.setError("", show: false)
+                    imgErrPhone.isHidden = true
                 }
             }
         }
@@ -140,6 +148,7 @@ class ForgotPassViewController: BaseViewController {
             viewPhoneNumber.isHidden = false
             viwEmail.isHidden = true
             
+//            txtPhone.setError("", show: false)
             lblByphone.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             lblByEmail.backgroundColor = hexStringToUIColor(hex: "#ffffff")
             btnByphone.setTitleColor(hexStringToUIColor(hex: "#CC2936"), for: .normal)
@@ -151,6 +160,7 @@ class ForgotPassViewController: BaseViewController {
             viewPhoneNumber.isHidden = true
             viwEmail.isHidden = false
             
+//            txtEmail.setError("", show: false)
             lblByEmail.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             lblByphone.backgroundColor = hexStringToUIColor(hex: "#ffffff")
             btnByEmail.setTitleColor(hexStringToUIColor(hex: "#CC2936"), for: .normal)

@@ -21,6 +21,7 @@ class CreateMealRecipeViewController: BaseViewController {
     
     @IBOutlet weak var txtRecipeSubTitile : UITextField!
     @IBOutlet weak var txtRecipeTitile : UITextField!
+    @IBOutlet weak var txtDuration: UITextField!
     
     @IBOutlet weak var lblRecipeDuration : UILabel!
     
@@ -29,6 +30,10 @@ class CreateMealRecipeViewController: BaseViewController {
     @IBOutlet weak var tblAddStepOfRecipe: UITableView!
     
     @IBOutlet weak var lctAddStepOfRecipeTableHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var imgErrRecipeTitle: UIImageView!
+    @IBOutlet weak var imgErrRecipeSubTitle: UIImageView!
+    @IBOutlet weak var imgErrClassDur: UIImageView!
     
     var addPhotoPopUp:AddPhotoPopUp!
     var photoData:Data!
@@ -146,6 +151,16 @@ class CreateMealRecipeViewController: BaseViewController {
         
     }
     
+    func errorTextEditProfile(title: Bool, subTitle: Bool, duration: Bool) {
+        imgErrRecipeTitle.isHidden = title
+        imgErrRecipeSubTitle.isHidden = subTitle
+        imgErrClassDur.isHidden = duration
+    }
+    
+    func removeAllErr() {
+        txtRecipeSubTitile.setError()
+        txtRecipeTitile.setError()
+    }
     
     //MARK: - Click EVENTS
     
@@ -163,6 +178,11 @@ class CreateMealRecipeViewController: BaseViewController {
         tblAddStepOfRecipe.layoutIfNeeded()
         tblAddStepOfRecipe.reloadData()
         lctAddStepOfRecipeTableHeight.constant = CGFloat(arrAddStepOfRecipe.count * 100)
+    }
+    @IBAction func clickOnBack(_ sender: UIButton) {
+        self.popVC(animated: true)
+        removeAllErr()
+        errorTextEditProfile(title: true, subTitle: true, duration: true)
     }
     
     @IBAction func clickToBtnAddSteps(_ sender : UIButton) {
@@ -199,17 +219,21 @@ class CreateMealRecipeViewController: BaseViewController {
         if thumbnailImage.isEmpty {
             Utility.shared.showToast("Please select thumbnail Image")
         } else if txtRecipeTitile.text!.isEmpty {
-            Utility.shared.showToast("Recipe title is mandatory field")
+            errorTextEditProfile(title: false, subTitle: true, duration: true)
+            txtRecipeTitile.setError("Recipe title is mandatory field", show: true)
         } else if txtRecipeSubTitile.text!.isEmpty {
-            Utility.shared.showToast("Recipe sub title is mandatory field")
+            errorTextEditProfile(title: true, subTitle: false, duration: true)
+            txtRecipeSubTitile.setError("Recipe sub title is mandatory field", show: true)
         } else if lblRecipeDuration.text!.lowercased() == "0 mins".lowercased() {
-            Utility.shared.showToast("Please select recipe preparation time duration")
+            errorTextEditProfile(title: true, subTitle: true, duration: false)
+            txtDuration.setError("Please select recipe preparation time duration", show: true)
         } else if meal_type.isEmpty {
             Utility.shared.showToast("Please select at least one meal type")
         } else if isDescriptionAdded == false {
             Utility.shared.showToast("Please enter recipe's step details")
         }else {
-            
+            removeAllErr()
+            errorTextEditProfile(title: true, subTitle: true, duration: true)
             let xvcx = jsonStringFromDictionaryOrArrayObject(obj: dicObj)
             
             var paramDic = [String:Any]()

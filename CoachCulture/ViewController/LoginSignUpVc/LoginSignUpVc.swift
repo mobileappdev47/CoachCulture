@@ -49,6 +49,15 @@ class LoginSignUpVc: BaseViewController {
     @IBOutlet weak var txtUsernameLogin: UITextField!
     @IBOutlet weak var txtPasswordLogin: UITextField!
     
+    @IBOutlet weak var imgErrUsername: UIImageView!
+    @IBOutlet weak var imgErrPhone: UIImageView!
+    @IBOutlet weak var imgErrEmail: UIImageView!
+    @IBOutlet weak var imgErrPwd: UIImageView!
+    @IBOutlet weak var imgErrRePwd: UIImageView!
+    
+    @IBOutlet weak var imgErrUserNameLogin: UIImageView!
+    @IBOutlet weak var imgErrPasswordLogin: UIImageView!
+    
     //MARK: - VARIABLE
     
     var isRememberMe = false
@@ -169,7 +178,12 @@ class LoginSignUpVc: BaseViewController {
             self.viewSignUpMain.isHidden = true
             btnLoginTapped.isHidden = false
             btnSignupTapped.isHidden = true
+            errorForBlankText(true, true, true, true, true)
         } else {
+            txtPasswordLogin.setError("", show: false)
+            txtUsernameLogin.setError("", show: false)
+            imgErrPasswordLogin.isHidden = true
+            imgErrUserNameLogin.isHidden = true
             self.imgSubmitArrowLogin.isHidden = true
             self.imgSubmitArrowSignUp.isHidden = false
             self.viewLoginMain.isHidden = true
@@ -177,6 +191,14 @@ class LoginSignUpVc: BaseViewController {
             btnLoginTapped.isHidden = true
             btnSignupTapped.isHidden = false
         }
+    }
+    
+    func errorForBlankText(_ username: Bool,_ phone: Bool,_ email: Bool,_ password: Bool,_ rePassword: Bool) {
+        imgErrUsername.isHidden = username
+        imgErrPhone.isHidden = phone
+        imgErrEmail.isHidden = email
+        imgErrPwd.isHidden = password
+        imgErrRePwd.isHidden = rePassword
     }
     
     //MARK: - ACTION
@@ -316,58 +338,83 @@ class LoginSignUpVc: BaseViewController {
         }
 
         if txtUsername.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            Utility.shared.showToast("Username is mandatory field")
+            txtUsername.setError("Username is mandatory field", show: true)
+            errorForBlankText(false, true, true, true, true)
             return false
         } else if txtUsername.text?.contains(" ") ?? false {
-            Utility.shared.showToast("Space not allowed")
+            txtUsername.setError("Space not allowed", show: true)
+            errorForBlankText(false, true, true, true, true)
             return false
-        }
-        else  if txtEmail.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            Utility.shared.showToast("Email is mandatory field")
+        } else  if txtEmail.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            txtEmail.setError("Email is mandatory field", show: true)
+            errorForBlankText(true, true, false, true, true)
             return false
         } else if !(txtEmail.text!.isValidEmail) {
-            Utility.shared.showToast("Wrong formate for email address")
+            txtEmail.setError("Wrong formate for email address", show: true)
+            errorForBlankText(true, true, false, true, true)
             return false
         } else  if txtPhone.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            Utility.shared.showToast("Mobile number is mandatory field")
+            txtPhone.setError("Please enter a valid phone", show: true)
+            errorForBlankText(true, false, true, true, true)
             return false
         } else if !(txtPhone.text?.isEmpty ?? false) && !Utility.shared.checkPhoneNumberValidation(number: phoneNo, countryCodeStr: dialCode) {
-            Utility.shared.showToast("Please enter a valid phone")
+            txtPhone.setError("Please enter a valid phone", show: true)
+            errorForBlankText(true, false, true, true, true)
             return false
         } else  if txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
-            Utility.shared.showToast("Password is mandatory field")
+            txtPassword.setError("Password is mandatory field", show: true)
+            errorForBlankText(true, true, true, false, true)
             return false
         } else  if txtPassword.text?.isValidPassword ?? false && LoginType == LoginTypeConst.Standard  {
-            Utility.shared.showToast("Password must be contain uppercase, lowercase, digit, sign letter")
+            txtPassword.setError("Password must be contain uppercase, lowercase, digit, sign letter", show: true)
+            errorForBlankText(true, true, true, false, true)
             return false
         } else  if txtRePassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
-            Utility.shared.showToast("Re-Type password is mandatory field")
+            txtRePassword.setError("Re-Type password is mandatory field", show: true)
+            errorForBlankText(true, true, true, true, false)
             return false
         } else if txtPassword.text! != txtRePassword.text! && LoginType == LoginTypeConst.Standard {
-            Utility.shared.showToast("Password and ReEnter password not matched")
+            txtRePassword.setError("Password and ReEnter password not matched", show: true)
+            errorForBlankText(true, true, true, true, false)
             return false
         } else if isAcceptTermsAndCondition == false {
             Utility.shared.showToast("Please accept terms and condition")
             return false
         } else {
+            errorForBlankText(true, true, true, true, true)
+            txtUsername.setError("", show: false)
+            txtPassword.setError("", show: false)
+            txtRePassword.setError("", show: false)
+            txtEmail.setError("", show: false)
+            txtPhone.setError("", show: false)
             return true
         }
     }
     
     func validationLogin() -> Bool {
         if txtUsernameLogin.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            Utility.shared.showToast("Email is mandatory field")
+            txtUsernameLogin.setError("Username is mandatory field", show: true)
+            imgErrUserNameLogin.isHidden = false
             return false
         } else if txtUsernameLogin.text?.contains(" ") ?? false {
-            Utility.shared.showToast("Space not allowed")
+            txtUsernameLogin.setError("Space not allowed", show: true)
+            imgErrUserNameLogin.isHidden = false
             return false
         } else if txtPasswordLogin.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            Utility.shared.showToast("Password is mandatory field")
+            txtPasswordLogin.setError("Password is mandatory field", show: true)
+            imgErrPasswordLogin.isHidden = false
+            imgErrUserNameLogin.isHidden = true
             return false
         } else if txtPasswordLogin.text?.isValidPassword ?? false {
-            Utility.shared.showToast("Password must be contain uppercase, lowercase, digit, sign letter")
+            txtPasswordLogin.setError("Password is mandatory field", show: true)
+            imgErrPasswordLogin.isHidden = false
+            imgErrUserNameLogin.isHidden = true
             return false
         } else {
+            txtPasswordLogin.setError("", show: false)
+            txtUsernameLogin.setError("", show: false)
+            imgErrPasswordLogin.isHidden = true
+            imgErrUserNameLogin.isHidden = true
             return true
         }
     }

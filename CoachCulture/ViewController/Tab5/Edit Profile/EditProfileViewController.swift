@@ -49,6 +49,14 @@ class EditProfileViewController: BaseViewController {
     @IBOutlet weak var txtRetypePassword: UITextField!
     @IBOutlet weak var txtCountryCode: UITextField!
     
+    @IBOutlet weak var imgErrUsername: UIImageView!
+    @IBOutlet weak var imgErrBaseCurrency: UIImageView!
+    @IBOutlet weak var imgErrAcCurrency: UIImageView!
+    @IBOutlet weak var imgErrEmail: UIImageView!
+    @IBOutlet weak var imgErrPass: UIImageView!
+    @IBOutlet weak var imgErrPhone: UIImageView!
+    @IBOutlet weak var imgErrConPass: UIImageView!
+    
     var countryCodeDesc = ""
     var addPhotoPopUp:AddPhotoPopUp!
     var userDataObj = UserData()
@@ -174,7 +182,6 @@ class EditProfileViewController: BaseViewController {
         if addPhotoPopUp != nil{
             addPhotoPopUp.removeFromSuperview()
         }
-        
     }
     
     func setNationalityView(){
@@ -214,12 +221,39 @@ class EditProfileViewController: BaseViewController {
         self.imgCountryCode.image = UIImage.init(named: "\(countryCodeDesc).png")
         self.imgUserProfile.setImageFromURL(imgUrl: userDataObj.user_image, placeholderImage: nil)
         self.imgCoachBanner.setImageFromURL(imgUrl: userDataObj.coach_banner_file, placeholderImage: nil)
-        txtMonthlySubscriptionFees.text = self.userDataObj.monthly_subscription_fee
+        txtMonthlySubscriptionFees.text = userDataObj.monthly_subscription_fee
         coach_trailer_file = userDataObj.coach_trailer_file
         if !userDataObj.coach_trailer_file.isEmpty {
             lblCoachTrailer.text = "Delete Coach Trailer"
         }
+        txtUserName.delegate = self
+        txtPhone.delegate = self
+        txtEmail.delegate = self
+        txtMonthlySubscriptionFees.delegate = self
+        txtPassword.delegate = self
+        txtRetypePassword.delegate = self
+        txtCountryCode.delegate = self
         
+    }
+    
+    func removeErrEditProfile() {
+        txtUserName.setError()
+        txtPhone.setError()
+        txtEmail.setError()
+        txtMonthlySubscriptionFees.setError()
+        txtPassword.setError()
+        txtRetypePassword.setError()
+        txtCountryCode.setError()
+    }
+    
+    func errorTextEditProfile(username: Bool, baseCurrency: Bool, acCurr: Bool, Email: Bool, pass: Bool, Phone: Bool, conPass: Bool) {
+        imgErrUsername.isHidden = username
+        imgErrBaseCurrency.isHidden = baseCurrency
+        imgErrAcCurrency.isHidden = acCurr
+        imgErrEmail.isHidden = Email
+        imgErrPass.isHidden = pass
+        imgErrPhone.isHidden = Phone
+        imgErrConPass.isHidden = conPass
     }
     
     // MARK: - Click Event
@@ -256,7 +290,7 @@ class EditProfileViewController: BaseViewController {
             picker.mediaTypes = [kUTTypeMovie as String]
             self.present(picker, animated: true, completion: nil)
         } else {
-            if Reachability.isConnectedToNetwork(){
+            if Reachability.isConnectedToNetwork() {
                 deleteCoachTrailerFile()
             }
         }
@@ -294,18 +328,29 @@ class EditProfileViewController: BaseViewController {
     
     @IBAction func clickTobBtnSubmitProfile(_ sender: UIButton) {
         if txtUserName.text!.isEmpty {
-            Utility.shared.showToast("User Name is a mandatory field.")
+            txtUserName.setError("User Name is a mandatory field", show: true)
+            errorTextEditProfile(username: false, baseCurrency: true, acCurr: true, Email: true, pass: true, Phone: true, conPass: true)
         } else if txtEmail.text!.isEmpty {
-            Utility.shared.showToast("Email is a mandatory field.")
+            txtEmail.setError("Email is a mandatory field", show: true)
+            errorTextEditProfile(username: true, baseCurrency: true, acCurr: true, Email: false, pass: true, Phone: true, conPass: true)
         } else  if !txtEmail.text!.isValidEmail {
-            Utility.shared.showToast("Email is not valid.")
-        }   else if txtPhone.text!.isEmpty {
-            Utility.shared.showToast("Phone number is a mandatory field.")
+            txtEmail.setError("Email is not valid", show: true)
+            errorTextEditProfile(username: true, baseCurrency: true, acCurr: true, Email: false, pass: true, Phone: true, conPass: true)
+        } else if txtPhone.text!.isEmpty {
+            txtPhone.setError("Phone number is a mandatory field", show: true)
+            errorTextEditProfile(username: true, baseCurrency: true, acCurr: true, Email: true, pass: true, Phone: false, conPass: true)
         } else if txtMonthlySubscriptionFees.text!.isEmpty {
-            Utility.shared.showToast("Enter your monthly subscription fee.")
+            txtMonthlySubscriptionFees.setError("Enter your monthly subscription fee", show: true)
+            errorTextEditProfile(username: true, baseCurrency: false, acCurr: true, Email: true, pass: true, Phone: true, conPass: true)
         } else if txtPassword.text!.isEmpty {
-            Utility.shared.showToast("Password is a mandatory field.")
+            txtPassword.setError("Password is a mandatory field", show: true)
+            errorTextEditProfile(username: true, baseCurrency: true, acCurr: true, Email: true, pass: false, Phone: true, conPass: true)
+        } else if txtRetypePassword.text != txtPassword.text {
+            txtRetypePassword.setError("Retype password not matching", show: true)
+            errorTextEditProfile(username: true, baseCurrency: true, acCurr: true, Email: true, pass: true, Phone: true, conPass: false)
         } else {
+            errorTextEditProfile(username: true, baseCurrency: true, acCurr: true, Email: true, pass: true, Phone: true, conPass: true)
+            removeErrEditProfile()
             if Reachability.isConnectedToNetwork(){
                 editUserProfile()
             }
@@ -648,5 +693,23 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
         } else {
             
         }
+    }
+}
+
+extension EditProfileViewController: UITextFieldDelegate {
+    // Remove error message after start editing
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        textField.setError()
+        return true
+    }
+    
+    // Check error
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        removeErrEditProfile()
+        errorTextEditProfile(username: true, baseCurrency: true, acCurr: true, Email: true, pass: true, Phone: true, conPass: true)
+    }
+    
+    // Check error
+    func textFieldDidEndEditing(_ textField: UITextField) {
     }
 }

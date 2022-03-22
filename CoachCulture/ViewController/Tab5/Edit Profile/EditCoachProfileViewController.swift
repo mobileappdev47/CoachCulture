@@ -35,7 +35,10 @@ class EditCoachProfileViewController: BaseViewController {
     @IBOutlet weak var txtEmail: UITextField!
     @IBOutlet weak var txtPasswordIdNUmber: UITextField!
     @IBOutlet weak var txtDummyBOD: UITextField!
+    @IBOutlet weak var txtNationality: UITextField!
+    @IBOutlet weak var txtUploadPass: UITextField!
     
+    @IBOutlet weak var txtAcCurruncy: UITextField!
     @IBOutlet weak var txtProfileUserName: UITextField!
     @IBOutlet weak var txtProfilePhone: UITextField!
     @IBOutlet weak var txtProfileEmail: UITextField!
@@ -64,6 +67,13 @@ class EditCoachProfileViewController: BaseViewController {
     @IBOutlet weak var imgPassportError: UIImageView!
     @IBOutlet weak var imgUploadPassError: UIImageView!
     @IBOutlet weak var imgAcCurrencyError: UIImageView!
+    
+    @IBOutlet weak var imgErrUsername: UIImageView!
+    @IBOutlet weak var imgErrEmail: UIImageView!
+    @IBOutlet weak var imgErrAcCurrency: UIImageView!
+    @IBOutlet weak var imgErrPhoneNo: UIImageView!
+    @IBOutlet weak var imgErrPassword: UIImageView!
+    @IBOutlet weak var imgErrReEnterPass: UIImageView!    
     
     var customDatePickerForBirthDate:CustomDatePickerViewForTextFeild!
     
@@ -176,6 +186,24 @@ class EditCoachProfileViewController: BaseViewController {
             getUserProfile()
         }
         
+        txtFirstName.delegate = self
+        txtLastName.delegate = self
+        txtEmail.delegate = self
+        txtPasswordIdNUmber.delegate = self
+        txtDummyBOD.delegate = self
+        txtNationality.delegate = self
+        txtUploadPass.delegate = self
+        txtAcCurruncy.delegate = self
+        txtProfileUserName.delegate = self
+        txtProfilePhone.delegate = self
+        txtProfileEmail.delegate = self
+        txtProfilePassword.delegate = self
+        txtProfileRetypePassword.delegate = self
+        txtProfileCountryCode.delegate = self
+        txtMonthlySubFee.delegate = self
+        
+        
+        
     }
     
     func setData() {
@@ -234,7 +262,7 @@ class EditCoachProfileViewController: BaseViewController {
         }
     }
     
-    func errorForBlankText(_ fName: Bool, _ lName: Bool, _ email: Bool, _ birth: Bool, _ nationality: Bool, _ passport: Bool, _ uploadPass: Bool, _  acCurrency: Bool) {
+    func errorTextSignUpAsCoach(_ fName: Bool, _ lName: Bool, _ email: Bool, _ birth: Bool, _ nationality: Bool, _ passport: Bool, _ uploadPass: Bool, _  acCurrency: Bool) {
         imgFirstNameError.isHidden = !fName
         imgLastNameError.isHidden = !lName
         imgEmailError.isHidden = !email
@@ -245,6 +273,35 @@ class EditCoachProfileViewController: BaseViewController {
         imgAcCurrencyError.isHidden = !acCurrency
     }
     
+    func errorTextEditProfile( userName: Bool, phone: Bool, pass: Bool, cPass: Bool, Email: Bool, acCurrency: Bool) {
+        imgErrUsername.isHidden = userName
+        imgErrEmail.isHidden = Email
+        imgErrAcCurrency.isHidden = acCurrency
+        imgErrPhoneNo.isHidden = phone
+        imgErrPassword.isHidden = pass
+        imgErrReEnterPass.isHidden = cPass
+    }
+    
+    func removeAllEditProfile() {
+        txtAcCurruncy.setError()
+        txtProfileUserName.setError()
+        txtProfilePhone.setError()
+        txtProfileEmail.setError()
+        txtProfilePassword.setError()
+        txtProfileRetypePassword.setError()
+    }
+    
+    func removeAllErrAsCoach() {
+        txtFirstName.setError()
+        txtLastName.setError()
+        txtEmail.setError()
+        txtDummyBOD.setError()
+        txtNationality.setError()
+        txtPasswordIdNUmber.setError()
+        txtUploadPass.setError()
+        txtMonthlySubFee.setError()
+    }
+    
     // MARK: - Click Event
     @IBAction func clickToBtnSignUpAsCoach(_ sender : UIButton) {
         
@@ -253,9 +310,11 @@ class EditCoachProfileViewController: BaseViewController {
             viwSignUpAsCoach.isHidden = false
             viwLine2.isHidden = true
             viwEditProfile.isHidden = true
-            
+            removeAllEditProfile()
+            errorTextEditProfile(userName: true, phone: true, pass: true, cPass: true, Email: true, acCurrency: true)
         } else {
-            
+            removeAllErrAsCoach()
+            errorTextSignUpAsCoach(false, false, false, false, false, false, false, false)
             viwLine2.isHidden = false
             viwEditProfile.isHidden = false
             viwSignUpAsCoach.isHidden = true
@@ -294,46 +353,53 @@ class EditCoachProfileViewController: BaseViewController {
     
     @IBAction func clickTobBtnSubmit(_ sender: UIButton) {
         if txtFirstName.text!.isEmpty {
-            Utility.shared.showToast("First name is required.")
-            errorForBlankText(true, false, false, false, false, false, false, false)
+            txtFirstName.setError("First name is required", show: true)
+            errorTextSignUpAsCoach(true, false, false, false, false, false, false, false)
         } else if txtFirstName.text!.isEmpty {
-            Utility.shared.showToast("First name is required.")
-            errorForBlankText(true, false, false, false, false, false, false, false)
+            txtFirstName.setError("First name is required", show: true)
+            errorTextSignUpAsCoach(true, false, false, false, false, false, false, false)
         } else if txtLastName.text!.isEmpty {
-            Utility.shared.showToast("Last name is required.")
-            errorForBlankText(false, true, false, false, false, false, false, false)
+            txtLastName.setError("Last name is required", show: true)
+            errorTextSignUpAsCoach(false, true, false, false, false, false, false, false)
         } else if txtLastName.text!.isEmpty {
-            Utility.shared.showToast("Last name is required.")
-            errorForBlankText(false, true, false, false, false, false, false, false)
+            txtLastName.setError("Last name is required", show: true)
+            errorTextSignUpAsCoach(false, true, false, false, false, false, false, false)
         } else if txtEmail.text!.isEmpty {
-            Utility.shared.showToast("Email is required.")
-            errorForBlankText(false, false, true, false, false, false, false, false)
+            txtEmail.setError("Email is required", show: true)
+            errorTextSignUpAsCoach(false, false, true, false, false, false, false, false)
         } else  if !txtEmail.text!.isValidEmail {
-            Utility.shared.showToast("Email is not valid.")
-            errorForBlankText(false, false, true, false, false, false, false, false)
+            txtEmail.setError("Email is required", show: true)
+            errorTextSignUpAsCoach(false, false, true, false, false, false, false, false)
         }  else if dateOfBirth.isEmpty {
-            Utility.shared.showToast("Date of birth is required.")
-            errorForBlankText(false, false, false, true, false, false, false, false)
+            txtDummyBOD.setError("Date of birth is required", show: true)
+            errorTextSignUpAsCoach(false, false, false, true, false, false, false, false)
         } else if lblNationality.text?.lowercased() == "Nationality".lowercased() {
-            Utility.shared.showToast("Nationality is required.")
-            errorForBlankText(false, false, false, false, true, false, false, false)
+            txtNationality.setError("Nationality is required.", show: true)
+            errorTextSignUpAsCoach(false, false, false, false, true, false, false, false)
         } else if txtPasswordIdNUmber.text!.isEmpty {
-            Utility.shared.showToast("Passport/Id number is required.")
-            errorForBlankText(false, false, false, false, false, true, false, false)
+            txtPasswordIdNUmber.setError("Passport/Id number is required", show: true)
+            errorTextSignUpAsCoach(false, false, false, false, false, true, false, false)
         } else if photoData == nil {
-            Utility.shared.showToast("Upload passport image/ID  is required.")
-            errorForBlankText(false, false, false, false, false, false, true, false)
+            txtUploadPass.setError("Upload passport image/ID  is required", show: true)
+            errorTextSignUpAsCoach(false, false, false, false, false, false, true, false)
         } else if txtMonthlySubFee.text!.isEmpty {
-            Utility.shared.showToast("Enter your monthly subscription fee")
-            errorForBlankText(false, false, false, false, false, false, false, true)
+            txtMonthlySubFee.setError("Enter your monthly subscription fee", show: true)
+            errorTextSignUpAsCoach(false, false, false, false, false, false, false, true)
         } else if imgTermsCondition.isHighlighted == false {
             Utility.shared.showToast("Accept terms and condition")
-            errorForBlankText(false, false, false, false, false, false, false, false)
+            removeAllErrAsCoach()
+            errorTextSignUpAsCoach(false, false, false, false, false, false, false, false)
         } else {
             if Reachability.isConnectedToNetwork(){
                 self.registerAsCoach()
             }
         }
+    }
+    
+    @IBAction func clickOnBack(_ sender: UIButton) {
+        self.popVC(animated: true)
+        removeAllErrAsCoach()
+        removeAllEditProfile()
     }
     
     @IBAction func didTapFeeQue(_ sender: UIButton) {
@@ -372,16 +438,26 @@ class EditCoachProfileViewController: BaseViewController {
     
     @IBAction func clickTobBtnSaveUserProfile(_ sender: UIButton) {
         if txtProfileUserName.text!.isEmpty {
-            Utility.shared.showToast("User Name is a mandatory field.")
+            txtProfileUserName.setError("User Name is a mandatory field", show: true)
+            errorTextEditProfile(userName: false, phone: true, pass: true, cPass: true, Email: true, acCurrency: true)
         } else if txtProfilePhone.text!.isEmpty {
-            Utility.shared.showToast("Phone number is a mandatory field.")
+            txtProfilePhone.setError("Phone number is a mandatory field", show: true)
+            errorTextEditProfile(userName: true, phone: false, pass: true, cPass: true, Email: true, acCurrency: true)
         } else if txtProfileEmail.text!.isEmpty {
-            Utility.shared.showToast("Email is a mandatory field.")
+            txtProfileEmail.setError("Email is a mandatory field", show: true)
+            errorTextEditProfile(userName: true, phone: true, pass: true, cPass: true, Email: false, acCurrency: true)
         } else  if !txtProfileEmail.text!.isValidEmail {
-            Utility.shared.showToast("Email is not valid.")
-        }     else if txtProfilePassword.text!.isEmpty {
-            Utility.shared.showToast("Password is a mandatory field.")
+            txtProfileEmail.setError("Wrong formate for email address", show: true)
+            errorTextEditProfile(userName: true, phone: true, pass: true, cPass: true, Email: false, acCurrency: true)
+        } else if txtProfilePassword.text!.isEmpty {
+            txtProfilePassword.setError("Password is a mandatory field", show: true)
+            errorTextEditProfile(userName: true, phone: true, pass: false, cPass: true, Email: true, acCurrency: true)
+        } else if txtProfileRetypePassword.text!.isEmpty {
+            txtProfileRetypePassword.setError("Retype password not match", show: true)
+            errorTextEditProfile(userName: true, phone: true, pass: true, cPass: false, Email: true, acCurrency: true)
         } else {
+            errorTextEditProfile(userName: true, phone: true, pass: true, cPass: true, Email: true, acCurrency: true)
+            removeAllEditProfile()
             if Reachability.isConnectedToNetwork(){
                 editUserProfile()
             }
@@ -658,4 +734,25 @@ extension EditCoachProfileViewController: countryPickDelegate {
     }
     
     
+}
+
+
+extension EditCoachProfileViewController: UITextFieldDelegate {
+    // Remove error message after start editing
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        textField.setError()
+        return true
+    }
+    
+    // Check error
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        removeAllEditProfile()
+        removeAllErrAsCoach()
+        errorTextEditProfile(userName: true, phone: true, pass: true, cPass: true, Email: true, acCurrency: true)
+        errorTextSignUpAsCoach(false, false, false, false, false, false, false, false)
+    }
+    
+    // Check error
+    func textFieldDidEndEditing(_ textField: UITextField) {
+    }
 }

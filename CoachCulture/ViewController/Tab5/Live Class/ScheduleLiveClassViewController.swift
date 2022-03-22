@@ -49,7 +49,18 @@ class ScheduleLiveClassViewController: BaseViewController {
     @IBOutlet weak var txtNonSubscriberFee : UITextField!
     @IBOutlet weak var txtDummyDate: UITextField!
     @IBOutlet weak var txtDummyTime: UITextField!
-
+    @IBOutlet weak var txtDuration: UITextField!
+    @IBOutlet weak var txtDifficulty: UITextField!
+    @IBOutlet weak var txtClassType: UITextField!
+    
+    @IBOutlet weak var imgErrClassType: UIImageView!
+    @IBOutlet weak var imgErrSubTitle: UIImageView!
+    @IBOutlet weak var imgErrDifficulty: UIImageView!
+    @IBOutlet weak var imgErrDate: UIImageView!
+    @IBOutlet weak var imgErrTime: UIImageView!
+    @IBOutlet weak var imgErrClassDuration: UIImageView!
+    @IBOutlet weak var imgErrSub: UIImageView!
+    @IBOutlet weak var imgErrNonSub: UIImageView!
     
     var classDuration : ClassDuration!
     var selectedButton = UIButton()
@@ -251,6 +262,25 @@ class ScheduleLiveClassViewController: BaseViewController {
         }
     }
     
+    func errorTextEditProfile(thumbnail: Bool, subFee: Bool, date: Bool, time: Bool, difficulty: Bool, nonSub: Bool, subTitle: Bool, classType: Bool, duration: Bool) {
+        imgThumbnail.isHidden = thumbnail
+        imgErrSub.isHidden = subFee
+        imgErrDate.isHidden = date
+        imgErrTime.isHidden = time
+        imgErrDifficulty.isHidden = difficulty
+        imgErrNonSub.isHidden = nonSub
+        imgErrSubTitle.isHidden = subTitle
+        imgErrClassType.isHidden = classType
+        imgErrClassDuration.isHidden = duration
+    }
+    
+    func removeAllErr() {
+        txtClassSubTitile.setError()
+        txtSubscriberFee.setError()
+        txtNonSubscriberFee.setError()
+        txtDummyDate.setError()
+        txtDummyTime.setError()
+    }
     
     // MARK: - Click Event
     @IBAction func clickToBtnClassType(_ sender : UIButton) {
@@ -271,28 +301,44 @@ class ScheduleLiveClassViewController: BaseViewController {
         dropDown.width = sender.frame.width
     }
     
+    @IBAction func onClkBack(_ sender: UIButton) {
+        errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+        removeAllErr()
+    }
+    
     @IBAction func clickToBtnNext(_ sender : UIButton) {
         
         
-         if  thumbailUrl.isEmpty {
+         if thumbailUrl.isEmpty {
+            errorTextEditProfile(thumbnail: false, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             Utility.shared.showToast("Please select thumbnail Image")
         } else if selectClassTypeObj.id.isEmpty {
-            Utility.shared.showToast("Class type is required")
+            txtClassType.setError("Class type is required", show: true)
+            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: false, duration: true)
         } else if txtClassSubTitile.text!.isEmpty {
-            Utility.shared.showToast("Class subtitle is required")
+            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: false, classType: true, duration: true)
+            txtClassSubTitile.setError("Class subtitle is required", show: true)
         } else if selectClassDifficultyObj.id.isEmpty {
-            Utility.shared.showToast("Class difficulty level is required")
+            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: false, nonSub: true, subTitle: true, classType: true, duration: true)
+            txtDifficulty.setError("Class difficulty level is required", show: true)
         } else if selectedDate.isEmpty {
-            Utility.shared.showToast("Date is required")
-        }else if selectedTime.isEmpty {
-            Utility.shared.showToast("Time is required")
-        }else if lblClassDuration.text!.lowercased() == "0 mins" {
-            Utility.shared.showToast("Class duration is required")
+            errorTextEditProfile(thumbnail: true, subFee: true, date: false, time: true, difficulty: false, nonSub: true, subTitle: true, classType: true, duration: true)
+            txtDummyDate.setError("Date is required", show: true)
+        } else if selectedTime.isEmpty {
+            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: false, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            txtDummyTime.setError("Time is required", show: true)
+        } else if lblClassDuration.text!.lowercased() == "0 mins" {
+            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: false)
+            txtDuration.setError("Class duration is required", show: true)
         } else if txtSubscriberFee.text!.isEmpty {
-            Utility.shared.showToast("Subscriber fee is required")
+            errorTextEditProfile(thumbnail: true, subFee: false, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            txtSubscriberFee.setError("Subscriber fee is required", show: true)
         } else if txtNonSubscriberFee.text!.isEmpty {
-            Utility.shared.showToast("Non-Subscriber fee is required")
+            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: false, subTitle: true, classType: true, duration: true)
+            txtNonSubscriberFee.setError("Non-Subscriber fee is required", show: true)
         } else {
+            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            removeAllErr()
             var param = [String : Any]()
             param["coach_class_type"] = "live"
             param["class_subtitle"] = txtClassSubTitile.text!
@@ -521,7 +567,7 @@ extension ScheduleLiveClassViewController: UIImagePickerControllerDelegate, UINa
                 editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             }
             
-            photoData = editedImage!.jpegData(compressionQuality: 1.0)
+            photoData = editedImage?.jpegData(compressionQuality: 1.0)
             self.imgThumbnail.image = editedImage
             self.uploadVideoThumbnail()
         
