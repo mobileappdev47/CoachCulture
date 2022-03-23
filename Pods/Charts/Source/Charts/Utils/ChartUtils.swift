@@ -22,6 +22,7 @@ import Cocoa
 
 var arr = [Float]()
 var maxMin = Float()
+var _isFromWorkoutStat = false
 
 extension Comparable
 {
@@ -133,6 +134,10 @@ open class ChartUtils
     
     static let trueFalse = false
     
+    open class func getAndSetForWorkoutStat(isFromStat: Bool) {
+        _isFromWorkoutStat = isFromStat
+    }
+    
     open class func drawImage(
         context: CGContext,
         image: NSUIImage,
@@ -188,7 +193,7 @@ open class ChartUtils
                                                               NSAttributedString.Key.kern: 0.1,
                                                               NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)),
                                                               NSAttributedString.Key.font: NSUIFont(name: "SFProText-Regular", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
-        let barZeroValueAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.clear,
+        let barClearValueAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.clear,
                                                               NSAttributedString.Key.kern: 0.1,
                                                               NSAttributedString.Key.foregroundColor: UIColor.clear,
                                                               NSAttributedString.Key.font: NSUIFont(name: "SFProText-Regular", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
@@ -207,14 +212,14 @@ open class ChartUtils
             let value = (Int(Float(text)! * maxMin))
             let formattedValue = " \(value.delimiter)" + " kcal " as String
             
-            (formattedValue).draw(at: point, withAttributes: firstAttributes)
+            (formattedValue).draw(at: point, withAttributes: _isFromWorkoutStat ? firstAttributes : barClearValueAttributes)
         } else {
             if text.last == "s" {
                 let conStr = text.replacingOccurrences(of: " Mins", with: "")
                 if Int(Float(conStr)!) > 0 {
-                    (" \(Int(Float(conStr)!).delimiter)" + " Mins " as NSString).draw(at: point, withAttributes: barAttributes)
+                    (" \(Int(Float(conStr)!).delimiter)" + " Mins " as NSString).draw(at: point, withAttributes: _isFromWorkoutStat ? barAttributes : barClearValueAttributes)
                 } else {
-                    (" \(Int(Float(conStr)!).delimiter)" + " Mins " as NSString).draw(at: point, withAttributes: barZeroValueAttributes)
+                    (" \(Int(Float(conStr)!).delimiter)" + " Mins " as NSString).draw(at: point, withAttributes: barClearValueAttributes)
                 }
                 //arr.append(Float(conStr)!)
                 if Float(conStr)! > maxMin {
@@ -222,7 +227,7 @@ open class ChartUtils
                 }
 //                (text as NSString).draw(at: point, withAttributes: attributes)
             } else {
-                (text as NSString).draw(at: point, withAttributes: attributes)
+                (text as NSString).draw(at: point, withAttributes: _isFromWorkoutStat ? attributes : barClearValueAttributes)
             }
         }
         

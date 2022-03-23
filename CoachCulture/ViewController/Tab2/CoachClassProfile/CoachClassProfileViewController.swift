@@ -76,6 +76,7 @@ class CoachClassProfileViewController: BaseViewController {
         
     // MARK: - Methods
     private func setUpUI() {
+        ChartUtils.getAndSetForWorkoutStat(isFromStat: false)
         if self.selectedCoachId.isEmpty || self.selectedCoachId == "" {
             self.selectedCoachId = AppPrefsManager.sharedInstance.getUserData().id
         }
@@ -109,9 +110,8 @@ class CoachClassProfileViewController: BaseViewController {
         // MARK: xAxis
         let xAxis                           = chartView.xAxis
         xAxis.labelPosition                 = .bottom
-        xAxis.axisMinimum                   = 0.0
         xAxis.labelFont = NSUIFont(name: "SFProText-Regular", size: 5.0) ?? NSUIFont.systemFont(ofSize: 10)
-        xAxis.granularity                   = 1.0
+        xAxis.granularity                   = -0.5
         xAxis.axisMinimum                   = -0.5
         xAxis.valueFormatter                = BarChartFormatter()
         xAxis.centerAxisLabelsEnabled = false
@@ -125,7 +125,7 @@ class CoachClassProfileViewController: BaseViewController {
         let leftAxis                        = chartView.leftAxis
         leftAxis.drawGridLinesEnabled       = false
         leftAxis.drawLabelsEnabled = false
-        leftAxis.axisMinimum                = 0.5
+        leftAxis.axisMinimum                = 0.0
         
         //leftAxis.nameAxis = "left Axis"
         //leftAxis.nameAxisEnabled = true
