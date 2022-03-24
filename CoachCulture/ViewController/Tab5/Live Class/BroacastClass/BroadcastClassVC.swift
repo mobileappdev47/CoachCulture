@@ -168,7 +168,8 @@ class BroadcastClassVC: BaseViewController {
         }
 
         let imageName = isMuted ? "ic_mute" : "ic_unmute"
-        muteButton.setImage(UIImage(systemName: imageName), for: .normal)
+        muteButton.setImage(UIImage(named: imageName)?.withRenderingMode(.alwaysTemplate), for: .normal)
+        muteButton.tintColor = .white
     }
 
     private func chooseDevice(_ sender: UIButton, type: IVSDeviceType, deviceName: String, deviceSelected: @escaping (IVSDeviceDescriptor) -> Void) {

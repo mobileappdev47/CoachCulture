@@ -999,12 +999,12 @@ extension LiveClassDetailsViewController {
                 self.hideLoader()
                 if isFromBroadcasting {
                     if Reachability.isConnectedToNetwork() {
-                        self.callJoinSessionsAPI()
+                        self.callJoinSessionsAPI(isFromLiveStream: true)
                         self.goForBroadcastAWSClass()
                     }
                 } else {
                     if Reachability.isConnectedToNetwork() {
-                        self.callJoinSessionsAPI()
+                        self.callJoinSessionsAPI(isFromLiveStream: false)
                         self.goToStartClass()
                     }
                 }
@@ -1302,11 +1302,14 @@ extension LiveClassDetailsViewController {
         }
     }
     
-    func callJoinSessionsAPI() {
-        let param = [
-            Params.JoinSessions.class_id: self.classDetailDataObj.id,
-            Params.JoinSessions.coach_class_subscription_id: self.classDetailDataObj.coach_class_subscription_id
-        ] as [String : Any]
+    func callJoinSessionsAPI(isFromLiveStream: Bool) {
+        var param = [String:Any]()
+        if !isFromLiveStream {
+            param[Params.JoinSessions.class_id] = self.classDetailDataObj.id
+            param[Params.JoinSessions.coach_class_subscription_id] = self.classDetailDataObj.coach_class_subscription_id
+        } else {
+            param[Params.JoinSessions.class_id] = self.classDetailDataObj.id
+        }
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.JOIN_SESSION, parameters: param, headers: nil) { responseObj in
             if let dataDict = responseObj["data"] as? [String:Any] {
@@ -1327,8 +1330,8 @@ extension LiveClassDetailsViewController {
         param[Params.EndLiveClass.class_id] = self.classDetailDataObj.id
         if !isFromLiveStream {
             param[Params.EndLiveClass.duration] = Int(self.counter)
+            param[Params.EndLiveClass.user_coach_history_id] = self.userCoachHistoryID ?? 0
         }
-        param[Params.EndLiveClass.user_coach_history_id] = self.userCoachHistoryID ?? 0
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.END_LIVE_CLASS, parameters: param, headers: nil) { responseObj in
             _ = ResponseDataModel(responseObj: responseObj)
@@ -1364,7 +1367,7 @@ extension LiveClassDetailsViewController: AVPlayerViewControllerDelegate {
     
     func playerViewController(_ playerViewController: AVPlayerViewController, willBeginFullScreenPresentationWithAnimationCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         if Reachability.isConnectedToNetwork(){
-            self.callJoinSessionsAPI()
+            self.callJoinSessionsAPI(isFromLiveStream: false)
         }
         self.timer?.invalidate()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(update), userInfo: nil, repeats: true)
