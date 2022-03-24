@@ -304,6 +304,7 @@ class ScheduleLiveClassViewController: BaseViewController {
     @IBAction func onClkBack(_ sender: UIButton) {
         errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
         removeAllErr()
+        self.popVC(animated: true)
     }
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
