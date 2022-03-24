@@ -73,6 +73,7 @@ class EditProfileViewController: BaseViewController {
     var arrNationalityData = [NationalityData]()
     var selectedCurrency = ""
     var completionHandler: AWSS3TransferUtilityUploadCompletionHandlerBlock?
+    var isForEdit = true
     //var uploadedUrl = ""
     
     
@@ -90,7 +91,11 @@ class EditProfileViewController: BaseViewController {
     }
     
     func setUpUI() {
-        clickToBtnCoachContentEdit(btnEditProfile)
+        if isForEdit {
+            clickToBtnCoachContentEdit(btnEditProfile)
+        } else {
+            clickToBtnCoachContentEdit(btnCoachContent)
+        }
         
         imgUserProfile.applyBorder(3, borderColor: hexStringToUIColor(hex: "#CC2936"))
         imgUserProfile.addCornerRadius(5)

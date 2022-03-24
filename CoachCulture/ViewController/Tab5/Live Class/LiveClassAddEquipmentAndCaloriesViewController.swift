@@ -28,6 +28,9 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
     
     @IBOutlet weak var lblCharCount: UILabel!
 
+    @IBOutlet weak var imgErrKcal: UIImageView!
+    @IBOutlet weak var imgErrDeq: UIImageView!
+    @IBOutlet weak var txtDummyDes: UITextField!
     
     var arrEquipmentList = [EquipmentList]()
     var arrAddedEquipment = [EquipmentList]()
@@ -113,23 +116,33 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
     
     @IBAction func clickToBTnCreateCoachClass( _ sender : UIButton) {
         var equipment = ""
-        for temp in arrAddedEquipment {
-            if equipment.isEmpty {
-                equipment = temp.id
-            } else {
-                if temp.equipment_name != "Select Equipment" {
-                    equipment += "," + temp.id
+        if arrAddedEquipment.count == 0 {
+            equipment = "10"
+        } else {
+            for temp in arrAddedEquipment {
+                if equipment.isEmpty {
+                    equipment = temp.id
+                } else {
+                    if temp.equipment_name != "Select Equipment" {
+                        equipment += "," + temp.id
+                    }
                 }
             }
         }
-       
-        if equipment.isEmpty {
-            Utility.shared.showToast("Please add equipment")
-        } else if txtCalories.text!.isEmpty {
-            Utility.shared.showToast("Calories required")
+        
+        if txtCalories.text!.isEmpty {
+            imgErrKcal.isHidden = false
+            txtCalories.setError("Please Edit kcal", show: true)
         } else if txtDescription.text!.isEmpty {
             Utility.shared.showToast("Description required")
+            txtDummyDes.setError("Please Edit Description", show: true)
+            imgErrKcal.isHidden = true
+            imgErrDeq.isHidden = false
         } else {
+            imgErrKcal.isHidden = true
+            imgErrDeq.isHidden = true
+            txtCalories.setError()
+            txtDummyDes.setError()
             paramDic["equipment"] = equipment
             paramDic["burn_calories"] = txtCalories.text!
             paramDic["description"] = txtDescription.text!

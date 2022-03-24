@@ -21,6 +21,8 @@ class SettingsViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viwCreateCoachContent: UIView!
+    
     var logOutView:LogOutView!
     
     // MARK: - Life cycle
@@ -44,6 +46,9 @@ class SettingsViewController: BaseViewController {
             AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: false)
             let Login = LandingVC.viewcontroller()
             self.navigationController?.pushViewController(Login, animated: false)
+        }
+        if AppPrefsManager.sharedInstance.getUserRole() !=  UserRole.coach {
+            viwCreateCoachContent.isHidden = true
         }
     }
     
@@ -85,10 +90,18 @@ class SettingsViewController: BaseViewController {
         setCountryView()
     }
     
+    @IBAction func clickToBtnCreateCoach(_ sender: UIButton) {
+        hideTabBar()
+        let vc = EditProfileViewController.viewcontroller()
+        vc.isForEdit = false
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func clickToBtnEditProfile(_ sender: UIButton) {
         hideTabBar()
         if AppPrefsManager.sharedInstance.getUserRole() ==  UserRole.coach {
             let vc = EditProfileViewController.viewcontroller()
+            vc.isForEdit = true
             self.navigationController?.pushViewController(vc, animated: true)
         }
         else {

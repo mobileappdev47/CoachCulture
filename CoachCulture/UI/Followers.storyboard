@@ -560,6 +560,11 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="200" id="zaO-Yz-lbQ"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                <real key="value" value="0.0"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                     </tableView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzZ-A4-YuA">
                                         <rect key="frame" x="20" y="360" width="280" height="128.5"/>
@@ -582,7 +587,6 @@
                                 <constraints>
                                     <constraint firstItem="abc-nT-VvD" firstAttribute="width" secondItem="ZMm-Aj-Jp0" secondAttribute="width" id="22K-07-Kb9"/>
                                     <constraint firstItem="iEv-jx-WRa" firstAttribute="leading" secondItem="ZMm-Aj-Jp0" secondAttribute="leading" constant="20" id="7MU-0w-rxm"/>
-                                    <constraint firstItem="iEv-jx-WRa" firstAttribute="top" secondItem="abc-nT-VvD" secondAttribute="bottom" constant="20" id="9Az-6l-reb"/>
                                     <constraint firstItem="FzZ-A4-YuA" firstAttribute="trailing" secondItem="iEv-jx-WRa" secondAttribute="trailing" id="DIe-bO-yXa"/>
                                     <constraint firstItem="abc-nT-VvD" firstAttribute="leading" secondItem="ZMm-Aj-Jp0" secondAttribute="leading" id="URU-df-pdp"/>
                                     <constraint firstItem="FzZ-A4-YuA" firstAttribute="leading" secondItem="iEv-jx-WRa" secondAttribute="leading" id="Zjn-Si-pJS"/>
@@ -591,6 +595,7 @@
                                     <constraint firstItem="FzZ-A4-YuA" firstAttribute="top" secondItem="iEv-jx-WRa" secondAttribute="top" constant="50" id="mXf-X9-uKA"/>
                                     <constraint firstItem="abc-nT-VvD" firstAttribute="top" secondItem="ZMm-Aj-Jp0" secondAttribute="top" id="pSo-69-L3F"/>
                                     <constraint firstAttribute="trailing" secondItem="abc-nT-VvD" secondAttribute="trailing" id="v4M-2d-Ruf"/>
+                                    <constraint firstItem="iEv-jx-WRa" firstAttribute="top" secondItem="abc-nT-VvD" secondAttribute="bottom" constant="20" id="vV8-XM-okE"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -637,7 +642,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XKj-pf-VYH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-33" y="895"/>
+            <point key="canvasLocation" x="-33.75" y="894.71830985915494"/>
         </scene>
         <!--Coach Class Profile View Controller-->
         <scene sceneID="fKn-ra-Iuj">

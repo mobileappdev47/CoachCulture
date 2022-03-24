@@ -22,11 +22,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="144" id="KGk-i7-Jjw" customClass="CoachViseRecipeItemTableViewCell" customModule="CoachCulture" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="326" height="144"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="109" id="KGk-i7-Jjw" customClass="CoachViseRecipeItemTableViewCell" customModule="CoachCulture" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="326" height="109"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="326" height="144"/>
+                <rect key="frame" x="0.0" y="0.0" width="326" height="109"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-13" translatesAutoresizingMaskIntoConstraints="NO" id="3RF-O3-Wyj">
@@ -193,7 +193,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xk2-cK-JwA">
-                                        <rect key="frame" x="137" y="40.5" width="103" height="29"/>
+                                        <rect key="frame" x="137" y="15" width="103" height="38"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chicken Fajitas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUO-ZE-0Ov">
                                                 <rect key="frame" x="0.0" y="0.0" width="103" height="17.5"/>
@@ -216,7 +216,6 @@
                                             <constraint firstAttribute="trailing" secondItem="rUO-ZE-0Ov" secondAttribute="trailing" id="nCv-ma-wRs"/>
                                             <constraint firstItem="rUO-ZE-0Ov" firstAttribute="top" secondItem="Xk2-cK-JwA" secondAttribute="top" id="nD7-5T-TNG"/>
                                             <constraint firstAttribute="trailing" secondItem="e2P-Kx-RQa" secondAttribute="trailing" id="qNf-3s-ryF"/>
-                                            <constraint firstAttribute="bottom" secondItem="e2P-Kx-RQa" secondAttribute="bottom" id="zvu-fU-Wap"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hv-Fg-sfy" userLabel="view_bookmark">
@@ -341,14 +340,15 @@
                                 <color key="backgroundColor" name="textfeildBGColor"/>
                                 <constraints>
                                     <constraint firstItem="pJz-W4-BV8" firstAttribute="leading" secondItem="3hv-Fg-sfy" secondAttribute="trailing" id="24F-Al-Vb9"/>
-                                    <constraint firstItem="Xk2-cK-JwA" firstAttribute="centerY" secondItem="ELC-jg-9TD" secondAttribute="centerY" id="6sH-Em-fGz"/>
                                     <constraint firstAttribute="height" constant="110" id="7vT-gb-g6d"/>
                                     <constraint firstItem="ELC-jg-9TD" firstAttribute="centerY" secondItem="v49-nk-RRr" secondAttribute="centerY" id="8Tn-Kn-x01"/>
                                     <constraint firstItem="BPL-X7-hQQ" firstAttribute="bottom" secondItem="3Xi-2X-Bea" secondAttribute="bottom" id="CBv-iI-qIx"/>
+                                    <constraint firstItem="Xk2-cK-JwA" firstAttribute="top" secondItem="BPL-X7-hQQ" secondAttribute="top" id="DRG-kD-mAa"/>
                                     <constraint firstItem="ELC-jg-9TD" firstAttribute="leading" secondItem="v49-nk-RRr" secondAttribute="leading" constant="7" id="DjG-OM-5eO"/>
                                     <constraint firstItem="BPL-X7-hQQ" firstAttribute="leading" secondItem="3Xi-2X-Bea" secondAttribute="leading" id="Ff3-VC-cMW"/>
                                     <constraint firstAttribute="bottom" secondItem="pJz-W4-BV8" secondAttribute="bottom" id="G1S-RT-yef"/>
                                     <constraint firstItem="pJz-W4-BV8" firstAttribute="leading" secondItem="aJs-Ga-4T2" secondAttribute="trailing" id="IBD-Id-JON"/>
+                                    <constraint firstItem="aJs-Ga-4T2" firstAttribute="top" secondItem="Xk2-cK-JwA" secondAttribute="bottom" constant="20" id="LZz-ww-oWW"/>
                                     <constraint firstItem="aJs-Ga-4T2" firstAttribute="bottom" secondItem="ELC-jg-9TD" secondAttribute="bottom" id="U09-lg-irM"/>
                                     <constraint firstItem="pJz-W4-BV8" firstAttribute="top" secondItem="v49-nk-RRr" secondAttribute="top" id="WAP-83-xyD"/>
                                     <constraint firstItem="BPL-X7-hQQ" firstAttribute="top" secondItem="3Xi-2X-Bea" secondAttribute="top" id="aKw-Eq-gZE"/>
@@ -400,9 +400,14 @@
                 <outlet property="viewProfileBottom" destination="kH8-Gv-Eoq" id="VW5-uE-65x"/>
                 <outlet property="viewSubscribe" destination="I3c-4G-N0g" id="WGQ-9X-YD0"/>
             </connections>
-            <point key="canvasLocation" x="136.23188405797103" y="107.8125"/>
+            <point key="canvasLocation" x="136.23188405797103" y="96.09375"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="6lI-fU-gxq">
+            <size key="intrinsicContentSize" width="240" height="44"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Bookmark" width="15.5" height="25"/>
         <image name="ic_logo" width="390" height="226"/>

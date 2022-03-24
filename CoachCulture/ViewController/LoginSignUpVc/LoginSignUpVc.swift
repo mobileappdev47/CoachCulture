@@ -179,9 +179,9 @@ class LoginSignUpVc: BaseViewController {
             btnLoginTapped.isHidden = false
             btnSignupTapped.isHidden = true
             errorForBlankText(true, true, true, true, true)
+            removeAllErrSignUp()
         } else {
-            txtPasswordLogin.setError("", show: false)
-            txtUsernameLogin.setError("", show: false)
+            removeAllErrLogin()
             imgErrPasswordLogin.isHidden = true
             imgErrUserNameLogin.isHidden = true
             self.imgSubmitArrowLogin.isHidden = true
@@ -199,6 +199,19 @@ class LoginSignUpVc: BaseViewController {
         imgErrEmail.isHidden = email
         imgErrPwd.isHidden = password
         imgErrRePwd.isHidden = rePassword
+    }
+    
+    func removeAllErrLogin() {
+        txtPasswordLogin.setError()
+        txtUsernameLogin.setError()
+    }
+    
+    func removeAllErrSignUp() {
+        txtUsername.setError()
+        txtPassword.setError()
+        txtRePassword.setError()
+        txtEmail.setError()
+        txtPhone.setError()
     }
     
     //MARK: - ACTION
@@ -345,14 +358,6 @@ class LoginSignUpVc: BaseViewController {
             txtUsername.setError("Space not allowed", show: true)
             errorForBlankText(false, true, true, true, true)
             return false
-        } else  if txtEmail.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            txtEmail.setError("Email is mandatory field", show: true)
-            errorForBlankText(true, true, false, true, true)
-            return false
-        } else if !(txtEmail.text!.isValidEmail) {
-            txtEmail.setError("Wrong formate for email address", show: true)
-            errorForBlankText(true, true, false, true, true)
-            return false
         } else  if txtPhone.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             txtPhone.setError("Please enter a valid phone", show: true)
             errorForBlankText(true, false, true, true, true)
@@ -360,6 +365,14 @@ class LoginSignUpVc: BaseViewController {
         } else if !(txtPhone.text?.isEmpty ?? false) && !Utility.shared.checkPhoneNumberValidation(number: phoneNo, countryCodeStr: dialCode) {
             txtPhone.setError("Please enter a valid phone", show: true)
             errorForBlankText(true, false, true, true, true)
+            return false
+        } else  if txtEmail.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+            txtEmail.setError("Email is mandatory field", show: true)
+            errorForBlankText(true, true, false, true, true)
+            return false
+        } else if !(txtEmail.text!.isValidEmail) {
+            txtEmail.setError("Wrong formate for email address", show: true)
+            errorForBlankText(true, true, false, true, true)
             return false
         } else  if txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
             txtPassword.setError("Password is mandatory field", show: true)
@@ -382,8 +395,7 @@ class LoginSignUpVc: BaseViewController {
             return false
         } else {
             errorForBlankText(true, true, true, true, true)
-            txtUsername.setError("", show: false)
-            txtPassword.setError("", show: false)
+            removeAllErrSignUp()
             txtRePassword.setError("", show: false)
             txtEmail.setError("", show: false)
             txtPhone.setError("", show: false)
@@ -411,8 +423,7 @@ class LoginSignUpVc: BaseViewController {
             imgErrUserNameLogin.isHidden = true
             return false
         } else {
-            txtPasswordLogin.setError("", show: false)
-            txtUsernameLogin.setError("", show: false)
+            removeAllErrLogin()
             imgErrPasswordLogin.isHidden = true
             imgErrUserNameLogin.isHidden = true
             return true

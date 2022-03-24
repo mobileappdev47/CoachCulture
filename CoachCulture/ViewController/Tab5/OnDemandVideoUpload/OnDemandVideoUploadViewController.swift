@@ -150,7 +150,12 @@ class OnDemandVideoUploadViewController: BaseViewController {
             getClassType()
             getClassDifficultyList()
         }
-        
+        txtClassSubTitile.delegate = self
+        txtSubscriberFee.delegate = self
+        txtNonSubscriberFee.delegate = self
+        txtClassType.delegate = self
+        txtClassDifficulty.delegate = self
+        txtClassDuration.delegate = self
         
     }
     
@@ -591,7 +596,7 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
                 editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             }
             
-            photoData = editedImage!.jpegData(compressionQuality: 1.0)
+            photoData = editedImage!.jpegData(compressionQuality: 0.5)
             self.imgThumbnail.image = editedImage
             self.uploadVideoThumbnail()
         }
@@ -636,5 +641,23 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
         } else {
             
         }
+    }
+}
+
+extension OnDemandVideoUploadViewController: UITextFieldDelegate {
+    // Remove error message after start editing
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        textField.setError()
+        return true
+    }
+    
+    // Check error
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+        removeAllErr()
+    }
+    
+    // Check error
+    func textFieldDidEndEditing(_ textField: UITextField) {
     }
 }

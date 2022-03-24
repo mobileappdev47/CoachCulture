@@ -94,6 +94,9 @@ class CreateMealRecipeViewController: BaseViewController {
             clickToBtnAddSteps(UIButton())
         }
         
+        txtRecipeSubTitile.delegate = self
+        txtRecipeTitile.delegate = self
+        txtDuration.delegate = self
     }
     
     func setData() {
@@ -160,6 +163,7 @@ class CreateMealRecipeViewController: BaseViewController {
     func removeAllErr() {
         txtRecipeSubTitile.setError()
         txtRecipeTitile.setError()
+        txtDuration.setError()
     }
     
     //MARK: - Click EVENTS
@@ -274,11 +278,7 @@ extension CreateMealRecipeViewController: UIImagePickerControllerDelegate, UINav
             editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
         }
         
-        if editedImage.getSizeIn(.megabyte, recdData: self.photoData ?? Data()) > 5.0 {
-            photoData = editedImage.jpegData(compressionQuality: 0.5)
-        } else {
-            photoData = editedImage.jpegData(compressionQuality: 1.0)
-        }
+        photoData = editedImage.jpegData(compressionQuality: 0.5)
         
         self.imgThumbnail.image = editedImage
         self.uploadRecipePhoto()
@@ -476,4 +476,22 @@ extension CreateMealRecipeViewController : UITextViewDelegate {
         return true
     }
     
+}
+
+extension CreateMealRecipeViewController: UITextFieldDelegate {
+    // Remove error message after start editing
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        textField.setError()
+        return true
+    }
+    
+    // Check error
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        removeAllErr()
+        errorTextEditProfile(title: true, subTitle: true, duration: true)
+    }
+    
+    // Check error
+    func textFieldDidEndEditing(_ textField: UITextField) {
+    }
 }

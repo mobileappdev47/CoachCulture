@@ -27,7 +27,6 @@ class PopularClassesCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        viwTopDurationContainer.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 5)
     }
     
     func setData(obj: PopularClassList) {
@@ -36,7 +35,7 @@ class PopularClassesCollectionViewCell: UICollectionViewCell {
         lblClassSubTitle.text = obj.class_type
         lblClassType.text = obj.class_subtitle
         lblName.text = "@" + obj.username
-        lblViews.text = obj.total_viewers + " Views"
+//        lblViews.text = obj.total_viewers + " Views"
         
         if obj.coach_class_type == CoachClassType.live {
             viwTopStatusContainer.backgroundColor = hexStringToUIColor(hex: "#CC2936")

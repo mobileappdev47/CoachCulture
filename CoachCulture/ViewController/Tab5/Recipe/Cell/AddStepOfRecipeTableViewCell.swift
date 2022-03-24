@@ -15,10 +15,21 @@ class AddStepOfRecipeTableViewCell: UITableViewCell {
     @IBOutlet weak var lblCharCount: UILabel!
     @IBOutlet weak var btnDelete: UIButton!
 
-
+    @IBOutlet weak var txtDummyStap: UITextField!
+    @IBOutlet weak var imgErrStaps: UIImageView!
+    
+    static var isHidden = false
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        if isHidden {
+            txtDummyStap.setError("Please enter recipe's step details", show: true)
+            imgErrStaps.isHidden = false
+        } else {
+            txtDummyStap.setError()
+            imgErrStaps.isHidden = true
+        }
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

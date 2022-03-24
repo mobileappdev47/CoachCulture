@@ -47,6 +47,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     @IBOutlet weak var btn3Dots: UIButton!
     @IBOutlet weak var btnUserProfile: UIButton!
     
+    @IBOutlet weak var lblCreateClass: UILabel!
     var arrCoachClassInfoList = [CoachClassInfoList]()
     var coachInfoDataObj = CoachInfoData()
     var selectedCoachId = ""
@@ -299,9 +300,15 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableView") as! HeaderTableView
+        headerView.vewClass.isHidden = false
         headerView.didTapButton = { recdType in
             switch recdType {
-            case SelectedDemandClass.onDemand, SelectedDemandClass.live:
+            case SelectedDemandClass.onDemand:
+                self.resetVariable()
+                if Reachability.isConnectedToNetwork(){
+                    self.getCoachesWiseClassList()
+                }
+            case SelectedDemandClass.live:
                 self.resetVariable()
                 if Reachability.isConnectedToNetwork(){
                     self.getCoachesWiseClassList()
@@ -317,12 +324,28 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                     self.getCoachesWiseClassList()
                 }
             }
+            headerView.didTapBtnClass = { recdType in
+                switch headerView.btnClass.tag {
+                    case 1:
+                        let vc = OnDemandVideoUploadViewController.viewcontroller()
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    case 2:
+                        let vc = ScheduleLiveClassViewController.viewcontroller()
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    case 3:
+                        let vc = CreateMealRecipeViewController.viewcontroller()
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    default:
+                        let vc = OnDemandVideoUploadViewController.viewcontroller()
+                        self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
         }
         return headerView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 100
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -742,11 +765,33 @@ class HeaderTableView: UITableViewHeaderFooterView {
     @IBOutlet weak var btnLive: UIButton!
     @IBOutlet weak var btnRecipe: UIButton!
     
+    @IBOutlet weak var vewClass: UIView!
+    @IBOutlet weak var lblClass: UILabel!
+    @IBOutlet weak var btnClass: UIButton!
+    
     // MARK: - VARIABLE AND OBJECT
     
     var didTapButton : ((_ recdType: String) -> Void)!
+    var didTapBtnClass : ((_ recdType: String) -> Void)!
     
     // MARK: - CLICK EVENTS
+    
+    
+    @IBAction func clickToBtnClass(_ sender: UIButton) {
+        switch btnClass.tag {
+            case 1:
+                isFromSelectedType = SelectedDemandClass.onDemand
+                didTapBtnClass(SelectedDemandClass.onDemand)
+            case 2:
+                isFromSelectedType = SelectedDemandClass.live
+                didTapBtnClass(SelectedDemandClass.live)
+            case 3:
+                isFromSelectedType = SelectedDemandClass.recipe
+                didTapBtnClass(SelectedDemandClass.recipe)
+            default:
+                didTapBtnClass(SelectedDemandClass.onDemand)
+        }
+    }
     
     @IBAction func clickToBtnClassTypeForCoach( _ sender : UIButton) {
         viwOnDemandLine.isHidden = true
@@ -757,15 +802,21 @@ class HeaderTableView: UITableViewHeaderFooterView {
         case btnOnDemand:
             viwOnDemandLine.isHidden = false
             isFromSelectedType = SelectedDemandClass.onDemand
+            lblClass.text = "Upload On Demand Class"
+            btnClass.tag = 1
             didTapButton(SelectedDemandClass.onDemand)
         case btnLive:
             viwLiveLine.isHidden = false
             isFromSelectedType = SelectedDemandClass.live
             didTapButton(SelectedDemandClass.live)
+            lblClass.text = "Schedule Live Class"
+            btnClass.tag = 2
         case btnRecipe:
             viwRecipeLine.isHidden = false
             isFromSelectedType = SelectedDemandClass.recipe
             didTapButton(SelectedDemandClass.recipe)
+            lblClass.text = "Create Recipe"
+            btnClass.tag = 3
         default:
             viwOnDemandLine.isHidden = false
             didTapButton(SelectedDemandClass.onDemand)
