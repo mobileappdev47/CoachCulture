@@ -38,7 +38,7 @@ class WorkoutStatisticVC: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -197,6 +197,7 @@ class WorkoutStatisticVC: BaseViewController {
     }
 
     func initialSetupUI() {
+        ChartUtils.getAndSetForWorkoutStat(isFromStat: true)
         //self.chartView.backgroundColor = COLORS.CHART_BG_COLOR
         self.hideTabBar()
         tblPreviousClassView.register(UINib(nibName: kHomeNewClassHeaderViewID, bundle: nil), forHeaderFooterViewReuseIdentifier: kHomeNewClassHeaderViewID)
