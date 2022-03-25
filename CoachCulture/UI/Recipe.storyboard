@@ -4415,11 +4415,10 @@
                                 <constraints>
                                     <constraint firstItem="r7e-jE-MLq" firstAttribute="leading" secondItem="fuz-bg-oNT" secondAttribute="leading" id="2Ca-VS-lUE"/>
                                     <constraint firstAttribute="trailing" secondItem="r7e-jE-MLq" secondAttribute="trailing" id="620-3S-s6G"/>
-                                    <constraint firstItem="r7e-jE-MLq" firstAttribute="bottom" secondItem="fuz-bg-oNT" secondAttribute="bottom" constant="30" id="BdT-c4-nj0"/>
+                                    <constraint firstItem="r7e-jE-MLq" firstAttribute="bottom" secondItem="fuz-bg-oNT" secondAttribute="bottom" id="BdT-c4-nj0"/>
+                                    <constraint firstItem="r7e-jE-MLq" firstAttribute="height" secondItem="fuz-bg-oNT" secondAttribute="height" priority="250" id="QUJ-eq-DXg"/>
                                     <constraint firstItem="r7e-jE-MLq" firstAttribute="top" secondItem="fuz-bg-oNT" secondAttribute="top" id="ah8-D1-H9y"/>
                                 </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="eYA-ux-5Ma"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="0rh-3N-FGr"/>
                             </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="bJx-69-5FQ"/>
@@ -4788,14 +4787,6 @@
             <point key="canvasLocation" x="2474.2990654205605" y="-1596.5442764578834"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="CpG-bk-cey">
-            <size key="intrinsicContentSize" width="268" height="44"/>
-        </designable>
-        <designable name="ZqS-EK-QPa">
-            <size key="intrinsicContentSize" width="268" height="44"/>
-        </designable>
-    </designables>
     <resources>
         <image name="3Dots" width="6" height="28"/>
         <image name="Birthday" width="19.5" height="19.5"/>
