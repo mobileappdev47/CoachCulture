@@ -27,7 +27,7 @@ class PopularClassesCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        viwTopDurationContainer.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 5)
+        viwTopDurationContainer.roundCorners(corners: [.bottomLeft], radius: 5)
     }
     
     func setData(obj: PopularClassList) {

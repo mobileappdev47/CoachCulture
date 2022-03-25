@@ -279,6 +279,7 @@
                 <outlet property="lblRecipeType" destination="ck0-s9-Vpm" id="o9F-wc-kdU"/>
                 <outlet property="lblTitle" destination="ND5-mE-8hQ" id="vU1-HJ-sTt"/>
                 <outlet property="lblUserName" destination="dDo-Q9-JI6" id="vq1-X2-5eD"/>
+                <outlet property="viewProfile" destination="raU-DX-hfC" id="sjT-mQ-gRk"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="125.22321428571428"/>
         </tableViewCell>

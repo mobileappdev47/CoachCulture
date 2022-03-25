@@ -81,6 +81,7 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "YourCoachRecipeItemTableViewCell", for: indexPath) as! YourCoachRecipeItemTableViewCell
         if arrCoachRecipeData.count > 0 {
             let obj = arrCoachRecipeData[indexPath.row]
+            cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblUserName.text = obj.username
             cell.lblTitle.text = obj.title
@@ -88,8 +89,11 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
             cell.lblDuration.text = obj.duration
             cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
             cell.imgUser.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
+            if cell.imgThumbnail.image == nil {
+                cell.imgThumbnail.blurImage()
+            }
             cell.imgThumbnail.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
-            cell.imgThumbnail.blurImage()
+            
             cell.arrDietaryRestriction = obj.arrDietaryRestrictionName
             cell.clvDietaryRestriction.reloadData()
             if obj.bookmark == "no" {
