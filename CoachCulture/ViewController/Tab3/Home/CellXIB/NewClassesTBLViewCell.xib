@@ -33,10 +33,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="140"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5L9-nd-b12" userLabel="viewType">
-                                <rect key="frame" x="10" y="10" width="32" height="17"/>
+                                <rect key="frame" x="10" y="10" width="36" height="17"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TYy-GB-0Qp">
-                                        <rect key="frame" x="5" y="3" width="22" height="11"/>
+                                        <rect key="frame" x="7" y="4" width="22" height="9"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="12"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -44,11 +44,11 @@
                                 </subviews>
                                 <color key="backgroundColor" name="themeRedColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="TYy-GB-0Qp" secondAttribute="trailing" constant="5" id="Fd6-Bh-RYX"/>
-                                    <constraint firstAttribute="bottom" secondItem="TYy-GB-0Qp" secondAttribute="bottom" constant="3" id="Fvq-qg-yKp"/>
-                                    <constraint firstItem="TYy-GB-0Qp" firstAttribute="top" secondItem="5L9-nd-b12" secondAttribute="top" constant="3" id="HL3-At-nWr"/>
+                                    <constraint firstAttribute="trailing" secondItem="TYy-GB-0Qp" secondAttribute="trailing" constant="7" id="Fd6-Bh-RYX"/>
+                                    <constraint firstAttribute="bottom" secondItem="TYy-GB-0Qp" secondAttribute="bottom" constant="4" id="Fvq-qg-yKp"/>
+                                    <constraint firstItem="TYy-GB-0Qp" firstAttribute="top" secondItem="5L9-nd-b12" secondAttribute="top" constant="4" id="HL3-At-nWr"/>
                                     <constraint firstAttribute="height" constant="17" id="ceA-8K-A50"/>
-                                    <constraint firstItem="TYy-GB-0Qp" firstAttribute="leading" secondItem="5L9-nd-b12" secondAttribute="leading" constant="5" id="iJU-kC-lfs"/>
+                                    <constraint firstItem="TYy-GB-0Qp" firstAttribute="leading" secondItem="5L9-nd-b12" secondAttribute="leading" constant="7" id="iJU-kC-lfs"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nNT-mS-dUR" userLabel="viewTime">

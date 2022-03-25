@@ -23,11 +23,14 @@ class PopularCoachRecipeViewController: BaseViewController {
     @IBOutlet weak var clvPopularRecipeItem : UICollectionView!
     var arrPopularRecipeData = [PopularRecipeData]()
     var arrCoachRecipeData = [PopularRecipeData]()
-    
+    let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
+    var kHomeNewClassHeaderViewID = "HomeNewClassHeaderView"
     @IBOutlet weak var tblCoachRecipe : UITableView!
     @IBOutlet weak var lctCoachRecipeTableHeight : NSLayoutConstraint!
     @IBOutlet weak var lblPopularRecipeCenter: UILabel!
-    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var lblNoDataFoundNewRecipies: UILabel!
+
    private var isDataLoading = false
     private var continueLoadingData = true
     private var pageNo = 1
@@ -51,6 +54,7 @@ class PopularCoachRecipeViewController: BaseViewController {
     
     // MARK: - METHODS
     func setUpUI() {
+        tblCoachRecipe.register(UINib(nibName: kHomeNewClassHeaderViewID, bundle: nil), forHeaderFooterViewReuseIdentifier: kHomeNewClassHeaderViewID)
         tblCoachRecipe.register(UINib(nibName: "NewClassesTBLViewCell", bundle: nil), forCellReuseIdentifier: "NewClassesTBLViewCell")
         tblCoachRecipe.delegate = self
         tblCoachRecipe.dataSource = self
@@ -59,6 +63,9 @@ class PopularCoachRecipeViewController: BaseViewController {
         clvPopularRecipeItem.register(UINib(nibName: "PopularRecipeItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PopularRecipeItemCollectionViewCell")
         clvPopularRecipeItem.delegate = self
         clvPopularRecipeItem.dataSource = self
+        
+        self.tblCoachRecipe.isScrollEnabled = false
+        self.scrollView.delegate = self
     }
     
     // MARK: - CLICK EVENTS
@@ -97,22 +104,34 @@ extension PopularCoachRecipeViewController: UICollectionViewDataSource, UICollec
         lblPopularRecipeCenter.isHidden = true
         let obj = arrPopularRecipeData[indexPath.row]
         
+        var arrFilteredDietaryRestriction = [String]()
+        
+        if obj.arrdietary_restriction.count > 2 {
+            arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[0])
+            arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[1])
+            cell.arrDietaryRestriction = arrFilteredDietaryRestriction
+        } else {
+            cell.arrDietaryRestriction = obj.arrdietary_restriction
+        }
+        
+        cell.clvDietaryRestriction.reloadData()
+        
         cell.lblTitle.text = obj.title
         cell.lblSubtitle.text = obj.sub_title
         cell.lblUserName.text = "@" + obj.coachDetailsObj.username
         cell.lblViews.text =  obj.viewers + "K Views"
         cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
+        if cell.imgThumbnail.image == nil {
+            cell.imgThumbnail.blurImage()
+        }
         cell.imgThumbnail.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
-        cell.imgThumbnail.blurImage()
         return cell
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         
-        return CGSize(width: 155, height: 190)
+        return CGSize(width: 145, height: 190)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -130,9 +149,34 @@ extension PopularCoachRecipeViewController: UICollectionViewDataSource, UICollec
 
 
 // MARK: - UITableViewDelegate, UITableViewDataSource
-extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDataSource {
+extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate  {
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView == self.scrollView {
+            print(self.scrollView.contentOffset.y)
+            tblCoachRecipe.isScrollEnabled = (self.scrollView.contentOffset.y >= 260)
+        }
+        if scrollView == self.tblCoachRecipe {
+            self.tblCoachRecipe.isScrollEnabled = (tblCoachRecipe.contentOffset.y > 0)
+        }
+    }
     
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: kHomeNewClassHeaderViewID) as? HomeNewClassHeaderView {
+            headerView.lblTitle.text = "New Recipes"
+            return headerView
+        }
+        return UIView()
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 0
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return arrCoachRecipeData.count
@@ -146,7 +190,19 @@ extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDat
         if cell.imgBlurThumbnail.image == nil {
             cell.imgBlurThumbnail.blurImage()
         }
-        cell.arrDietaryRestriction = model.arrdietary_restriction
+        
+        var arrFilteredDietaryRestriction = [String]()
+        
+        if model.arrdietary_restriction.count > 2 {
+            arrFilteredDietaryRestriction.append(model.arrdietary_restriction[0])
+            arrFilteredDietaryRestriction.append(model.arrdietary_restriction[1])
+            cell.arrDietaryRestriction = arrFilteredDietaryRestriction
+        } else {
+            cell.arrDietaryRestriction = model.arrdietary_restriction
+        }
+        
+        cell.clvDietaryRestriction.reloadData()
+        
         cell.viewTime.addCornerRadius(5)
         cell.viewUsername.addCornerRadius(5)
         cell.viewClassType.addCornerRadius(5)
@@ -184,6 +240,11 @@ extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDat
         cell.lblDateTime.text = convertUTCToLocal(dateStr: model.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
         cell.lblDate.text = "\(model.viewers) views"
       
+        if arrCoachRecipeData.count - 1 == indexPath.row {
+            if Reachability.isConnectedToNetwork(){
+                getPopularRecipeList(str: "")
+            }
+        }
         cell.layoutIfNeeded()
         return cell
     }
@@ -217,6 +278,11 @@ extension PopularCoachRecipeViewController {
             
             let dataObj = responseObj["popular_recipe_list"] as? [Any] ?? [Any]()
             self.arrPopularRecipeData = PopularRecipeData.getData(data: dataObj)
+            
+            self.arrPopularRecipeData.forEach { (model) in
+                model.arrdietary_restriction.sort()
+            }
+            
             self.clvPopularRecipeItem.reloadData()
             
             self.hideLoader()
@@ -245,9 +311,30 @@ extension PopularCoachRecipeViewController {
             
             let dataObj = responseObj["coach_recipe_list"] as? [Any] ?? [Any]()
             let arr = PopularRecipeData.getData(data: dataObj)
-            self.arrCoachRecipeData.append(contentsOf: arr)
-            self.tblCoachRecipe.reloadData()
-            self.lctCoachRecipeTableHeight.constant = self.tblCoachRecipe.contentSize.height
+            
+            if arr.count > 0 {
+                self.arrCoachRecipeData.append(contentsOf: arr)
+                
+                self.arrCoachRecipeData.forEach { (model) in
+                    model.arrdietary_restriction.sort()
+                }
+                
+                DispatchQueue.main.async {
+                    self.tblCoachRecipe.reloadData()
+                }
+            }
+            
+            if self.arrCoachRecipeData.count > 0 {
+                if self.safeAreaTop > 20 {
+                    self.lctCoachRecipeTableHeight.constant = (self.view.frame.height - (30) - (35.0 + self.safeAreaTop + 14))
+                } else {
+                    self.lctCoachRecipeTableHeight.constant = (self.view.frame.height - (self.safeAreaTop + 30 + 40))
+                }
+            } else {
+                self.lctCoachRecipeTableHeight.constant = 150.0
+            }
+            
+            self.lblNoDataFoundNewRecipies.isHidden = self.arrCoachRecipeData.count > 0 ? true : false
             
             if arr.count < self.perPageCount
             {

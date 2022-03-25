@@ -75,6 +75,7 @@ extension NewClassesTBLViewCell: UICollectionViewDataSource, UICollectionViewDel
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeDietartyItemCollectionViewCell", for: indexPath) as!  RecipeDietartyItemCollectionViewCell
         cell.lblTitle.text = arrDietaryRestriction[indexPath.row]
         cell.lblTitle.textColor = UIColor.white
+        cell.lblTitle.sizeToFit()
         return cell
     }
     

@@ -68,7 +68,7 @@ class WorkoutStatisticVC: BaseViewController {
         xAxis.labelPosition                 = .bottom
         xAxis.labelFont = NSUIFont(name: "SFProText-Regular", size: 8.0) ?? NSUIFont.systemFont(ofSize: 10)
         xAxis.axisMinimum                   = -0.5
-        xAxis.granularity                   = 1.0
+        xAxis.granularity                   = -0.5
         xAxis.valueFormatter                = BarChartFormatter()
         xAxis.centerAxisLabelsEnabled = false
         xAxis.setLabelCount(ITEM_COUNT, force: true)
@@ -80,7 +80,7 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: leftAxis
         let leftAxis                        = chartView.leftAxis
         leftAxis.drawGridLinesEnabled       = false
-        leftAxis.axisMinimum                = -0.5
+        leftAxis.axisMinimum                = 0.0
         leftAxis.drawLabelsEnabled = false
         
         //leftAxis.nameAxis = "left Axis"
@@ -89,7 +89,7 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: rightAxis
         let rightAxis                       = chartView.rightAxis
         rightAxis.drawGridLinesEnabled      = false
-        rightAxis.axisMinimum               = -0.5
+        rightAxis.axisMinimum               = 0.0
         rightAxis.drawLabelsEnabled = false
 
         //rightAxis.nameAxis = "right Axis"

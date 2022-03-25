@@ -61,10 +61,10 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RQb-XA-p2C" userLabel="PopTrainer">
-                                                <rect key="frame" x="20" y="60" width="280" height="194"/>
+                                                <rect key="frame" x="20" y="60" width="300" height="194"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your Coaches" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o5H-IL-K78">
-                                                        <rect key="frame" x="0.0" y="0.0" width="280" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="cpY-dI-rPh"/>
                                                         </constraints>
@@ -73,7 +73,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rVA-jp-MqX">
-                                                        <rect key="frame" x="0.0" y="29" width="280" height="165"/>
+                                                        <rect key="frame" x="0.0" y="29" width="300" height="165"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="165" id="FT2-E5-IcF"/>
@@ -153,8 +153,8 @@
                                             <constraint firstItem="xwU-30-QgP" firstAttribute="leading" secondItem="Ujd-86-mIp" secondAttribute="leading" id="Rat-Fr-GmE"/>
                                             <constraint firstItem="xwU-30-QgP" firstAttribute="top" secondItem="Ujd-86-mIp" secondAttribute="top" constant="40" id="Waa-Kr-Ovt"/>
                                             <constraint firstAttribute="trailing" secondItem="xUO-Jj-Jnz" secondAttribute="trailing" constant="10" id="auZ-2g-elh"/>
-                                            <constraint firstItem="Ujd-86-mIp" firstAttribute="trailing" secondItem="RQb-XA-p2C" secondAttribute="trailing" id="oWb-Rp-cfL"/>
-                                            <constraint firstAttribute="trailing" secondItem="RQb-XA-p2C" secondAttribute="trailing" constant="20" id="r8Q-vx-Yo3"/>
+                                            <constraint firstItem="Ujd-86-mIp" firstAttribute="trailing" secondItem="RQb-XA-p2C" secondAttribute="trailing" constant="-20" id="oWb-Rp-cfL"/>
+                                            <constraint firstAttribute="trailing" secondItem="RQb-XA-p2C" secondAttribute="trailing" id="r8Q-vx-Yo3"/>
                                             <constraint firstAttribute="bottom" secondItem="xwU-30-QgP" secondAttribute="bottom" id="zna-lX-1gw"/>
                                         </constraints>
                                     </view>
@@ -1606,38 +1606,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMw-xe-8uZ">
-                                <rect key="frame" x="260" y="70" width="50" height="50"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Search" translatesAutoresizingMaskIntoConstraints="NO" id="Zpt-3q-EdF">
-                                        <rect key="frame" x="-2.5" y="-2.5" width="55" height="55"/>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dwg-eF-NIT">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <state key="normal" title="Button"/>
-                                        <connections>
-                                            <action selector="clickToBtnSearch:" destination="cOU-fu-Ad3" eventType="touchUpInside" id="5V6-w7-puw"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="Zpt-3q-EdF" firstAttribute="centerX" secondItem="gMw-xe-8uZ" secondAttribute="centerX" id="8oo-Eu-Vkl"/>
-                                    <constraint firstAttribute="trailing" secondItem="Dwg-eF-NIT" secondAttribute="trailing" id="AhI-0V-hZV"/>
-                                    <constraint firstItem="Zpt-3q-EdF" firstAttribute="centerY" secondItem="gMw-xe-8uZ" secondAttribute="centerY" id="Zbs-Qr-94o"/>
-                                    <constraint firstAttribute="bottom" secondItem="Dwg-eF-NIT" secondAttribute="bottom" id="c2G-iO-nzd"/>
-                                    <constraint firstAttribute="width" constant="50" id="fEi-ws-yfz"/>
-                                    <constraint firstItem="Dwg-eF-NIT" firstAttribute="top" secondItem="gMw-xe-8uZ" secondAttribute="top" id="gfa-ZC-bAW"/>
-                                    <constraint firstItem="Dwg-eF-NIT" firstAttribute="leading" secondItem="gMw-xe-8uZ" secondAttribute="leading" id="weg-bW-Iko"/>
-                                    <constraint firstAttribute="height" constant="50" id="z3g-ld-Vmu"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FVh-0p-aCr">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                                <rect key="frame" x="0.0" y="30" width="320" height="30"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymw-DK-V09">
-                                        <rect key="frame" x="59" y="30" width="202" height="30"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="COACHCULTURE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ymw-DK-V09">
+                                        <rect key="frame" x="59" y="0.0" width="202" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="KFd-Tg-ZcO"/>
                                         </constraints>
@@ -1649,17 +1622,40 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Ymw-DK-V09" firstAttribute="centerX" secondItem="FVh-0p-aCr" secondAttribute="centerX" id="VC2-hO-Ax7"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ymw-DK-V09" secondAttribute="bottom" constant="10" id="z68-Up-8Fk"/>
+                                    <constraint firstItem="Ymw-DK-V09" firstAttribute="top" secondItem="FVh-0p-aCr" secondAttribute="top" id="inf-Bf-xm2"/>
+                                    <constraint firstAttribute="bottom" secondItem="Ymw-DK-V09" secondAttribute="bottom" id="z68-Up-8Fk"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cy4-iG-XvM">
-                                <rect key="frame" x="0.0" y="130" width="320" height="438"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cy4-iG-XvM">
+                                <rect key="frame" x="0.0" y="70" width="320" height="498"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvw-Ly-6Qk">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="448"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="498"/>
                                         <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gMw-xe-8uZ" userLabel="viewSearch">
+                                                <rect key="frame" x="260" y="0.0" width="50" height="50"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dwg-eF-NIT">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <state key="normal" image="Search"/>
+                                                        <connections>
+                                                            <action selector="clickToBtnSearch:" destination="cOU-fu-Ad3" eventType="touchUpInside" id="5V6-w7-puw"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="Dwg-eF-NIT" secondAttribute="trailing" id="AhI-0V-hZV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Dwg-eF-NIT" secondAttribute="bottom" id="c2G-iO-nzd"/>
+                                                    <constraint firstAttribute="width" constant="50" id="fEi-ws-yfz"/>
+                                                    <constraint firstItem="Dwg-eF-NIT" firstAttribute="top" secondItem="gMw-xe-8uZ" secondAttribute="top" id="gfa-ZC-bAW"/>
+                                                    <constraint firstItem="Dwg-eF-NIT" firstAttribute="leading" secondItem="gMw-xe-8uZ" secondAttribute="leading" id="weg-bW-Iko"/>
+                                                    <constraint firstAttribute="height" constant="50" id="z3g-ld-Vmu"/>
+                                                </constraints>
+                                            </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yqj-p7-W8D" userLabel="Popular Recipes">
-                                                <rect key="frame" x="20" y="0.0" width="280" height="224"/>
+                                                <rect key="frame" x="20" y="60" width="300" height="224"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Recipes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="561-Na-5u0">
                                                         <rect key="frame" x="0.0" y="0.0" width="147.5" height="24"/>
@@ -1668,7 +1664,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5tK-xO-We0">
-                                                        <rect key="frame" x="0.0" y="34" width="280" height="190"/>
+                                                        <rect key="frame" x="0.0" y="34" width="300" height="190"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="190" id="eAZ-oL-PWx"/>
@@ -1701,20 +1697,19 @@
                                                     <constraint firstItem="5tK-xO-We0" firstAttribute="leading" secondItem="yqj-p7-W8D" secondAttribute="leading" id="sFz-Zn-vqs"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfs-Cm-6dR" userLabel="Popular Recipes">
-                                                <rect key="frame" x="20" y="244" width="280" height="184"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kfs-Cm-6dR" userLabel="new Recipes">
+                                                <rect key="frame" x="20" y="299" width="280" height="199"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="New Recipe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrF-lp-CUy">
-                                                        <rect key="frame" x="0.0" y="0.0" width="108.5" height="24"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrF-lp-CUy">
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" name="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Fa5-Z7-yNC">
-                                                        <rect key="frame" x="0.0" y="34" width="280" height="150"/>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="30" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Fa5-Z7-yNC">
+                                                        <rect key="frame" x="0.0" y="0.0" width="280" height="199"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="150" id="Xhi-l5-CkO"/>
+                                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" id="Xhi-l5-CkO"/>
                                                         </constraints>
                                                     </tableView>
                                                 </subviews>
@@ -1722,7 +1717,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="bottom" secondItem="Fa5-Z7-yNC" secondAttribute="bottom" id="Ea8-Sp-sDi"/>
                                                     <constraint firstItem="Fa5-Z7-yNC" firstAttribute="leading" secondItem="kfs-Cm-6dR" secondAttribute="leading" id="JbK-pC-2zs"/>
-                                                    <constraint firstItem="Fa5-Z7-yNC" firstAttribute="top" secondItem="lrF-lp-CUy" secondAttribute="bottom" constant="10" id="Msa-ik-sLH"/>
+                                                    <constraint firstItem="Fa5-Z7-yNC" firstAttribute="top" secondItem="lrF-lp-CUy" secondAttribute="bottom" id="Msa-ik-sLH"/>
                                                     <constraint firstItem="lrF-lp-CUy" firstAttribute="top" secondItem="kfs-Cm-6dR" secondAttribute="top" id="PZM-d9-QXT"/>
                                                     <constraint firstAttribute="trailing" secondItem="Fa5-Z7-yNC" secondAttribute="trailing" id="TpQ-NS-WPC"/>
                                                     <constraint firstItem="lrF-lp-CUy" firstAttribute="leading" secondItem="kfs-Cm-6dR" secondAttribute="leading" id="YgP-mv-dPl"/>
@@ -1731,30 +1726,41 @@
                                         </subviews>
                                         <color key="backgroundColor" name="themeColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="yqj-p7-W8D" secondAttribute="trailing" constant="20" id="1a0-gS-zcJ"/>
-                                            <constraint firstItem="kfs-Cm-6dR" firstAttribute="top" secondItem="yqj-p7-W8D" secondAttribute="bottom" constant="20" id="55X-pv-ukT"/>
+                                            <constraint firstAttribute="trailing" secondItem="yqj-p7-W8D" secondAttribute="trailing" id="1a0-gS-zcJ"/>
+                                            <constraint firstItem="kfs-Cm-6dR" firstAttribute="top" secondItem="yqj-p7-W8D" secondAttribute="bottom" constant="15" id="55X-pv-ukT"/>
                                             <constraint firstItem="yqj-p7-W8D" firstAttribute="leading" secondItem="kvw-Ly-6Qk" secondAttribute="leading" constant="20" id="B2j-Wh-0Hc"/>
-                                            <constraint firstItem="yqj-p7-W8D" firstAttribute="top" secondItem="kvw-Ly-6Qk" secondAttribute="top" id="Rjx-Zg-SIf"/>
-                                            <constraint firstAttribute="bottom" secondItem="kfs-Cm-6dR" secondAttribute="bottom" constant="20" id="ce5-HK-oXu"/>
+                                            <constraint firstItem="gMw-xe-8uZ" firstAttribute="top" secondItem="kvw-Ly-6Qk" secondAttribute="top" id="QJY-FV-nP9"/>
+                                            <constraint firstAttribute="bottom" secondItem="kfs-Cm-6dR" secondAttribute="bottom" id="ce5-HK-oXu"/>
+                                            <constraint firstItem="yqj-p7-W8D" firstAttribute="top" secondItem="gMw-xe-8uZ" secondAttribute="bottom" constant="10" id="cjr-Wh-EJj"/>
                                             <constraint firstItem="kfs-Cm-6dR" firstAttribute="leading" secondItem="yqj-p7-W8D" secondAttribute="leading" id="jc5-90-B5z"/>
-                                            <constraint firstItem="kfs-Cm-6dR" firstAttribute="trailing" secondItem="yqj-p7-W8D" secondAttribute="trailing" id="kGs-Yg-xOu"/>
+                                            <constraint firstItem="kfs-Cm-6dR" firstAttribute="trailing" secondItem="yqj-p7-W8D" secondAttribute="trailing" constant="-20" id="kGs-Yg-xOu"/>
+                                            <constraint firstAttribute="trailing" secondItem="gMw-xe-8uZ" secondAttribute="trailing" constant="10" id="zAf-gr-Zil"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular recipe found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5e-3g-OIk">
-                                        <rect key="frame" x="51.5" y="117" width="217.5" height="24"/>
+                                        <rect key="frame" x="61.5" y="177" width="217.5" height="24"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                        <color key="textColor" name="textFieldColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new recipe found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-ca-oNs" userLabel="No new recipe found">
+                                        <rect key="frame" x="67" y="386.5" width="186" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" name="textFieldColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" name="themeColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="lAB-ca-oNs" firstAttribute="centerY" secondItem="Fa5-Z7-yNC" secondAttribute="centerY" id="7kJ-2M-BUh"/>
                                     <constraint firstAttribute="trailing" secondItem="kvw-Ly-6Qk" secondAttribute="trailing" id="MyB-VB-zL0"/>
                                     <constraint firstAttribute="bottom" secondItem="kvw-Ly-6Qk" secondAttribute="bottom" id="Xm4-2U-ZS4"/>
                                     <constraint firstItem="t5e-3g-OIk" firstAttribute="centerY" secondItem="5tK-xO-We0" secondAttribute="centerY" id="bYY-FR-8h3"/>
                                     <constraint firstItem="kvw-Ly-6Qk" firstAttribute="width" secondItem="cy4-iG-XvM" secondAttribute="width" id="cAq-rq-D6f"/>
                                     <constraint firstItem="t5e-3g-OIk" firstAttribute="centerX" secondItem="5tK-xO-We0" secondAttribute="centerX" id="eM7-T5-OwA"/>
                                     <constraint firstItem="kvw-Ly-6Qk" firstAttribute="top" secondItem="cy4-iG-XvM" secondAttribute="top" id="kdb-nf-pS4"/>
+                                    <constraint firstItem="kvw-Ly-6Qk" firstAttribute="height" secondItem="cy4-iG-XvM" secondAttribute="height" priority="250" id="p5K-X9-BB3"/>
+                                    <constraint firstItem="lAB-ca-oNs" firstAttribute="centerX" secondItem="Fa5-Z7-yNC" secondAttribute="centerX" id="rLu-hq-wZl"/>
                                     <constraint firstItem="kvw-Ly-6Qk" firstAttribute="leading" secondItem="cy4-iG-XvM" secondAttribute="leading" id="teF-F6-wDq"/>
                                 </constraints>
                             </scrollView>
@@ -1762,29 +1768,28 @@
                         <viewLayoutGuide key="safeArea" id="Nt5-oS-ari"/>
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
-                            <constraint firstItem="cy4-iG-XvM" firstAttribute="top" secondItem="gMw-xe-8uZ" secondAttribute="bottom" constant="10" id="1CV-jf-GRx"/>
                             <constraint firstItem="Nt5-oS-ari" firstAttribute="trailing" secondItem="FVh-0p-aCr" secondAttribute="trailing" id="Aoc-RP-2aI"/>
                             <constraint firstItem="cy4-iG-XvM" firstAttribute="leading" secondItem="Nt5-oS-ari" secondAttribute="leading" id="Ocs-Bu-wZ4"/>
                             <constraint firstItem="Nt5-oS-ari" firstAttribute="bottom" secondItem="cy4-iG-XvM" secondAttribute="bottom" id="RNg-8f-1XA"/>
                             <constraint firstItem="FVh-0p-aCr" firstAttribute="leading" secondItem="YAH-XT-1d0" secondAttribute="leading" id="WrN-C6-sL8"/>
-                            <constraint firstItem="Nt5-oS-ari" firstAttribute="trailing" secondItem="gMw-xe-8uZ" secondAttribute="trailing" constant="10" id="Zi7-1L-87M"/>
-                            <constraint firstItem="gMw-xe-8uZ" firstAttribute="top" secondItem="FVh-0p-aCr" secondAttribute="bottom" id="o27-FS-MmH"/>
-                            <constraint firstItem="Ymw-DK-V09" firstAttribute="top" secondItem="Nt5-oS-ari" secondAttribute="top" constant="30" id="oIc-01-mU6"/>
+                            <constraint firstItem="cy4-iG-XvM" firstAttribute="top" secondItem="FVh-0p-aCr" secondAttribute="bottom" constant="10" id="juW-Mu-1iS"/>
                             <constraint firstAttribute="trailing" secondItem="cy4-iG-XvM" secondAttribute="trailing" id="toS-re-1u9"/>
-                            <constraint firstItem="FVh-0p-aCr" firstAttribute="top" secondItem="Nt5-oS-ari" secondAttribute="top" id="wNp-GR-1NM"/>
+                            <constraint firstItem="FVh-0p-aCr" firstAttribute="top" secondItem="Nt5-oS-ari" secondAttribute="top" constant="30" id="wNp-GR-1NM"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="yMU-3b-1aG"/>
                     <connections>
                         <outlet property="clvPopularRecipeItem" destination="5tK-xO-We0" id="h6z-c3-zqX"/>
+                        <outlet property="lblNoDataFoundNewRecipies" destination="lAB-ca-oNs" id="wDE-Ke-9G3"/>
                         <outlet property="lblPopularRecipeCenter" destination="t5e-3g-OIk" id="gLh-Hi-6gr"/>
                         <outlet property="lctCoachRecipeTableHeight" destination="Xhi-l5-CkO" id="rUY-0E-OPI"/>
+                        <outlet property="scrollView" destination="cy4-iG-XvM" id="Ibw-Nz-KO6"/>
                         <outlet property="tblCoachRecipe" destination="Fa5-Z7-yNC" id="STL-1s-k6m"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZuC-hY-NqC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-178" y="1780"/>
+            <point key="canvasLocation" x="-388" y="1773"/>
         </scene>
         <!--Popular Search Result Coach Recipe View Controller-->
         <scene sceneID="nF5-bk-NJb">
@@ -2511,7 +2516,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="26" height="26"/>
         <image name="Switch" width="17" height="18.5"/>
-        <image name="Trainers Icon" width="29.5" height="24"/>
+        <image name="Trainers Icon" width="42" height="36"/>
         <image name="chatting" width="23.5" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.5"/>

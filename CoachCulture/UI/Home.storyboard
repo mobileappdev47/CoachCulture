@@ -57,10 +57,10 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VrI-eL-8yU" userLabel="PopTrainer">
-                                                <rect key="frame" x="20" y="60" width="335" height="194"/>
+                                                <rect key="frame" x="20" y="60" width="355" height="194"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Trainers" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hAi-Jy-mTF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="k1N-IS-0jE"/>
                                                         </constraints>
@@ -69,7 +69,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nXE-95-bKK">
-                                                        <rect key="frame" x="0.0" y="29" width="335" height="165"/>
+                                                        <rect key="frame" x="0.0" y="29" width="355" height="165"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="165" id="411-xf-6Rc"/>
@@ -102,10 +102,10 @@
                                                         </cells>
                                                     </collectionView>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPR-h9-jf5" userLabel="viewNoDataFoundPopularTrainers">
-                                                        <rect key="frame" x="0.0" y="29" width="335" height="165"/>
+                                                        <rect key="frame" x="0.0" y="29" width="355" height="165"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular trainers found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkZ-wY-w92">
-                                                                <rect key="frame" x="53" y="70.5" width="229" height="24"/>
+                                                                <rect key="frame" x="63" y="70.5" width="229" height="24"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -134,10 +134,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbC-iX-8TS" userLabel="PopClass">
-                                                <rect key="frame" x="20" y="269" width="335" height="219"/>
+                                                <rect key="frame" x="20" y="269" width="355" height="219"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Classes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joj-m7-K1B">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="24"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="24"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="24" id="Glw-m3-HUU"/>
                                                         </constraints>
@@ -146,7 +146,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="inA-hx-nfq">
-                                                        <rect key="frame" x="0.0" y="29" width="335" height="190"/>
+                                                        <rect key="frame" x="0.0" y="29" width="355" height="190"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="190" id="RAo-mN-8v7"/>
@@ -179,10 +179,10 @@
                                                         </cells>
                                                     </collectionView>
                                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iA2-FX-D7P" userLabel="viewNoDataFoundPopularTrainers">
-                                                        <rect key="frame" x="0.0" y="29" width="335" height="190"/>
+                                                        <rect key="frame" x="0.0" y="29" width="355" height="190"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular classes found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rS-da-E3D">
-                                                                <rect key="frame" x="53" y="83" width="229" height="24"/>
+                                                                <rect key="frame" x="63" y="83" width="229" height="24"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -237,7 +237,7 @@
                                         <color key="backgroundColor" name="themeColor"/>
                                         <constraints>
                                             <constraint firstItem="YbC-iX-8TS" firstAttribute="leading" secondItem="VrI-eL-8yU" secondAttribute="leading" id="1wi-fc-SNH"/>
-                                            <constraint firstItem="Duj-xG-TXn" firstAttribute="trailing" secondItem="YbC-iX-8TS" secondAttribute="trailing" id="3uf-Nd-gMa"/>
+                                            <constraint firstItem="Duj-xG-TXn" firstAttribute="trailing" secondItem="YbC-iX-8TS" secondAttribute="trailing" constant="-20" id="3uf-Nd-gMa"/>
                                             <constraint firstItem="Dpy-Ie-ce6" firstAttribute="top" secondItem="7Fb-r3-soe" secondAttribute="top" id="4f0-tM-EPe"/>
                                             <constraint firstItem="YbC-iX-8TS" firstAttribute="trailing" secondItem="VrI-eL-8yU" secondAttribute="trailing" id="Bfv-uC-5Ew"/>
                                             <constraint firstItem="Duj-xG-TXn" firstAttribute="leading" secondItem="YbC-iX-8TS" secondAttribute="leading" id="Ng5-26-gf2"/>
@@ -250,7 +250,7 @@
                                             <constraint firstItem="VrI-eL-8yU" firstAttribute="leading" secondItem="7Fb-r3-soe" secondAttribute="leading" constant="20" id="ptL-mn-yUJ"/>
                                             <constraint firstItem="Duj-xG-TXn" firstAttribute="top" secondItem="YbC-iX-8TS" secondAttribute="bottom" constant="15" id="qBW-GE-YSB"/>
                                             <constraint firstAttribute="trailing" secondItem="Dpy-Ie-ce6" secondAttribute="trailing" constant="10" id="rj4-wp-pHS"/>
-                                            <constraint firstAttribute="trailing" secondItem="VrI-eL-8yU" secondAttribute="trailing" constant="20" id="wnO-xQ-xad"/>
+                                            <constraint firstAttribute="trailing" secondItem="VrI-eL-8yU" secondAttribute="trailing" id="wnO-xQ-xad"/>
                                             <constraint firstItem="YbC-iX-8TS" firstAttribute="top" secondItem="VrI-eL-8yU" secondAttribute="bottom" constant="15" id="ydm-t3-UEi"/>
                                         </constraints>
                                     </view>
