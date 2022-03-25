@@ -203,6 +203,7 @@ class RecipeDetailsViewController: BaseViewController {
                 self.deleteRecipeDetail()
             }
             self.removeConfirmationView()
+            self.navigateToRoot()
         }
     }
     
@@ -227,12 +228,9 @@ class RecipeDetailsViewController: BaseViewController {
         self.view.addSubview(showDetailView)
     }
     
-    private func navigateToDashboard() {
+    private func navigateToRoot() {
         for controller in navigationController!.viewControllers {
             if controller.isKind(of: EditProfileViewController.self) {
-                self.navigationController?.popToViewController(controller, animated: true)
-                break
-            } else {
                 self.navigationController?.popToViewController(controller, animated: true)
                 break
             }
@@ -273,7 +271,7 @@ class RecipeDetailsViewController: BaseViewController {
     
     @IBAction func tapOnBack(_ sender: UIButton) {
         if isNew {
-            navigateToDashboard()
+            navigateToRoot()
         } else {
             self.popVC(animated: true)
         }

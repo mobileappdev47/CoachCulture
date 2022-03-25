@@ -645,6 +645,7 @@ class LiveClassDetailsViewController: BaseViewController {
                 self.deleteClass()
             }
             self.removeConfirmationView()
+            self.navigateToRoot()
         }
     }
     
@@ -750,12 +751,9 @@ class LiveClassDetailsViewController: BaseViewController {
         self.pushVC(To: vc, animated: false)
     }
     
-    private func navigateToDashboard() {
+    private func navigateToRoot() {
         for controller in navigationController!.viewControllers {
             if controller.isKind(of: EditProfileViewController.self) {
-                self.navigationController?.popToViewController(controller, animated: true)
-                break
-            } else {
                 self.navigationController?.popToViewController(controller, animated: true)
                 break
             }
@@ -834,7 +832,7 @@ class LiveClassDetailsViewController: BaseViewController {
     
     @IBAction func didTapBtnBack(_ sender: UIButton) {
          if isNew {
-            navigateToDashboard()
+            navigateToRoot()
          } else {
             self.popVC(animated: true)
          }

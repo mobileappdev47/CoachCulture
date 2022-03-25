@@ -41,6 +41,10 @@ class PopularCoachRecipeViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        if Reachability.isConnectedToNetwork(){
+            getPopularRecipeList(str: "")
+        }
         showTabBar()
     }
     
@@ -55,11 +59,6 @@ class PopularCoachRecipeViewController: BaseViewController {
         clvPopularRecipeItem.register(UINib(nibName: "PopularRecipeItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PopularRecipeItemCollectionViewCell")
         clvPopularRecipeItem.delegate = self
         clvPopularRecipeItem.dataSource = self
-       
-        if Reachability.isConnectedToNetwork(){
-            getPopularRecipeList(str: "")
-        }
-        
     }
     
     // MARK: - CLICK EVENTS

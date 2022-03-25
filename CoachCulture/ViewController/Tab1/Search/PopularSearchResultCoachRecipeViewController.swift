@@ -104,10 +104,50 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
                     self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
                 }
             }
+            cell.selectedIndex = indexPath.row
+            cell.didTapBookmarkButton = {
+                var param = [String:Any]()
+                param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
+                param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                if Reachability.isConnectedToNetwork(){
+                    self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
+                }
+            }
         }
-        
         return cell
-        
+    }
+    
+    func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], recdType : String, selectedIndex: Int) {
+        showLoader()
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
+            
+            if let message = responseObj["message"] as? String, !message.isEmpty {
+                Utility.shared.showToast(message)
+            }
+            switch recdType {
+            case SelectedDemandClass.recipe:
+                for (index, model) in self.arrCoachRecipeData.enumerated() {
+                    if selectedIndex == index {
+                        model.bookmark = model.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
+                        self.arrCoachRecipeData[index] = model
+                        DispatchQueue.main.async {
+                            self.tblCoachRecipe.reloadRows(at: [IndexPath(row: index, section: 0)], with: .none)
+                        }
+                        break
+                    }
+                }
+            default:
+                self.resetAll()
+                if Reachability.isConnectedToNetwork(){
+                    self.getAllCoachRecipeList(duration: "", meal_type_name: "", dietary_restriction_name: "", coach_only: "no")
+                }
+            }
+            self.hideLoader()
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

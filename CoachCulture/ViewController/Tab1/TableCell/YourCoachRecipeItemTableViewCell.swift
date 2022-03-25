@@ -22,6 +22,10 @@ class YourCoachRecipeItemTableViewCell: UITableViewCell {
     @IBOutlet weak var btnBookmark: UIButton!
     @IBOutlet weak var clvDietaryRestriction: UICollectionView!
     
+    //MARK: - VARIABLE AND OBJECT
+    
+    var didTapBookmarkButton : (() -> Void)!
+    var selectedIndex = 0
     var arrDietaryRestriction = [String]()
     
     override func awakeFromNib() {
@@ -41,6 +45,13 @@ class YourCoachRecipeItemTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    //MARK: - ACTION
+    
+    @IBAction func btnBookmarkClick(_ sender: Any) {
+        if didTapBookmarkButton != nil {
+            didTapBookmarkButton()
+        }
+    }
 }
 
 
