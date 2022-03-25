@@ -280,6 +280,7 @@ class ScheduleLiveClassViewController: BaseViewController {
         txtNonSubscriberFee.setError()
         txtDummyDate.setError()
         txtDummyTime.setError()
+        txtDuration.setError()
     }
     
     // MARK: - Click Event
