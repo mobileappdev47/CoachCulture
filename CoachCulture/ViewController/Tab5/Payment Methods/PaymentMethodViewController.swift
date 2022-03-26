@@ -87,10 +87,10 @@ class PaymentMethodViewController: BaseViewController {
                         //self.pageControl.numberOfPages = self.arrCards.count
                         
                         self.CHIPagerControl.progress = 0.0
-                        self.CHIPagerControl.elementHeight = 5.0
-                        self.CHIPagerControl.elementWidth = 14.0
+                        self.CHIPagerControl.elementHeight = 3.0
+                        self.CHIPagerControl.elementWidth = 16.0
                         self.CHIPagerControl.numberOfPages = self.arrCards.count
-                        self.CHIPagerControl.radius = 3
+                        self.CHIPagerControl.radius = 1
                         self.CHIPagerControl.tintColor = hexStringToUIColor(hex: "#B2ADAD")
                         self.CHIPagerControl.currentPageTintColor = hexStringToUIColor(hex: "#4694F9")
                         self.CHIPagerControl.padding = 6
