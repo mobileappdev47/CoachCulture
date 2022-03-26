@@ -584,13 +584,17 @@
                                                                 </userDefinedRuntimeAttributes>
                                                             </textField>
                                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="FIV-t6-mUL">
-                                                                <rect key="frame" x="288" y="16.5" width="32" height="21"/>
+                                                                <rect key="frame" x="288" y="17" width="32" height="20"/>
                                                                 <subviews>
                                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="stp_card_unknown.png" translatesAutoresizingMaskIntoConstraints="NO" id="GGi-EH-WCZ">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="21"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="32" height="20"/>
                                                                     </imageView>
                                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_alert_red" translatesAutoresizingMaskIntoConstraints="NO" id="3Ka-RE-oRW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="21"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="20" id="6Pm-X3-1Rm"/>
+                                                                            <constraint firstAttribute="height" constant="20" id="mcR-2z-Ca3"/>
+                                                                        </constraints>
                                                                     </imageView>
                                                                 </subviews>
                                                             </stackView>
@@ -1265,7 +1269,7 @@
     </designables>
     <resources>
         <image name="Searchicon" width="22.5" height="23"/>
-        <image name="Trainers Icon" width="29.5" height="24"/>
+        <image name="Trainers Icon" width="42" height="36"/>
         <image name="Wallet Button" width="49" height="49"/>
         <image name="accountListHeader" width="716" height="368"/>
         <image name="credit-card" width="31.5" height="23"/>
