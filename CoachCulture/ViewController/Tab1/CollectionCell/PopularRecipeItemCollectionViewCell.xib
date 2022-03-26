@@ -33,7 +33,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="155" height="190"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@timnorton" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6M-iq-twm" customClass="PaddingLabel" customModule="CoachCulture" customModuleProvider="target">
-                                <rect key="frame" x="100.5" y="5" width="49.5" height="10"/>
+                                <rect key="frame" x="109" y="5" width="41" height="10"/>
                                 <color key="backgroundColor" red="0.37254901959999998" green="0.41960784309999999" blue="0.48627450979999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="8"/>
                                 <color key="textColor" name="textColor"/>
@@ -57,7 +57,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCp-Ik-dOs" customClass="PaddingLabel" customModule="CoachCulture" customModuleProvider="target">
-                                <rect key="frame" x="5" y="5" width="30.5" height="10"/>
+                                <rect key="frame" x="5" y="5" width="28.5" height="10"/>
                                 <color key="backgroundColor" red="0.42352941176470588" green="0.74509803921568629" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="8"/>
                                 <color key="textColor" name="textColor"/>
@@ -116,10 +116,10 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DCP-LT-Ip6">
-                                <rect key="frame" x="111.5" y="120" width="38.5" height="20"/>
+                                <rect key="frame" x="115" y="120" width="35" height="20"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Vegan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryN-v5-yrJ">
-                                        <rect key="frame" x="5" y="5" width="28.5" height="10"/>
+                                        <rect key="frame" x="5" y="5" width="25" height="10"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="9"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -238,10 +238,10 @@
     </objects>
     <designables>
         <designable name="FCp-Ik-dOs">
-            <size key="intrinsicContentSize" width="30.5" height="10"/>
+            <size key="intrinsicContentSize" width="28.5" height="9.5"/>
         </designable>
         <designable name="J6M-iq-twm">
-            <size key="intrinsicContentSize" width="49.5" height="10"/>
+            <size key="intrinsicContentSize" width="41" height="9.5"/>
         </designable>
     </designables>
     <resources>
