@@ -11,10 +11,7 @@ class PopularClassesCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var imgUser : UIImageView!
     @IBOutlet weak var imgThumbnail : UIImageView!
-    
     @IBOutlet weak var viwTopStatusContainer : UIView!
-    @IBOutlet weak var viwTopDurationContainer : UIView!
-    
     @IBOutlet weak var lblStatus : UILabel!
     @IBOutlet weak var lblTime : UILabel!
     @IBOutlet weak var lblName : UILabel!
@@ -27,7 +24,6 @@ class PopularClassesCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        viwTopDurationContainer.roundCorners(corners: [.bottomLeft], radius: 5)
     }
     
     func setData(obj: PopularClassList) {

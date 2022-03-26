@@ -114,6 +114,7 @@ extension PopularCoachRecipeViewController: UICollectionViewDataSource, UICollec
             cell.arrDietaryRestriction = obj.arrdietary_restriction
         }
         
+        cell.lblDietaryRestriction.text = obj.arrdietary_restriction.first
         cell.clvDietaryRestriction.reloadData()
         cell.lblDuration.text = obj.duration
         cell.lblTitle.text = obj.title

@@ -17,7 +17,8 @@ class PopularRecipeItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imgRecipe : UIImageView!
     @IBOutlet weak var imgThumbnail : UIImageView!
     @IBOutlet weak var clvDietaryRestriction: UICollectionView!
-
+    @IBOutlet weak var lblDietaryRestriction: UILabel!
+    
     var arrDietaryRestriction = [String]()
 
     override func awakeFromNib() {
