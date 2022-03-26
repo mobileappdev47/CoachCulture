@@ -69,10 +69,7 @@ class ForgotPassViewController: BaseViewController {
         
         
         
-        [txtPhone,
-         txtEmail,
-         
-         ].enumerated().forEach { index, txt in
+        [txtPhone, txtEmail].enumerated().forEach { index, txt in
             let place = txtPlaceholders[index]
             txt?.attributedPlaceholder = NSAttributedString(string: place, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .bold), .foregroundColor: COLORS.TEXT_COLOR])
             txt?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
@@ -117,7 +114,7 @@ class ForgotPassViewController: BaseViewController {
             } else {
                 if Reachability.isConnectedToNetwork(){
                     resendOTP()
-                    txtEmail.setError("", show: false)
+                    txtEmail.setError()
                     imgErrEmail.isHidden = true
                 }
             }
@@ -128,7 +125,7 @@ class ForgotPassViewController: BaseViewController {
             }  else {
                 if Reachability.isConnectedToNetwork(){
                     resendOTP()
-                    txtPhone.setError("", show: false)
+                    txtPhone.setError()
                     imgErrPhone.isHidden = true
                 }
             }
@@ -148,7 +145,8 @@ class ForgotPassViewController: BaseViewController {
             viewPhoneNumber.isHidden = false
             viwEmail.isHidden = true
             
-//            txtPhone.setError("", show: false)
+            txtEmail.setError()
+            imgErrEmail.isHidden = true
             lblByphone.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             lblByEmail.backgroundColor = hexStringToUIColor(hex: "#ffffff")
             btnByphone.setTitleColor(hexStringToUIColor(hex: "#CC2936"), for: .normal)
@@ -160,7 +158,8 @@ class ForgotPassViewController: BaseViewController {
             viewPhoneNumber.isHidden = true
             viwEmail.isHidden = false
             
-//            txtEmail.setError("", show: false)
+            txtPhone.setError()
+            imgErrPhone.isHidden = true
             lblByEmail.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             lblByphone.backgroundColor = hexStringToUIColor(hex: "#ffffff")
             btnByEmail.setTitleColor(hexStringToUIColor(hex: "#CC2936"), for: .normal)

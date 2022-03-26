@@ -19,7 +19,6 @@ class AddEquipmentAndCaloriesViewController: BaseViewController {
     @IBOutlet weak var tblEquipmentList: UITableView!
     
     @IBOutlet weak var lblCharCount: UILabel!
-
     
     @IBOutlet weak var lctAddEquipmentTableHeight: NSLayoutConstraint!
     @IBOutlet weak var lctEquipmentListTableHeight: NSLayoutConstraint!
@@ -28,7 +27,10 @@ class AddEquipmentAndCaloriesViewController: BaseViewController {
     
     @IBOutlet weak var txtCalories: UITextField!
     @IBOutlet weak var txtDescription: KMPlaceholderTextView!
-
+    @IBOutlet weak var txtDummyDes: UITextField!
+    
+    @IBOutlet weak var imgCaloryErr: UIImageView!
+    @IBOutlet weak var imgDesErr: UIImageView!
     
     var arrEquipmentList = [EquipmentList]()
     var arrAddedEquipment = [EquipmentList]()
@@ -87,6 +89,11 @@ class AddEquipmentAndCaloriesViewController: BaseViewController {
         
     }
     
+    func removeErr() {
+        txtDummyDes.setError()
+        txtCalories.setError()
+    }
+    
     // MARK: - Click Events
     @IBAction func clickToBTnAddEquipment( _ sender : UIButton) {
         let obj = EquipmentList()
@@ -119,25 +126,32 @@ class AddEquipmentAndCaloriesViewController: BaseViewController {
     }
     
     @IBAction func clickToBTnCreateCoachClass( _ sender : UIButton) {
-        
         var equipment = ""
-        for temp in arrAddedEquipment {
-            if equipment.isEmpty {
-                equipment = temp.id
-            } else {
-                if temp.equipment_name != "Select Equipment" {
-                    equipment += "," + temp.id
+        if arrAddedEquipment.count == 0 {
+            equipment = "10"
+        } else {
+            for temp in arrAddedEquipment {
+                if equipment.isEmpty {
+                    equipment = temp.id
+                } else {
+                    if temp.equipment_name != "Select Equipment" {
+                        equipment += "," + temp.id
+                    }
                 }
             }
         }
        
-        if equipment.isEmpty {
-            Utility.shared.showToast("Please add equipment")
-        } else if txtCalories.text!.isEmpty {
-            Utility.shared.showToast("Calories required")
+        if txtCalories.text!.isEmpty {
+            txtCalories.setError("Please Edit kcal", show: true)
+            imgCaloryErr.isHidden = false
         } else if txtDescription.text!.isEmpty {
-            Utility.shared.showToast("Description required")
+            txtDummyDes.setError("Please Edit Description", show: true)
+            imgDesErr.isHidden = false
+            imgCaloryErr.isHidden = true
         } else {
+            removeErr()
+            imgDesErr.isHidden = true
+            imgCaloryErr.isHidden = true
             paramDic["equipment"] = equipment
             paramDic["burn_calories"] = txtCalories.text!
             paramDic["description"] = txtDescription.text!

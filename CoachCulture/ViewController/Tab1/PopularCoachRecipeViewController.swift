@@ -119,7 +119,7 @@ extension PopularCoachRecipeViewController: UICollectionViewDataSource, UICollec
         cell.lblTitle.text = obj.title
         cell.lblSubtitle.text = obj.sub_title
         cell.lblUserName.text = "@" + obj.coachDetailsObj.username
-        cell.lblViews.text =  obj.viewers + "K Views"
+//        cell.lblViews.text =  obj.viewers + "K Views"
         cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
         if cell.imgThumbnail.image == nil {
             cell.imgThumbnail.blurImage()

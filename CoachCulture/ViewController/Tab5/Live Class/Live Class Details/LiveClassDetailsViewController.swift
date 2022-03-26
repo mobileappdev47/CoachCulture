@@ -50,6 +50,7 @@ class LiveClassDetailsViewController: BaseViewController {
     @IBOutlet weak var imgBookmark: UIImageView!
     @IBOutlet weak var imgDownload: UIImageView!
     
+    @IBOutlet weak var imgNoEquipment: UIImageView!
     @IBOutlet weak var tblEquipment: UITableView!
     
     @IBOutlet weak var viwCal: UIView!
@@ -156,6 +157,10 @@ class LiveClassDetailsViewController: BaseViewController {
             object: nil
         )
 
+        if classDetailDataObj.arrEquipmentList.count == 0 {
+            imgNoEquipment.isHidden = false
+        }
+        
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         hideTabBar()
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
@@ -947,7 +952,7 @@ extension LiveClassDetailsViewController : UITableViewDelegate, UITableViewDataS
         let cell = tableView.dequeueReusableCell(withIdentifier: "LiveClassEquipmentItemTableViewCell", for: indexPath) as! LiveClassEquipmentItemTableViewCell
         let obj = classDetailDataObj.arrEquipmentList[indexPath.row]
         cell.lblTitle.text = obj.equipment_name
-        
+        imgNoEquipment.isHidden = true
         return cell
         
     }

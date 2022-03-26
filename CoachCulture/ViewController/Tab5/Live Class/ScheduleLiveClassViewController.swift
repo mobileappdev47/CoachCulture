@@ -175,7 +175,14 @@ class ScheduleLiveClassViewController: BaseViewController {
             getClassType()
         }
         
-        
+        txtClassSubTitile.delegate = self
+        txtSubscriberFee.delegate = self
+        txtNonSubscriberFee.delegate = self
+        txtDummyDate.delegate = self
+        txtDummyTime.delegate = self
+        txtDuration.delegate = self
+        txtDifficulty.delegate = self
+        txtClassType.delegate = self
     }
     
     func setData() {
@@ -262,8 +269,7 @@ class ScheduleLiveClassViewController: BaseViewController {
         }
     }
     
-    func errorTextEditProfile(thumbnail: Bool, subFee: Bool, date: Bool, time: Bool, difficulty: Bool, nonSub: Bool, subTitle: Bool, classType: Bool, duration: Bool) {
-        imgThumbnail.isHidden = thumbnail
+    func errorTextEditProfile(subFee: Bool, date: Bool, time: Bool, difficulty: Bool, nonSub: Bool, subTitle: Bool, classType: Bool, duration: Bool) {
         imgErrSub.isHidden = subFee
         imgErrDate.isHidden = date
         imgErrTime.isHidden = time
@@ -303,43 +309,42 @@ class ScheduleLiveClassViewController: BaseViewController {
     }
     
     @IBAction func onClkBack(_ sender: UIButton) {
-        errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+        errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
         removeAllErr()
         self.popVC(animated: true)
     }
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
         
-        
          if thumbailUrl.isEmpty {
-            errorTextEditProfile(thumbnail: false, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             Utility.shared.showToast("Please select thumbnail Image")
         } else if selectClassTypeObj.id.isEmpty {
             txtClassType.setError("Class type is required", show: true)
-            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: false, duration: true)
+            errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: false, duration: true)
         } else if txtClassSubTitile.text!.isEmpty {
-            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: false, classType: true, duration: true)
+            errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: false, classType: true, duration: true)
             txtClassSubTitile.setError("Class subtitle is required", show: true)
         } else if selectClassDifficultyObj.id.isEmpty {
-            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: false, nonSub: true, subTitle: true, classType: true, duration: true)
+            errorTextEditProfile(subFee: true, date: true, time: true, difficulty: false, nonSub: true, subTitle: true, classType: true, duration: true)
             txtDifficulty.setError("Class difficulty level is required", show: true)
         } else if selectedDate.isEmpty {
-            errorTextEditProfile(thumbnail: true, subFee: true, date: false, time: true, difficulty: false, nonSub: true, subTitle: true, classType: true, duration: true)
+            errorTextEditProfile(subFee: true, date: false, time: true, difficulty: false, nonSub: true, subTitle: true, classType: true, duration: true)
             txtDummyDate.setError("Date is required", show: true)
         } else if selectedTime.isEmpty {
-            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: false, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            errorTextEditProfile(subFee: true, date: true, time: false, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             txtDummyTime.setError("Time is required", show: true)
         } else if lblClassDuration.text!.lowercased() == "0 mins" {
-            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: false)
+            errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: false)
             txtDuration.setError("Class duration is required", show: true)
         } else if txtSubscriberFee.text!.isEmpty {
-            errorTextEditProfile(thumbnail: true, subFee: false, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            errorTextEditProfile(subFee: false, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             txtSubscriberFee.setError("Subscriber fee is required", show: true)
         } else if txtNonSubscriberFee.text!.isEmpty {
-            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: false, subTitle: true, classType: true, duration: true)
+            errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: false, subTitle: true, classType: true, duration: true)
             txtNonSubscriberFee.setError("Non-Subscriber fee is required", show: true)
         } else {
-            errorTextEditProfile(thumbnail: true, subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             removeAllErr()
             var param = [String : Any]()
             param["coach_class_type"] = "live"
@@ -569,7 +574,7 @@ extension ScheduleLiveClassViewController: UIImagePickerControllerDelegate, UINa
                 editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
             }
             
-            photoData = editedImage?.jpegData(compressionQuality: 1.0)
+        photoData = editedImage?.jpegData(compressionQuality: 1)
             self.imgThumbnail.image = editedImage
             self.uploadVideoThumbnail()
         
@@ -609,3 +614,20 @@ extension ScheduleLiveClassViewController: UIImagePickerControllerDelegate, UINa
     }
 }
 
+extension ScheduleLiveClassViewController: UITextFieldDelegate {
+    // Remove error message after start editing
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        textField.setError()
+        return true
+    }
+    
+    // Check error
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        removeAllErr()
+        errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+    }
+    
+    // Check error
+    func textFieldDidEndEditing(_ textField: UITextField) {
+    }
+}
