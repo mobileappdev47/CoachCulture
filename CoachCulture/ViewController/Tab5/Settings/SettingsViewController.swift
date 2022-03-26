@@ -43,6 +43,7 @@ class SettingsViewController: BaseViewController {
         logOutView.tapToBtnLogOut {
             self.removeCountryView()
             GIDSignIn.sharedInstance.signOut()
+            AppPrefsManager.sharedInstance.saveUserData(userData: [:])
             AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: false)
             let Login = LandingVC.viewcontroller()
             self.navigationController?.pushViewController(Login, animated: false)

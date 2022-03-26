@@ -62,11 +62,11 @@
                                     <constraint firstItem="zkx-nl-5ga" firstAttribute="centerX" secondItem="ipN-c0-k7H" secondAttribute="centerX" id="kAA-bw-rY1"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ysp-2B-LSy">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ysp-2B-LSy">
                                 <rect key="frame" x="0.0" y="79.5" width="375" height="620.5"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4v-f5-oid">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="635"/>
+                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C4v-f5-oid">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Payment Methods" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cup-xa-vZu">
                                                 <rect key="frame" x="10" y="10" width="355" height="29.5"/>
@@ -120,27 +120,14 @@
                                                     <constraint firstItem="QRS-Ju-MFx" firstAttribute="centerY" secondItem="eh4-8v-XgH" secondAttribute="centerY" id="x6u-7D-RWy"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyh-0L-4Lq" userLabel="pager" customClass="CHIPageControlJaloro" customModule="CHIPageControl">
-                                                <rect key="frame" x="165.5" y="278" width="44.5" height="0.0"/>
-                                                <subviews>
-                                                    <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BIH-B8-6Je">
-                                                        <rect key="frame" x="0.0" y="0.0" width="44.5" height="0.0"/>
-                                                        <color key="pageIndicatorTintColor" red="0.69803921568627447" green="0.67843137254901964" blue="0.67843137254901964" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <color key="currentPageIndicatorTintColor" red="0.27450980392156865" green="0.58039215686274503" blue="0.97647058823529409" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </pageControl>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="trailing" secondItem="BIH-B8-6Je" secondAttribute="trailing" id="ASU-qS-DXs"/>
-                                                    <constraint firstItem="BIH-B8-6Je" firstAttribute="top" secondItem="Tyh-0L-4Lq" secondAttribute="top" id="IgX-Gk-o0g"/>
-                                                    <constraint firstAttribute="bottom" secondItem="BIH-B8-6Je" secondAttribute="bottom" id="ObO-lI-y1O"/>
-                                                    <constraint firstItem="BIH-B8-6Je" firstAttribute="leading" secondItem="Tyh-0L-4Lq" secondAttribute="leading" id="ebv-U7-H8t"/>
-                                                </constraints>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tyh-0L-4Lq" userLabel="pager" customClass="CHIPageControlJaloro" customModule="CHIPageControl">
+                                                <rect key="frame" x="187.5" y="278" width="0.0" height="6"/>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bhn-QY-fZQ" userLabel="nopaymentfound">
-                                                <rect key="frame" x="0.0" y="49.5" width="375" height="228.5"/>
+                                            <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bhn-QY-fZQ" userLabel="nopaymentfound">
+                                                <rect key="frame" x="0.0" y="49.5" width="375" height="234.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No payment method found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAu-cs-wuU">
-                                                        <rect key="frame" x="67.5" y="102.5" width="240.5" height="23.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="No payment method found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iAu-cs-wuU">
+                                                        <rect key="frame" x="67.5" y="105.5" width="240.5" height="23.5"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -152,8 +139,8 @@
                                                     <constraint firstItem="iAu-cs-wuU" firstAttribute="centerY" secondItem="bhn-QY-fZQ" secondAttribute="centerY" id="uFp-nI-suX"/>
                                                 </constraints>
                                             </view>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xlh-M7-THI">
-                                                <rect key="frame" x="30" y="298" width="315" height="317"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xlh-M7-THI">
+                                                <rect key="frame" x="30" y="304" width="315" height="317"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g02-JC-SWJ" userLabel="Add Payment">
                                                         <rect key="frame" x="0.0" y="0.0" width="315" height="54"/>
@@ -402,7 +389,6 @@
                         <outlet property="CHIPagerControl" destination="Tyh-0L-4Lq" id="Erg-C1-Y8g"/>
                         <outlet property="clvCard" destination="J7L-6d-ubu" id="K2a-Ff-6xM"/>
                         <outlet property="lblAccountBalance" destination="dSb-yV-Lbc" id="Ewt-ED-HMg"/>
-                        <outlet property="pageControl" destination="BIH-B8-6Je" id="bYh-ir-i2L"/>
                         <outlet property="viewBalance" destination="163-To-uwX" id="LPV-Wh-AZa"/>
                         <outlet property="viewConfirmPayment" destination="7NB-33-0bA" id="cbk-IV-xU7"/>
                         <outlet property="viewManageSubscription" destination="FC4-oF-Enx" id="ngS-qb-4z0"/>
@@ -1269,7 +1255,7 @@
     </designables>
     <resources>
         <image name="Searchicon" width="22.5" height="23"/>
-        <image name="Trainers Icon" width="29.5" height="24"/>
+        <image name="Trainers Icon" width="42" height="36"/>
         <image name="Wallet Button" width="49" height="49"/>
         <image name="accountListHeader" width="716" height="368"/>
         <image name="credit-card" width="31.5" height="23"/>

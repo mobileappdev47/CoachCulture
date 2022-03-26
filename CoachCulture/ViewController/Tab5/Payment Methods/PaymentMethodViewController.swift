@@ -22,7 +22,6 @@ class PaymentMethodViewController: BaseViewController {
     @IBOutlet weak var viewConfirmPayment: UIView!
     @IBOutlet weak var clvCard: UICollectionView!
     @IBOutlet weak var lblAccountBalance: UILabel!
-    @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var CHIPagerControl: CHIPageControlJaloro!
     
     var arrCards = [StripeCardsDataModel]()
@@ -66,6 +65,17 @@ class PaymentMethodViewController: BaseViewController {
         self.viewManageSubscription.isHidden = isFromLiveClass
     }
     
+    func initialSetupPageControl() {
+        self.CHIPagerControl.progress = 0.0
+        self.CHIPagerControl.elementHeight = 3.0
+        self.CHIPagerControl.elementWidth = 16.0
+        self.CHIPagerControl.numberOfPages = self.arrCards.count
+        self.CHIPagerControl.radius = 1
+        self.CHIPagerControl.tintColor = hexStringToUIColor(hex: "#B2ADAD")
+        self.CHIPagerControl.currentPageTintColor = hexStringToUIColor(hex: "#4694F9")
+        self.CHIPagerControl.padding = 6
+    }
+    
     //MARK: - API CALL
     
     func callGetCardsAPI(isShowLoader: Bool) {
@@ -83,19 +93,7 @@ class PaymentMethodViewController: BaseViewController {
                     self.arrCards = StripeCardsDataModel.getData(data: arrData)
                     if self.arrCards.count > 0 {
                         self.viewNoDataFound.isHidden = true
-                        //self.pageControl.currentPage = 0
-                        //self.pageControl.numberOfPages = self.arrCards.count
-                        
-                        self.CHIPagerControl.progress = 0.0
-                        self.CHIPagerControl.elementHeight = 3.0
-                        self.CHIPagerControl.elementWidth = 16.0
-                        self.CHIPagerControl.numberOfPages = self.arrCards.count
-                        self.CHIPagerControl.radius = 1
-                        self.CHIPagerControl.tintColor = hexStringToUIColor(hex: "#B2ADAD")
-                        self.CHIPagerControl.currentPageTintColor = hexStringToUIColor(hex: "#4694F9")
-                        self.CHIPagerControl.padding = 6
-
-                        
+                        self.initialSetupPageControl()
                         DispatchQueue.main.async {
                             self.clvCard.reloadData()
                             var arrIndexPaths: [IndexPath] = []
@@ -340,7 +338,6 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
                    
             self.currentSelectedIndex = selectedIndexPath.row
             self.CHIPagerControl.set(progress: safeIndex, animated: true)
-            //self.pageControl.currentPage = safeIndex
         }
     }
     
