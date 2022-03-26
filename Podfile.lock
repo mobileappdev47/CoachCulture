@@ -16,6 +16,7 @@ PODS:
   - Charts (3.6.0):
     - Charts/Core (= 3.6.0)
   - Charts/Core (3.6.0)
+  - CHIPageControl/Jaloro (0.2)
   - DPOTPView (1.5.12)
   - FacebookCore (0.9.0):
     - FBSDKCoreKit (~> 5.0)
@@ -210,6 +211,7 @@ DEPENDENCIES:
   - AWSS3
   - CarLensCollectionViewLayout (~> 1.2.0)
   - Charts
+  - CHIPageControl/Jaloro
   - DPOTPView
   - FacebookCore
   - FacebookLogin
@@ -245,6 +247,7 @@ SPEC REPOS:
     - AWSS3
     - CarLensCollectionViewLayout
     - Charts
+    - CHIPageControl
     - DPOTPView
     - FacebookCore
     - FacebookLogin
@@ -295,6 +298,7 @@ SPEC CHECKSUMS:
   AWSS3: 2272253b098d07803af8dd20ce6ce7302bcffb47
   CarLensCollectionViewLayout: 75a28307dbd7dbacbba417d13501415ff3471a68
   Charts: b1e3a1f5a1c9ba5394438ca3b91bd8c9076310af
+  CHIPageControl: a787bf7205c9b7e7fbfc412be36c5e8636b68f86
   DPOTPView: 28d8a0a84a2ff4b1e4a7712065aba1cbb14e2704
   FacebookCore: ba86524b66cfa86d0f8e65d08faa8504a9f732dd
   FacebookLogin: 6cee9fd6e1fe976fe8f7eec199e27b28b14f5d63
@@ -335,6 +339,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 8499ebaf70021dcc5fc694b1222b1e6474e447ed
+PODFILE CHECKSUM: 5f48014f3ee5e9f5ed1f7595aa0a3e0670a11990
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3
