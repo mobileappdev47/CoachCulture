@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import UIKit
 
 class PopularRecipeData {
     var map: Map!
@@ -152,6 +152,8 @@ class StripeCardsDataModel {
     var type = ""
     var isPrefferedSelected = false
     var isDeleteSelected = false
+    var isFromCellSelection = false
+    var bgColor = UIColor()
 
     init() {}
     

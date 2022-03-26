@@ -20,11 +20,14 @@ class PaymentCardItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var lblCvv : UILabel!
     @IBOutlet weak var lblValidThrough : UILabel!
     @IBOutlet weak var viewDeleteConfirmationMain: UIView!
-    @IBOutlet weak var viwMainContainer : UIView!
-
+    @IBOutlet weak var viewMainBG: UIView!
+    
+    var isFromCellSelection = false
+    var cellIndex = 0
+    var bgColor = UIColor()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
-
 }

@@ -30,6 +30,7 @@ class PaymentMethodViewController: BaseViewController {
     var fees = ""
     var recdCurrency = ""
     var didFinishPaymentBlock : ((_ transaction_id: String, _ status: Bool) -> Void)!
+    var arrLoadedCellID = [Int]()
 
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -86,6 +87,8 @@ class PaymentMethodViewController: BaseViewController {
                             self.clvCard.reloadData()
                             var arrIndexPaths: [IndexPath] = []
                             for index in 0..<self.arrCards.count {
+                                let randomColor = UIColor.random
+                                self.arrCards[index].bgColor = randomColor
                                 arrIndexPaths.append(IndexPath(item: index, section: 0))
                             }
                             self.clvCard.reloadItems(at: arrIndexPaths)
@@ -232,22 +235,25 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "PaymentCardItemCollectionViewCell", for: indexPath) as!  PaymentCardItemCollectionViewCell
         let model = arrCards[indexPath.row]
-
-        let randomColor = UIColor.random
-        cell.viwMainContainer.backgroundColor = randomColor
-        cell.viewPrefferedMethodMainBG.backgroundColor = randomColor
-        cell.viewDeleteConfirmationMain.backgroundColor = randomColor
         
+        cell.viewMainBG.backgroundColor = model.bgColor
+        cell.viewPrefferedMethodMainBG.backgroundColor = model.bgColor
+        cell.viewDeleteConfirmationMain.backgroundColor = model.bgColor
+
         if model.isPrefferedSelected && model.isDeleteSelected {
             cell.viewDeleteConfirmationMain.isHidden = false
             cell.viewPrefferedMethodMainBG.isHidden = true
+            cell.viewMainBG.isHidden = true
         } else if model.isPrefferedSelected {
             cell.viewPrefferedMethodMainBG.isHidden = false
             cell.viewDeleteConfirmationMain.isHidden = true
+            cell.viewMainBG.isHidden = true
         } else {
             cell.viewDeleteConfirmationMain.isHidden = true
             cell.viewPrefferedMethodMainBG.isHidden = true
+            cell.viewMainBG.isHidden = false
         }
+        
         cell.lblCardHolderName.text = model.metadata.holder_name
         let exp_month = Int(model.card.exp_month) ?? 0
         
@@ -280,9 +286,67 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         let cardImage = STPImageLibrary.cardBrandImage(for: cardBrand)
         cell.imgCardType.image = cardImage
         
+        cell.layoutIfNeeded()
         return cell
     }
     
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
+        isFromInitialLoading = false
+        DispatchQueue.main.async {
+            guard scrollView == self.clvCard else {
+                return
+            }
+            
+            targetContentOffset.pointee = scrollView.contentOffset
+            
+            let flowLayout = self.clvCard.collectionViewLayout as! CarLensCollectionViewLayout
+            let cellWidthIncludingSpacing = flowLayout.itemSize.width + flowLayout.minimumLineSpacing
+            let offset = targetContentOffset.pointee
+            let horizontalVelocity = velocity.x
+                        
+            switch horizontalVelocity {
+            // On swiping
+            case _ where horizontalVelocity > 0 :
+                self.currentSelectedIndex += 1
+            case _ where horizontalVelocity < 0:
+                self.currentSelectedIndex -= 1
+                
+            // On dragging
+            case _ where horizontalVelocity == 0:
+                let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+                let roundedIndex = round(index)
+                
+                self.currentSelectedIndex = Int(roundedIndex)
+            default:
+                print("Incorrect velocity for collection view")
+            }
+            
+            let safeIndex = max(0, min(self.currentSelectedIndex, self.arrCards.count - 1))
+            let selectedIndexPath = IndexPath(row: safeIndex, section: 0)
+                   
+            self.currentSelectedIndex = selectedIndexPath.row
+            self.pageControl.currentPage = safeIndex
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let model = arrCards[indexPath.row]
+        model.isFromCellSelection = true
+        if model.isPrefferedSelected && model.isDeleteSelected {
+            model.isPrefferedSelected = false
+            model.isDeleteSelected = false
+        } else if !model.isPrefferedSelected {
+            model.isPrefferedSelected = !model.isPrefferedSelected
+        } else {
+            model.isPrefferedSelected = false
+            model.isDeleteSelected = false
+        }
+        DispatchQueue.main.async {
+            self.clvCard.reloadItems(at: [indexPath])
+        }
+    }
+
     func callPaymentMethodsDetachAPI(model: StripeCardsDataModel?) {
         showLoader()
         let apiUrl = "\(STRIPE_API.payment_methods)/\(model?.id ?? AppPrefsManager.sharedInstance.getUserData().stripe_customer_id)/detach"
@@ -334,62 +398,6 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         model.isDeleteSelected = !model.isDeleteSelected
         DispatchQueue.main.async {
             self.clvCard.reloadItems(at: [IndexPath(item: sender.tag, section: 0)])
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let model = arrCards[indexPath.row]
-        if model.isPrefferedSelected && model.isDeleteSelected {
-            model.isPrefferedSelected = false
-            model.isDeleteSelected = false
-        } else if !model.isPrefferedSelected {
-            model.isPrefferedSelected = !model.isPrefferedSelected
-        } else {
-            model.isPrefferedSelected = false
-            model.isDeleteSelected = false
-        }
-        DispatchQueue.main.async {
-            self.clvCard.reloadItems(at: [indexPath])
-        }
-    }
-    
-    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        
-        isFromInitialLoading = false
-        DispatchQueue.main.async {
-            guard scrollView == self.clvCard else {
-                return
-            }
-            
-            targetContentOffset.pointee = scrollView.contentOffset
-            
-            let flowLayout = self.clvCard.collectionViewLayout as! CarLensCollectionViewLayout
-            let cellWidthIncludingSpacing = flowLayout.itemSize.width + flowLayout.minimumLineSpacing
-            let offset = targetContentOffset.pointee
-            let horizontalVelocity = velocity.x
-                        
-            switch horizontalVelocity {
-            // On swiping
-            case _ where horizontalVelocity > 0 :
-                self.currentSelectedIndex += 1
-            case _ where horizontalVelocity < 0:
-                self.currentSelectedIndex -= 1
-                
-            // On dragging
-            case _ where horizontalVelocity == 0:
-                let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
-                let roundedIndex = round(index)
-                
-                self.currentSelectedIndex = Int(roundedIndex)
-            default:
-                print("Incorrect velocity for collection view")
-            }
-            
-            let safeIndex = max(0, min(self.currentSelectedIndex, self.arrCards.count - 1))
-            let selectedIndexPath = IndexPath(row: safeIndex, section: 0)
-                   
-            self.currentSelectedIndex = selectedIndexPath.row
-            self.pageControl.currentPage = safeIndex
         }
     }
 }
