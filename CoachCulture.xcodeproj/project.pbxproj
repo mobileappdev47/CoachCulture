@@ -2912,6 +2912,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoachCulture/CoachCulture.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J6PSBNQBR2;
 				INFOPLIST_FILE = "$(SRCROOT)/CoachCulture/CommonFile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
@@ -2936,6 +2937,7 @@
 				CODE_SIGN_ENTITLEMENTS = CoachCulture/CoachCulture.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = J6PSBNQBR2;
 				INFOPLIST_FILE = "$(SRCROOT)/CoachCulture/CommonFile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

@@ -579,7 +579,7 @@
                                                 <state key="normal" title="Login"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lfW-Yj-1GC">
-                                                <rect key="frame" x="95" y="30" width="60" height="25"/>
+                                                <rect key="frame" x="87" y="30" width="60" height="25"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="18"/>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <state key="normal" title="SignUp"/>
@@ -756,7 +756,7 @@
                                             <constraint firstItem="lfW-Yj-1GC" firstAttribute="top" secondItem="Uk3-nC-hXv" secondAttribute="top" id="Nui-lb-vZP"/>
                                             <constraint firstAttribute="bottom" secondItem="e5T-5B-VZL" secondAttribute="bottom" id="Utd-nA-pRI"/>
                                             <constraint firstItem="e5T-5B-VZL" firstAttribute="top" secondItem="i4d-nv-QHV" secondAttribute="bottom" constant="5" id="X3O-vr-3DR"/>
-                                            <constraint firstItem="lfW-Yj-1GC" firstAttribute="leading" secondItem="Uk3-nC-hXv" secondAttribute="trailing" constant="20" id="Ykg-36-oRd"/>
+                                            <constraint firstItem="lfW-Yj-1GC" firstAttribute="leading" secondItem="Uk3-nC-hXv" secondAttribute="trailing" constant="12" id="Ykg-36-oRd"/>
                                             <constraint firstItem="e5T-5B-VZL" firstAttribute="leading" secondItem="yem-dx-wd7" secondAttribute="leading" id="bAL-6d-qj8"/>
                                             <constraint firstItem="lfW-Yj-1GC" firstAttribute="bottom" secondItem="Uk3-nC-hXv" secondAttribute="bottom" id="hXv-R7-7dw"/>
                                             <constraint firstItem="Uk3-nC-hXv" firstAttribute="leading" secondItem="yem-dx-wd7" secondAttribute="leading" constant="30" id="saP-BP-89W"/>
