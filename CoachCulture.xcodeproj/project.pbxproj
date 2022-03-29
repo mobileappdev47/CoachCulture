@@ -10,8 +10,8 @@
 		510A93B827DA00C1000EDFF3 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */; };
 		510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */; };
 		510C1D9427BE6C2F007228E9 /* HeaderTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */; };
+		5115B7F427F2C2D00075210C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5115B7F327F2C2D00075210C /* GoogleService-Info.plist */; };
 		5121C4DE27E325A900940649 /* CreditCardValidator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5121C4DD27E325A900940649 /* CreditCardValidator.swift */; };
-		5121C51827E345CE00940649 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5121C51727E345CE00940649 /* GoogleService-Info.plist */; };
 		512403B327E2EC9A00C8D952 /* CommonWebViewVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512403B227E2EC9A00C8D952 /* CommonWebViewVC.swift */; };
 		5125332527DCC27300910318 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5125332427DCC27300910318 /* NotificationVC.swift */; };
 		512ABB922717FD72008CB198 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 512ABB912717FD72008CB198 /* AppDelegate.swift */; };
@@ -497,11 +497,12 @@
 		510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 		510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStatisticVC.swift; sourceTree = "<group>"; };
 		510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTableView.xib; sourceTree = "<group>"; };
+		5115B7F327F2C2D00075210C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5115B8A527F2CC550075210C /* CoachCulture.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CoachCulture.entitlements; sourceTree = "<group>"; };
 		5121A5E72718247F00B15581 /* Karla-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-SemiBold.ttf"; sourceTree = "<group>"; };
 		5121A5E82718247F00B15581 /* Karla-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Medium.ttf"; sourceTree = "<group>"; };
 		5121A5E92718248000B15581 /* Karla-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Karla-Light.ttf"; sourceTree = "<group>"; };
 		5121C4DD27E325A900940649 /* CreditCardValidator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreditCardValidator.swift; sourceTree = "<group>"; };
-		5121C51727E345CE00940649 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		512403B227E2EC9A00C8D952 /* CommonWebViewVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonWebViewVC.swift; sourceTree = "<group>"; };
 		5125332427DCC27300910318 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		512ABB8E2717FD72008CB198 /* CoachCulture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoachCulture.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1060,6 +1061,7 @@
 		512ABB902717FD72008CB198 /* CoachCulture */ = {
 			isa = PBXGroup;
 			children = (
+				5115B8A527F2CC550075210C /* CoachCulture.entitlements */,
 				D49279B127579667001E23F0 /* Font */,
 				512ABC6027180D05008CB198 /* Helper */,
 				512ABC19271805BD008CB198 /* Network */,
@@ -1098,7 +1100,7 @@
 				D4CE25572769CC2A00743FFC /* Assets.xcassets */,
 				D4CE25542769CC2A00743FFC /* Base.lproj */,
 				512ABB9C2717FD74008CB198 /* LaunchScreen.storyboard */,
-				5121C51727E345CE00940649 /* GoogleService-Info.plist */,
+				5115B7F327F2C2D00075210C /* GoogleService-Info.plist */,
 				512ABB9F2717FD74008CB198 /* Info.plist */,
 			);
 			path = CommonFile;
@@ -2400,7 +2402,6 @@
 				F1963A0C272BB78600D19373 /* KP.png in Resources */,
 				F1963A4E272BB78600D19373 /* QA.png in Resources */,
 				F19639BD272BB78600D19373 /* CH.png in Resources */,
-				5121C51827E345CE00940649 /* GoogleService-Info.plist in Resources */,
 				F1963A45272BB78600D19373 /* PK.png in Resources */,
 				F19639D2272BB78600D19373 /* EE.png in Resources */,
 				F1963A5A272BB78600D19373 /* SH.png in Resources */,
@@ -2431,6 +2432,7 @@
 				F1963A6F272BB78600D19373 /* TK.png in Resources */,
 				F19639F1272BB78600D19373 /* GY.png in Resources */,
 				D4122BDA275B215A00A68E56 /* AddPhotoPopUp.xib in Resources */,
+				5115B7F427F2C2D00075210C /* GoogleService-Info.plist in Resources */,
 				D4C887AC2759FE9C0068F7A9 /* SFProText-Bold.otf in Resources */,
 				F19639FB272BB78600D19373 /* IM.png in Resources */,
 				BDD3663A27C8B12D00911E4E /* RecipeTestCellTableViewCell.xib in Resources */,
@@ -2836,7 +2838,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2891,7 +2893,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -2907,15 +2909,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CoachCulture/CoachCulture.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J6PSBNQBR2;
 				INFOPLIST_FILE = "$(SRCROOT)/CoachCulture/CommonFile/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.coachcultureproject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.coachculture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2927,15 +2933,19 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CoachCulture/CoachCulture.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = J6PSBNQBR2;
 				INFOPLIST_FILE = "$(SRCROOT)/CoachCulture/CommonFile/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.coachcultureproject;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.coachculture;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
