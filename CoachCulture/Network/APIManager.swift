@@ -79,7 +79,7 @@ class ApiManager {
         
     // MARK: - Multiple Images
     
-    func callMultiPartDataWebServiceNew<T: Codable>(type: T.Type, image: Data?, to url: String, params: [String: Any], success successBlock:@escaping ((T?, Int?) -> Void), failure failureBlock: ((Error, Int?) -> Void)) {
+    func callMultiPartDataWebServiceNew<T: Codable>(type: T.Type, image: Data?, to url: String, params: [String: Any], success successBlock:@escaping ((T?, Int?) -> Void), failure failureBlock:@escaping ((T?, Int?) -> Void)) {
         guard let url = URL(string: url) else {return}
         SVProgressHUD.show()
         SVProgressHUD.setDefaultMaskType(.black)
@@ -129,18 +129,20 @@ class ApiManager {
             .responseJSON(completionHandler: { response in
                 print(response)
                 SVProgressHUD.dismiss()
-                if let err = response.error {
-                    print(err)
-                    successBlock(nil, response.response?.statusCode)
-                    return
-                }
-                if let json = response.data {
+                if response.response?.statusCode != 200 {
+                    if let json = response.data {
+                        let model = mappingFromJsonToObject(type: T.self, data: json)
+                        failureBlock(model, response.response?.statusCode)
+                    }
+                } else if let json = response.data {
                     let model = mappingFromJsonToObject(type: T.self, data: json)
                     successBlock(model, response.response?.statusCode)
                 } else {
-                    successBlock(nil, response.response?.statusCode)
+                    if let json = response.data {
+                        let model = mappingFromJsonToObject(type: T.self, data: json)
+                        failureBlock(model, response.response?.statusCode)
+                    }
                 }
-                
             })
     }
     

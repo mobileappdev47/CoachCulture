@@ -55,10 +55,10 @@ class ForgotPassViewController: BaseViewController {
     }
     
     func setUpUI() {
-        
-        if isDevelopmentMode {
-            txtEmail.text = "anjalimendpara625@gmail.com"
-        }
+        #if DEBUG
+        txtEmail.text = "anjalimendpara625@gmail.com"
+        #else
+        #endif
         
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
             let strPhoneCode = getCountryPhonceCode(countryCode)
@@ -66,9 +66,6 @@ class ForgotPassViewController: BaseViewController {
             self.txtCountryCode.text = "+\(strPhoneCode)"
             self.countryCodeDesc = countryCode
         }
-        
-        
-        
         [txtPhone, txtEmail].enumerated().forEach { index, txt in
             let place = txtPlaceholders[index]
             txt?.attributedPlaceholder = NSAttributedString(string: place, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .bold), .foregroundColor: COLORS.TEXT_COLOR])
@@ -76,7 +73,7 @@ class ForgotPassViewController: BaseViewController {
             txt?.textColor = COLORS.TEXT_COLOR
             txt?.tintColor = COLORS.TEXT_COLOR
             
-            txt?.layer.cornerRadius = 10
+            //txt?.layer.cornerRadius = 10
             txt?.clipsToBounds = true
         }
     }

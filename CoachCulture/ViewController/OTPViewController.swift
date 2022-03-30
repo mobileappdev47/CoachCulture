@@ -199,7 +199,7 @@ extension OTPViewController {
                 print(userModel)
             }
         } failure: { error, statusCode in
-            print(error.localizedDescription)
+            //print(error.localizedDescription)
         }
     }
     

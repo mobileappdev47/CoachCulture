@@ -7,8 +7,6 @@ let formatter = NumberFormatter()
 var DEFAULTS = UserDefaults.standard
 let APPDELEGATE = UIApplication.shared.delegate as! AppDelegate
 
-var isDevelopmentMode = true
-
 // MARK: - API URL
 
 struct DEFAULTS_KEY {
@@ -18,6 +16,7 @@ struct DEFAULTS_KEY {
     static let USER_ID = "UserId"
     static let USERNAME = "UserName"
     static let USER_PASSWORD = "UserPassword"
+    static let IS_REMEMBER_ME = "isRememberMe"
 }
 
 struct STRIPE_API {

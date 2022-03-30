@@ -377,12 +377,13 @@ class Utility {
 // MARK: PRINT LOG
 
 func DLog(_ items: Any?..., function: String = #function, file: String = #file, line: Int = #line) {
-    if isDevelopmentMode {
-        print("-----------START-------------")
-        let url = NSURL(fileURLWithPath: file)
-        print("Message = ", items, "\n\n(File: ", url.lastPathComponent ?? "nil", ", Function: ", function, ", Line: ", line, ")")
-        print("-----------END-------------\n")
-    }
+    #if DEBUG
+    print("-----------START-------------")
+    let url = NSURL(fileURLWithPath: file)
+    print("Message = ", items, "\n\n(File: ", url.lastPathComponent ?? "nil", ", Function: ", function, ", Line: ", line, ")")
+    print("-----------END-------------\n")
+    #else
+    #endif
 }
 
 // MARK: ENUMARATION STORYBOARD

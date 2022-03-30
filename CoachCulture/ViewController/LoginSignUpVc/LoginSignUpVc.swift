@@ -84,10 +84,6 @@ class LoginSignUpVc: BaseViewController {
             self.txtCountryCode.text = "+\(strPhoneCode)"
             self.countryCodeDesc = countryCode
         }
-        
-        //comment code - comment the static cred
-        txtUsernameLogin.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USERNAME)
-        txtPasswordLogin.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USER_PASSWORD)
     }
     
     fileprivate func setupViews() {
@@ -106,11 +102,11 @@ class LoginSignUpVc: BaseViewController {
             txt?.textColor = COLORS.TEXT_COLOR
             txt?.tintColor = COLORS.TEXT_COLOR
             
-            txt?.layer.cornerRadius = 10
+            //txt?.layer.cornerRadius = 10
             txt?.clipsToBounds = true
         }
-        btnLogin.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        btnSignUp.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        btnLogin.titleLabel?.font = UIFont(name: "SFProText-Semibold", size: 18.0) ?? UIFont.systemFont(ofSize: 18, weight: .semibold)
+        btnSignUp.titleLabel?.font = UIFont(name: "SFProText-Semibold", size: 18.0) ?? UIFont.systemFont(ofSize: 18, weight: .semibold)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -155,6 +151,16 @@ class LoginSignUpVc: BaseViewController {
         
         btnLoginTapped.addTarget(self, action: #selector(btnLoginTappedClick(_:)), for: .touchUpInside)
         btnSignupTapped.addTarget(self, action: #selector(btnSignupTappedClick(_:)), for: .touchUpInside)
+        
+        var is_rememberMe = false
+        
+        if let isRememberMe = DEFAULTS.value(forKey: DEFAULTS_KEY.IS_REMEMBER_ME) as? Bool, isRememberMe {
+            txtUsernameLogin.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USERNAME)
+            txtPasswordLogin.text = DEFAULTS.string(forKey: DEFAULTS_KEY.USER_PASSWORD)
+            is_rememberMe = isRememberMe
+        }
+        self.isRememberMe = is_rememberMe
+        self.changeRememberMeStatus(flag: isRememberMe)
     }
     
     @objc func didTapForgot(_ sender: UIButton) {
@@ -218,6 +224,7 @@ class LoginSignUpVc: BaseViewController {
     
     @IBAction func btnRememberMeClick(_ sender: Any) {
         isRememberMe = !isRememberMe
+        DEFAULTS.setValue(isRememberMe, forKey: DEFAULTS_KEY.IS_REMEMBER_ME)
         self.changeRememberMeStatus(flag: isRememberMe)
     }
     
@@ -490,6 +497,7 @@ extension LoginSignUpVc {
         apimanager.callMultiPartDataWebServiceNew(type: SignupUserModel.self, image: nil, to: API.REGISTER_USER, params: param) { userModel, statusCode in
             print("statusCode == == ",statusCode)
             print(userModel)
+            
             if statusCode != 201 && statusCode != 200 {
                 self.showAlert(withTitle: "Error!", message: userModel?.message ?? "")
             } else {
@@ -511,7 +519,13 @@ extension LoginSignUpVc {
                 }
             }
         } failure: { error, statusCode in
-            print(error.localizedDescription)
+            if let email = error?.errors?.email {
+                Utility.shared.showToast(email.first ?? "")
+            } else if let phone = error?.errors?.phoneno {
+                Utility.shared.showToast(phone.first ?? "")
+            } else if let username = error?.errors?.username {
+                Utility.shared.showToast(username.first ?? "")
+            }
         }
     }
     
