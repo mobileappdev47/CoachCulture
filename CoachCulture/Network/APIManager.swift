@@ -26,57 +26,57 @@ class ApiManager {
         
         AF.request(apiURL, method: method, parameters: finalParameters, encoding: URLEncoding(), headers: headers)
             .responseString { response in
-            DLog("Response String: \(String(describing: response.value))")
-        }.responseJSON { response in
-            
-            DLog("Response Error: ", response.error)
-            DLog("Response JSON: ", response.value)
-            DLog("response.request: ", response.request?.allHTTPHeaderFields)
-            DLog("Response Status Code: ", response.response?.statusCode)
-            DLog(response.response?.allHeaderFields)
-            
-            DispatchQueue.main.async {
-                if response.response?.statusCode == 401 {
-                    Utility.shared.showToast(CONSTANTS.UN_AUTHORIZE_ACCESS.localized())
-                    //APPDELEGATE.logoutFromApplication()
-                } else if response.response?.statusCode == 200 {
-                    if let responseObject = response.value {
-                        do {
-                            let jsonData = try JSONSerialization.data(withJSONObject: responseObject, options: .prettyPrinted)
-                            let model = mappingFromJsonToObject(type: T.self, data: jsonData)
-                            successBlock(model, response.response?.statusCode)
-                        } catch {
-                        }
-                    }
-                } else if (response.error == nil) {
-                    if let responseObject = response.value {
-                        do {
-                            let jsonData = try JSONSerialization.data(withJSONObject: responseObject, options: .prettyPrinted)
-                            let model = mappingFromJsonToObject(type: CommonErrorBaseModel.self, data: jsonData)
-                            successBlock(model, response.response?.statusCode)
-                        } catch {
-                        }
-                    }
-                } else {
-                    if failureBlock != nil && failureBlock!(response.error! as NSError, response.response?.statusCode) {
-                        if let statusCode = response.response?.statusCode {
-                            ApiManager.handleAlamofireHttpFailureError(statusCode: statusCode)
-                        }
+                DLog("Response String: \(String(describing: response.value))")
+            }.responseJSON { response in
+                
+                DLog("Response Error: ", response.error)
+                DLog("Response JSON: ", response.value)
+                DLog("response.request: ", response.request?.allHTTPHeaderFields)
+                DLog("Response Status Code: ", response.response?.statusCode)
+                DLog(response.response?.allHeaderFields)
+                
+                DispatchQueue.main.async {
+                    if response.response?.statusCode == 401 {
+                        Utility.shared.showToast(CONSTANTS.UN_AUTHORIZE_ACCESS.localized())
+                        //APPDELEGATE.logoutFromApplication()
+                    } else if response.response?.statusCode == 200 {
                         if let responseObject = response.value {
                             do {
                                 let jsonData = try JSONSerialization.data(withJSONObject: responseObject, options: .prettyPrinted)
                                 let model = mappingFromJsonToObject(type: T.self, data: jsonData)
                                 successBlock(model, response.response?.statusCode)
                             } catch {
-                                
+                            }
+                        }
+                    } else if (response.error == nil) {
+                        if let responseObject = response.value {
+                            do {
+                                let jsonData = try JSONSerialization.data(withJSONObject: responseObject, options: .prettyPrinted)
+                                let model = mappingFromJsonToObject(type: CommonErrorBaseModel.self, data: jsonData)
+                                successBlock(model, response.response?.statusCode)
+                            } catch {
+                            }
+                        }
+                    } else {
+                        if failureBlock != nil && failureBlock!(response.error! as NSError, response.response?.statusCode) {
+                            if let statusCode = response.response?.statusCode {
+                                ApiManager.handleAlamofireHttpFailureError(statusCode: statusCode)
+                            }
+                            if let responseObject = response.value {
+                                do {
+                                    let jsonData = try JSONSerialization.data(withJSONObject: responseObject, options: .prettyPrinted)
+                                    let model = mappingFromJsonToObject(type: T.self, data: jsonData)
+                                    successBlock(model, response.response?.statusCode)
+                                } catch {
+                                    
+                                }
                             }
                         }
                     }
                 }
             }
-        }
     }
-        
+    
     // MARK: - Multiple Images
     
     func callMultiPartDataWebServiceNew<T: Codable>(type: T.Type, image: Data?, to url: String, params: [String: Any], success successBlock:@escaping ((T?, Int?) -> Void), failure failureBlock:@escaping ((T?, Int?) -> Void)) {
@@ -116,34 +116,34 @@ class ApiManager {
                 }
                 
                 if let data = image {
-                multipartFormData.append(data, withName: "image", fileName: "\(Date.init().timeIntervalSince1970).jpg", mimeType: "image/jpg")
+                    multipartFormData.append(data, withName: "image", fileName: "\(Date.init().timeIntervalSince1970).jpg", mimeType: "image/jpg")
                 }
                 
                 
             }
         },  with: request)
-            .uploadProgress(queue: .main, closure: { progress in
-                //Current upload progress of file
-                print("Upload Progress: \(progress.fractionCompleted)")
-            })
-            .responseJSON(completionHandler: { response in
-                print(response)
-                SVProgressHUD.dismiss()
-                if response.response?.statusCode != 200 {
-                    if let json = response.data {
-                        let model = mappingFromJsonToObject(type: T.self, data: json)
-                        failureBlock(model, response.response?.statusCode)
-                    }
-                } else if let json = response.data {
+        .uploadProgress(queue: .main, closure: { progress in
+            //Current upload progress of file
+            print("Upload Progress: \(progress.fractionCompleted)")
+        })
+        .responseJSON(completionHandler: { response in
+            print(response)
+            SVProgressHUD.dismiss()
+            if response.response?.statusCode != 200 {
+                if let json = response.data {
                     let model = mappingFromJsonToObject(type: T.self, data: json)
-                    successBlock(model, response.response?.statusCode)
-                } else {
-                    if let json = response.data {
-                        let model = mappingFromJsonToObject(type: T.self, data: json)
-                        failureBlock(model, response.response?.statusCode)
-                    }
+                    failureBlock(model, response.response?.statusCode)
                 }
-            })
+            } else if let json = response.data {
+                let model = mappingFromJsonToObject(type: T.self, data: json)
+                successBlock(model, response.response?.statusCode)
+            } else {
+                if let json = response.data {
+                    let model = mappingFromJsonToObject(type: T.self, data: json)
+                    failureBlock(model, response.response?.statusCode)
+                }
+            }
+        })
     }
     
     class func callPushNotificationAPI<T: Codable>(type: T.Type, apiURL: String, method: Alamofire.HTTPMethod, parameters: [String: Any]? = nil, success successBlock:@escaping ((Codable?, Int?) -> Void), failure failureBlock: ((Error, Int?) -> Bool)?) {

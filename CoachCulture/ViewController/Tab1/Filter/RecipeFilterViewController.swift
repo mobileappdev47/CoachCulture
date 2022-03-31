@@ -214,10 +214,10 @@ extension RecipeFilterViewController: UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView == clvDietaryRestriction {
             let width =  (clvDietaryRestriction.frame.width - 40 ) / 3
-            return CGSize(width: width, height: 40)
+            return CGSize(width: width, height: 50)
         } else {
             let width =  (clvMealType.frame.width - 40 ) / 3
-            return CGSize(width: width, height: 40)
+            return CGSize(width: width, height: 50)
         }
         
         

@@ -221,6 +221,7 @@ extension SearchResultViewController : UITableViewDelegate, UITableViewDataSourc
                 cell.lblClassTime.text = obj.total_viewers + " Views"
                 cell.viwClassTypeContainer.backgroundColor = COLORS.ON_DEMAND_COLOR
             }
+            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             
             cell.viewProfile.isHidden = false
@@ -294,10 +295,10 @@ extension SearchResultViewController : UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
+        return 122
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
+        return 122
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

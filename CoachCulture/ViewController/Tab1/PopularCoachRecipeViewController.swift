@@ -107,15 +107,25 @@ extension PopularCoachRecipeViewController: UICollectionViewDataSource, UICollec
         var arrFilteredDietaryRestriction = [String]()
         
         if obj.arrdietary_restriction.count > 2 {
+            cell.viewSecondDietry.isHidden = false
             arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[0])
             arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[1])
-            cell.arrDietaryRestriction = arrFilteredDietaryRestriction
+            cell.lblDietaryRestrictionFirst.text = arrFilteredDietaryRestriction.first
+            cell.lblDietaryRestrictionSecond.text = arrFilteredDietaryRestriction.last
         } else {
-            cell.arrDietaryRestriction = obj.arrdietary_restriction
+            if obj.arrdietary_restriction.count == 2 {
+                cell.viewSecondDietry.isHidden = false
+                arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[0])
+                arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[1])
+                cell.lblDietaryRestrictionFirst.text = arrFilteredDietaryRestriction.first
+                cell.lblDietaryRestrictionSecond.text = arrFilteredDietaryRestriction.last
+            } else {
+                cell.viewSecondDietry.isHidden = true
+                arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[0])
+                cell.lblDietaryRestrictionFirst.text = arrFilteredDietaryRestriction.first
+            }
         }
         
-        cell.lblDietaryRestriction.text = obj.arrdietary_restriction.first
-        cell.clvDietaryRestriction.reloadData()
         cell.lblDuration.text = obj.duration
         cell.lblTitle.text = obj.title
         cell.lblSubtitle.text = obj.sub_title
@@ -164,7 +174,7 @@ extension PopularCoachRecipeViewController : UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: kHomeNewClassHeaderViewID) as? HomeNewClassHeaderView {
-            headerView.lblTitle.text = "New Recipes"
+            headerView.lblTitle.text = "    New Recipes"
             return headerView
         }
         return UIView()

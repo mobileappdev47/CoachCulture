@@ -17,7 +17,9 @@ class PopularRecipeItemCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imgRecipe : UIImageView!
     @IBOutlet weak var imgThumbnail : UIImageView!
     @IBOutlet weak var clvDietaryRestriction: UICollectionView!
-    @IBOutlet weak var lblDietaryRestriction: UILabel!
+    @IBOutlet weak var lblDietaryRestrictionSecond: UILabel!
+    @IBOutlet weak var viewSecondDietry: UIView!
+    @IBOutlet weak var lblDietaryRestrictionFirst: UILabel!
     
     var arrDietaryRestriction = [String]()
 

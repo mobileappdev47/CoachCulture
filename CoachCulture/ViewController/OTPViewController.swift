@@ -21,7 +21,7 @@ class OTPViewController: BaseViewController {
     @IBOutlet weak var btnResend: UIButton!
     @IBOutlet weak var btnChangeNumber: UIButton!
     @IBOutlet weak var lblCounter: UILabel!
-
+    
     @IBOutlet var otpView: DPOTPView!
     @IBOutlet var btnDigits: [UIButton]!
     @IBOutlet var txtOtps: [UILabel]!
@@ -34,7 +34,7 @@ class OTPViewController: BaseViewController {
     var password = ""
     var otp = ""
     var verifiedCallback: (() -> Void)?
-//    var verifyotp = "1234"
+    //    var verifyotp = "1234"
     let apimanager = ApiManager()
     var counter = 60
     var timer = Timer()
@@ -53,8 +53,8 @@ class OTPViewController: BaseViewController {
         btnResend.addTarget(self, action: #selector(didTapResend(_:)), for: .touchUpInside)
         btnChangeNumber.addTarget(self, action: #selector(didTapChangeNumber(_:)), for: .touchUpInside)
         /*btnDigits.forEach { btn in
-            btn.addTarget(self, action: #selector(didTapDigit(_:)), for: .touchUpInside)
-        }*/
+         btn.addTarget(self, action: #selector(didTapDigit(_:)), for: .touchUpInside)
+         }*/
         btnResend.setTitle("Resent OTP", for: .normal)
         btnChangeNumber.setTitle("Change Number", for: .normal)
         btnResend.titleLabel?.font = UIFont.systemFont(ofSize: 12)
@@ -66,11 +66,7 @@ class OTPViewController: BaseViewController {
             phoneX.append("x")
         }
         
-        if isFromForgotPassword {
-            lblDesc.text = "Please type the verification code sent to \(emaiOrPhone)"
-        } else {
-            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneX)."
-        }
+        lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneX)."
     }
     
     fileprivate func tapResendTimer() {
@@ -129,7 +125,7 @@ extension OTPViewController {
             param["signup_type"] = LoginTypeConst.Standard.rawValue
             param["password"] = password
         }
-
+        
         param["username"] = username
         param["countrycode"] = countryCode
         param["phonecode"] = phoneCode
@@ -205,13 +201,13 @@ extension OTPViewController {
     
     
     func verifyOTPForForgotPasswordAPI() {
-                showLoader()
+        showLoader()
         paramDic["verification_code"] = otp
         
         
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.VERIFY_OTP, parameters: paramDic, headers: nil) { responseObj in
-              let resObj = responseObj as? [String:Any] ?? [String:Any]()
+            let resObj = responseObj as? [String:Any] ?? [String:Any]()
             print(resObj)
             
             let responseModel = ResponseDataModel(responseObj: resObj)
@@ -224,25 +220,28 @@ extension OTPViewController {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
                 
+            } else {
+                Utility.shared.showToast(responseModel.message)
             }
             
             self.hideLoader()
-              
-          } failure: { (error) in
-              return true
-          }
+            
+        } failure: { (error) in
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
         
         
-
+        
     }
 }
 
 struct ReSendOTPBaseModel: Codable {
-
+    
     let data : DataModel?
     let success : Bool?
     let message : String?
-
+    
     enum CodingKeys: String, CodingKey {
         case message = "message"
         case success = "success"
@@ -258,9 +257,9 @@ struct ReSendOTPBaseModel: Codable {
 }
 
 struct DataModel: Codable {
-
+    
     let verification_code : String?
-
+    
     enum CodingKeys: String, CodingKey {
         case verification_code = "verification_code"
     }

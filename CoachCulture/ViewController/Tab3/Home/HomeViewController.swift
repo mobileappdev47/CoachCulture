@@ -284,6 +284,7 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: kHomeNewClassHeaderViewID) as? HomeNewClassHeaderView {
+            headerView.lblTitle.text = "    Recommended Classes"
             return headerView
         }
         return UIView()

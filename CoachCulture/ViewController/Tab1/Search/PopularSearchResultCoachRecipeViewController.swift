@@ -16,6 +16,7 @@ class PopularSearchResultCoachRecipeViewController: BaseViewController {
     
     @IBOutlet weak var tblCoachRecipe : UITableView!
     
+    @IBOutlet weak var viewNoRecipeFound: UIView!
     @IBOutlet weak var lblRecipeCenter: UILabel!
     @IBOutlet weak var txtSearch : UITextField!
     
@@ -87,6 +88,8 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
             cell.lblTitle.text = obj.title
             cell.lblRecipeType.text = obj.meal_type_name
             cell.lblDuration.text = obj.duration
+            cell.lblDuration.addCornerRadius(5)
+            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
             cell.imgUser.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
             if cell.imgThumbnail.image == nil {
@@ -94,8 +97,18 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
             }
             cell.imgThumbnail.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
             
-            cell.arrDietaryRestriction = obj.arrDietaryRestrictionName
+            var arrFilteredDietaryRestriction = [String]()
+            
+            if obj.arrDietaryRestrictionName.count > 2 {
+                arrFilteredDietaryRestriction.append(obj.arrDietaryRestrictionName[0])
+                arrFilteredDietaryRestriction.append(obj.arrDietaryRestrictionName[1])
+                cell.arrDietaryRestriction = arrFilteredDietaryRestriction
+            } else {
+                cell.arrDietaryRestriction = obj.arrDietaryRestrictionName
+            }
+            
             cell.clvDietaryRestriction.reloadData()
+
             if obj.bookmark == "no" {
                 cell.imgBookmark.image = UIImage(named: "BookmarkLight")
             } else {
@@ -219,9 +232,9 @@ extension PopularSearchResultCoachRecipeViewController {
             self.tblCoachRecipe.reloadData()
             
             if self.arrCoachRecipeData.count == 0 {
-                self.lblRecipeCenter.isHidden = false
+                self.viewNoRecipeFound.isHidden = false
             } else {
-                self.lblRecipeCenter.isHidden = true
+                self.viewNoRecipeFound.isHidden = true
             }
             
             if arr.count < self.perPageCount

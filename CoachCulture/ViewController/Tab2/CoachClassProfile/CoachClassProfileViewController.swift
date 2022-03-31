@@ -414,6 +414,7 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.lblClassType.text = "On demand".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
             let obj = arrCoachClassInfoList[indexPath.row]
+            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             
             cell.viewProfile.isHidden = false
@@ -483,6 +484,7 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.lbltitle.text = obj.class_type_name
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.lblUsername.text = "@" + obj.coachDetailsObj.username
+            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             
             cell.lblClassDate.text = getRealDate(date: obj.created_at)
@@ -533,6 +535,7 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             }
             cell.selectedIndex = indexPath.row
             cell.lbltitle.text = obj.title
+            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
             cell.btnUser.tag = indexPath.row
@@ -580,10 +583,10 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
+        return 122
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
+        return 122
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -712,6 +715,10 @@ extension CoachClassProfileViewController {
         showLoader()
         _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
             
+            if let message = responseObj["message"] as? String, !message.isEmpty {
+                Utility.shared.showToast(message)
+            }
+
             switch recdType {
             case SelectedDemandClass.onDemand, SelectedDemandClass.live:
                 for (index, model) in self.arrCoachClassInfoList.enumerated() {

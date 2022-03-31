@@ -8,7 +8,7 @@
 import Foundation
 
 struct SignupUserModel: Codable {
-
+    
     let message : String?
     let user : User?
     let errors : ErrorsDataModel?
@@ -27,7 +27,7 @@ struct SignupUserModel: Codable {
 }
 
 struct User: Codable {
-
+    
     let countrycode : String?
     let createdAt : String?
     let email : String?
@@ -38,9 +38,9 @@ struct User: Codable {
     let status : String?
     let updatedAt : String?
     let username : String?
-//    let verificationCode : Int?
-
-
+    //    let verificationCode : Int?
+    
+    
     enum CodingKeys: String, CodingKey {
         case countrycode = "countrycode"
         case createdAt = "created_at"
@@ -52,7 +52,7 @@ struct User: Codable {
         case status = "status"
         case updatedAt = "updated_at"
         case username = "username"
-//        case verificationCode = "verification_code"
+        //        case verificationCode = "verification_code"
     }
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
@@ -66,18 +66,18 @@ struct User: Codable {
         status = try values.decodeIfPresent(String.self, forKey: .status)
         updatedAt = try values.decodeIfPresent(String.self, forKey: .updatedAt)
         username = try values.decodeIfPresent(String.self, forKey: .username)
-//        verificationCode = try values.decodeIfPresent(Int.self, forKey: .verificationCode)
+        //        verificationCode = try values.decodeIfPresent(Int.self, forKey: .verificationCode)
     }
 }
 
 
 struct LoginUserModel : Codable {
-
+    
     let data : LoginUserData?
     let message : String?
     let success : Bool?
-
-
+    
+    
     enum CodingKeys: String, CodingKey {
         case data
         case message = "message"
@@ -89,19 +89,19 @@ struct LoginUserModel : Codable {
         message = try values.decodeIfPresent(String.self, forKey: .message)
         success = try values.decodeIfPresent(Bool.self, forKey: .success)
     }
-
-
+    
+    
 }
 
 
 struct LoginUserData : Codable {
-
+    
     let accessToken : String?
     let expiresIn : Int?
     let tokenType : String?
     let user : User?
-
-
+    
+    
     enum CodingKeys: String, CodingKey {
         case accessToken = "access_token"
         case expiresIn = "expires_in"
@@ -115,6 +115,6 @@ struct LoginUserData : Codable {
         tokenType = try values.decodeIfPresent(String.self, forKey: .tokenType)
         user = try values.decodeIfPresent(User.self, forKey: .user)
     }
-
-
+    
+    
 }

@@ -448,7 +448,7 @@ func convertUTCToLocalDate(dateStr:String, sourceFormate: String, destinationFor
     let localDateStr = convertUTCToLocal(dateStr: dateStr, sourceFormate: sourceFormate, destinationFormate: destinationFormate)
     dateFormatter.timeZone = TimeZone.current
     dateFormatter.dateFormat = destinationFormate
-
+    
     if let date = dateFormatter.date(from: localDateStr) {
         return date
     }

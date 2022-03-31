@@ -211,17 +211,17 @@
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="30" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="Duj-xG-TXn">
-                                                <rect key="frame" x="20" y="503" width="335" height="94"/>
+                                                <rect key="frame" x="0.0" y="503" width="375" height="94"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="gPL-lw-aDo"/>
                                                 </constraints>
                                             </tableView>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gY-up-mth">
-                                                <rect key="frame" x="20" y="543" width="335" height="54"/>
+                                                <rect key="frame" x="0.0" y="543" width="375" height="54"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJ8-1G-uhX">
-                                                        <rect key="frame" x="79" y="15" width="177.5" height="24"/>
+                                                        <rect key="frame" x="99" y="15" width="177.5" height="24"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -237,19 +237,19 @@
                                         <color key="backgroundColor" name="themeColor"/>
                                         <constraints>
                                             <constraint firstItem="YbC-iX-8TS" firstAttribute="leading" secondItem="VrI-eL-8yU" secondAttribute="leading" id="1wi-fc-SNH"/>
-                                            <constraint firstItem="Duj-xG-TXn" firstAttribute="trailing" secondItem="YbC-iX-8TS" secondAttribute="trailing" constant="-20" id="3uf-Nd-gMa"/>
                                             <constraint firstItem="Dpy-Ie-ce6" firstAttribute="top" secondItem="7Fb-r3-soe" secondAttribute="top" id="4f0-tM-EPe"/>
                                             <constraint firstItem="YbC-iX-8TS" firstAttribute="trailing" secondItem="VrI-eL-8yU" secondAttribute="trailing" id="Bfv-uC-5Ew"/>
-                                            <constraint firstItem="Duj-xG-TXn" firstAttribute="leading" secondItem="YbC-iX-8TS" secondAttribute="leading" id="Ng5-26-gf2"/>
                                             <constraint firstItem="6gY-up-mth" firstAttribute="trailing" secondItem="Duj-xG-TXn" secondAttribute="trailing" id="Npv-UT-H8t"/>
                                             <constraint firstItem="VrI-eL-8yU" firstAttribute="top" secondItem="Dpy-Ie-ce6" secondAttribute="bottom" constant="10" id="PsA-W5-E2v"/>
                                             <constraint firstAttribute="bottom" secondItem="Duj-xG-TXn" secondAttribute="bottom" id="V7E-Oy-Q8R"/>
                                             <constraint firstItem="6gY-up-mth" firstAttribute="top" secondItem="Duj-xG-TXn" secondAttribute="top" constant="40" id="Vr3-mq-G3r"/>
+                                            <constraint firstAttribute="trailing" secondItem="Duj-xG-TXn" secondAttribute="trailing" id="XZo-rh-6yH"/>
                                             <constraint firstAttribute="bottom" secondItem="6gY-up-mth" secondAttribute="bottom" id="bPc-Q4-taO"/>
                                             <constraint firstItem="6gY-up-mth" firstAttribute="leading" secondItem="Duj-xG-TXn" secondAttribute="leading" id="hyn-QA-omh"/>
                                             <constraint firstItem="VrI-eL-8yU" firstAttribute="leading" secondItem="7Fb-r3-soe" secondAttribute="leading" constant="20" id="ptL-mn-yUJ"/>
                                             <constraint firstItem="Duj-xG-TXn" firstAttribute="top" secondItem="YbC-iX-8TS" secondAttribute="bottom" constant="15" id="qBW-GE-YSB"/>
                                             <constraint firstAttribute="trailing" secondItem="Dpy-Ie-ce6" secondAttribute="trailing" constant="10" id="rj4-wp-pHS"/>
+                                            <constraint firstItem="Duj-xG-TXn" firstAttribute="leading" secondItem="7Fb-r3-soe" secondAttribute="leading" id="tqh-Td-gWm"/>
                                             <constraint firstAttribute="trailing" secondItem="VrI-eL-8yU" secondAttribute="trailing" id="wnO-xQ-xad"/>
                                             <constraint firstItem="YbC-iX-8TS" firstAttribute="top" secondItem="VrI-eL-8yU" secondAttribute="bottom" constant="15" id="ydm-t3-UEi"/>
                                         </constraints>

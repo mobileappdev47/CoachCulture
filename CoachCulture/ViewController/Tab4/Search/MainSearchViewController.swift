@@ -68,6 +68,7 @@ class MainSearchViewController: BaseViewController {
     // MARK: - METHODS
     
     func setUpUI() {
+        lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
         self.viewUserProfile.addCornerRadius(10)
         self.viewUserProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
         clickToBtnClassType(btnLive)

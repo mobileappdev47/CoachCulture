@@ -21,7 +21,7 @@ struct DEFAULTS_KEY {
 
 struct STRIPE_API {
     static let BASE_URL = "https://api.stripe.com/v1/"
-
+    
     static let payment_methods = BASE_URL + "payment_methods"
     static let payment_intents = BASE_URL + "payment_intents"
 }
@@ -53,7 +53,7 @@ struct API {
     static let UPLOAD_VIDEO_THUMBNAIL                         = BASE_URL + "api/coach-class/upload-image-video"
     static let CREATE_COACH_CLASS                         = BASE_URL + "api/coach-class/create"
     static let EDIT_COACH_CLASS                         = BASE_URL + "api/coach-class/edit"
-
+    
     static let MEAL_TYPE_LIST                         = BASE_URL + "api/meal-type-list"
     static let DIETARY_RES_LIST                         = BASE_URL + "api/dietary-restriction-list"
     static let UPLOAD_IMAGE_RECIPE                         = BASE_URL + "api/recipe/upload-image"
@@ -85,7 +85,7 @@ struct API {
     static let GET_COACH_WISE_RECIPE_LIST                         = BASE_URL + "api/coach/get-coach-wise-recipe-list"
     static let GET_COACH_SEARCH_HISTORY                         = BASE_URL + "api/coach/add-coach-search-history"
     static let ADD_REMOVE_FOLLOWERS                         = BASE_URL + "api/coach/add-remove-followers"
-
+    
     static let ADD_USER_TO_COACH = BASE_URL + "api/subscription/add-user-to-coach"
     static let UNSUBSCRIBE_TO_COACH = BASE_URL + "api/subscription/unsubscribe-to-coach"
     static let FOLLOWING_COACH_CLASS_LIST = BASE_URL + "api/coach-class/following-coach-class-list"

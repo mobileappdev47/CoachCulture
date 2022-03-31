@@ -21,6 +21,7 @@ class YourCoachesViewController: BaseViewController {
     
     //MARK: - OUTLET
     
+    @IBOutlet weak var viewNoCoachFound: UIView!
     @IBOutlet weak var viewNoDataFoundNewClass: UIView!
     @IBOutlet weak var tblNewClass: UITableView!
     @IBOutlet weak var clvPopularTrainer : UICollectionView!
@@ -116,7 +117,7 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: kHomeNewClassHeaderViewID) as? HomeNewClassHeaderView {
-            headerView.lblTitle.text = "New Uploads"
+            headerView.lblTitle.text = "    New Uploads"
             return headerView
         }
         return UIView()
@@ -296,9 +297,10 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
         showLoader()
         _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in
             
-            let message = responseObj["message"] as? String ?? ""
-            Utility.shared.showToast(message)
-            
+            if let message = responseObj["message"] as? String, !message.isEmpty {
+                Utility.shared.showToast(message)
+            }
+
             switch recdType {
             case SelectedDemandClass.live:
                 for (index, model) in self.arrNewClass.enumerated() {
@@ -426,7 +428,12 @@ extension YourCoachesViewController {
             
             let dataObj = responseObj["coach"] as? [Any] ?? [Any]()
             self.arrPopularTrainerList =  PopularTrainerList.getData(data: dataObj)
-            self.clvPopularTrainer.reloadData()
+            if self.arrPopularTrainerList.count == 0 {
+                self.viewNoCoachFound.isHidden = false
+            } else {
+                self.viewNoCoachFound.isHidden = true
+                self.clvPopularTrainer.reloadData()
+            }
             self.hideLoader()
             
         } failure: { (error) in

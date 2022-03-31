@@ -408,7 +408,10 @@ extension RecipeDetailsViewController {
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.ADD_REMOVE_BOOKMARK, parameters: param, headers: nil) { responseObj in
             
             let responseModel = ResponseDataModel(responseObj: responseObj)
-            
+            if let message = responseObj["message"] as? String, !message.isEmpty {
+                Utility.shared.showToast(message)
+            }
+
             if Reachability.isConnectedToNetwork(){
                 self.getRecipeDetails()
             }

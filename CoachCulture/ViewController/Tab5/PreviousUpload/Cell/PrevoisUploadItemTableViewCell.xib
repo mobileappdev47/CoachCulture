@@ -68,7 +68,7 @@
                                         <rect key="frame" x="75" y="80" width="45" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="45" id="9b4-5s-BcZ"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="9b4-5s-BcZ"/>
                                             <constraint firstAttribute="height" constant="20" id="MYc-hw-clV"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>

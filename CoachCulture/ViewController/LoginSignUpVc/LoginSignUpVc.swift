@@ -72,7 +72,7 @@ class LoginSignUpVc: BaseViewController {
     var username = ""
     var email = ""
     var socialID = ""
-
+    
     //MARK: - VIEW CONTROLLER LIFE CYCLE
     
     override func viewDidLoad() {
@@ -101,7 +101,7 @@ class LoginSignUpVc: BaseViewController {
             txt?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
             txt?.textColor = COLORS.TEXT_COLOR
             txt?.tintColor = COLORS.TEXT_COLOR
-            
+            txt?.delegate = self
             //txt?.layer.cornerRadius = 10
             txt?.clipsToBounds = true
         }
@@ -164,6 +164,7 @@ class LoginSignUpVc: BaseViewController {
     }
     
     @objc func didTapForgot(_ sender: UIButton) {
+        removeAllErrLogin()
         let vc = storyboard?.instantiateViewController(withIdentifier: "ForgotPassViewController") as! ForgotPassViewController
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -347,7 +348,7 @@ class LoginSignUpVc: BaseViewController {
         
         var phoneNo = ""
         var dialCode = ""
-
+        
         let phoneNumberKit = PhoneNumberKit()
         do {
             let phoneNumber = try phoneNumberKit.parse("\(txtCountryCode.text ?? "")\(txtPhone.text ?? "")")
@@ -356,7 +357,7 @@ class LoginSignUpVc: BaseViewController {
         } catch {
             print("Generic parser error")
         }
-
+        
         if txtUsername.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             txtUsername.setError("Username is mandatory field", show: true)
             errorForBlankText(false, true, true, true, true)
@@ -446,7 +447,7 @@ extension LoginSignUpVc: countryPickDelegate {
         countryCodeDesc = selectedCountry?.code ?? ""
         
         let continentObj = Utility.shared.readLocalFile(forName: "continent")
-    
+        
         let filteredCountry = continentObj?.filter({ (dict) -> Bool in
             if selectedCountry?.code == "AX" {
                 return dict.key == "FI"
@@ -454,7 +455,7 @@ extension LoginSignUpVc: countryPickDelegate {
                 return dict.key == selectedCountry?.code
             }
         })
-    
+        
         if filteredCountry?.count ?? 0 > 0 {
             switch selectedCountry?.currencyCode {
             case BaseCurrencyList.SGD:
@@ -576,4 +577,27 @@ extension LoginSignUpVc {
         }
     }
     
+}
+
+extension LoginSignUpVc: UITextFieldDelegate {
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if textField == txtPassword {
+            let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+            txtPassword.text = ""
+            txtPassword.text = newText
+            return false
+        } else if textField == txtRePassword {
+            let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+            txtRePassword.text = ""
+            txtRePassword.text = newText
+            return false
+        } else if textField == txtPasswordLogin {
+            let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+            txtPasswordLogin.text = ""
+            txtPasswordLogin.text = newText
+            return false
+        }
+        return true
+    }
 }

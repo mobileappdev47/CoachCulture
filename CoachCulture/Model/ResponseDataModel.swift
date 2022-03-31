@@ -23,7 +23,7 @@ class ResponseDataModel {
 }
 
 struct ErrorsDataModel: Codable {
-
+    
     var email : [String]?
     var phoneno : [String]?
     var username : [String]?
@@ -42,7 +42,7 @@ struct ErrorsDataModel: Codable {
 }
 
 struct EmailDataModel: Codable {
-
+    
     let email : String?
     let phoneno : String?
     

@@ -965,13 +965,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8lf-2c-Vzm">
-                                <rect key="frame" x="30" y="153" width="315" height="23.5"/>
+                                <rect key="frame" x="30" y="133" width="315" height="23.5"/>
                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
                                 <color key="textColor" name="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5GD-hA-07X" userLabel="mainContentView">
-                                <rect key="frame" x="30" y="191.5" width="315" height="324"/>
+                                <rect key="frame" x="30" y="171.5" width="315" height="324"/>
                                 <subviews>
                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="poi-vr-Fub">
                                         <rect key="frame" x="0.0" y="0.0" width="315" height="324"/>
@@ -1265,7 +1265,7 @@
                         <viewLayoutGuide key="safeArea" id="WR5-JT-ajS"/>
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
-                            <constraint firstItem="5GD-hA-07X" firstAttribute="centerY" secondItem="WR5-JT-ajS" secondAttribute="centerY" constant="20" id="Adz-Wy-3b0"/>
+                            <constraint firstItem="5GD-hA-07X" firstAttribute="centerY" secondItem="WR5-JT-ajS" secondAttribute="centerY" id="Adz-Wy-3b0"/>
                             <constraint firstItem="cjv-Lg-wgs" firstAttribute="leading" secondItem="1LZ-F4-Toq" secondAttribute="leading" id="DeW-SG-Ct3"/>
                             <constraint firstItem="5GD-hA-07X" firstAttribute="leading" secondItem="WR5-JT-ajS" secondAttribute="leading" constant="30" id="HKe-kr-Tl6"/>
                             <constraint firstItem="ITN-Iw-NuK" firstAttribute="leading" secondItem="WR5-JT-ajS" secondAttribute="leading" constant="20" id="IX1-uh-Ild"/>

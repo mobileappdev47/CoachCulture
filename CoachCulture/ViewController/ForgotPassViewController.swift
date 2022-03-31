@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhoneNumberKit
 
 class ForgotPassViewController: BaseViewController {
     
@@ -54,6 +55,13 @@ class ForgotPassViewController: BaseViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        self.txtPhone.setError()
+        self.txtEmail.setError()
+    }
+        
     func setUpUI() {
         #if DEBUG
         txtEmail.text = "anjalimendpara625@gmail.com"
@@ -116,10 +124,25 @@ class ForgotPassViewController: BaseViewController {
                 }
             }
         } else {
+            var dialCode = ""
+            var phoneNo = ""
+            
+            let phoneNumberKit = PhoneNumberKit()
+            do {
+                let phoneNumber = try phoneNumberKit.parse("\(txtCountryCode.text ?? "")\(txtPhone.text ?? "")")
+                phoneNo = "\(phoneNumber.nationalNumber)"
+                dialCode = phoneNumber.regionID ?? ""
+            } catch {
+                print("Generic parser error")
+            }
+
             if (txtPhone.text!.isEmpty) {
                 txtPhone.setError("Mobile number is mandatory field", show: true)
                 imgErrPhone.isHidden = false
-            }  else {
+            } else if !Utility.shared.checkPhoneNumberValidation(number: phoneNo, countryCodeStr: dialCode) {
+                imgErrPhone.isHidden = false
+                txtPhone.setError("Please enter a valid phone", show: true)
+            } else {
                 if Reachability.isConnectedToNetwork(){
                     resendOTP()
                     txtPhone.setError()
@@ -203,18 +226,18 @@ extension ForgotPassViewController {
               self.goToOtpScreen(dic: param)
           } else {
             
+            var isFromEmail = false
+            if !self.viwEmail.isHidden {
+                isFromEmail = true
+            }
             let vc = PopupViewController.viewcontroller()
             vc.isHide = true
             vc.titleTxt = "Not Signed Up Yet"
-            vc.message = """
-                    Looks like the number/email
-                    you have entered is not
-                    registered on CoachCulture.
-                    """
+            vc.message = "Looks like the \(isFromEmail ? "email" : "number") you have entered is not registered on CoachCulture."
             self.present(vc, animated: true, completion: nil)
           }
           
-          Utility.shared.showToast(responseModel.message)
+          //Utility.shared.showToast(responseModel.message)
           self.hideLoader()
             
         } failure: { (error) in
@@ -230,6 +253,8 @@ extension ForgotPassViewController {
             vc.emaiOrPhone = txtEmail.text!
         } else {
             vc.emaiOrPhone = txtCountryCode.text! + " " + txtPhone.text!
+            vc.phoneCode = self.txtCountryCode.text ?? ""
+            vc.phoneNo = self.txtPhone.text ?? ""
         }
         vc.paramDic = dic
         DispatchQueue.main.async {
