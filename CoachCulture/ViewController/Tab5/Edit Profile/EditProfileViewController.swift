@@ -365,16 +365,16 @@ class EditProfileViewController: BaseViewController {
     @IBAction func clickTobBtnCoachContentsButton(_ sender: UIButton) {
         if sender.tag == 0 { //on demand
             let vc = OnDemandVideoUploadViewController.viewcontroller()
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.pushVC(To: vc, animated: true)
         } else if sender.tag == 1 {
             let vc = ScheduleLiveClassViewController.viewcontroller()
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.pushVC(To: vc, animated: true)
         } else if sender.tag == 2 {
             let vc = CreateMealRecipeViewController.viewcontroller()
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.pushVC(To: vc, animated: true)
         } else if sender.tag == 3 {
             let vc = PreviousUploadViewController.viewcontroller()
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.pushVC(To: vc, animated: true)
         } else if sender.tag == 4 {
             let nextVc = ManageSubscriptionListViewController.viewcontroller()
             nextVc.isFromSubscribers = true

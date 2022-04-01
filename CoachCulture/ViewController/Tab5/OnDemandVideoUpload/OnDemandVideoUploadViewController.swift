@@ -251,7 +251,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
         errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
         removeAllErr()
     }
-    
+        
     @IBAction func clickToBtnClassDifficulty(_ sender : UIButton) {
         tblClassDifficulty.isHidden = !tblClassDifficulty.isHidden
     }

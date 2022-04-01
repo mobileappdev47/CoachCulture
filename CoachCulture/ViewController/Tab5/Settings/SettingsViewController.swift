@@ -95,7 +95,7 @@ class SettingsViewController: BaseViewController {
         hideTabBar()
         let vc = EditProfileViewController.viewcontroller()
         vc.isForEdit = false
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.pushVC(To: vc, animated: true)
     }
     
     @IBAction func clickToBtnEditProfile(_ sender: UIButton) {
@@ -103,13 +103,12 @@ class SettingsViewController: BaseViewController {
         if AppPrefsManager.sharedInstance.getUserRole() ==  UserRole.coach {
             let vc = EditProfileViewController.viewcontroller()
             vc.isForEdit = true
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.pushVC(To: vc, animated: true)
         }
         else {
             let vc = EditCoachProfileViewController.viewcontroller()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
-        
+            self.pushVC(To: vc, animated: true)
+        }        
     }
     
     @IBAction func clickToBtnPaymentMethods(_ sender: UIButton) {

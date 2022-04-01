@@ -5934,10 +5934,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XIM-b7-S1w">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="XIM-b7-S1w">
                                 <rect key="frame" x="20" y="255" width="374" height="481"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvk-fM-fe1" userLabel="viewNoDataFound">
+                                <rect key="frame" x="20" y="255" width="374" height="481"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No on demand class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7YQ-gM-aKB">
+                                        <rect key="frame" x="66.333333333333329" y="228.66666666666669" width="241.66666666666669" height="24"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
+                                        <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="themeColor"/>
+                                <constraints>
+                                    <constraint firstItem="7YQ-gM-aKB" firstAttribute="centerX" secondItem="Uvk-fM-fe1" secondAttribute="centerX" id="420-Bl-0QN"/>
+                                    <constraint firstItem="7YQ-gM-aKB" firstAttribute="centerY" secondItem="Uvk-fM-fe1" secondAttribute="centerY" id="Yto-4b-gAy"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZMR-e3-dc1">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                 <subviews>
@@ -6194,12 +6210,16 @@
                         <viewLayoutGuide key="safeArea" id="QRP-7W-pgz"/>
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
+                            <constraint firstItem="Uvk-fM-fe1" firstAttribute="leading" secondItem="XIM-b7-S1w" secondAttribute="leading" id="0yP-AI-09R"/>
                             <constraint firstItem="QNu-aM-3oK" firstAttribute="leading" secondItem="QiA-jH-9kT" secondAttribute="leading" constant="20" id="7gt-du-Qt3"/>
+                            <constraint firstItem="Uvk-fM-fe1" firstAttribute="top" secondItem="XIM-b7-S1w" secondAttribute="top" id="9Ml-zb-mCX"/>
                             <constraint firstItem="QRP-7W-pgz" firstAttribute="trailing" secondItem="QNu-aM-3oK" secondAttribute="trailing" constant="20" id="A71-vi-74Y"/>
                             <constraint firstItem="XIM-b7-S1w" firstAttribute="leading" secondItem="QiA-jH-9kT" secondAttribute="leading" constant="20" id="BQp-qa-rV9"/>
                             <constraint firstItem="ZMR-e3-dc1" firstAttribute="top" secondItem="QRP-7W-pgz" secondAttribute="top" id="ChC-M4-dAX"/>
+                            <constraint firstItem="Uvk-fM-fe1" firstAttribute="trailing" secondItem="XIM-b7-S1w" secondAttribute="trailing" id="NMj-CU-8wH"/>
                             <constraint firstAttribute="bottom" secondItem="XIM-b7-S1w" secondAttribute="bottom" id="dLd-q8-dgx"/>
                             <constraint firstItem="0Ps-j8-e6R" firstAttribute="top" secondItem="ZMR-e3-dc1" secondAttribute="bottom" id="f3q-ih-X5J"/>
+                            <constraint firstItem="Uvk-fM-fe1" firstAttribute="bottom" secondItem="XIM-b7-S1w" secondAttribute="bottom" id="gxM-HB-Tth"/>
                             <constraint firstItem="QNu-aM-3oK" firstAttribute="top" secondItem="0Ps-j8-e6R" secondAttribute="bottom" constant="10" id="hxj-Lg-SGS"/>
                             <constraint firstItem="0Ps-j8-e6R" firstAttribute="leading" secondItem="QiA-jH-9kT" secondAttribute="leading" id="iIQ-t3-aps"/>
                             <constraint firstItem="QNu-aM-3oK" firstAttribute="top" secondItem="0Ps-j8-e6R" secondAttribute="bottom" constant="10" id="ie3-tl-bk9"/>
@@ -6214,9 +6234,11 @@
                         <outlet property="btnLive" destination="lQf-6c-D44" id="ADc-Gm-y0f"/>
                         <outlet property="btnOnDemand" destination="mK0-Ip-COW" id="Axc-Cl-cV0"/>
                         <outlet property="btnRecipe" destination="P9B-c7-il1" id="a33-8l-Kct"/>
+                        <outlet property="lblNoDataFound" destination="7YQ-gM-aKB" id="Xce-aH-WaU"/>
                         <outlet property="lblTitle" destination="GTK-Vo-BaO" id="qfG-Jy-9Dk"/>
                         <outlet property="tblOndemand" destination="XIM-b7-S1w" id="dp4-3Z-N1T"/>
                         <outlet property="txtSearch" destination="Xv5-LW-w5t" id="I7m-vk-pUs"/>
+                        <outlet property="viewNoDataFound" destination="Uvk-fM-fe1" id="lVs-HF-MUj"/>
                         <outlet property="viwLiveLine" destination="wbI-hR-chH" id="cDB-dv-YKu"/>
                         <outlet property="viwOnDemandLine" destination="ZCy-DO-IYd" id="uUj-dh-jLW"/>
                         <outlet property="viwRecipeLine" destination="qE8-6g-i0k" id="DED-xV-7RS"/>

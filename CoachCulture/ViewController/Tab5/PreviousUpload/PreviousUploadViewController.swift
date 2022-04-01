@@ -14,6 +14,8 @@ class PreviousUploadViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var lblNoDataFound: UILabel!
+    @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var viwOnDemandLine: UIView!
     @IBOutlet weak var viwLiveLine: UIView!
     @IBOutlet weak var viwRecipeLine: UIView!
@@ -330,10 +332,10 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
+        return 122
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 105
+        return 122
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -400,6 +402,13 @@ extension PreviousUploadViewController {
                 self.tblOndemand.reloadData()
             }
             
+            if self.arrCoachClassInfoList.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+                self.lblNoDataFound.text = self.class_type == CoachClassType.onDemand ? "No on demand class found" : "No live class found"
+            }
+            
             if class_info.count < self.perPageCount
             {
                 self.continueLoadingData = false
@@ -454,6 +463,13 @@ extension PreviousUploadViewController {
             }
 
             self.tblOndemand.reloadData()
+            
+            if self.arrCoachRecipe.count > 0 {
+                self.viewNoDataFound.isHidden = true
+            } else {
+                self.viewNoDataFound.isHidden = false
+                self.lblNoDataFound.text = "No recipe found"
+            }
             
             if recipe_info.count < self.perPageCountRecipe
             {

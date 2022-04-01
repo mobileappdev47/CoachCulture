@@ -1095,17 +1095,17 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CN0-gj-ud4">
                                 <rect key="frame" x="20" y="199" width="335" height="448"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No subscribed found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4qc-1P-MQK">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No subscribed found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jQG-mX-yrp">
                                         <rect key="frame" x="73.5" y="212.5" width="188" height="23.5"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" name="themeColor"/>
                                 <constraints>
-                                    <constraint firstItem="4qc-1P-MQK" firstAttribute="centerX" secondItem="CN0-gj-ud4" secondAttribute="centerX" id="Ljc-QC-4xr"/>
-                                    <constraint firstItem="4qc-1P-MQK" firstAttribute="centerY" secondItem="CN0-gj-ud4" secondAttribute="centerY" id="Zib-xE-kXI"/>
+                                    <constraint firstItem="jQG-mX-yrp" firstAttribute="centerY" secondItem="CN0-gj-ud4" secondAttribute="centerY" id="GZU-FB-wQ8"/>
+                                    <constraint firstItem="jQG-mX-yrp" firstAttribute="centerX" secondItem="CN0-gj-ud4" secondAttribute="centerX" id="aKw-9K-sRM"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1136,7 +1136,7 @@
                     <connections>
                         <outlet property="lblActiveCount" destination="8L2-cG-FRl" id="yvt-31-eSa"/>
                         <outlet property="lblCancelledCount" destination="PhR-Bm-9Oz" id="3SH-H3-AdZ"/>
-                        <outlet property="lblNoDataFound" destination="4qc-1P-MQK" id="Rub-Uf-lx7"/>
+                        <outlet property="lblNoDataFound" destination="jQG-mX-yrp" id="CsV-7b-844"/>
                         <outlet property="lblPageTitle" destination="seu-JE-Hxl" id="NRX-Dc-WWO"/>
                         <outlet property="tblManageSubscription" destination="eS6-ae-c0z" id="Svt-rZ-NNr"/>
                         <outlet property="txtSearch" destination="ksN-YP-Os3" id="S7s-M2-rdd"/>

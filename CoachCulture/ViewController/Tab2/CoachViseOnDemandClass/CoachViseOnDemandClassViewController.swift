@@ -125,10 +125,6 @@ class CoachViseOnDemandClassViewController: BaseViewController {
             getCoacheSearchHistory()
             self.resetVariable()
             self.resetRecipeVariable()
-            if Reachability.isConnectedToNetwork(){
-                self.getCoachesWiseClassList()
-                self.getCoachesWiseRecipeList()
-            }
         }
         setData()
     }
@@ -389,14 +385,13 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
             
-            if arrCoachClassInfoList.count - 1 == indexPath.row {
-                
-                if Reachability.isConnectedToNetwork(){
-                    getCoachesWiseClassList()
+            if arrCoachClassInfoList.count != 1 {
+                if arrCoachClassInfoList.count - 1 == indexPath.row {
+                    if Reachability.isConnectedToNetwork(){
+                        getCoachesWiseClassList()
+                    }
                 }
             }
-            
-            
             return cell
         } else if isFromSelectedType == SelectedDemandClass.live {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseOnDemandClassItemTableViewCell", for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
@@ -426,15 +421,13 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
             
-            if arrCoachClassInfoList.count - 1 == indexPath.row {
-                
-                if Reachability.isConnectedToNetwork(){
-                    getCoachesWiseClassList()
+            if arrCoachClassInfoList.count != 1 {
+                if arrCoachClassInfoList.count - 1 == indexPath.row {
+                    if Reachability.isConnectedToNetwork(){
+                        getCoachesWiseClassList()
+                    }
                 }
             }
-            
-            
-            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseRecipeItemTableViewCell", for: indexPath) as! CoachViseRecipeItemTableViewCell
@@ -469,17 +462,16 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             } else {
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
-            if arrCoachRecipe.count - 1 == indexPath.row {
-                
-                if Reachability.isConnectedToNetwork(){
-                    getCoachesWiseRecipeList()
+            
+            if arrCoachRecipe.count != 1 {
+                if arrCoachRecipe.count - 1 == indexPath.row {
+                    if Reachability.isConnectedToNetwork(){
+                        getCoachesWiseRecipeList()
+                    }
                 }
             }
-            
             return cell
         }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
