@@ -222,6 +222,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 cell.lblClassTime.text = obj.total_viewers + " Views"
                 cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
                 cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 12)
+                cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
                 cell.lblDuration.text = obj.duration
                 let str = obj.average_rating
                 if let num = NumberFormatter().number(from: str) {
@@ -241,9 +242,11 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 cell.btnUser.tag = indexPath.row
                 cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
                 
-                if arrCoachClassPrevious.count - 1 == indexPath.row {
-                    if Reachability.isConnectedToNetwork(){
-                        getPrevoisCoachClassList()
+                if arrCoachClassPrevious.count != 1 {
+                    if arrCoachClassPrevious.count - 1 == indexPath.row {
+                        if Reachability.isConnectedToNetwork(){
+                            getPrevoisCoachClassList()
+                        }
                     }
                 }
                 if isFromBookMarkPage {
@@ -279,7 +282,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.lblUserName.text = "@" + obj.coachDetailsObj.username
             cell.lblDuration.text = obj.duration
-            
+            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblClassDate.text = getRealDate(date: obj.created_at)
             cell.lblClassTime.text = obj.class_time
             cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
@@ -301,9 +304,11 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             cell.btnRating.tag = indexPath.row
             cell.btnRating.addTarget(self, action: #selector(self.clickToBtnRateNow(_:)), for: .touchUpInside)
             
-            if arrCoachClassPrevious.count - 1 == indexPath.row {
-                if Reachability.isConnectedToNetwork(){
-                    getPrevoisCoachClassList()
+            if arrCoachClassPrevious.count != 1 {
+                if arrCoachClassPrevious.count - 1 == indexPath.row {
+                    if Reachability.isConnectedToNetwork(){
+                        getPrevoisCoachClassList()
+                    }
                 }
             }
             if isFromBookMarkPage {
@@ -324,8 +329,10 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseRecipeItemTableViewCell", for: indexPath) as! CoachViseRecipeItemTableViewCell
             cell.viewBlur.isHidden = false
+            cell.isAllowTagLayout = false
             let obj = arrCoachRecipePrevious[indexPath.row]
             cell.lbltitle.text = obj.title
+            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.meal_type_name
             cell.clvDietaryRestriction.reloadData()
@@ -351,7 +358,15 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             let arrSeperatedDietaryRestriction = obj.dietary_restriction_name.components(separatedBy: ",")
             if isFromBookMarkPage {
                 cell.viewBlur.isHidden = true
-                cell.arrDietaryRestriction = obj.arrdietary_restriction
+                var arrFilteredDietaryRestriction = [String]()
+                if obj.arrdietary_restriction.count > 2 {
+                    arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[0])
+                    arrFilteredDietaryRestriction.append(obj.arrdietary_restriction[1])
+                    cell.arrDietaryRestriction = arrFilteredDietaryRestriction
+                } else {
+                    cell.arrDietaryRestriction = obj.arrdietary_restriction
+                }
+
                 cell.lblUsername.text = "@" + obj.coachDetailsObj.username
                 cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             } else {
@@ -377,7 +392,13 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 }
             }
             cell.imgBookMark.image = obj.bookmark == BookmarkType.Yes ? UIImage(named: "Bookmark") : UIImage(named: "BookmarkLight")
-            
+            if arrCoachRecipePrevious.count != 1 {
+                if arrCoachRecipePrevious.count - 1 == indexPath.row {
+                    if Reachability.isConnectedToNetwork(){
+                        getPrevoisCoachRecipeList()
+                    }
+                }
+            }
             return cell
         }
         
@@ -583,6 +604,10 @@ extension PreviousClassesViewController {
             }
             let arr = PopularRecipeData.getData(data: dataObj)
             self.arrCoachRecipePrevious.append(contentsOf: arr)
+            
+            self.arrCoachRecipePrevious.forEach { (model) in
+                model.arrdietary_restriction.sort()
+            }
             
             if self.arrCoachRecipePrevious.count > 0 {
                 self.viewNoDataFound.isHidden = true

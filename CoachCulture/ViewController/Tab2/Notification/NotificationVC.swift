@@ -52,6 +52,11 @@ class NotificationVC: BaseViewController {
             let arr = ModelNotificationClass.getData(data: dataObj)
             if arr.count > 0 {
                 self.arrNotificationList = arr
+                
+                self.arrNotificationList.forEach { (model) in
+                    model.meta.arrdietary_restriction.sort()
+                }
+                
                 self.viewNoDataFound.isHidden = true
                 DispatchQueue.main.async {
                     self.tblNotificationView.reloadData()

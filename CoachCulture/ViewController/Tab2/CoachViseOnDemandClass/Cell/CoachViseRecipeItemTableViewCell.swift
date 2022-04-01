@@ -41,6 +41,7 @@ class CoachViseRecipeItemTableViewCell: UITableViewCell {
     var arrDietaryRestriction = [String]()
     var didTapBookmarkButton : (() -> Void)!
     var selectedIndex = 0
+    var isAllowTagLayout = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -51,7 +52,9 @@ class CoachViseRecipeItemTableViewCell: UITableViewCell {
         clvDietaryRestriction.register(UINib(nibName: "RecipeDietartyItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "RecipeDietartyItemCollectionViewCell")
         clvDietaryRestriction.delegate = self
         clvDietaryRestriction.dataSource = self
-        clvDietaryRestriction.collectionViewLayout = TagsLayout()
+        if isAllowTagLayout {
+            clvDietaryRestriction.collectionViewLayout = TagsLayout()
+        }
     }
     
     //MARK: - ACTION
@@ -79,7 +82,11 @@ extension CoachViseRecipeItemTableViewCell: UICollectionViewDataSource, UICollec
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "RecipeDietartyItemCollectionViewCell", for: indexPath) as!  RecipeDietartyItemCollectionViewCell
-        
+        if !isAllowTagLayout {
+            cell.viwContainer.addCornerRadius(3)
+        } else {
+            
+        }
         cell.lblTitle.text = arrDietaryRestriction[indexPath.row]
         cell.lblTitle.sizeToFit()
         
@@ -87,7 +94,7 @@ extension CoachViseRecipeItemTableViewCell: UICollectionViewDataSource, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width / 3, height: 20)
+        return CGSize(width: (collectionView.frame.width - 20.0) / 2, height: 15)
     }
     
 }

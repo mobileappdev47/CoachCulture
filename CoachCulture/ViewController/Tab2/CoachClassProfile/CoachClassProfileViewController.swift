@@ -59,6 +59,7 @@ class CoachClassProfileViewController: BaseViewController {
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
     var userWorkoutStatisticsModel = UserWorkoutStatisticsModel()
     var ITEM_COUNT  = 0
+    var isFromInitialLoading = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +70,7 @@ class CoachClassProfileViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        isFromInitialLoading = true
         resetVariable()
         setUpUI()
         self.showTabBar()
@@ -369,21 +371,27 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableView") as! HeaderTableView
+        if isFromInitialLoading {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                headerView.clickToBtnClassTypeForCoach(headerView.btnOnDemand)
+            })
+        }
         headerView.didTapButton = { recdType in
+            self.isFromInitialLoading = false
             switch recdType {
             case SelectedDemandClass.onDemand, SelectedDemandClass.live:
                 self.resetVariable()
-                if Reachability.isConnectedToNetwork(){
+                if Reachability.isConnectedToNetwork() {
                     self.callFollowingCoachClassListAPI()
                 }
             case SelectedDemandClass.recipe:
                 self.resetRecipeVariable()
-                if Reachability.isConnectedToNetwork(){
+                if Reachability.isConnectedToNetwork() {
                     self.getCoachesWiseRecipeList()
                 }
             default:
                 self.resetVariable()
-                if Reachability.isConnectedToNetwork(){
+                if Reachability.isConnectedToNetwork() {
                     self.callFollowingCoachClassListAPI()
                 }
             }
@@ -655,7 +663,6 @@ extension CoachClassProfileViewController {
             if arr.count > 0 {
                 self.arrCoachClassInfoList.append(contentsOf: arr)
             }
-            self.setData()
 
             if arr.count < self.perPageCount
             {
@@ -664,6 +671,8 @@ extension CoachClassProfileViewController {
             self.isDataLoading = false
             self.pageNo += 1
             
+            self.setData()
+
             self.hideLoader()
 
             /*let dataObj = responseObj["coach"] as? [String : Any] ?? [String : Any]()
@@ -695,7 +704,9 @@ extension CoachClassProfileViewController {
                 self.arrCoachRecipe.append(contentsOf: arr)
             }
 
-            self.setData()
+            self.arrCoachRecipe.forEach { (model) in
+                model.arrdietary_restriction.sort()
+            }
             
             if arr.count < self.perPageCountRecipe
             {
@@ -704,6 +715,8 @@ extension CoachClassProfileViewController {
             self.isDataLoadingRecipe = false
             self.pageNoRecipe += 1
            
+            self.setData()
+
             self.hideLoader()
             
         } failure: { (error) in

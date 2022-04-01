@@ -104,11 +104,7 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             print(self.scrollView.contentOffset.y)
-            if safeAreaTop > 20 {
-                tblNewClass.isScrollEnabled = (self.scrollView.contentOffset.y >= 490)
-            } else {
-                tblNewClass.isScrollEnabled = (self.scrollView.contentOffset.y >= 260)
-            }
+            tblNewClass.isScrollEnabled = (self.scrollView.contentOffset.y >= 260)
         }
         if scrollView == self.tblNewClass {
             self.tblNewClass.isScrollEnabled = (tblNewClass.contentOffset.y > 0)

@@ -66,15 +66,26 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     var userDataObj : UserData?
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
     var logOutView:LogOutView!
+    var isFromInitialLoading = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setUpUI()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        setUpUI()
+        
+        self.hideTabBar()
+        isFromInitialLoading = true
+        if Reachability.isConnectedToNetwork(){
+            getUserProfile()
+            getCoacheSearchHistory()
+            self.resetVariable()
+            self.resetRecipeVariable()
+        }
+        setData()
     }
     
     // MARK: - Methods
@@ -119,14 +130,6 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
         dropDown.selectionBackgroundColor = .clear
-        
-        if Reachability.isConnectedToNetwork(){
-            getUserProfile()
-            getCoacheSearchHistory()
-            self.resetVariable()
-            self.resetRecipeVariable()
-        }
-        setData()
     }
     
     func resetVariable() {
@@ -296,8 +299,14 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableView") as! HeaderTableView
+        if isFromInitialLoading {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
+                headerView.clickToBtnClassTypeForCoach(headerView.btnOnDemand)
+            })
+        }
         headerView.vewClass.isHidden = false
         headerView.didTapButton = { recdType in
+            self.isFromInitialLoading = false
             switch recdType {
             case SelectedDemandClass.onDemand:
                 self.resetVariable()
@@ -341,7 +350,8 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 100
+        let height = selectedCoachId == AppPrefsManager.sharedInstance.getUserData().id ? 100 : 50
+        return CGFloat(height)
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -433,6 +443,8 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseRecipeItemTableViewCell", for: indexPath) as! CoachViseRecipeItemTableViewCell
             let obj = arrCoachRecipe[indexPath.row]
             cell.selectedIndex = indexPath.row
+            cell.isAllowTagLayout = true
+            cell.setUpUI()
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_recipe_id] = obj.id
@@ -442,6 +454,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 }
             }
             cell.lbltitle.text = obj.title
+            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
             

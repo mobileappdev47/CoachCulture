@@ -230,7 +230,7 @@ class RecipeDetailsViewController: BaseViewController {
     
     private func navigateToRoot() {
         for controller in navigationController!.viewControllers {
-            if controller.isKind(of: EditProfileViewController.self) {
+            if controller.isKind(of: EditProfileViewController.self) || controller.isKind(of: CoachViseOnDemandClassViewController.self) {
                 self.navigationController?.popToViewController(controller, animated: true)
                 break
             }

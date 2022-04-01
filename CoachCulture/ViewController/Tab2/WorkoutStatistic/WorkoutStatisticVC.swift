@@ -225,6 +225,12 @@ class WorkoutStatisticVC: BaseViewController {
     //MARK: - API CALLING
     
     func callgetUserPreviousClassAPI() {
+        if(isDataLoading || !continueLoadingData){
+            return
+        }
+        
+        isDataLoading = true
+
         let api = "\(API.GET_USER_PREVIOUS_CLASS)?page_no=\(pageNo)&per_page=\(perPageCount)" 
         showLoader()
         
@@ -339,6 +345,12 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
         return self.arrCoachClassInfoList.count
     }
     
+    @objc func clickToBtnUser( _ sender : UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = self.arrCoachClassInfoList[sender.tag].coachDetailsObj.id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let obj = self.arrCoachClassInfoList[indexPath.row]
@@ -363,11 +375,10 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
             
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lbltitle.text = obj.class_type_name
-            cell.lbltitle.text = obj.class_subtitle
-            //cell.lblClassDate.text = obj.created_atFormated // uncomment code
+            cell.lblClassDate.text = convertUTCToLocal(dateStr: obj.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
             cell.selectedIndex = indexPath.row
             cell.lblClassTime.text = obj.total_viewers + " Views"
-            
+            cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
                 param[Params.AddRemoveBookmark.coach_class_id] = obj.id
@@ -382,11 +393,15 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
             
-            if arrCoachClassInfoList.count - 1 == indexPath.row {
-                
-                //callFollowingCoachClassListAPI()
+            if arrCoachClassInfoList.count != 1 {
+                if arrCoachClassInfoList.count - 1 == indexPath.row {
+                    callgetUserPreviousClassAPI()
+                }
             }
-            
+            cell.btnUser.tag = indexPath.row
+            cell.btnUser.removeTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+
             cell.layoutIfNeeded()
             return cell
         } else {
@@ -409,14 +424,14 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
             
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lbltitle.text = obj.class_type_name
-            cell.lbltitle.text = obj.class_subtitle
-            //cell.lblClassDate.text = obj.created_atFormated
+            cell.lblClassDate.text = convertUTCToLocal(dateStr: obj.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")
             cell.lblClassTime.text = obj.total_viewers + " Views"
             
             cell.lblUsername.text = "@\(obj.coachDetailsObj.username)"
             cell.imgProfileBottom.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBanner.setImageFromURL(imgUrl: obj.coachDetailsObj.user_image, placeholderImage: "")
             cell.imgProfileBottom.blurImage()
+            cell.lblClassDifficultyLevel.text = obj.class_subtitle
             
             cell.didTapBookmarkButton = {
                 var param = [String:Any]()
@@ -432,10 +447,15 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
                 cell.imgBookMark.image = UIImage(named: "Bookmark")
             }
             
-            if arrCoachClassInfoList.count - 1 == indexPath.row {
-                
-                //callFollowingCoachClassListAPI()
+            if arrCoachClassInfoList.count != 1 {
+                if arrCoachClassInfoList.count - 1 == indexPath.row {
+                    callgetUserPreviousClassAPI()
+                }
             }
+            cell.btnUser.tag = indexPath.row
+            cell.btnUser.removeTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+
             return cell
         }
     }
