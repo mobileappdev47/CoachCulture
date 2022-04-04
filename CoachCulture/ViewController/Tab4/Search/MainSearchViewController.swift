@@ -160,7 +160,7 @@ extension MainSearchViewController: UICollectionViewDataSource, UICollectionView
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width =  (clvClassType.frame.width - 30 ) / 3
+        let width =  (clvClassType.frame.width - 15 ) / 3
         return CGSize(width: width, height: 40)
     }
     

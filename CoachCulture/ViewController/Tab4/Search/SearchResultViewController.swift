@@ -14,6 +14,7 @@ class SearchResultViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var topConstantViewTime: NSLayoutConstraint!
     @IBOutlet weak var viewNoDataFound: UIView!
     @IBOutlet weak var clvDateTime: UICollectionView!
     @IBOutlet weak var tblSearchResult: UITableView!
@@ -62,13 +63,13 @@ class SearchResultViewController: BaseViewController {
         
         let layout = clvDateTime.collectionViewLayout as! UICollectionViewFlowLayout
 
-        let noOfCell: CGFloat = 4
-        let totalGivenMarginToCLNView: CGFloat = 10
-        let minimumInteritemSpacingForSectionAt: CGFloat = 10
+        let noOfCell: CGFloat = 5
+        let totalGivenMarginToCLNView: CGFloat = 30
+        let minimumInteritemSpacingForSectionAt: CGFloat = 0
         let margin = totalGivenMarginToCLNView + minimumInteritemSpacingForSectionAt
         
         let width  = (self.clvDateTime.frame.width - margin) / noOfCell
-        let height  = CGFloat(35.0)
+        let height  = CGFloat(25.0)
 
         layout.itemSize = CGSize(width: width, height: height)
         clvDateTime.collectionViewLayout = layout
@@ -126,6 +127,7 @@ class SearchResultViewController: BaseViewController {
         } else {
             viwSearchFilter.isHidden = false
             viwLiveClassTime.isHidden = true
+            topConstantViewTime.constant = 0.0
         }
     }
     
@@ -160,23 +162,32 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
     {
         
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
-        
+        cell.viwContainer.addCornerRadius(5)
         cell.lblTitle.text = arrDates[indexPath.row].strDate
         if class_date == arrDates[indexPath.row].date {
             cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
         } else {
             cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         }
-        
+        cell.layoutIfNeeded()
         return cell
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
+        return 7.0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 7.0
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width =  (clvDateTime.frame.width - 20 ) / 4
+        let width =  (clvDateTime.frame.width - 30 ) / 5
         
-        return CGSize(width: width, height: 35)
+        return CGSize(width: width, height: 25)
         
     }
     

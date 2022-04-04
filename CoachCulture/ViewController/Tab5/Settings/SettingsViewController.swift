@@ -28,28 +28,38 @@ class SettingsViewController: BaseViewController {
     // MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpUI()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        setUpUI()
         hideTabBar()
     }
     
     
     func setUpUI() {
-        
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         logOutView.tapToBtnLogOut {
             self.removeCountryView()
             GIDSignIn.sharedInstance.signOut()
-            AppPrefsManager.sharedInstance.saveUserData(userData: [:])
-            AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: false)
+            self.resetAppData()
             let Login = LandingVC.viewcontroller()
             self.navigationController?.pushViewController(Login, animated: false)
         }
         if AppPrefsManager.sharedInstance.getUserRole() !=  UserRole.coach {
             viwCreateCoachContent.isHidden = true
+        }
+    }
+    
+    fileprivate func resetAppData() {
+        AppPrefsManager.sharedInstance.saveUserData(userData: [:])
+        AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: false)
+        if let isRememberMe = DEFAULTS.value(forKey: DEFAULTS_KEY.IS_REMEMBER_ME) as? Bool, !isRememberMe {
+            DEFAULTS.setValue("", forKey: DEFAULTS_KEY.USERNAME)
+            DEFAULTS.setValue("", forKey: DEFAULTS_KEY.USER_PASSWORD)
+            DEFAULTS.setValue(false, forKey: DEFAULTS_KEY.IS_REMEMBER_ME)
         }
     }
     

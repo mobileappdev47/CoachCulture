@@ -77,6 +77,7 @@ class LoginSignUpVc: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupViews()
         if let countryCode = (Locale.current as NSLocale).object(forKey: .countryCode) as? String {
             let strPhoneCode = getCountryPhonceCode(countryCode)

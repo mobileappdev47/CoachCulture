@@ -143,14 +143,13 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         if collectionView == clvPopularClasses {
-            return CGSize(width: 130, height: 190)
+            let width =  (clvPopularClasses.frame.width - 20 ) / 2.3
+            return CGSize(width: width, height: 190)
         } else {
-            return CGSize(width: 100, height: 165)
+            let width =  (clvPopularClasses.frame.width - 20 ) / 3.3
+            return CGSize(width: width, height: 165)
         }
-        
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -338,13 +337,20 @@ extension HomeViewController : UITableViewDelegate, UITableViewDataSource, UIScr
         cell.lblTime.text = model.duration
         cell.lblUsername.text = "@\(model.coachDetailsObj.username)"
 
+        cell.lblDateTime.textAlignment = .left
+        cell.lblDate.textAlignment = .left
+
         if model.coach_class_type == CoachClassType.live {
             cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             cell.lblClassType.text = "LIVE"
+            cell.lblDateTime.font = UIFont(name: "SFProText-Heavy", size: 25.0)
+            cell.lblDate.font = UIFont(name: "SFProText-Heavy", size: 15.0)
             cell.lblDateTime.text = convertUTCToLocal(dateStr: model.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm")
             cell.lblDate.text = convertUTCToLocal(dateStr: model.class_date, sourceFormate: "yyyy-MM-dd", destinationFormate: "dd MMM yyyy")
         } else if model.coach_class_type == CoachClassType.onDemand {
             cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
+            cell.lblDate.font = UIFont(name: "SFProText-Bold", size: 18.0)
+            cell.lblDateTime.font = UIFont(name: "SFProText-Heavy", size: 14.0)
             cell.lblClassType.text = "ON DEMAND"
             cell.lblDate.text = "\(model.total_viewers) Views"
             cell.lblDateTime.text = convertUTCToLocal(dateStr: model.created_at, sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "dd MMM yyyy")

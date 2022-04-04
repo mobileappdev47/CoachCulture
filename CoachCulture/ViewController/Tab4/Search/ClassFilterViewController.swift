@@ -14,6 +14,7 @@ class ClassFilterViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewApply: UIView!
     @IBOutlet weak var viewClassTypeMain: UIView!
     @IBOutlet weak var viewMaxClassDurationExtra: UIView!
     @IBOutlet weak var viewMyCoachOnlyExtra: UIView!
@@ -68,6 +69,7 @@ class ClassFilterViewController: BaseViewController {
     
     // MARK: - METHODS
     func setUpUI() {
+        self.viewApply.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 30)
         if previousClassVC != nil && isFromRecipe {
             self.viwBookmarkOnly.isHidden = true
             self.viwMyCoachesOnly.isHidden = true
@@ -708,6 +710,7 @@ extension ClassFilterViewController: UICollectionViewDataSource, UICollectionVie
         if (previousClassVC != nil && isFromRecipe) || (previousUploadVC != nil && isFromRecipe) {
             if collectionView == clvDifficultyLevel {
                 let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+                cell.lblTitle.font = UIFont(name: "SFProText-Semibold", size: 18)
                 let obj  = arrMealType[indexPath.row]
                 cell.lblTitle.text = obj.meal_type_name
                 cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
@@ -718,6 +721,7 @@ extension ClassFilterViewController: UICollectionViewDataSource, UICollectionVie
                 return cell
             } else {
                 let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+                cell.lblTitle.font = UIFont(name: "SFProText-Semibold", size: 18)
                 let obj  = arrDietaryRestrictionListData[indexPath.row]
                 cell.lblTitle.text = obj.dietary_restriction_name
                 cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
@@ -730,6 +734,7 @@ extension ClassFilterViewController: UICollectionViewDataSource, UICollectionVie
         } else {
             if collectionView == clvDifficultyLevel {
                 let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+                cell.lblTitle.font = UIFont(name: "SFProText-Semibold", size: 18)
                 let obj  = arrClassDifficultyList[indexPath.row]
                 cell.lblTitle.text = obj.class_difficulty_name
                 cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
@@ -740,6 +745,7 @@ extension ClassFilterViewController: UICollectionViewDataSource, UICollectionVie
                 return cell
             } else {
                 let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+                cell.lblTitle.font = UIFont(name: "SFProText-Semibold", size: 18)
                 let obj  = arrClassTypeList[indexPath.row]
                 cell.lblTitle.text = obj.class_type_name
                 cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
@@ -754,7 +760,7 @@ extension ClassFilterViewController: UICollectionViewDataSource, UICollectionVie
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width =  (clvClassType.frame.width - 30 ) / 3
+        let width =  (clvClassType.frame.width - 15 ) / 3
         return CGSize(width: width, height: 50)
     }
     

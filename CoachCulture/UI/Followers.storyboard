@@ -1473,7 +1473,7 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWq-Ey-2fQ">
-                                                <rect key="frame" x="0.0" y="43" width="108" height="2"/>
+                                                <rect key="frame" x="5" y="43" width="98" height="2"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="ndD-8g-Sc0"/>
@@ -1482,13 +1482,13 @@
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="VWq-Ey-2fQ" firstAttribute="leading" secondItem="fR0-zz-xrK" secondAttribute="leading" id="17e-Ms-TqB"/>
                                             <constraint firstItem="xyn-am-lae" firstAttribute="leading" secondItem="fR0-zz-xrK" secondAttribute="leading" id="1Xr-MG-pfs"/>
                                             <constraint firstAttribute="bottom" secondItem="xyn-am-lae" secondAttribute="bottom" id="6eP-16-Lwr"/>
-                                            <constraint firstAttribute="trailing" secondItem="VWq-Ey-2fQ" secondAttribute="trailing" id="8XH-2B-wvz"/>
+                                            <constraint firstItem="VWq-Ey-2fQ" firstAttribute="leading" secondItem="nSH-pJ-elW" secondAttribute="leading" id="EEc-PJ-ecq"/>
                                             <constraint firstAttribute="trailing" secondItem="nSH-pJ-elW" secondAttribute="trailing" constant="5" id="ENl-EC-9QH"/>
                                             <constraint firstItem="nSH-pJ-elW" firstAttribute="centerY" secondItem="fR0-zz-xrK" secondAttribute="centerY" id="Lgv-ey-QCS"/>
                                             <constraint firstAttribute="trailing" secondItem="xyn-am-lae" secondAttribute="trailing" id="Yva-12-3cI"/>
+                                            <constraint firstItem="VWq-Ey-2fQ" firstAttribute="trailing" secondItem="nSH-pJ-elW" secondAttribute="trailing" id="eSh-XQ-GvT"/>
                                             <constraint firstItem="nSH-pJ-elW" firstAttribute="centerX" secondItem="fR0-zz-xrK" secondAttribute="centerX" id="eTn-Bh-lm2"/>
                                             <constraint firstItem="xyn-am-lae" firstAttribute="top" secondItem="fR0-zz-xrK" secondAttribute="top" id="f63-Qb-hmc"/>
                                             <constraint firstItem="nSH-pJ-elW" firstAttribute="leading" secondItem="fR0-zz-xrK" secondAttribute="leading" constant="5" id="gU1-y6-fa9"/>
@@ -1505,7 +1505,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9SE-DL-Qi9">
-                                                <rect key="frame" x="0.0" y="43" width="46" height="2"/>
+                                                <rect key="frame" x="5" y="43" width="36" height="2"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="2" id="4rU-Zj-JNp"/>
@@ -1523,14 +1523,14 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="C3J-cn-dMs" firstAttribute="centerY" secondItem="x1w-mA-8VZ" secondAttribute="centerY" id="0vK-Zf-pFs"/>
+                                            <constraint firstItem="9SE-DL-Qi9" firstAttribute="leading" secondItem="C3J-cn-dMs" secondAttribute="leading" id="2wI-sB-wEB"/>
                                             <constraint firstItem="9SE-DL-Qi9" firstAttribute="top" secondItem="xX2-7A-Jv3" secondAttribute="bottom" id="C7E-wd-kiQ"/>
                                             <constraint firstItem="xX2-7A-Jv3" firstAttribute="leading" secondItem="x1w-mA-8VZ" secondAttribute="leading" id="RGI-fO-A76"/>
                                             <constraint firstAttribute="trailing" secondItem="C3J-cn-dMs" secondAttribute="trailing" constant="5" id="Txx-g5-bDl"/>
                                             <constraint firstItem="C3J-cn-dMs" firstAttribute="centerX" secondItem="x1w-mA-8VZ" secondAttribute="centerX" id="UDX-we-QDO"/>
                                             <constraint firstItem="xX2-7A-Jv3" firstAttribute="top" secondItem="x1w-mA-8VZ" secondAttribute="top" id="Wp7-7j-osU"/>
-                                            <constraint firstAttribute="trailing" secondItem="9SE-DL-Qi9" secondAttribute="trailing" id="dAp-ND-h1t"/>
+                                            <constraint firstItem="9SE-DL-Qi9" firstAttribute="trailing" secondItem="C3J-cn-dMs" secondAttribute="trailing" id="anA-yh-0AD"/>
                                             <constraint firstAttribute="bottom" secondItem="9SE-DL-Qi9" secondAttribute="bottom" constant="5" id="eRA-M3-gjZ"/>
-                                            <constraint firstItem="9SE-DL-Qi9" firstAttribute="leading" secondItem="x1w-mA-8VZ" secondAttribute="leading" id="fG8-1d-qD2"/>
                                             <constraint firstAttribute="trailing" secondItem="xX2-7A-Jv3" secondAttribute="trailing" id="m6c-7Q-32X"/>
                                             <constraint firstItem="C3J-cn-dMs" firstAttribute="leading" secondItem="x1w-mA-8VZ" secondAttribute="leading" constant="5" id="tDc-Jq-J1Q"/>
                                         </constraints>
@@ -1553,7 +1553,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="KVK-LP-ZPC">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="KVK-LP-ZPC">
                                 <rect key="frame" x="20" y="195" width="280" height="353"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -2559,7 +2559,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="26" height="26"/>
         <image name="Switch" width="17" height="18.5"/>
-        <image name="Trainers Icon" width="29.5" height="24"/>
+        <image name="Trainers Icon" width="42" height="36"/>
         <image name="chatting" width="23.5" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.5"/>

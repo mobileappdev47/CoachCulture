@@ -26,8 +26,8 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0gh-Xz-MTe" userLabel="Neck">
                         <rect key="frame" x="0.0" y="0.0" width="128" height="74"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" translatesAutoresizingMaskIntoConstraints="NO" id="wVl-Np-m3w">
-                                <rect key="frame" x="48" y="28.5" width="32.5" height="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Neck" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wVl-Np-m3w">
+                                <rect key="frame" x="2" y="0.0" width="124" height="74"/>
                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="14"/>
                                 <color key="textColor" name="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -35,6 +35,10 @@
                         </subviews>
                         <color key="backgroundColor" red="0.17254901960784313" green="0.22745098039215686" blue="0.29019607843137257" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="wVl-Np-m3w" firstAttribute="leading" secondItem="0gh-Xz-MTe" secondAttribute="leading" constant="2" id="DaY-dB-wCt"/>
+                            <constraint firstAttribute="trailing" secondItem="wVl-Np-m3w" secondAttribute="trailing" constant="2" id="F7E-lD-WFv"/>
+                            <constraint firstAttribute="bottom" secondItem="wVl-Np-m3w" secondAttribute="bottom" id="LIY-e8-wdG"/>
+                            <constraint firstItem="wVl-Np-m3w" firstAttribute="top" secondItem="0gh-Xz-MTe" secondAttribute="top" id="Vuq-c4-5FH"/>
                             <constraint firstItem="wVl-Np-m3w" firstAttribute="centerX" secondItem="0gh-Xz-MTe" secondAttribute="centerX" id="fXS-WC-CIh"/>
                             <constraint firstItem="wVl-Np-m3w" firstAttribute="centerY" secondItem="0gh-Xz-MTe" secondAttribute="centerY" id="ncS-nW-f8h"/>
                         </constraints>

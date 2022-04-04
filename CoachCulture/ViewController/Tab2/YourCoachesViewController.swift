@@ -185,12 +185,19 @@ extension YourCoachesViewController : UITableViewDelegate, UITableViewDataSource
             cell.lblTime.text = recdModel.duration
             cell.lblUsername.text = "@\(recdModel.coachDetailsObj.username)"
 
+            cell.lblDateTime.textAlignment = .left
+            cell.lblDate.textAlignment = .left
+
             if recdModel.coach_class_type == CoachClassType.live {
+                cell.lblDateTime.font = UIFont(name: "SFProText-Heavy", size: 25.0)
+                cell.lblDate.font = UIFont(name: "SFProText-Heavy", size: 15.0)
                 cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#CC2936")
                 cell.lblClassType.text = "LIVE"
                 cell.lblDateTime.text = convertUTCToLocal(dateStr: recdModel.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm")
                 cell.lblDate.text = convertUTCToLocal(dateStr: recdModel.class_date, sourceFormate: "yyyy-MM-dd", destinationFormate: "dd MMM yyyy")
             } else if recdModel.coach_class_type == CoachClassType.onDemand {
+                cell.lblDate.font = UIFont(name: "SFProText-Bold", size: 18.0)
+                cell.lblDateTime.font = UIFont(name: "SFProText-Heavy", size: 14.0)
                 cell.viewClassType.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
                 cell.lblClassType.text = "ON DEMAND"
                 cell.lblDate.text = "\(recdModel.total_viewers) Views"
