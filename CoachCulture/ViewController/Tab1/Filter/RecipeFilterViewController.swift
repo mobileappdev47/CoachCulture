@@ -13,7 +13,7 @@ class RecipeFilterViewController: BaseViewController {
         let vc = UIStoryboard(name: "Followers", bundle: nil).instantiateViewController(withIdentifier: "RecipeFilterViewController") as! RecipeFilterViewController
         return vc
     }
-
+    @IBOutlet weak var viewApply: UIView!
     @IBOutlet weak var clvMealType: UICollectionView!
     @IBOutlet weak var clvDietaryRestriction: UICollectionView!
     
@@ -41,6 +41,8 @@ class RecipeFilterViewController: BaseViewController {
     // MARK: - Methods
     func setUpUI() {
         
+        self.viewApply.addCornerRadius(30)
+        self.viewApply.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         if Reachability.isConnectedToNetwork(){
             getMealTypeList()
         }
@@ -184,6 +186,7 @@ extension RecipeFilterViewController: UICollectionViewDataSource, UICollectionVi
         
         if collectionView == clvDietaryRestriction {
             let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+            cell.lblTitle.font = UIFont(name: "SFProText-Semibold", size: 18)
             let obj  = arrDietaryRestrictionListData[indexPath.row]
             cell.lblTitle.text = obj.dietary_restriction_name
             
@@ -196,6 +199,7 @@ extension RecipeFilterViewController: UICollectionViewDataSource, UICollectionVi
             return cell
         } else {
             let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+            cell.lblTitle.font = UIFont(name: "SFProText-Semibold", size: 18)
             let obj  = arrMealTypeListData[indexPath.row]
             cell.lblTitle.text = obj.meal_type_name
             
@@ -212,15 +216,8 @@ extension RecipeFilterViewController: UICollectionViewDataSource, UICollectionVi
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if collectionView == clvDietaryRestriction {
-            let width =  (clvDietaryRestriction.frame.width - 40 ) / 3
-            return CGSize(width: width, height: 50)
-        } else {
-            let width =  (clvMealType.frame.width - 40 ) / 3
-            return CGSize(width: width, height: 50)
-        }
-        
-        
+        let width =  (clvDietaryRestriction.frame.width - 15 ) / 3
+        return CGSize(width: width, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)

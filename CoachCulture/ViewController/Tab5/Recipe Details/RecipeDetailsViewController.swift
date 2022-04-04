@@ -66,8 +66,9 @@ class RecipeDetailsViewController: BaseViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        viwNutritionFacts.roundCorners(corners: [.bottomLeft], radius: 30)
-        viwViewRecipe.roundCorners(corners: [.bottomRight], radius: 30)
+        
+        viwNutritionFacts.roundCorners(corners: [.bottomLeft], radius: 50)
+        viwViewRecipe.roundCorners(corners: [.bottomRight], radius: 50)
     }
     
     

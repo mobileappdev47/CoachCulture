@@ -24,7 +24,7 @@ internal struct DPDConstant {
 
 	internal struct UI {
         static let TextColor = UIColor.darkGray
-		static let TextFont = UIFont(name: "AvenirNext-Regular", size: 14)
+		static let TextFont = UIFont(name: "SFProText-Bold", size: 14)
 		static let BackgroundColor = UIColor.white
 		static let SelectionBackgroundColor = UIColor(white: 0.89, alpha: 1)
 		static let SeparatorColor = UIColor.clear

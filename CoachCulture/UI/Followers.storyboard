@@ -2036,9 +2036,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="Ya9-b1-iSC"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="RBy-4K-yBn">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="RBy-4K-yBn">
                                             <size key="itemSize" width="128" height="128"/>
-                                            <size key="estimatedItemSize" width="128" height="128"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2096,9 +2095,8 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="zwn-Su-4s0"/>
                                         </constraints>
-                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Ob6-zd-4Xf">
+                                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Ob6-zd-4Xf">
                                             <size key="itemSize" width="128" height="128"/>
-                                            <size key="estimatedItemSize" width="128" height="128"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -2240,6 +2238,7 @@
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
                             <constraint firstItem="oj6-Zl-n1e" firstAttribute="leading" secondItem="kmV-xk-RCd" secondAttribute="leading" id="2B4-fk-t2h"/>
+                            <constraint firstItem="oj6-Zl-n1e" firstAttribute="width" secondItem="S6g-np-2Tg" secondAttribute="width" id="7OE-W3-dUz"/>
                             <constraint firstItem="Sga-43-A57" firstAttribute="leading" secondItem="kmV-xk-RCd" secondAttribute="leading" constant="20" id="C3b-AV-G8O"/>
                             <constraint firstItem="kmV-xk-RCd" firstAttribute="bottom" secondItem="oj6-Zl-n1e" secondAttribute="bottom" id="CHs-xw-stm"/>
                             <constraint firstItem="Sga-43-A57" firstAttribute="top" secondItem="wli-sY-RrT" secondAttribute="bottom" constant="20" id="D24-0t-ERx"/>
@@ -2248,6 +2247,7 @@
                             <constraint firstItem="wli-sY-RrT" firstAttribute="top" secondItem="kmV-xk-RCd" secondAttribute="top" id="VDc-eJ-8Is"/>
                             <constraint firstItem="wli-sY-RrT" firstAttribute="leading" secondItem="S6g-np-2Tg" secondAttribute="leading" id="bbd-cU-goP"/>
                             <constraint firstAttribute="trailing" secondItem="oj6-Zl-n1e" secondAttribute="trailing" id="cYU-lJ-jP3"/>
+                            <constraint firstItem="oj6-Zl-n1e" firstAttribute="centerX" secondItem="kmV-xk-RCd" secondAttribute="centerX" id="dfR-rN-4MU"/>
                         </constraints>
                     </view>
                     <connections>
@@ -2256,6 +2256,7 @@
                         <outlet property="clvMealType" destination="4HD-2M-TXC" id="nzU-A8-3BV"/>
                         <outlet property="lblMinRecipeDuration" destination="wk8-PZ-JZm" id="Ksh-B9-FrS"/>
                         <outlet property="lctvDietaryRestrictionHeight" destination="zwn-Su-4s0" id="P9n-fV-vGI"/>
+                        <outlet property="viewApply" destination="oj6-Zl-n1e" id="uIx-PD-R8i"/>
                         <outlet property="viwMyCoachesOnly" destination="qA1-Xe-Hs1" id="5wy-ZZ-eqa"/>
                     </connections>
                 </viewController>

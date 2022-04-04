@@ -197,8 +197,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xk2-cK-JwA">
-                                        <rect key="frame" x="137" y="7.5" width="103" height="58"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xk2-cK-JwA" userLabel="viewTopDetail">
+                                        <rect key="frame" x="137" y="37.5" width="103" height="28"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chicken Fajitas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUO-ZE-0Ov">
                                                 <rect key="frame" x="0.0" y="0.0" width="103" height="17.5"/>
@@ -348,7 +348,7 @@
                                     <constraint firstAttribute="height" constant="110" id="7vT-gb-g6d"/>
                                     <constraint firstItem="ELC-jg-9TD" firstAttribute="centerY" secondItem="v49-nk-RRr" secondAttribute="centerY" id="8Tn-Kn-x01"/>
                                     <constraint firstItem="BPL-X7-hQQ" firstAttribute="bottom" secondItem="3Xi-2X-Bea" secondAttribute="bottom" id="CBv-iI-qIx"/>
-                                    <constraint firstItem="Xk2-cK-JwA" firstAttribute="top" secondItem="BPL-X7-hQQ" secondAttribute="top" id="DRG-kD-mAa"/>
+                                    <constraint firstItem="Xk2-cK-JwA" firstAttribute="top" secondItem="3hv-Fg-sfy" secondAttribute="bottom" id="DRG-kD-mAa"/>
                                     <constraint firstItem="ELC-jg-9TD" firstAttribute="leading" secondItem="v49-nk-RRr" secondAttribute="leading" constant="7" id="DjG-OM-5eO"/>
                                     <constraint firstItem="BPL-X7-hQQ" firstAttribute="leading" secondItem="3Xi-2X-Bea" secondAttribute="leading" id="Ff3-VC-cMW"/>
                                     <constraint firstAttribute="bottom" secondItem="pJz-W4-BV8" secondAttribute="bottom" id="G1S-RT-yef"/>
