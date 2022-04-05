@@ -201,6 +201,7 @@ class PaymentMethodViewController: BaseViewController {
         let nextVC = CommonWebViewVC.instantiate(fromAppStoryboard: .Payment)
         nextVC.transaction_id = transaction_id
         nextVC.didLoadPaymentURLBlock = { transaction_id, status in
+            self.navigateToRoot()
             if self.didFinishPaymentBlock != nil {
                 self.didFinishPaymentBlock(transaction_id, status)
             }
@@ -209,6 +210,15 @@ class PaymentMethodViewController: BaseViewController {
         self.pushVC(To: nextVC, animated: true)
     }
     
+    private func navigateToRoot() {
+        for controller in navigationController!.viewControllers {
+            if controller.isKind(of: LiveClassDetailsViewController.self) || controller.isKind(of: CoachViseOnDemandClassViewController.self) {
+                self.navigationController?.popToViewController(controller, animated: true)
+                break
+            }
+        }
+    }
+
     //MARK: - CLICK EVENTS
     
     @IBAction func btnConfirmPaymentClick( _ sender : UIButton) {

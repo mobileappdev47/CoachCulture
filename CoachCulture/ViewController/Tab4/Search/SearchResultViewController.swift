@@ -64,7 +64,7 @@ class SearchResultViewController: BaseViewController {
         let layout = clvDateTime.collectionViewLayout as! UICollectionViewFlowLayout
 
         let noOfCell: CGFloat = 5
-        let totalGivenMarginToCLNView: CGFloat = 30
+        let totalGivenMarginToCLNView: CGFloat = 35
         let minimumInteritemSpacingForSectionAt: CGFloat = 0
         let margin = totalGivenMarginToCLNView + minimumInteritemSpacingForSectionAt
         
@@ -185,7 +185,7 @@ extension SearchResultViewController: UICollectionViewDataSource, UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width =  (clvDateTime.frame.width - 30 ) / 5
+        let width =  (clvDateTime.frame.width - 35 ) / 5
         
         return CGSize(width: width, height: 25)
         
@@ -269,11 +269,21 @@ extension SearchResultViewController : UITableViewDelegate, UITableViewDataSourc
                
                 getAllCoachClassList()
             }
+            
+            cell.btnUser.tag = indexPath.row
+            cell.btnUser.removeTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
+            cell.btnUser.addTarget(self, action: #selector(self.clickToBtnUser(_:)), for: .touchUpInside)
         }
         cell.layoutIfNeeded()
         return cell
     }
     
+    @objc func clickToBtnUser( _ sender : UIButton) {
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = self.arrCoachClassList[sender.tag].coachDetailsObj.id
+        self.pushVC(To: vc, animated: true)
+    }
+
     func callToAddRemoveBookmarkAPI(urlStr: String, params: [String:Any], recdType : String, selectedIndex: Int) {
         showLoader()
         _ =  ApiCallManager.requestApi(method: .post, urlString: urlStr, parameters: params, headers: nil) { responseObj in

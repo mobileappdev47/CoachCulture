@@ -295,6 +295,7 @@ extension RecipeDetailsViewController: UICollectionViewDataSource, UICollectionV
     {
         
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+        cell.viwContainer.addCornerRadius(5)
         let obj = recipeDetailDataObj.arrDietaryRestrictionListData[indexPath.row]
         cell.lblTitle.text = obj.dietary_restriction_name
         cell.lblTitle.font = UIFont(name: cell.lblTitle.font.fontName, size: 11)
@@ -306,8 +307,8 @@ extension RecipeDetailsViewController: UICollectionViewDataSource, UICollectionV
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width =  (clvDietaryRestriction.frame.width - 20 ) / 2
-        return CGSize(width: width, height: 25)
+        let width =  (clvDietaryRestriction.frame.width - 10 ) / 2
+        return CGSize(width: width, height: 21)
     }
         
 }

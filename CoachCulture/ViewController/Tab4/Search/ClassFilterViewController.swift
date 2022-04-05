@@ -759,7 +759,6 @@ extension ClassFilterViewController: UICollectionViewDataSource, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let width =  (clvClassType.frame.width - 15 ) / 3
         return CGSize(width: width, height: 50)
     }

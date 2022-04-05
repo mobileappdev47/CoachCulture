@@ -132,6 +132,34 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         dropDown.selectionBackgroundColor = .clear
     }
     
+    func redirectToPaymentMethod() {
+        var fees = ""
+        var recdCurrency = ""
+        
+        if self.userDataObj?.is_coach_subscribed ?? false {
+            fees = userDataObj?.feesDataObj.subscriber_fee ?? ""
+            recdCurrency = userDataObj?.feesDataObj.base_currency ?? ""
+        } else {
+            fees = userDataObj?.feesDataObj.base_subscriber_fee ?? ""
+            recdCurrency = userDataObj?.feesDataObj.fee_regional_currency ?? ""
+        }
+
+        let vc = PaymentMethodViewController.viewcontroller()
+        vc.didFinishPaymentBlock = { transaction_id, status in
+            if status {
+                if Reachability.isConnectedToNetwork() {
+                    self.callAddUserToCoachAPI(transaction_id: transaction_id)
+                }
+            } else {
+                Utility.shared.showToast("Ooops!! Something went wrong!")
+            }
+        }
+        vc.fees = fees
+        vc.recdCurrency = recdCurrency
+        vc.isFromLiveClass = true
+        self.pushVC(To: vc, animated: true)
+    }
+    
     func resetVariable() {
         arrCoachClassInfoList.removeAll()
         isDataLoading = false
@@ -229,9 +257,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         logOutView.btnLeft.setTitle("Confirm", for: .normal)
         logOutView.btnRight.setTitle("Cancel", for: .normal)
         logOutView.tapToBtnLogOut {
-            if Reachability.isConnectedToNetwork(){
-                self.callAddUserToCoachAPI()
-            }
+            self.redirectToPaymentMethod()
             self.removeConfirmationView()
         }
     }
@@ -512,8 +538,11 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
 
 extension CoachViseOnDemandClassViewController {
     
-    func getUserProfile() {
-        showLoader()
+    func getUserProfile(isShowLoader: Bool = true) {
+        if isShowLoader {
+            showLoader()
+        }
+        
         let api = "\(API.GET_PROFILE)?coach_id=\(selectedCoachId)"
         
         _ =  ApiCallManager.requestApi(method: .get, urlString: api, parameters: nil, headers: nil) { responseObj in
@@ -641,10 +670,10 @@ extension CoachViseOnDemandClassViewController {
         }
     }
     
-    func callAddUserToCoachAPI() {
+    func callAddUserToCoachAPI(transaction_id: String) {
         showLoader()
         let param = [ "coach_id" : selectedCoachId,
-                      "transaction_id" : "pi_3KYlygSD6FO6JDp91vNaiTqa",
+                      "transaction_id" : transaction_id,
                       
         ] as [String : Any]
         
@@ -652,8 +681,13 @@ extension CoachViseOnDemandClassViewController {
             
             let responseObj = ResponseDataModel(responseObj: responseObj)
             Utility.shared.showToast(responseObj.message)
-            self.addRemoveFollowers(isShowLoader: false)
-            
+            if !(self.userDataObj?.is_followed ?? false) {
+                self.addRemoveFollowers(isShowLoader: false)
+            } else {
+                if Reachability.isConnectedToNetwork(){
+                    self.getUserProfile(isShowLoader: false)
+                }
+            }
         } failure: { (error) in
             self.hideLoader()
             return true

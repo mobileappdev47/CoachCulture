@@ -161,7 +161,7 @@ extension MainSearchViewController: UICollectionViewDataSource, UICollectionView
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width =  (clvClassType.frame.width - 15 ) / 3
-        return CGSize(width: width, height: 40)
+        return CGSize(width: width, height: 50)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)

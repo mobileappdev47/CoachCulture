@@ -142,10 +142,8 @@ extension UserMusclesForLiveClassViewController: UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width =  (clvMusclesType.frame.width - 40 ) / 3
-        
+        let width =  (clvMusclesType.frame.width - 15 ) / 3
         return CGSize(width: width, height: 40)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
