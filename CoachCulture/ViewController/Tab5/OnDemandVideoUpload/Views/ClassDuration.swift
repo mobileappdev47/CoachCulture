@@ -34,6 +34,11 @@ class ClassDuration: UIView {
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
         pickerView.reloadAllComponents()
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didTapOnView)))
+    }
+    
+    @objc func didTapOnView(sender: UITapGestureRecognizer) {
+        self.removeFromSuperview()
     }
     
     @IBAction func clickToBtnSelect(_ sender : UIButton) {

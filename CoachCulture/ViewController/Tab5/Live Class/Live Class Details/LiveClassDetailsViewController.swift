@@ -128,6 +128,7 @@ class LiveClassDetailsViewController: BaseViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        hideTabBar()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -162,7 +163,6 @@ class LiveClassDetailsViewController: BaseViewController {
         }
         
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
-        hideTabBar()
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
         
         dropDown.anchorView = btnMore

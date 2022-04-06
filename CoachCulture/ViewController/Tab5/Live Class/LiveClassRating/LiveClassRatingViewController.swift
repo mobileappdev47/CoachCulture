@@ -16,6 +16,8 @@ class LiveClassRatingViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewClassType: UIView!
+    @IBOutlet weak var viewDuration: UIView!
     @IBOutlet weak var lblClassTypeLiveOndemand: UILabel!
     @IBOutlet weak var lblClassType: UILabel!
     @IBOutlet weak var lblDuration: UILabel!
@@ -46,6 +48,9 @@ class LiveClassRatingViewController: BaseViewController {
     }
     
     private func setUpUI() {
+        self.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+        self.viewClassType.layer.maskedCorners = [.layerMaxXMinYCorner]
+
         txtTellUsAbout.delegate = self
         if Reachability.isConnectedToNetwork(){
             getClassDetails()

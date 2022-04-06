@@ -16,6 +16,8 @@ class GiveRecipeRattingViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewRecipeDuration: UIView!
+    @IBOutlet weak var viewMealType: UIView!
     @IBOutlet weak var lblMealType: UILabel!
     @IBOutlet weak var lblRecipeDuration: UILabel!
     @IBOutlet weak var lblUserName: UILabel!
@@ -46,9 +48,10 @@ class GiveRecipeRattingViewController: BaseViewController {
     }
     
 //MARK: - METHODS
+    
     func setUpUI() {
-        
-       
+        viewMealType.layer.maskedCorners = [.layerMinXMaxYCorner]
+        viewRecipeDuration.layer.maskedCorners = [.layerMinXMinYCorner]
         clvDietaryRestriction.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
         clvDietaryRestriction.delegate = self
         clvDietaryRestriction.dataSource = self
@@ -62,7 +65,7 @@ class GiveRecipeRattingViewController: BaseViewController {
         clvDietaryRestriction.reloadData()
         imgRecipeCover.setImageFromURL(imgUrl: recipeDetailDataObj.thumbnail_image, placeholderImage: nil)
         
-        lblUserName.text = recipeDetailDataObj.coachDetailsObj.username
+        lblUserName.text = "@" + recipeDetailDataObj.coachDetailsObj.username
         imgUserProfile.setImageFromURL(imgUrl: recipeDetailDataObj.coachDetailsObj.user_image, placeholderImage: nil)
         lblRecipeTitle.text = recipeDetailDataObj.title
         lblRecipeSubTitle.text = recipeDetailDataObj.sub_title
@@ -97,6 +100,8 @@ extension GiveRecipeRattingViewController: UICollectionViewDataSource, UICollect
     {
         
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
+        cell.viwContainer.addCornerRadius(5)
+        cell.lblTitle.font = UIFont(name: cell.lblTitle.font.fontName, size: 12.0)
         let obj = recipeDetailDataObj.arrDietaryRestrictionListData[indexPath.row]
         cell.lblTitle.text = obj.dietary_restriction_name
         cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#061424")
@@ -108,7 +113,7 @@ extension GiveRecipeRattingViewController: UICollectionViewDataSource, UICollect
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width =  (clvDietaryRestriction.frame.width - 15 ) / 2
-        return CGSize(width: width, height: 40)
+        return CGSize(width: width, height: 21)
     }
         
 }

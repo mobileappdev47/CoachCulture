@@ -5115,9 +5115,8 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="FQe-yJ-3IY"/>
                                                 </constraints>
-                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Z4y-iy-av4">
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Z4y-iy-av4">
                                                     <size key="itemSize" width="128" height="128"/>
-                                                    <size key="estimatedItemSize" width="128" height="128"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -5353,9 +5352,8 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="Yfl-O8-3Gx"/>
                                                 </constraints>
-                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="JSc-7Z-0ub">
+                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="7" minimumInteritemSpacing="0.0" id="JSc-7Z-0ub">
                                                     <size key="itemSize" width="128" height="128"/>
-                                                    <size key="estimatedItemSize" width="128" height="128"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>

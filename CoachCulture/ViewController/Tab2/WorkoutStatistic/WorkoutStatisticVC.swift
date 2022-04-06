@@ -505,7 +505,7 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
         let vc = LiveClassDetailsViewController.viewcontroller()
         let obj = arrCoachClassInfoList[indexPath.row]
         vc.selectedId = obj.id
-        self.navigationController?.pushViewController(vc, animated: true)
+        self.pushVC(To: vc, animated: true)
     }
 }
 

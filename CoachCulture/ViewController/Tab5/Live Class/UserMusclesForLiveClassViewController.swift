@@ -130,7 +130,7 @@ extension UserMusclesForLiveClassViewController: UICollectionViewDataSource, UIC
         let obj  = arrMuscleList[indexPath.row]
         cell.lblTitle.text = obj.muscle_group_name
         if obj.isSelected {
-            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#526070")
+            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
         } else {
             cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         }
@@ -143,7 +143,7 @@ extension UserMusclesForLiveClassViewController: UICollectionViewDataSource, UIC
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width =  (clvMusclesType.frame.width - 15 ) / 3
-        return CGSize(width: width, height: 40)
+        return CGSize(width: width, height: 35)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)

@@ -398,7 +398,7 @@ extension CreateMealRecipeViewController: UICollectionViewDataSource, UICollecti
         cell.lblTitle.text = obj.meal_type_name
         
         if obj.isSelected {
-            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#526070")
+            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
         } else {
             cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         }
@@ -409,7 +409,7 @@ extension CreateMealRecipeViewController: UICollectionViewDataSource, UICollecti
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width =  (clvMealType.frame.width - 15 ) / 3
-        return CGSize(width: width, height: 40)
+        return CGSize(width: width, height: 35)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)

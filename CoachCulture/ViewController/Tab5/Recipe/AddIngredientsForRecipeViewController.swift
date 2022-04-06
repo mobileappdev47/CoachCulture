@@ -192,7 +192,7 @@ extension AddIngredientsForRecipeViewController: UICollectionViewDataSource, UIC
         cell.lblTitle.text = obj.dietary_restriction_name
         
         if obj.isSelected {
-            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#526070")
+            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA")
         } else {
             cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         }
@@ -203,7 +203,7 @@ extension AddIngredientsForRecipeViewController: UICollectionViewDataSource, UIC
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width =  (clvDietaryRestriction.frame.width - 15 ) / 3
-        return CGSize(width: width, height: 40)
+        return CGSize(width: width, height: 36)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
