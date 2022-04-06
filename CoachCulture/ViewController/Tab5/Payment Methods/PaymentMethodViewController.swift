@@ -211,10 +211,12 @@ class PaymentMethodViewController: BaseViewController {
     }
     
     private func navigateToRoot() {
-        for controller in navigationController!.viewControllers {
-            if controller.isKind(of: LiveClassDetailsViewController.self) || controller.isKind(of: CoachViseOnDemandClassViewController.self) {
-                self.navigationController?.popToViewController(controller, animated: true)
-                break
+        if self.navigationController?.viewControllers.count ?? 0 > 0 {
+            for controller in self.navigationController!.viewControllers {
+                if controller.isKind(of: LiveClassDetailsViewController.self) || controller.isKind(of: CoachViseOnDemandClassViewController.self) {
+                    self.navigationController?.popToViewController(controller, animated: true)
+                    break
+                }
             }
         }
     }
