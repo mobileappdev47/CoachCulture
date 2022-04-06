@@ -59,14 +59,29 @@ class OTPViewController: BaseViewController {
         btnChangeNumber.setTitle("Change Number", for: .normal)
         btnResend.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         btnChangeNumber.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        
-        let count = phoneNo.count
-        phoneX.removeAll()
-        for _ in 0..<count {
-            phoneX.append("x")
+                
+        if !emaiOrPhone.isEmpty {
+            let seperatedComponents = emaiOrPhone.components(separatedBy: "@")
+            var formattedFirstPart = ""
+                        
+            for (index, recdChar) in seperatedComponents.first!.enumerated() {
+                if index != 0 {
+                    formattedFirstPart.append("*")
+                } else {
+                    formattedFirstPart.append(recdChar)
+                }
+            }
+            let finalPart = "\(formattedFirstPart)@\(seperatedComponents.last ?? "")"
+            lblDesc.text = "Please type the verification code sent to \(finalPart)"
+        } else {
+            let count = phoneNo.count
+            phoneX.removeAll()
+            for _ in 0..<count {
+                phoneX.append("x")
+            }
+
+            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneX)."
         }
-        
-        lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneX)."
     }
     
     fileprivate func tapResendTimer() {

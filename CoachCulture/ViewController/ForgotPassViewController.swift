@@ -252,7 +252,6 @@ extension ForgotPassViewController {
         if viwEmail.isHidden == false {
             vc.emaiOrPhone = txtEmail.text!
         } else {
-            vc.emaiOrPhone = txtCountryCode.text! + " " + txtPhone.text!
             vc.phoneCode = self.txtCountryCode.text ?? ""
             vc.phoneNo = self.txtPhone.text ?? ""
         }

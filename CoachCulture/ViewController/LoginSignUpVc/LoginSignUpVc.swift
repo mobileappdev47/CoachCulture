@@ -552,10 +552,10 @@ extension LoginSignUpVc {
                 let dataObj = resObj["data"] as? [String:Any] ?? [String:Any]()
                 AppPrefsManager.sharedInstance.saveUserAccessToken(token: dataObj["access_token"] as? String ?? "")
                 AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: true)
-                if !self.isRememberMe {
+                if self.isRememberMe {
                     DEFAULTS.setValue(self.txtUsernameLogin.text!, forKey: DEFAULTS_KEY.USERNAME)
+                    DEFAULTS.setValue(self.txtPasswordLogin.text, forKey: DEFAULTS_KEY.USER_PASSWORD)
                 }
-                DEFAULTS.setValue(self.txtPasswordLogin.text, forKey: DEFAULTS_KEY.USER_PASSWORD)
                 let userObj = dataObj["user"] as? [String:Any] ?? [String:Any]()
                 AppPrefsManager.sharedInstance.saveUserData(userData: userObj)
                 let role = userObj["role"] as? String ?? ""

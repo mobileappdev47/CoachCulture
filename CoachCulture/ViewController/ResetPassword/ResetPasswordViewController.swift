@@ -16,18 +16,18 @@ class ResetPasswordViewController: BaseViewController {
     
     @IBOutlet weak var txtNewPassword: UITextField!
     @IBOutlet weak var txtCPassword: UITextField!
-
+    
     @IBOutlet weak var imgErrNewPass: UIImageView!
     @IBOutlet weak var imgErrConPassword: UIImageView!
     
     let txtPlaceholders = ["New Password",  "Retype New Password"]
     
     var paramDic = [String:Any]()
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setUpUI()
     }
     
@@ -37,7 +37,7 @@ class ResetPasswordViewController: BaseViewController {
         [txtNewPassword,
          txtCPassword,
          
-         ].enumerated().forEach { index, txt in
+        ].enumerated().forEach { index, txt in
             let place = txtPlaceholders[index]
             txt?.attributedPlaceholder = NSAttributedString(string: place, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .bold), .foregroundColor: COLORS.TEXT_COLOR])
             txt?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
@@ -50,17 +50,18 @@ class ResetPasswordViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnSubmit(_ sender: UIButton) {
-        
-        if (txtNewPassword.text!.isEmpty) {
+        if (txtNewPassword.text?.isEmpty ?? false) {
             imgErrNewPass.isHidden = false
-            if !txtNewPassword.text!.isValidPassword {
-                txtNewPassword.setError("Password must be contain uppercase,lowercase,digit,sign letter", show: true)
-            } else {
-                txtNewPassword.setError("Password is a mandatory field", show: true)
-            }
+            imgErrConPassword.isHidden = true
+            txtNewPassword.setError("Password is a mandatory field", show: true)
+        } else if !(txtNewPassword.text?.isValidPassword ?? false) {
+            imgErrNewPass.isHidden = false
+            imgErrConPassword.isHidden = true
+            txtNewPassword.setError("Password must be contain uppercase,lowercase,digit,sign letter", show: true)
         } else if (txtNewPassword.text! != txtCPassword.text!) {
+            imgErrNewPass.isHidden = true
             imgErrConPassword.isHidden = false
-            txtCPassword.setError("Retype Password is a mandatory field", show: true)
+            txtCPassword.setError("Retype Password not match", show: true)
         } else {
             if Reachability.isConnectedToNetwork(){
                 changePassword()
@@ -70,9 +71,7 @@ class ResetPasswordViewController: BaseViewController {
                 imgErrNewPass.isHidden = true
             }
         }
-        
     }
-
 }
 
 
@@ -81,23 +80,31 @@ extension ResetPasswordViewController {
     func changePassword() {
         showLoader()
         paramDic["password"] = txtNewPassword.text!
-                
-      _ =  ApiCallManager.requestApi(method: .post, urlString: API.RESET_PASSWORD, parameters: paramDic, headers: nil) { responseObj in
-            let resObj = responseObj as? [String:Any] ?? [String:Any]()
-          print(resObj)
-          
-          let responseModel = ResponseDataModel(responseObj: resObj)
-          
-          if responseModel.success {
-              
-              self.navigationController?.popToRootViewController(animated: true)
-          }
-          
-          Utility.shared.showToast(responseModel.message)
-          self.hideLoader()
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.RESET_PASSWORD, parameters: paramDic, headers: nil) { responseObj in
+            
+            let responseModel = ResponseDataModel(responseObj: responseObj)
+            
+            if responseModel.success {
+                self.navigateToRoot()
+            }
+            
+            Utility.shared.showToast(responseModel.message)
+            self.hideLoader()
             
         } failure: { (error) in
             return true
+        }
+    }
+    
+    private func navigateToRoot() {
+        if navigationController?.viewControllers.count ?? 0 > 0 {
+            for controller in navigationController!.viewControllers {
+                if controller.isKind(of: LoginSignUpVc.self) {
+                    self.navigationController?.popToViewController(controller, animated: true)
+                    break
+                }
+            }
         }
     }
 }
