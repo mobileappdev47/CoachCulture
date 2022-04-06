@@ -10,6 +10,7 @@ import HCSStarRatingView
 
 class CoachViseRecipeItemTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var viewDuration: UIView!
     @IBOutlet weak var lblSubscribedTime: UILabel!
     @IBOutlet weak var lblSubscribedName: UILabel!
     @IBOutlet weak var viewClassDetail: UIView!

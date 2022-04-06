@@ -106,30 +106,44 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RY4-gg-MPp">
-                                                <rect key="frame" x="75" y="77" width="45" height="18"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Irc-GY-WiP">
+                                                <rect key="frame" x="79.5" y="75" width="40.5" height="20"/>
+                                                <subviews>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RY4-gg-MPp">
+                                                        <rect key="frame" x="4" y="2" width="32.5" height="16"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
+                                                        <color key="textColor" name="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="CFf-SY-TzF"/>
-                                                    <constraint firstAttribute="height" constant="18" id="gof-wG-Zvb"/>
+                                                    <constraint firstItem="RY4-gg-MPp" firstAttribute="leading" secondItem="Irc-GY-WiP" secondAttribute="leading" constant="4" id="4ww-cM-P02"/>
+                                                    <constraint firstItem="RY4-gg-MPp" firstAttribute="top" secondItem="Irc-GY-WiP" secondAttribute="top" constant="2" id="RIH-gh-sKP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="RY4-gg-MPp" secondAttribute="trailing" constant="4" id="WrR-QT-0hg"/>
+                                                    <constraint firstAttribute="bottom" secondItem="RY4-gg-MPp" secondAttribute="bottom" constant="2" id="lRZ-NC-umf"/>
+                                                    <constraint firstAttribute="height" constant="20" id="w3W-Nj-Tua"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
-                                                <color key="textColor" name="textColor"/>
-                                                <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </label>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="bottom" secondItem="3Xi-2X-Bea" secondAttribute="bottom" id="7VM-cQ-NP5"/>
+                                            <constraint firstAttribute="bottom" secondItem="Irc-GY-WiP" secondAttribute="bottom" id="Jck-VI-fnT"/>
                                             <constraint firstAttribute="height" constant="95" id="N1h-xF-REK"/>
-                                            <constraint firstAttribute="trailing" secondItem="RY4-gg-MPp" secondAttribute="trailing" id="R3H-BP-2gT"/>
                                             <constraint firstItem="3Xi-2X-Bea" firstAttribute="leading" secondItem="ELC-jg-9TD" secondAttribute="leading" id="bHz-Vy-kIT"/>
-                                            <constraint firstAttribute="bottom" secondItem="RY4-gg-MPp" secondAttribute="bottom" id="bke-ya-ptY"/>
+                                            <constraint firstAttribute="trailing" secondItem="Irc-GY-WiP" secondAttribute="trailing" id="cPX-B5-VcO"/>
                                             <constraint firstItem="3Xi-2X-Bea" firstAttribute="top" secondItem="ELC-jg-9TD" secondAttribute="top" id="iaR-M4-WIG"/>
                                             <constraint firstItem="bzN-iD-471" firstAttribute="top" secondItem="ELC-jg-9TD" secondAttribute="top" constant="5" id="qip-9M-Xul"/>
                                             <constraint firstItem="bzN-iD-471" firstAttribute="leading" secondItem="ELC-jg-9TD" secondAttribute="leading" constant="5" id="s1Q-8k-eVG"/>
@@ -401,6 +415,7 @@
                 <outlet property="starRating" destination="6lI-fU-gxq" id="MLs-Et-WJE"/>
                 <outlet property="viewBlur" destination="BPL-X7-hQQ" id="SxX-xL-qh0"/>
                 <outlet property="viewClassDetail" destination="v49-nk-RRr" id="XY9-xh-MUS"/>
+                <outlet property="viewDuration" destination="Irc-GY-WiP" id="otC-Rs-ygN"/>
                 <outlet property="viewProfile" destination="wry-BK-UUK" id="Tg7-Xg-tnO"/>
                 <outlet property="viewProfileBottom" destination="kH8-Gv-Eoq" id="VW5-uE-65x"/>
                 <outlet property="viewSubscribe" destination="I3c-4G-N0g" id="WGQ-9X-YD0"/>
@@ -408,6 +423,11 @@
             <point key="canvasLocation" x="136.23188405797103" y="96.09375"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="6lI-fU-gxq">
+            <size key="intrinsicContentSize" width="240" height="44"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Bookmark" width="15.5" height="25"/>
         <image name="ic_logo" width="390" height="226"/>

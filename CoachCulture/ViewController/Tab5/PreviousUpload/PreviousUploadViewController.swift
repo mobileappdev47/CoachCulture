@@ -178,7 +178,7 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
             cell.lblClassType.text = "On demand".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
             let obj = arrCoachClassInfoList[indexPath.row]
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
@@ -219,7 +219,7 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
                 self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
             }
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
@@ -238,9 +238,6 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
                     getCoachesWiseClassList()
                 }
             }
-            
-            
-            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseRecipeItemTableViewCell", for: indexPath) as! CoachViseRecipeItemTableViewCell
@@ -253,6 +250,8 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
                 param[Params.AddRemoveBookmark.bookmark] = obj.bookmark == BookmarkType.No ? BookmarkType.Yes : BookmarkType.No
                 self.callToAddRemoveBookmarkAPI(urlStr: API.ADD_REMOVE_BOOKMARK, params: param, recdType: SelectedDemandClass.recipe, selectedIndex: cell.selectedIndex)
             }
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+
             cell.lbltitle.text = obj.title
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
@@ -268,7 +267,7 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
             }
             
             cell.clvDietaryRestriction.reloadData()
-            cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
+            cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
             } else {

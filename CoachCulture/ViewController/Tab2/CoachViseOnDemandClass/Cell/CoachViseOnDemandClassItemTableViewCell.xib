@@ -106,35 +106,49 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBW-Bq-MZi">
-                                                <rect key="frame" x="75" y="75" width="45" height="20"/>
+                                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLL-3y-iKG">
+                                                <rect key="frame" x="79.5" y="75" width="40.5" height="20"/>
+                                                <subviews>
+                                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OBW-Bq-MZi">
+                                                        <rect key="frame" x="4" y="2" width="32.5" height="16"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
+                                                        <color key="textColor" name="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </label>
+                                                </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="qyL-Vo-uH6"/>
-                                                    <constraint firstAttribute="height" constant="20" id="tjO-Uw-CxM"/>
+                                                    <constraint firstItem="OBW-Bq-MZi" firstAttribute="top" secondItem="PLL-3y-iKG" secondAttribute="top" constant="2" id="ijF-zu-qHt"/>
+                                                    <constraint firstItem="OBW-Bq-MZi" firstAttribute="leading" secondItem="PLL-3y-iKG" secondAttribute="leading" constant="4" id="jkf-1v-RAG"/>
+                                                    <constraint firstAttribute="height" constant="20" id="niD-7r-f42"/>
+                                                    <constraint firstAttribute="bottom" secondItem="OBW-Bq-MZi" secondAttribute="bottom" constant="2" id="vFb-8y-jM9"/>
+                                                    <constraint firstAttribute="trailing" secondItem="OBW-Bq-MZi" secondAttribute="trailing" constant="4" id="yvj-ad-PmN"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
-                                                <color key="textColor" name="textColor"/>
-                                                <nil key="highlightedColor"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
                                                         <real key="value" value="5"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
-                                            </label>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="PLL-3y-iKG" secondAttribute="trailing" id="2tK-cW-w9o"/>
                                             <constraint firstAttribute="bottom" secondItem="inu-MQ-ZC0" secondAttribute="bottom" id="4bE-4r-bsb"/>
                                             <constraint firstAttribute="height" constant="95" id="6dX-pv-33H"/>
                                             <constraint firstAttribute="trailing" secondItem="inu-MQ-ZC0" secondAttribute="trailing" id="8bc-Op-IED"/>
+                                            <constraint firstAttribute="bottom" secondItem="PLL-3y-iKG" secondAttribute="bottom" id="C0q-zX-fFx"/>
                                             <constraint firstItem="inu-MQ-ZC0" firstAttribute="leading" secondItem="Ygu-hb-2zM" secondAttribute="leading" id="PjK-4c-NxS"/>
                                             <constraint firstItem="vuv-VE-1oN" firstAttribute="top" secondItem="Ygu-hb-2zM" secondAttribute="top" constant="5" id="QRl-Di-rBC"/>
                                             <constraint firstAttribute="width" constant="120" id="VS5-60-nMg"/>
                                             <constraint firstItem="vuv-VE-1oN" firstAttribute="leading" secondItem="Ygu-hb-2zM" secondAttribute="leading" constant="5" id="bVg-vF-aRN"/>
-                                            <constraint firstAttribute="trailing" secondItem="OBW-Bq-MZi" secondAttribute="trailing" id="d5c-PN-sli"/>
                                             <constraint firstItem="inu-MQ-ZC0" firstAttribute="top" secondItem="Ygu-hb-2zM" secondAttribute="top" id="jWY-nt-g4G"/>
-                                            <constraint firstAttribute="bottom" secondItem="OBW-Bq-MZi" secondAttribute="bottom" id="tau-vB-7mH"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
@@ -354,6 +368,7 @@
                 <outlet property="lblUsername" destination="yXe-eg-bfw" id="VED-lB-bup"/>
                 <outlet property="lbltitle" destination="8HX-ws-5Lh" id="lkX-IT-USx"/>
                 <outlet property="viewClassDetail" destination="Otb-LL-zlP" id="Adh-Fx-ORz"/>
+                <outlet property="viewDuration" destination="PLL-3y-iKG" id="uxT-wg-IIa"/>
                 <outlet property="viewProfile" destination="FvR-Uh-rf0" id="SQ2-yf-4S2"/>
                 <outlet property="viewProfileBottom" destination="FIt-KO-MRy" id="WPp-ac-Vza"/>
                 <outlet property="viewSubscribe" destination="Woo-Kn-h7V" id="a3i-if-13r"/>
