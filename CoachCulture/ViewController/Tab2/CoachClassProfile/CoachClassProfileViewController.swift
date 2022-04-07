@@ -254,7 +254,7 @@ class CoachClassProfileViewController: BaseViewController {
         case SelectedDemandClass.onDemand:
             if arrCoachClassInfoList.count > 0 {
                 if safeAreaTop > 20 {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (safeAreaTop + 14))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (safeAreaTop + 10))
                 } else {
                     lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (10.0 + safeAreaTop))
                 }
@@ -267,7 +267,7 @@ class CoachClassProfileViewController: BaseViewController {
         case SelectedDemandClass.live:
             if arrCoachClassInfoList.count > 0 {
                 if safeAreaTop > 20 {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (safeAreaTop + 14))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (safeAreaTop + 10))
                 } else {
                     lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (10.0 + safeAreaTop))
                 }
@@ -280,7 +280,7 @@ class CoachClassProfileViewController: BaseViewController {
         case SelectedDemandClass.recipe:
             if arrCoachRecipe.count > 0 {
                 if safeAreaTop > 20 {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (safeAreaTop + 14))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (safeAreaTop + 10))
                 } else {
                     lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (10.0 + safeAreaTop))
                 }
@@ -357,11 +357,7 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             print(self.scrollView.contentOffset.y)
-            if safeAreaTop > 20 {
-                tblOndemand.isScrollEnabled = (self.scrollView.contentOffset.y >= 225)
-            } else {
-                tblOndemand.isScrollEnabled = (self.scrollView.contentOffset.y >= 230)
-            }
+            tblOndemand.isScrollEnabled = (self.scrollView.contentOffset.y >= 225)
         }
         
         if scrollView == self.tblOndemand {

@@ -36,13 +36,13 @@
                                 <rect key="frame" x="0.0" y="-45" width="326" height="45"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="@timnorton subscribed to you.@timnorton subscribed to you.@timnorton subscribed to you.@timnorton subscribed to you." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8oA-Uc-khy">
-                                        <rect key="frame" x="7" y="9" width="274" height="16.5"/>
+                                        <rect key="frame" x="7" y="9" width="274" height="17"/>
                                         <fontDescription key="fontDescription" name="SFProText-Semibold" family="SF Pro Text" pointSize="14"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="15:41" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Es-dc-vs7" userLabel="time">
-                                        <rect key="frame" x="284" y="3" width="35" height="14"/>
+                                        <rect key="frame" x="284" y="3" width="35" height="14.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="35" id="9YV-1E-emH"/>
                                         </constraints>
@@ -83,10 +83,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </imageView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bzN-iD-471">
-                                                <rect key="frame" x="5" y="5" width="31.5" height="17"/>
+                                                <rect key="frame" x="5" y="5" width="33" height="17.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPE" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNj-do-Xru">
-                                                        <rect key="frame" x="5" y="5" width="21.5" height="7"/>
+                                                        <rect key="frame" x="5" y="5" width="23" height="7.5"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="6"/>
                                                         <color key="textColor" name="textColor"/>
@@ -107,10 +107,10 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Irc-GY-WiP">
-                                                <rect key="frame" x="79.5" y="75" width="40.5" height="20"/>
+                                                <rect key="frame" x="74" y="75" width="46" height="20"/>
                                                 <subviews>
                                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RY4-gg-MPp">
-                                                        <rect key="frame" x="4" y="2" width="32.5" height="16"/>
+                                                        <rect key="frame" x="4" y="2" width="38" height="16"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
                                                         <color key="textColor" name="textColor"/>
@@ -180,7 +180,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate Class" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6CN-io-n5E">
-                                                <rect key="frame" x="10" y="50.5" width="100" height="14"/>
+                                                <rect key="frame" x="10" y="50.5" width="100" height="14.5"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="12"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -212,16 +212,16 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xk2-cK-JwA" userLabel="viewTopDetail">
-                                        <rect key="frame" x="137" y="37.5" width="103" height="28"/>
+                                        <rect key="frame" x="137" y="37.5" width="115.5" height="28"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Chicken Fajitas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rUO-ZE-0Ov">
-                                                <rect key="frame" x="0.0" y="0.0" width="103" height="17.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="115.5" height="18"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="15"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lunch, Dinner, Breakfast" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e2P-Kx-RQa">
-                                                <rect key="frame" x="0.0" y="18.5" width="103" height="10.5"/>
+                                                <rect key="frame" x="0.0" y="19" width="115.5" height="11"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="9"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -423,11 +423,6 @@
             <point key="canvasLocation" x="136.23188405797103" y="96.09375"/>
         </tableViewCell>
     </objects>
-    <designables>
-        <designable name="6lI-fU-gxq">
-            <size key="intrinsicContentSize" width="240" height="44"/>
-        </designable>
-    </designables>
     <resources>
         <image name="Bookmark" width="15.5" height="25"/>
         <image name="ic_logo" width="390" height="226"/>

@@ -33,7 +33,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="155" height="190"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@timnorton" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J6M-iq-twm" customClass="PaddingLabel" customModule="CoachCulture" customModuleProvider="target">
-                                <rect key="frame" x="100.5" y="5" width="49.5" height="10"/>
+                                <rect key="frame" x="109" y="5" width="41" height="9.5"/>
                                 <color key="backgroundColor" name="recipe_bg_color"/>
                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="8"/>
                                 <color key="textColor" name="textColor"/>
@@ -57,7 +57,7 @@
                                 </userDefinedRuntimeAttributes>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RECIPE" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCp-Ik-dOs" customClass="PaddingLabel" customModule="CoachCulture" customModuleProvider="target">
-                                <rect key="frame" x="5" y="5" width="30.5" height="10"/>
+                                <rect key="frame" x="5" y="5" width="28.5" height="9.5"/>
                                 <color key="backgroundColor" red="0.42352941176470588" green="0.74509803921568629" blue="0.27450980392156865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="8"/>
                                 <color key="textColor" name="textColor"/>
@@ -187,7 +187,7 @@
                             <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kOq-yn-cRD">
                                 <rect key="frame" x="10" y="104.5" width="135" height="20"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="yaf-38-jF7">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="yaf-38-jF7">
                                         <rect key="frame" x="0.0" y="0.0" width="135" height="20"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
@@ -269,10 +269,10 @@
     </objects>
     <designables>
         <designable name="FCp-Ik-dOs">
-            <size key="intrinsicContentSize" width="30.5" height="10"/>
+            <size key="intrinsicContentSize" width="28.5" height="9.5"/>
         </designable>
         <designable name="J6M-iq-twm">
-            <size key="intrinsicContentSize" width="49.5" height="10"/>
+            <size key="intrinsicContentSize" width="41" height="9.5"/>
         </designable>
     </designables>
     <resources>

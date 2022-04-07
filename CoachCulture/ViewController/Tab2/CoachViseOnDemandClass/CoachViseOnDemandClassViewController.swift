@@ -116,7 +116,8 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         dropDown.anchorView = btn3Dots
         dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             if item.lowercased() == "Profile Link".lowercased() {
-                Utility.shared.showToast("Profile Link Copied Sucessfully")
+                UIPasteboard.general.string = "Check out Coach @\(self.userDataObj?.username ?? "") on\nCoachCulture\nhttps://www.coachculture.com/coach/\(self.userDataObj?.username ?? "")"
+                Utility.shared.showToast("Profile Link Copied Successfully")
             }
             
             if item.lowercased() == "Share".lowercased() {
@@ -203,9 +204,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         case SelectedDemandClass.onDemand:
             if arrCoachClassInfoList.count > 0 {
                 if safeAreaTop > 20 {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop + 14))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (15.0 + safeAreaTop + 14))
                 } else {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (15.0 + safeAreaTop))
                 }
             } else {
                 lctOndemandTableHeight.constant = 200.0
@@ -216,9 +217,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         case SelectedDemandClass.live:
             if arrCoachClassInfoList.count > 0 {
                 if safeAreaTop > 20 {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop + 14))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (15.0 + safeAreaTop + 14))
                 } else {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (15.0 + safeAreaTop))
                 }
             } else {
                 lctOndemandTableHeight.constant = 200.0
@@ -229,9 +230,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         case SelectedDemandClass.recipe:
             if arrCoachRecipe.count > 0 {
                 if safeAreaTop > 20 {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop + 14))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (15.0 + safeAreaTop + 14))
                 } else {
-                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (35.0 + safeAreaTop))
+                    lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (15.0 + safeAreaTop))
                 }
             } else {
                 lctOndemandTableHeight.constant = 200.0
@@ -325,11 +326,11 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableView") as! HeaderTableView
-        if isFromInitialLoading {
+        /*if isFromInitialLoading {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
                 headerView.clickToBtnClassTypeForCoach(headerView.btnOnDemand)
             })
-        }
+        }*/
         headerView.vewClass.isHidden = false
         headerView.didTapButton = { recdType in
             self.isFromInitialLoading = false
@@ -399,7 +400,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             cell.lblClassType.text = "On demand".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
             let obj = arrCoachClassInfoList[indexPath.row]
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
@@ -443,7 +444,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                     self.callToAddRemoveBookmarkAPI(urlStr: API.COACH_CLASS_BOOKMARK, params: param, recdType: SelectedDemandClass.live, selectedIndex: cell.selectedIndex)
                 }
             }
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.imgUser.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: "")
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
@@ -480,7 +481,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
                 }
             }
             cell.lbltitle.text = obj.title
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
             

@@ -427,11 +427,6 @@ class LoginSignUpVc: BaseViewController {
             imgErrPasswordLogin.isHidden = false
             imgErrUserNameLogin.isHidden = true
             return false
-        } else if txtPasswordLogin.text?.isValidPassword() ?? false {
-            txtPasswordLogin.setError("Password is mandatory field", show: true)
-            imgErrPasswordLogin.isHidden = false
-            imgErrUserNameLogin.isHidden = true
-            return false
         } else {
             removeAllErrLogin()
             imgErrPasswordLogin.isHidden = true

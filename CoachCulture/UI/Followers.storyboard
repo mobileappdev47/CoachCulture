@@ -105,7 +105,7 @@
                                                             </collectionViewCell>
                                                         </cells>
                                                     </collectionView>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kt6-5K-WtS">
+                                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kt6-5K-WtS">
                                                         <rect key="frame" x="0.0" y="29" width="300" height="165"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No coaches found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gjD-hs-iBv">
@@ -144,7 +144,7 @@
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" id="7rA-6X-Si5"/>
                                                 </constraints>
                                             </tableView>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xwU-30-QgP">
+                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xwU-30-QgP">
                                                 <rect key="frame" x="0.0" y="309" width="320" height="189"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new recipes found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AnK-07-OJ5">
@@ -587,11 +587,11 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzZ-A4-YuA">
-                                        <rect key="frame" x="20" y="410" width="280" height="68.5"/>
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzZ-A4-YuA">
+                                        <rect key="frame" x="20" y="410" width="280" height="100.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No demand class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU4-JP-KaL">
-                                                <rect key="frame" x="33.5" y="22.5" width="213.5" height="23.5"/>
+                                                <rect key="frame" x="33.5" y="38.5" width="213.5" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -612,7 +612,7 @@
                                     <constraint firstItem="abc-nT-VvD" firstAttribute="leading" secondItem="ZMm-Aj-Jp0" secondAttribute="leading" id="URU-df-pdp"/>
                                     <constraint firstItem="FzZ-A4-YuA" firstAttribute="leading" secondItem="iEv-jx-WRa" secondAttribute="leading" id="Zjn-Si-pJS"/>
                                     <constraint firstAttribute="trailing" secondItem="iEv-jx-WRa" secondAttribute="trailing" constant="20" id="fbe-eY-G7e"/>
-                                    <constraint firstAttribute="bottom" secondItem="iEv-jx-WRa" secondAttribute="bottom" constant="20" id="hrX-DO-7jp"/>
+                                    <constraint firstAttribute="bottom" secondItem="iEv-jx-WRa" secondAttribute="bottom" id="hrX-DO-7jp"/>
                                     <constraint firstItem="FzZ-A4-YuA" firstAttribute="top" secondItem="iEv-jx-WRa" secondAttribute="top" constant="100" id="mXf-X9-uKA"/>
                                     <constraint firstItem="abc-nT-VvD" firstAttribute="top" secondItem="ZMm-Aj-Jp0" secondAttribute="top" id="pSo-69-L3F"/>
                                     <constraint firstAttribute="trailing" secondItem="abc-nT-VvD" secondAttribute="trailing" id="v4M-2d-Ruf"/>
@@ -1211,7 +1211,7 @@
                                             <constraint firstAttribute="height" constant="200" id="B20-Tg-F7D"/>
                                         </constraints>
                                     </tableView>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-Ov-fA3">
+                                    <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hYh-Ov-fA3">
                                         <rect key="frame" x="20" y="285" width="280" height="193.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No demand class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lg8-ze-8Md">
@@ -1230,7 +1230,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="hYh-Ov-fA3" firstAttribute="top" secondItem="j8S-S5-Olj" secondAttribute="top" constant="50" id="5NE-P8-Emi"/>
-                                    <constraint firstAttribute="bottom" secondItem="j8S-S5-Olj" secondAttribute="bottom" constant="5" id="6iG-16-Eby"/>
+                                    <constraint firstAttribute="bottom" secondItem="j8S-S5-Olj" secondAttribute="bottom" id="6iG-16-Eby"/>
                                     <constraint firstItem="j8S-S5-Olj" firstAttribute="leading" secondItem="JDn-hw-nDg" secondAttribute="leading" constant="20" id="Hfb-sH-UvD"/>
                                     <constraint firstItem="Zf1-w2-ZAb" firstAttribute="leading" secondItem="JDn-hw-nDg" secondAttribute="leading" id="MRA-1c-im5"/>
                                     <constraint firstItem="hYh-Ov-fA3" firstAttribute="leading" secondItem="j8S-S5-Olj" secondAttribute="leading" id="NIg-vK-JbT"/>
@@ -1554,14 +1554,14 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="KVK-LP-ZPC">
-                                <rect key="frame" x="20" y="195" width="280" height="353"/>
+                                <rect key="frame" x="20" y="195" width="280" height="373"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFa-ml-27F">
-                                <rect key="frame" x="20" y="195" width="280" height="353"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nFa-ml-27F">
+                                <rect key="frame" x="20" y="195" width="280" height="373"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No search history found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lxd-Gb-S14">
-                                        <rect key="frame" x="33" y="164.5" width="214" height="24"/>
+                                        <rect key="frame" x="33" y="174.5" width="214" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1577,7 +1577,7 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="KVK-LP-ZPC" secondAttribute="bottom" constant="20" id="2FJ-ja-IRq"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="KVK-LP-ZPC" secondAttribute="bottom" id="2FJ-ja-IRq"/>
                             <constraint firstItem="BRO-ty-dRn" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="8XA-jA-Xms"/>
                             <constraint firstItem="nFa-ml-27F" firstAttribute="leading" secondItem="KVK-LP-ZPC" secondAttribute="leading" id="TJs-Pd-1Q4"/>
                             <constraint firstItem="BRO-ty-dRn" firstAttribute="top" secondItem="chr-J4-cvJ" secondAttribute="bottom" id="XCH-YM-qBI"/>
@@ -1766,13 +1766,13 @@
                                             <constraint firstAttribute="trailing" secondItem="gMw-xe-8uZ" secondAttribute="trailing" constant="10" id="zAf-gr-Zil"/>
                                         </constraints>
                                     </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular recipe found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5e-3g-OIk">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular recipe found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t5e-3g-OIk">
                                         <rect key="frame" x="61.5" y="177" width="217.5" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" name="textFieldColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new recipe found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-ca-oNs" userLabel="No new recipe found">
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new recipe found" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lAB-ca-oNs" userLabel="No new recipe found">
                                         <rect key="frame" x="67" y="386.5" width="186" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" name="textFieldColor"/>
@@ -1928,14 +1928,14 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="xjz-K1-q3E">
-                                <rect key="frame" x="20" y="170" width="280" height="378"/>
+                                <rect key="frame" x="20" y="170" width="280" height="398"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tm9-eV-Ajp">
-                                <rect key="frame" x="20" y="170" width="280" height="378"/>
+                                <rect key="frame" x="20" y="170" width="280" height="398"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No recipes data found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xxv-if-q2b">
-                                        <rect key="frame" x="40.5" y="177" width="199" height="24"/>
+                                        <rect key="frame" x="40.5" y="187" width="199" height="24"/>
                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                         <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
@@ -1953,7 +1953,7 @@
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
                             <constraint firstItem="tm9-eV-Ajp" firstAttribute="trailing" secondItem="xjz-K1-q3E" secondAttribute="trailing" id="3Ea-zh-ve7"/>
-                            <constraint firstItem="JUk-kL-alV" firstAttribute="bottom" secondItem="xjz-K1-q3E" secondAttribute="bottom" constant="20" id="6N6-BD-aDn"/>
+                            <constraint firstItem="JUk-kL-alV" firstAttribute="bottom" secondItem="xjz-K1-q3E" secondAttribute="bottom" id="6N6-BD-aDn"/>
                             <constraint firstItem="ocn-rs-keZ" firstAttribute="top" secondItem="Jk3-cQ-Ixs" secondAttribute="bottom" constant="10" id="97w-AH-Dtf"/>
                             <constraint firstItem="tm9-eV-Ajp" firstAttribute="leading" secondItem="xjz-K1-q3E" secondAttribute="leading" id="9RI-0A-yj1"/>
                             <constraint firstItem="tm9-eV-Ajp" firstAttribute="bottom" secondItem="xjz-K1-q3E" secondAttribute="bottom" id="ESs-T4-7Za"/>
@@ -2484,10 +2484,10 @@
                                         </connections>
                                     </tableView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctO-1d-me7">
-                                        <rect key="frame" x="20" y="373.5" width="280" height="105"/>
+                                        <rect key="frame" x="20" y="373.5" width="280" height="151"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No previous class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-tc-Ssu">
-                                                <rect key="frame" x="32" y="41" width="216" height="23.5"/>
+                                                <rect key="frame" x="32" y="64" width="216" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2504,7 +2504,7 @@
                                 <constraints>
                                     <constraint firstItem="QKB-Bs-Fzp" firstAttribute="leading" secondItem="ZMt-EN-Zff" secondAttribute="leading" id="16F-ft-uCb"/>
                                     <constraint firstItem="JL9-cy-yuw" firstAttribute="leading" secondItem="rzf-bl-A7w" secondAttribute="leading" id="4bd-vE-4zX"/>
-                                    <constraint firstAttribute="bottom" secondItem="ZMt-EN-Zff" secondAttribute="bottom" constant="20" id="5UC-lt-wfi"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZMt-EN-Zff" secondAttribute="bottom" id="5UC-lt-wfi"/>
                                     <constraint firstItem="JL9-cy-yuw" firstAttribute="width" secondItem="rzf-bl-A7w" secondAttribute="width" id="AUb-Wf-edQ"/>
                                     <constraint firstItem="ZMt-EN-Zff" firstAttribute="leading" secondItem="rzf-bl-A7w" secondAttribute="leading" constant="20" id="BFH-QD-7d5"/>
                                     <constraint firstItem="QKB-Bs-Fzp" firstAttribute="trailing" secondItem="ZMt-EN-Zff" secondAttribute="trailing" id="Bme-Tj-U95"/>
