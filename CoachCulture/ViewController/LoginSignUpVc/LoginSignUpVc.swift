@@ -347,6 +347,7 @@ class LoginSignUpVc: BaseViewController {
     
     func validationSignup() -> Bool {
         
+        print(txtPassword.text ?? "")
         var phoneNo = ""
         var dialCode = ""
         
@@ -359,7 +360,7 @@ class LoginSignUpVc: BaseViewController {
             print("Generic parser error")
         }
         
-        if txtUsername.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        if txtUsername.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             txtUsername.setError("Username is mandatory field", show: true)
             errorForBlankText(false, true, true, true, true)
             return false
@@ -367,7 +368,7 @@ class LoginSignUpVc: BaseViewController {
             txtUsername.setError("Space not allowed", show: true)
             errorForBlankText(false, true, true, true, true)
             return false
-        } else  if txtPhone.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        } else  if txtPhone.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             txtPhone.setError("Please enter a valid phone", show: true)
             errorForBlankText(true, false, true, true, true)
             return false
@@ -375,7 +376,7 @@ class LoginSignUpVc: BaseViewController {
             txtPhone.setError("Please enter a valid phone", show: true)
             errorForBlankText(true, false, true, true, true)
             return false
-        } else  if txtEmail.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        } else  if txtEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             txtEmail.setError("Email is mandatory field", show: true)
             errorForBlankText(true, true, false, true, true)
             return false
@@ -383,15 +384,15 @@ class LoginSignUpVc: BaseViewController {
             txtEmail.setError("Wrong formate for email address", show: true)
             errorForBlankText(true, true, false, true, true)
             return false
-        } else  if txtPassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
+        } else  if txtPassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
             txtPassword.setError("Password is mandatory field", show: true)
             errorForBlankText(true, true, true, false, true)
             return false
-        } else  if txtPassword.text?.isValidPassword ?? false && LoginType == LoginTypeConst.Standard  {
+        } else  if !(txtPassword.text?.isValidPassword() ?? false) && LoginType == LoginTypeConst.Standard  {
             txtPassword.setError("Password must be contain uppercase, lowercase, digit, sign letter", show: true)
             errorForBlankText(true, true, true, false, true)
             return false
-        } else  if txtRePassword.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
+        } else  if txtRePassword.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 && LoginType == LoginTypeConst.Standard {
             txtRePassword.setError("Re-Type password is mandatory field", show: true)
             errorForBlankText(true, true, true, true, false)
             return false
@@ -421,12 +422,12 @@ class LoginSignUpVc: BaseViewController {
             txtUsernameLogin.setError("Space not allowed", show: true)
             imgErrUserNameLogin.isHidden = false
             return false
-        } else if txtPasswordLogin.text!.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        } else if txtPasswordLogin.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             txtPasswordLogin.setError("Password is mandatory field", show: true)
             imgErrPasswordLogin.isHidden = false
             imgErrUserNameLogin.isHidden = true
             return false
-        } else if txtPasswordLogin.text?.isValidPassword ?? false {
+        } else if txtPasswordLogin.text?.isValidPassword() ?? false {
             txtPasswordLogin.setError("Password is mandatory field", show: true)
             imgErrPasswordLogin.isHidden = false
             imgErrUserNameLogin.isHidden = true

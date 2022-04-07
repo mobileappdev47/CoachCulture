@@ -28,9 +28,15 @@ extension String {
         return emailPred.evaluate(with: self)
     }
     
-    var isValidPassword: Bool {
-        let regex = "^[A-Za-z0-9_$@!%*?&].{5,14}"//"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&]{6,15}"
-        let isMatched = NSPredicate(format:"SELF MATCHES %@", regex).evaluate(with: regex)
-        return isMatched
+    func isValidPassword() -> Bool {
+        // least one uppercase,
+        // least one digit
+        // least one lowercase
+        // least one symbol
+        //  min 8 characters total
+        let password = self.trimmingCharacters(in: CharacterSet.whitespaces)
+        let passwordRegx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&<>*~:`-]).{8,}$"
+        let passwordCheck = NSPredicate(format: "SELF MATCHES %@",passwordRegx)
+        return passwordCheck.evaluate(with: password)
     }
 }

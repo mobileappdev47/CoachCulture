@@ -44,7 +44,7 @@ class ResetPasswordViewController: BaseViewController {
             txt?.textColor = COLORS.TEXT_COLOR
             txt?.tintColor = COLORS.TEXT_COLOR
             
-            txt?.layer.cornerRadius = 10
+            //txt?.layer.cornerRadius = 10
             txt?.clipsToBounds = true
         }
     }
@@ -54,7 +54,7 @@ class ResetPasswordViewController: BaseViewController {
             imgErrNewPass.isHidden = false
             imgErrConPassword.isHidden = true
             txtNewPassword.setError("Password is a mandatory field", show: true)
-        } else if !(txtNewPassword.text?.isValidPassword ?? false) {
+        } else if !(txtNewPassword.text?.isValidPassword() ?? false) {
             imgErrNewPass.isHidden = false
             imgErrConPassword.isHidden = true
             txtNewPassword.setError("Password must be contain uppercase,lowercase,digit,sign letter", show: true)
