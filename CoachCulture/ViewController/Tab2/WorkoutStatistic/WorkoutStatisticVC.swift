@@ -247,7 +247,7 @@ class WorkoutStatisticVC: BaseViewController {
                 if self.safeAreaTop > 20 {
                     self.lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (self.safeAreaTop + 44))
                 } else {
-                    self.lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (10.0 + self.safeAreaTop))
+                    self.lctOndemandTableHeight.constant = (self.view.frame.height - (self.viewNavbar.frame.height) - (self.safeAreaTop))
                 }
                 self.viewNoDataFound.isHidden = true
                 DispatchQueue.main.async {
@@ -313,11 +313,7 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView == self.scrollView {
             print(self.scrollView.contentOffset.y)
-            if safeAreaTop > 20 {
-                tblPreviousClassView.isScrollEnabled = (self.scrollView.contentOffset.y >= 330)
-            } else {
-                tblPreviousClassView.isScrollEnabled = (self.scrollView.contentOffset.y >= 330)
-            }
+            tblPreviousClassView.isScrollEnabled = (self.scrollView.contentOffset.y >= 320)
         }
         
         if scrollView == self.tblPreviousClassView {
@@ -360,7 +356,7 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
             
             cell.lblClassType.text = "On demand".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             
             cell.viewProfile.isHidden = false
@@ -409,7 +405,7 @@ extension WorkoutStatisticVC : UITableViewDelegate, UITableViewDataSource, UIScr
             cell.lblClassType.text = "Live".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             cell.selectedIndex = indexPath.row
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             
             cell.viewProfile.isHidden = false

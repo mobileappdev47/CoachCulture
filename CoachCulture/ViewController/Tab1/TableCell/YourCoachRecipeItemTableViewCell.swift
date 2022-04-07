@@ -9,6 +9,7 @@ import UIKit
 
 class YourCoachRecipeItemTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var viewDuration: UIView!
     @IBOutlet weak var viewProfile: UIView!
     @IBOutlet weak var lblUserName: UILabel!
     @IBOutlet weak var lblTitle: UILabel!

@@ -14,6 +14,7 @@ class AccountBalanceListViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var viewLastTransaction: UIView!
     @IBOutlet weak var tblLastTransaction: UITableView!
     
     @IBOutlet weak var lblBalance: UILabel!
@@ -26,7 +27,7 @@ class AccountBalanceListViewController: BaseViewController {
     
     // MARK: - Methods
     func setUpUI() {
-               
+        viewLastTransaction.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         tblLastTransaction.register(UINib(nibName: "TransactionItemTableViewCell", bundle: nil), forCellReuseIdentifier: "TransactionItemTableViewCell")
         tblLastTransaction.delegate = self
         tblLastTransaction.dataSource = self

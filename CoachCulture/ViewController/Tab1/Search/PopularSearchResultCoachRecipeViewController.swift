@@ -83,13 +83,12 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
         if arrCoachRecipeData.count > 0 {
             let obj = arrCoachRecipeData[indexPath.row]
             cell.viewProfile.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMaxXMaxYCorner]
-            cell.lblDuration.text = obj.duration
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblUserName.text = obj.username
             cell.lblTitle.text = obj.title
             cell.lblRecipeType.text = obj.meal_type_name
             cell.lblDuration.text = obj.duration
             cell.lblDuration.addCornerRadius(5)
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.imgRecipe.setImageFromURL(imgUrl: obj.thumbnail_image, placeholderImage: nil)
             cell.imgUser.setImageFromURL(imgUrl: obj.coach_image, placeholderImage: nil)
             if cell.imgThumbnail.image == nil {
@@ -188,7 +187,7 @@ extension PopularSearchResultCoachRecipeViewController : UITextFieldDelegate {
         
         let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         searchString = finalString
-        textFieldDidEndEditing(textField)
+        //textFieldDidEndEditing(textField)
         return true
     }
     

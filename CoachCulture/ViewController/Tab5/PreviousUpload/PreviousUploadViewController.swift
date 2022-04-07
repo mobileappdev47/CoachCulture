@@ -253,6 +253,7 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
             cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
 
             cell.lbltitle.text = obj.title
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
             

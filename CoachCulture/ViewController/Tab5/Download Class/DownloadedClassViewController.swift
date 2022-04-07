@@ -109,6 +109,7 @@ extension DownloadedClassViewController : UITableViewDelegate, UITableViewDataSo
         cell.lblClassDate.text = obj.class_subtitle
         cell.lblUserName.text = "@" + obj.coachDetailsDataObj.username
         cell.lblClassTime.text = obj.total_viewers + " Views"
+        cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
         cell.lblDuration.text = obj.duration
         cell.viwRating.value = 0
         cell.btnUser.tag = indexPath.row

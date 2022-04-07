@@ -232,7 +232,7 @@ extension SearchResultViewController : UITableViewDelegate, UITableViewDataSourc
                 cell.lblClassTime.text = obj.total_viewers + " Views"
                 cell.viwClassTypeContainer.backgroundColor = COLORS.ON_DEMAND_COLOR
             }
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             
             cell.viewProfile.isHidden = false

@@ -66,7 +66,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     var userDataObj : UserData?
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
     var logOutView:LogOutView!
-    var isFromInitialLoading = false
+    var isFromInitialLoadingBlock: (() -> Void)!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -78,7 +78,6 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         super.viewWillAppear(true)
         
         self.hideTabBar()
-        isFromInitialLoading = true
         if Reachability.isConnectedToNetwork(){
             getUserProfile()
             getCoacheSearchHistory()
@@ -86,6 +85,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
             self.resetRecipeVariable()
         }
         setData()
+        if self.isFromInitialLoadingBlock != nil {
+            self.isFromInitialLoadingBlock()
+        }
     }
     
     // MARK: - Methods
@@ -326,14 +328,11 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableView") as! HeaderTableView
-        /*if isFromInitialLoading {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                headerView.clickToBtnClassTypeForCoach(headerView.btnOnDemand)
-            })
-        }*/
+        self.isFromInitialLoadingBlock = {
+            headerView.clickToBtnClassTypeForCoach(headerView.btnOnDemand)
+        }
         headerView.vewClass.isHidden = false
         headerView.didTapButton = { recdType in
-            self.isFromInitialLoading = false
             switch recdType {
             case SelectedDemandClass.onDemand:
                 self.resetVariable()
@@ -872,9 +871,9 @@ class HeaderTableView: UITableViewHeaderFooterView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        DispatchQueue.main.async {
+        /*DispatchQueue.main.async {
             self.clickToBtnClassTypeForCoach(self.btnOnDemand)
-        }
+        }*/
     }
 }
 

@@ -222,7 +222,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
                 cell.lblClassTime.text = obj.total_viewers + " Views"
                 cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
                 cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 12)
-                cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+                cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
                 cell.lblDuration.text = obj.duration
                 let str = obj.average_rating
                 if let num = NumberFormatter().number(from: str) {
@@ -282,7 +282,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.lblUserName.text = "@" + obj.coachDetailsObj.username
             cell.lblDuration.text = obj.duration
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblClassDate.text = getRealDate(date: obj.created_at)
             cell.lblClassTime.text = obj.class_time
             cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
@@ -332,7 +332,7 @@ extension PreviousClassesViewController : UITableViewDelegate, UITableViewDataSo
             cell.isAllowTagLayout = false
             let obj = arrCoachRecipePrevious[indexPath.row]
             cell.lbltitle.text = obj.title
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.meal_type_name
             cell.clvDietaryRestriction.reloadData()

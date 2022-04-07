@@ -64,35 +64,49 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XnR-Ot-Ly7">
-                                        <rect key="frame" x="75" y="75" width="45" height="20"/>
-                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IT9-hQ-Mjp">
+                                        <rect key="frame" x="79.5" y="77" width="40.5" height="18"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="45mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XnR-Ot-Ly7">
+                                                <rect key="frame" x="4" y="2" width="32.5" height="14"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
+                                                <color key="textColor" name="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
+                                                        <real key="value" value="5"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" name="time_duration_bg_color"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="45" id="80u-Xl-l6R"/>
-                                            <constraint firstAttribute="height" constant="20" id="HcN-EX-OUx"/>
+                                            <constraint firstItem="XnR-Ot-Ly7" firstAttribute="top" secondItem="IT9-hQ-Mjp" secondAttribute="top" constant="2" id="1Om-Me-ofV"/>
+                                            <constraint firstItem="XnR-Ot-Ly7" firstAttribute="leading" secondItem="IT9-hQ-Mjp" secondAttribute="leading" constant="4" id="Fcb-zc-fWQ"/>
+                                            <constraint firstAttribute="trailing" secondItem="XnR-Ot-Ly7" secondAttribute="trailing" constant="4" id="QpC-YO-xGe"/>
+                                            <constraint firstAttribute="height" constant="18" id="S6p-EQ-G5L"/>
+                                            <constraint firstAttribute="bottom" secondItem="XnR-Ot-Ly7" secondAttribute="bottom" constant="2" id="YfV-w4-6CX"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="10"/>
-                                        <color key="textColor" name="textColor"/>
-                                        <nil key="highlightedColor"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
                                                 <real key="value" value="5"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
-                                    </label>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="klu-bE-emg" secondAttribute="bottom" id="66P-V6-fFU"/>
                                     <constraint firstAttribute="height" constant="95" id="6On-GV-5vw"/>
+                                    <constraint firstAttribute="trailing" secondItem="IT9-hQ-Mjp" secondAttribute="trailing" id="7ii-Tc-fUB"/>
                                     <constraint firstItem="weP-U6-kaD" firstAttribute="leading" secondItem="Wy4-GA-4U6" secondAttribute="leading" constant="5" id="AGQ-Nn-tg4"/>
                                     <constraint firstAttribute="width" constant="120" id="E1R-o4-iEm"/>
                                     <constraint firstItem="weP-U6-kaD" firstAttribute="top" secondItem="Wy4-GA-4U6" secondAttribute="top" constant="5" id="ELn-2E-MkT"/>
                                     <constraint firstItem="klu-bE-emg" firstAttribute="leading" secondItem="Wy4-GA-4U6" secondAttribute="leading" id="YOr-Kt-ksK"/>
-                                    <constraint firstAttribute="bottom" secondItem="XnR-Ot-Ly7" secondAttribute="bottom" id="cqH-1r-HMZ"/>
                                     <constraint firstItem="klu-bE-emg" firstAttribute="top" secondItem="Wy4-GA-4U6" secondAttribute="top" id="i4v-tC-HZS"/>
                                     <constraint firstAttribute="trailing" secondItem="klu-bE-emg" secondAttribute="trailing" id="sZH-QK-KfF"/>
-                                    <constraint firstAttribute="trailing" secondItem="XnR-Ot-Ly7" secondAttribute="trailing" id="zsm-dV-lhM"/>
+                                    <constraint firstAttribute="bottom" secondItem="IT9-hQ-Mjp" secondAttribute="bottom" id="t8q-De-7TE"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
@@ -279,6 +293,7 @@
                 <outlet property="lblRecipeType" destination="ck0-s9-Vpm" id="o9F-wc-kdU"/>
                 <outlet property="lblTitle" destination="ND5-mE-8hQ" id="vU1-HJ-sTt"/>
                 <outlet property="lblUserName" destination="dDo-Q9-JI6" id="vq1-X2-5eD"/>
+                <outlet property="viewDuration" destination="IT9-hQ-Mjp" id="Wns-K8-ll0"/>
                 <outlet property="viewProfile" destination="raU-DX-hfC" id="sjT-mQ-gRk"/>
             </connections>
             <point key="canvasLocation" x="131.8840579710145" y="125.22321428571428"/>
@@ -296,6 +311,9 @@
         </namedColor>
         <namedColor name="themeColor">
             <color red="0.023529411764705882" green="0.074509803921568626" blue="0.13725490196078433" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="time_duration_bg_color">
+            <color red="0.024000000208616257" green="0.078000001609325409" blue="0.14100000262260437" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

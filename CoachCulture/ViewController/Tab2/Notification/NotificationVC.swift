@@ -159,7 +159,7 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             cell.lblClassTime.text = metaObj.viewers + " Views"
             cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
             cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 12)
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = metaObj.duration
             cell.didTapBookmarkButton = {
                 self.tblNotificationView.beginUpdates()
@@ -205,7 +205,7 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             cell.lbltitle.text = metaObj.class_type
             cell.lblClassDifficultyLevel.text = metaObj.class_subtitle
             cell.lblUsername.text = "@" + metaObj.coachDetailsObj.username
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = metaObj.duration
             
             cell.lblClassDate.text = getRealDate(date: metaObj.created_at)
@@ -252,6 +252,7 @@ extension NotificationVC : UITableViewDelegate, UITableViewDataSource, UIScrollV
             }
             cell.selectedIndex = indexPath.row
             cell.lbltitle.text = metaObj.title
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = metaObj.duration
             cell.lblRecipeType.text = metaObj.arrMealTypeString
             cell.btnUser.tag = indexPath.row

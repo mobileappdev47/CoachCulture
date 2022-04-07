@@ -60,6 +60,7 @@ class CoachClassProfileViewController: BaseViewController {
     var userWorkoutStatisticsModel = UserWorkoutStatisticsModel()
     var ITEM_COUNT  = 0
     var isFromInitialLoading = false
+    var isFromInitialLoadingBlock: (() -> Void)!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +75,9 @@ class CoachClassProfileViewController: BaseViewController {
         resetVariable()
         setUpUI()
         self.showTabBar()
+        if self.isFromInitialLoadingBlock != nil {
+            self.isFromInitialLoadingBlock()
+        }
     }
         
     // MARK: - Methods
@@ -367,10 +371,8 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: "HeaderTableView") as! HeaderTableView
-        if isFromInitialLoading {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1, execute: {
-                headerView.clickToBtnClassTypeForCoach(headerView.btnOnDemand)
-            })
+        self.isFromInitialLoadingBlock = {
+            headerView.clickToBtnClassTypeForCoach(headerView.btnOnDemand)
         }
         headerView.didTapButton = { recdType in
             self.isFromInitialLoading = false
@@ -418,8 +420,7 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.lblClassType.text = "On demand".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#1A82F6")
             let obj = arrCoachClassInfoList[indexPath.row]
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
-            cell.lblDuration.text = obj.duration
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             
             cell.viewProfile.isHidden = false
             if cell.imgProfileBottom.image == nil {
@@ -488,7 +489,7 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.lbltitle.text = obj.class_type_name
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.lblUsername.text = "@" + obj.coachDetailsObj.username
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             
             cell.lblClassDate.text = getRealDate(date: obj.created_at)
@@ -539,7 +540,7 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             }
             cell.selectedIndex = indexPath.row
             cell.lbltitle.text = obj.title
-            cell.lblDuration.layer.maskedCorners = [.layerMinXMinYCorner]
+            cell.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
             cell.lblDuration.text = obj.duration
             cell.lblRecipeType.text = obj.arrMealTypeString
             cell.btnUser.tag = indexPath.row
