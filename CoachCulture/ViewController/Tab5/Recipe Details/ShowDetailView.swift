@@ -76,9 +76,10 @@ extension ShowDetailView: UITableViewDataSource, UITableViewDelegate {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "RecipeTestCellTableViewCell") as! RecipeTestCellTableViewCell
-            let obj = recipeDetailDataObj.arrRecipeSteps["\(indexPath.row + 1)"]
-            cell.lblIndex.text = "\(indexPath.row + 1)"
-            cell.lblRecipeData.text = "\(obj!)"
+            if let obj = recipeDetailDataObj.arrRecipeSteps["\(indexPath.row + 1)"] {
+                cell.lblIndex.text = "\(indexPath.row + 1)"
+                cell.lblRecipeData.text = "\(obj)"
+            }
             return cell
         }
     }
