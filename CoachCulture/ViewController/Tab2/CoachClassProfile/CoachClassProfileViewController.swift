@@ -75,8 +75,10 @@ class CoachClassProfileViewController: BaseViewController {
         resetVariable()
         setUpUI()
         self.showTabBar()
-        if self.isFromInitialLoadingBlock != nil {
-            self.isFromInitialLoadingBlock()
+        DispatchQueue.main.async {
+            if self.isFromInitialLoadingBlock != nil {
+                self.isFromInitialLoadingBlock()
+            }
         }
     }
         

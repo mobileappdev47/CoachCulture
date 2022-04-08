@@ -440,6 +440,7 @@ extension YourCoachesViewController {
             self.hideLoader()
             
         } failure: { (error) in
+            self.viewNoCoachFound.isHidden = false
             return true
         }
     }

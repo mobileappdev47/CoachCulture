@@ -362,6 +362,11 @@
             <point key="canvasLocation" x="131.8840579710145" y="125.89285714285714"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="X0K-F2-G82">
+            <size key="intrinsicContentSize" width="228" height="44"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Bookmark" width="15.5" height="25"/>
         <image name="dummy" width="117" height="78"/>

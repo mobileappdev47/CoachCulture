@@ -290,16 +290,20 @@ extension PopularCoachRecipeViewController {
             let dataObj = responseObj["popular_recipe_list"] as? [Any] ?? [Any]()
             self.arrPopularRecipeData = PopularRecipeData.getData(data: dataObj)
             
-            self.arrPopularRecipeData.forEach { (model) in
-                model.arrdietary_restriction.sort()
+            if self.arrPopularRecipeData.count > 0 {
+                self.lblPopularRecipeCenter.isHidden = true
+                self.arrPopularRecipeData.forEach { (model) in
+                    model.arrdietary_restriction.sort()
+                }
+                self.clvPopularRecipeItem.reloadData()
+            } else {
+                self.lblPopularRecipeCenter.isHidden = false
             }
-            
-            self.clvPopularRecipeItem.reloadData()
-            
             self.hideLoader()
             self.getYourCoachRecipeList()
             
         } failure: { (error) in
+            self.lblPopularRecipeCenter.isHidden = false
             return true
         }
     }

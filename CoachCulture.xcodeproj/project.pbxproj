@@ -2174,6 +2174,7 @@
 				512ABB8B2717FD72008CB198 /* Frameworks */,
 				512ABB8C2717FD72008CB198 /* Resources */,
 				290DB3A03558C82F7786C1FF /* [CP] Embed Pods Frameworks */,
+				51252D5E28003C84000D4C11 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -2597,6 +2598,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoachCulture/Pods-CoachCulture-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		51252D5E28003C84000D4C11 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -2913,6 +2933,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = J6PSBNQBR2;
 				INFOPLIST_FILE = "$(SRCROOT)/CoachCulture/CommonFile/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 12.1;

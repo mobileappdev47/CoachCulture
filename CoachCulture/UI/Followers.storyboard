@@ -588,7 +588,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </tableView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FzZ-A4-YuA">
-                                        <rect key="frame" x="20" y="410" width="280" height="100.5"/>
+                                        <rect key="frame" x="20" y="410" width="280" height="100"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No demand class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WU4-JP-KaL">
                                                 <rect key="frame" x="33.5" y="38.5" width="213.5" height="23.5"/>
@@ -617,6 +617,7 @@
                                     <constraint firstItem="abc-nT-VvD" firstAttribute="top" secondItem="ZMm-Aj-Jp0" secondAttribute="top" id="pSo-69-L3F"/>
                                     <constraint firstAttribute="trailing" secondItem="abc-nT-VvD" secondAttribute="trailing" id="v4M-2d-Ruf"/>
                                     <constraint firstItem="iEv-jx-WRa" firstAttribute="top" secondItem="abc-nT-VvD" secondAttribute="bottom" constant="20" id="vV8-XM-okE"/>
+                                    <constraint firstItem="FzZ-A4-YuA" firstAttribute="bottom" secondItem="iEv-jx-WRa" secondAttribute="bottom" id="vu2-kx-SGR"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -624,7 +625,6 @@
                         <color key="backgroundColor" name="themeColor"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="vNj-Pd-aX2" secondAttribute="trailing" id="8tH-hG-IJj"/>
-                            <constraint firstItem="SDx-iJ-FEr" firstAttribute="bottom" secondItem="FzZ-A4-YuA" secondAttribute="bottom" id="TG3-Ip-Vt1"/>
                             <constraint firstItem="vNj-Pd-aX2" firstAttribute="leading" secondItem="SDx-iJ-FEr" secondAttribute="leading" id="Yud-0e-TfM"/>
                             <constraint firstItem="ZMm-Aj-Jp0" firstAttribute="top" secondItem="vNj-Pd-aX2" secondAttribute="bottom" id="aCk-Eo-90n"/>
                             <constraint firstItem="SDx-iJ-FEr" firstAttribute="bottom" secondItem="ZMm-Aj-Jp0" secondAttribute="bottom" id="fzj-Ce-JNK"/>
@@ -650,6 +650,7 @@
                         <outlet property="lctOndemandTableHeight" destination="zaO-Yz-lbQ" id="EYw-D1-EnO"/>
                         <outlet property="scrollView" destination="ZMm-Aj-Jp0" id="cVa-bq-7od"/>
                         <outlet property="tblOndemand" destination="iEv-jx-WRa" id="dwF-SI-K6g"/>
+                        <outlet property="topConstantViewNoDataFound" destination="mXf-X9-uKA" id="3iu-AG-QIn"/>
                         <outlet property="viewFollow" destination="fqU-ke-Ta6" id="VId-hs-qaY"/>
                         <outlet property="viewNavbar" destination="vNj-Pd-aX2" id="3Tk-Rn-R4u"/>
                         <outlet property="viewSubscription" destination="rjN-PM-8io" id="XFL-2z-av0"/>
@@ -2484,10 +2485,10 @@
                                         </connections>
                                     </tableView>
                                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctO-1d-me7">
-                                        <rect key="frame" x="20" y="373.5" width="280" height="151"/>
+                                        <rect key="frame" x="20" y="373.5" width="280" height="105"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No previous class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8r0-tc-Ssu">
-                                                <rect key="frame" x="32" y="64" width="216" height="23.5"/>
+                                                <rect key="frame" x="32" y="41" width="216" height="23.5"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -2560,7 +2561,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="26" height="26"/>
         <image name="Switch" width="17" height="18.5"/>
-        <image name="Trainers Icon" width="42" height="36"/>
+        <image name="Trainers Icon" width="29.5" height="24"/>
         <image name="chatting" width="23.5" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.5"/>

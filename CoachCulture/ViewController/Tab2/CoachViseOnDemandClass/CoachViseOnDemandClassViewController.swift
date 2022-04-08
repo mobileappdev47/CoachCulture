@@ -16,6 +16,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         return vc
     }
     
+    @IBOutlet weak var topConstantViewNoDataFound: NSLayoutConstraint!
     @IBOutlet weak var viewSubscription: UIView!
     @IBOutlet weak var viewNavbar: UIView!
     @IBOutlet weak var viewTableHeader: UIView!
@@ -376,7 +377,8 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let height = selectedCoachId == AppPrefsManager.sharedInstance.getUserData().id ? 100 : 50
+        let height = selectedCoachId == AppPrefsManager.sharedInstance.getUserData().id ? 100.0 : 50.0
+        self.topConstantViewNoDataFound.constant = CGFloat(height)
         return CGFloat(height)
     }
     

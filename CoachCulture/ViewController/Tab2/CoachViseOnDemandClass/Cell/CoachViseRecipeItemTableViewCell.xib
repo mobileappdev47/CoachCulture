@@ -423,6 +423,11 @@
             <point key="canvasLocation" x="136.23188405797103" y="96.09375"/>
         </tableViewCell>
     </objects>
+    <designables>
+        <designable name="6lI-fU-gxq">
+            <size key="intrinsicContentSize" width="240" height="44"/>
+        </designable>
+    </designables>
     <resources>
         <image name="Bookmark" width="15.5" height="25"/>
         <image name="ic_logo" width="390" height="226"/>
