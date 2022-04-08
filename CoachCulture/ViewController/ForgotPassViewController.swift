@@ -76,7 +76,7 @@ class ForgotPassViewController: BaseViewController {
         }
         [txtPhone, txtEmail].enumerated().forEach { index, txt in
             let place = txtPlaceholders[index]
-            txt?.attributedPlaceholder = NSAttributedString(string: place, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14, weight: .bold), .foregroundColor: COLORS.TEXT_COLOR])
+            txt?.attributedPlaceholder = NSAttributedString(string: place, attributes: [NSAttributedString.Key.font: UIFont(name: "SFProText-Bold", size: 14) ?? UIFont.systemFont(ofSize: 14, weight: .bold), .foregroundColor: COLORS.TEXT_COLOR])
             txt?.font = UIFont.systemFont(ofSize: 14, weight: .bold)
             txt?.textColor = COLORS.TEXT_COLOR
             txt?.tintColor = COLORS.TEXT_COLOR
