@@ -105,7 +105,6 @@ class CoachRecipeData {
     var bookmark = ""
     var arrDietaryRestrictionName = [String]()
    
-    init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
@@ -139,49 +138,146 @@ class CoachRecipeData {
     }
 }
 
+// MARK: - Welcome
+class Welcome {
+    var map: Map!
+    let object: String
+    var data: [Datum] = []
+    let hasMore: Bool
+    let url: String
+
+    enum CodingKeys: String {
+        case object, data
+        case hasMore = "has_more"
+        case url
+    }
+    
+    init(responseObj: [String : Any]) {
+        map = Map(data: responseObj)
+        self.object = map.value("object") ?? ""
+        let data1 = responseObj["data"]
+        self.data.append(Datum(responseObj: data1 as? [String : Any] ?? [String:Any]()))
+        self.hasMore = ((map.value("hasMore") ?? "") != nil)
+        self.url = map.value("url") ?? ""
+    }
+}
+
+// MARK: - Datum
+class Datum {
+    var map: Map!
+    let id, object: String
+    let brand, country, customer, cvcCheck: String
+    let expMonth, expYear: Int
+    let fingerprint, funding, last4: String
+    let metadata: Metadata
+    let name: String
+
+    enum CodingKeys: String {
+        case id, object
+        case addressCity = "address_city"
+        case addressCountry = "address_country"
+        case addressLine1 = "address_line1"
+        case addressLine1Check = "address_line1_check"
+        case addressLine2 = "address_line2"
+        case addressState = "address_state"
+        case addressZip = "address_zip"
+        case addressZipCheck = "address_zip_check"
+        case brand, country, customer
+        case cvcCheck = "cvc_check"
+        case dynamicLast4 = "dynamic_last4"
+        case expMonth = "exp_month"
+        case expYear = "exp_year"
+        case fingerprint, funding, last4, metadata, name
+        case tokenizationMethod = "tokenization_method"
+    }
+    
+    init(responseObj: [String : Any]) {
+        map = Map(data: responseObj)
+        self.id = map.value("id") ?? ""
+        self.object = map.value("object") ?? ""
+        self.brand = map.value("brand") ?? ""
+        self.country = map.value("country") ?? ""
+        self.customer = map.value("customer") ?? ""
+        self.cvcCheck = map.value("cvc_check") ?? ""
+        self.expMonth = map.value("exp_month") ?? 0
+        self.expYear = map.value("exp_year") ?? 0
+        self.fingerprint = map.value("fingerprint") ?? ""
+        self.funding = map.value("funding") ?? ""
+        self.last4 = map.value("last4") ?? ""
+        self.metadata = Metadata.init(responseObj: responseObj["metadata"] as? [String:Any] ?? [String:Any]())
+        self.name = map.value("name") ?? ""
+    }
+}
+
+// MARK: - Metadata
+class Metadata: Codable {
+    var map: Map!
+    let cardNumber: String
+
+    enum CodingKeys: String, CodingKey {
+        case cardNumber = "card_number"
+    }
+    
+    init(responseObj: [String : Any]) {
+        map = Map(data: responseObj)
+        self.cardNumber = map.value("card_number") ?? ""
+    }
+}
+/*
+// MARK: - Encode/decode helpers
+
+class JSONNull: Codable, Hashable {
+
+    public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
+        return true
+    }
+
+    public var hashValue: Int {
+        return 0
+    }
+
+    public init() {}
+
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if !container.decodeNil() {
+            throw DecodingError.typeMismatch(JSONNull.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for JSONNull"))
+        }
+    }
+
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        try container.encodeNil()
+    }
+}
+
+
+
 class StripeCardsDataModel {
     var map: Map!
-    var id = ""
     var object = ""
-    var billing_details = BillingDetailsDataModel()
-    var card = CardDataModel()
-    var metadata = MetaDataModel()
-    var created = ""
-    var customer = ""
-    var livemode = false
-    var type = ""
-    var isPrefferedSelected = false
-    var isDeleteSelected = false
-    var isFromCellSelection = false
-    var bgColor = UIColor()
+    var data = CardDataModel()
+    var url = ""
+    var has_more = false
 
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
-        id = map.value("id") ?? ""
         object =  map.value("object") ?? ""
-        metadata = MetaDataModel(responseObj: responseObj["metadata"] as? [String : Any] ?? [String : Any]())
-        billing_details = BillingDetailsDataModel(responseObj: responseObj["billing_details"] as? [String : Any] ?? [String : Any]())
-        card = CardDataModel(responseObj: responseObj["card"] as? [String : Any] ?? [String : Any]())
-        created =  map.value("created") ?? ""
-        customer =  map.value("customer") ?? ""
-        livemode =  map.value("livemode") ?? false
-        type = map.value("type") ?? ""
+        data = CardDataModel(responseObj: responseObj["card"] as? [String : Any] ?? [String : Any]())
+        url = map.value("url") ?? ""
+        has_more = map.value("has_more") ?? true
     }
     
     class func getCardDictionary(from responseModel: StripeCardsDataModel) -> [String:Any]? {
         var cardTempDict = [String:Any]()
         
-        cardTempDict["id"] = responseModel.id
         cardTempDict["object"] =  responseModel.object
-        cardTempDict["metadata"] = MetaDataModel.getMetadataDictionary(from: responseModel.metadata)
-        cardTempDict["billing_details"] = BillingDetailsDataModel.getBillingDetailsDictionary(from: responseModel.billing_details)
-        cardTempDict["card"] = CardDataModel.getCardDataDictionary(from: responseModel.card)
-        cardTempDict["created"] =  responseModel.created
-        cardTempDict["customer"] =  responseModel.customer
-        cardTempDict["livemode"] =  responseModel.livemode
-        cardTempDict["type"] = responseModel.type
+        cardTempDict["url"] =  responseModel.url
+        cardTempDict["data"] = CardDataModel.getCardDataDictionary(from: responseModel.data)
+        cardTempDict["has_more"] =  responseModel.has_more
+        cardTempDict["object"] =  responseModel.object
         return cardTempDict
     }
     
@@ -221,79 +317,109 @@ class ChecksDataModel {
 
 class MetaDataModel {
     var map: Map!
-    var card_type = ""
     var card_number = ""
-    var holder_name = ""
     
     init() {}
     
     init(responseObj: [String : Any]) {
         map = Map(data: responseObj )
-        card_type =  map.value("card_type") ?? ""
         card_number =  map.value("card_number") ?? ""
-        holder_name =  map.value("holder_name") ?? ""
     }
     
     class func getMetadataDictionary(from responseModel: MetaDataModel) -> [String:Any]? {
         var metaDataTempDict = [String:Any]()
         
-        metaDataTempDict["card_type"] = responseModel.card_type
         metaDataTempDict["card_number"] =  responseModel.card_number
-        metaDataTempDict["holder_name"] = responseModel.holder_name
         return metaDataTempDict
     }
 }
 
 class CardDataModel {
     var map: Map!
+    var id = ""
+    var object = ""
+    var address_city = ""
+    var address_country = ""
+    var address_line1 = ""
+    var address_line1_check = ""
+    var address_line2 = ""
+    var address_state = ""
+    var address_zip = ""
+    var address_zip_check = ""
     var brand = ""
     var country = ""
+    var customer = ""
+    var cvc_check = ""
+    var dynamic_last4 = ""
     var exp_month = ""
     var exp_year = ""
     var fingerprint = ""
     var funding = ""
-    var generated_from = ""
+    var tokenization_method = ""
     var last4 = ""
-    var wallet = ""
-    var checks = ChecksDataModel()
+    var name = ""
     var metadata = MetaDataModel()
     
     init() {}
     
     init(responseObj: [String : Any]) {
-        map = Map(data: responseObj)
-        
-        wallet =  map.value("wallet") ?? ""
-        last4 =  map.value("last4") ?? ""
-        generated_from =  map.value("generated_from") ?? ""
-        funding =  map.value("funding") ?? ""
-        fingerprint =  map.value("fingerprint") ?? ""
-        exp_year =  map.value("exp_year") ?? ""
-        checks = ChecksDataModel(responseObj: responseObj["checks"] as? [String : Any] ?? [String : Any]())
-        metadata = MetaDataModel(responseObj: responseObj["metadata"] as? [String : Any] ?? [String : Any]())
-        brand =  map.value("brand") ?? ""
-        country =  map.value("country") ?? ""
-        exp_month =  map.value("exp_month") ?? ""
+        map                      = Map(data: responseObj)
+        id                       = map.value("id") ?? ""
+        object                   = map.value("object") ?? ""
+        address_city             = map.value("address_city") ?? ""
+        address_country          = map.value("address_country") ?? ""
+        address_line1            = map.value("address_line1") ?? ""
+        address_line1_check      = map.value("address_line1_check") ?? ""
+        address_line2            = map.value("address_line2") ?? ""
+        address_state            = map.value("address_state") ?? ""
+        address_zip              = map.value("address_zip") ?? ""
+        address_zip_check        = map.value("address_zip_check") ?? ""
+        brand                    = map.value("brand") ?? ""
+        country                  = map.value("country") ?? ""
+        customer                 = map.value("customer") ?? ""
+        cvc_check                = map.value("cvc_check") ?? ""
+        dynamic_last4            = map.value("dynamic_last4") ?? ""
+        exp_month                = map.value("exp_month") ?? ""
+        exp_year                 = map.value("exp_year") ?? ""
+        fingerprint              = map.value("fingerprint") ?? ""
+        funding                  = map.value("funding") ?? ""
+        tokenization_method      = map.value("tokenization_method") ?? ""
+        last4                    = map.value("last4") ?? ""
+        name                     = map.value("name") ?? ""
+        metadata                 = MetaDataModel(responseObj: responseObj["metadata"] as? [String : Any] ?? [String : Any]())
     }
     
     class func getCardDataDictionary(from responseModel: CardDataModel) -> [String:Any]? {
         var cardDataTempDict = [String:Any]()
         
-        cardDataTempDict["wallet"] = responseModel.wallet
-        cardDataTempDict["last4"] =  responseModel.last4
-        cardDataTempDict["generated_from"] = responseModel.generated_from
-        cardDataTempDict["billing_details"] = responseModel.funding
-        cardDataTempDict["fingerprint"] = responseModel.fingerprint
-        cardDataTempDict["exp_year"] =  responseModel.exp_year
-        cardDataTempDict["checks"] =  ChecksDataModel.getChecksDataDictionary(from: responseModel.checks)
-        cardDataTempDict["metadata"] =  MetaDataModel.getMetadataDictionary(from: responseModel.metadata)
+        cardDataTempDict["metadata"] = MetaDataModel.getMetadataDictionary(from: responseModel.metadata)
+        cardDataTempDict["map"] = responseModel.map
+        cardDataTempDict["id"] = responseModel.id
+        cardDataTempDict["object"] = responseModel.object
+        cardDataTempDict["address_city"] = responseModel.address_city
+        cardDataTempDict["address_country"] = responseModel.address_country
+        cardDataTempDict["address_line1"] = responseModel.address_line1
+        cardDataTempDict["address_line1_check"] = responseModel.address_line1_check
+        cardDataTempDict["address_line2"] = responseModel.address_line2
+        cardDataTempDict["address_state"] = responseModel.address_state
+        cardDataTempDict["address_zip"] = responseModel.address_zip
+        cardDataTempDict["address_zip_check"] = responseModel.address_zip_check
         cardDataTempDict["brand"] = responseModel.brand
         cardDataTempDict["country"] = responseModel.country
+        cardDataTempDict["customer"] = responseModel.customer
+        cardDataTempDict["cvc_check"] = responseModel.cvc_check
+        cardDataTempDict["dynamic_last4"] = responseModel.dynamic_last4
         cardDataTempDict["exp_month"] = responseModel.exp_month
+        cardDataTempDict["exp_year"] = responseModel.exp_year
+        cardDataTempDict["fingerprint"] = responseModel.fingerprint
+        cardDataTempDict["funding"] = responseModel.funding
+        cardDataTempDict["tokenization_method"] = responseModel.tokenization_method
+        cardDataTempDict["last4"] = responseModel.last4
+        cardDataTempDict["name"] = responseModel.name
         return cardDataTempDict
     }
 }
-
+/*
 class BillingDetailsDataModel {
     var map: Map!
     var address = AddressDataModel()
@@ -355,3 +481,4 @@ class AddressDataModel {
         return addressDataTempDict
     }
 }
+ */*/

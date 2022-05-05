@@ -57,10 +57,10 @@ class AppPrefsManager: NSObject
     func saveSelectedPrefferedCardData(userData: [String:Any]) {
         setDataToPreference(data: userData as AnyObject, forKey: SELECTED_PREFFERED_CARD)
     }
-
-    func getSelectedPrefferedCardData() -> StripeCardsDataModel? {
+/*
+    func getSelectedPrefferedCardData() -> datum? {
         return StripeCardsDataModel(responseObj: getDataFromPreference(key: SELECTED_PREFFERED_CARD) as? [String:Any] ?? [String:Any]())
-    }
+    }*/
 
     func saveUserData(userData: [String:Any])
     {

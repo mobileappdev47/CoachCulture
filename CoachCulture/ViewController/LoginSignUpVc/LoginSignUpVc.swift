@@ -554,6 +554,8 @@ extension LoginSignUpVc {
                 }
                 let userObj = dataObj["user"] as? [String:Any] ?? [String:Any]()
                 AppPrefsManager.sharedInstance.saveUserData(userData: userObj)
+                let stripeCustomeId = userObj["stripe_customer_id"] as? String ?? ""
+                DEFAULTS.setValue(stripeCustomeId, forKey: DEFAULTS_KEY.STRIPE_CUSTOMER_ID)
                 let role = userObj["role"] as? String ?? ""
                 AppPrefsManager.sharedInstance.saveUserRole(role: role)
                 self.goToTabBar()

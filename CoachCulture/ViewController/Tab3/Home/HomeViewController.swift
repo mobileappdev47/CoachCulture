@@ -7,7 +7,7 @@
 
 import UIKit
 import SDWebImage
-
+import FirebaseDatabase
 
 class HomeViewController: BaseViewController {
     
@@ -55,6 +55,18 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let ref = Database.database().reference()
+
+        ref.child("stripe").observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let sk = value?["sk"] as? String ?? ""
+            print(sk)
+            StripeConstant.Secret_key = sk
+            // ...
+        }) { (error) in
+                    print(error.localizedDescription)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {

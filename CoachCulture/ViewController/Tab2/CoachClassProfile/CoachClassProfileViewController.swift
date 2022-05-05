@@ -656,6 +656,7 @@ extension CoachClassProfileViewController {
         
         _ =  ApiCallManager.requestApi(method: .get, urlString: api, parameters: nil, headers: nil) { responseObj in
             
+            self.arrCoachClassInfoList = []
             let dataObj = responseObj["coach_class_list"] as? [Any] ?? [Any]()
             let arr = CoachClassPrevious.getData(data: dataObj)
 

@@ -17,6 +17,7 @@ struct DEFAULTS_KEY {
     static let USERNAME = "UserName"
     static let USER_PASSWORD = "UserPassword"
     static let IS_REMEMBER_ME = "isRememberMe"
+    static var STRIPE_CUSTOMER_ID = "stripe_customer_id"
 }
 
 struct STRIPE_API {
@@ -24,6 +25,12 @@ struct STRIPE_API {
     
     static let payment_methods = BASE_URL + "payment_methods"
     static let payment_intents = BASE_URL + "payment_intents"
+    static let payment_token = BASE_URL + "tokens"
+    static let payment_add_card = BASE_URL + "customers"
+    static let payment_card_list = BASE_URL + "customers"
+    static let payment_update_customer = BASE_URL + "customers/:customer"
+    static let payment_card_delete = BASE_URL + "customers"
+    static let payment_create_charge = BASE_URL + "charges"
 }
 
 struct API {
@@ -109,10 +116,9 @@ struct API {
 
 // MARK: - PARAMS KEYS
 
-enum StripeConstant : String {
-    case Secret_key = "sk_test_51K7Y7mSD6FO6JDp9leFH54xc3eC116doMwtXV5oehkEA75EKVuuJMOkVl1JyVUtYUvLenlU7Zsh3GEq5CNfVdyWP00KnMrIvg1"
-    case Publishable_key = "pk_test_51K7Y7mSD6FO6JDp9JVBJCXDqH84LNDhdGwWEeJzdjJSLCYugjje1svaFLrykhoAbP7DYNW215N8a8TXgjxaQOzpS00mlApAIZc"
-    case CallBack_URL = "http://healthline.brainbinaryinfotech.com/hook"
+struct StripeConstant {
+    static var Secret_key = "sk_test_51K7Y7mSD6FO6JDp9leFH54xc3eC116doMwtXV5oehkEA75EKVuuJMOkVl1JyVUtYUvLenlU7Zsh3GEq5CNfVdyWP00KnMrIvg1"
+    static var CallBack_URL = "http://healthline.brainbinaryinfotech.com/hook"
 }
 
 struct StripeParams {
@@ -128,6 +134,7 @@ struct StripeParams {
         static let exp_month = "exp_month"
         static let exp_year = "exp_year"
         static let cvc = "cvc"
+        static let name = "name"
     }
     
     struct Metadata {
@@ -152,11 +159,12 @@ struct StripeParams {
     }
     
     struct PaymentMethodsAttach {
-        static let customer = "customer"
+        static let source = "source"
     }
     
     struct Cards {
         static let type = "type"
+        static let object = "object"
         static let customer = "customer"
     }
     
@@ -172,6 +180,16 @@ struct StripeParams {
         static let intent = "intent"
         static let payment_method = "payment_method"
         static let return_url = "return_url"
+    }
+    
+    struct UserToCoach {
+        static let coachId = "coach_id"
+        static let transactionId = "transaction_id"
+    }
+    
+    struct UserToCoachClass {
+        static let coachClassId = "coach_class_id"
+        static let transactionId = "transaction_id"
     }
 }
 

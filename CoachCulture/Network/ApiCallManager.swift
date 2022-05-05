@@ -41,7 +41,7 @@ class ApiCallManager {
         request.httpMethod = method.rawValue
         
         if AppPrefsManager.sharedInstance.isUserLogin() {
-            request.addValue("Bearer " + StripeConstant.Secret_key.rawValue, forHTTPHeaderField: "Authorization")
+            request.addValue("Bearer " + StripeConstant.Secret_key, forHTTPHeaderField: "Authorization")
         }
         
         if !finalParameters.isEmpty {

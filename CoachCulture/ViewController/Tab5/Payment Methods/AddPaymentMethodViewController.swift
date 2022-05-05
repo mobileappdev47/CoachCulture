@@ -88,30 +88,30 @@ class AddPaymentMethodViewController: BaseViewController {
         
         let dateComponents = txtCardDate.text?.components(separatedBy: "/")
         
-        let apiUrl = STRIPE_API.payment_methods
+        let apiUrl = STRIPE_API.payment_token
         var mainParams = [String:Any]()
                         
         mainParams["\(StripeParams.PaymentMethods.card)[\(StripeParams.Card.number)]"] = txtCardNumber.text?.replacingOccurrences(of: " ", with: "")
         mainParams["\(StripeParams.PaymentMethods.card)[\(StripeParams.Card.exp_month)]"] = dateComponents?.first ?? ""
         mainParams["\(StripeParams.PaymentMethods.card)[\(StripeParams.Card.exp_year)]"] = dateComponents?.last ?? ""
         mainParams["\(StripeParams.PaymentMethods.card)[\(StripeParams.Card.cvc)]"] = txtCVV.text ?? ""
-
-        mainParams["\(StripeParams.PaymentMethods.metadata)[\(StripeParams.Metadata.holder_name)]"] = txtCardHolderName.text ?? ""
-        mainParams["\(StripeParams.PaymentMethods.metadata)[\(StripeParams.Metadata.card_number)]"] = txtCardNumber.text?.replacingOccurrences(of: " ", with: "")
-        mainParams["\(StripeParams.PaymentMethods.metadata)[\(StripeParams.Metadata.card_type)]"] = selectedCardType
+//
+        mainParams["\(StripeParams.PaymentMethods.card)[\(StripeParams.Card.name)]"] = txtCardHolderName.text ?? ""
+        mainParams["\(StripeParams.PaymentMethods.card)[\(StripeParams.PaymentMethods.metadata)][\(StripeParams.Metadata.card_number)]"] = txtCardNumber.text?.replacingOccurrences(of: " ", with: "")
+//        mainParams["\(StripeParams.PaymentMethods.metadata)[\(StripeParams.Metadata.card_type)]"] = selectedCardType
+//
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.city)]"] = "Miami"
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.country)]"] = "US"
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.line1)]"] = "street, PO Box"
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.line2)]"] = "apartment, suite, unit, or building"
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.postal_code)]"] = "33142"
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.state)]"] = "florida"
+//
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.email)]"] = "harsh.web.stackapp@gmail.com"
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.name)]"] = "Derious"
+//        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.phone)]"] = "+91 7410410123"
         
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.city)]"] = "Miami"
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.country)]"] = "US"
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.line1)]"] = "street, PO Box"
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.line2)]"] = "apartment, suite, unit, or building"
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.postal_code)]"] = "33142"
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.address)][\(StripeParams.BillingDetails.Address.state)]"] = "florida"
-        
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.email)]"] = "harsh.web.stackapp@gmail.com"
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.name)]"] = "Derious"
-        mainParams["\(StripeParams.PaymentMethods.billing_details)[\(StripeParams.BillingDetails.phone)]"] = "+91 7410410123"
-        
-        mainParams[StripeParams.PaymentMethods.type] = "card"
+//        mainParams[StripeParams.PaymentMethods.type] = "card"
         
         _ =  ApiCallManager.requestApiStripe(method: .post, urlString: apiUrl, parameters: mainParams, headers: nil) { responseObj, statusCode in
             if statusCode == RESPONSE_CODE.SUCCESS {
@@ -136,10 +136,10 @@ class AddPaymentMethodViewController: BaseViewController {
     }
     
     func callPaymentMethodsAttachAPI(customerID: String) {
-        let apiUrl = "\(STRIPE_API.payment_methods)/\(customerID)/attach"
+        let apiUrl = "\(STRIPE_API.payment_add_card)/\(AppPrefsManager.sharedInstance.getUserData().stripe_customer_id)/sources"
         var mainParams = [String:Any]()
         
-        mainParams["\(StripeParams.PaymentMethodsAttach.customer)"] = AppPrefsManager.sharedInstance.getUserData().stripe_customer_id
+        mainParams["\(StripeParams.PaymentMethodsAttach.source)"] = customerID
         
         _ =  ApiCallManager.requestApiStripe(method: .post, urlString: apiUrl, parameters: mainParams, headers: nil) { responseObj, statusCode in
             self.hideLoader()

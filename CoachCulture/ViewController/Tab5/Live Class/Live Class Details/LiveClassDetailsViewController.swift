@@ -118,6 +118,7 @@ class LiveClassDetailsViewController: BaseViewController {
     var streamObj : StreamInfo?
     var isFutureClass = false
     var isFromPaymentFlow = false
+    static var isFromTransection = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -127,7 +128,30 @@ class LiveClassDetailsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        if LiveClassDetailsViewController.isFromTransection {
+            if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
+                if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+                    if !classDetailDataObj.class_completed {
+                        if isFutureClass {
+                            if Reachability.isConnectedToNetwork() {
+                                self.getAWSDetails(isFromBroadcasting: true)
+                            }
+                        } else {
+                            handleSinglePopup(message: "You can not start class before class time")
+                        }
+                    }
+                } else {
+                    self.goToPlayOndemandClass()
+                }
+            } else {
+                if isFutureClass {
+                    checkUserSubscriptionOfClass()
+                } else {
+                    handleSinglePopup(message: "You can not join class before class time")
+                }
+            }
+            LiveClassDetailsViewController.isFromTransection = false
+        }
         hideTabBar()
     }
     
@@ -695,6 +719,8 @@ class LiveClassDetailsViewController: BaseViewController {
                 Utility.shared.showToast("Ooops!! Something went wrong!")
             }
         }
+        vc.coachClassID = Int(classDetailDataObj.id) ?? 0
+        vc.coachID = Int(classDetailDataObj.coachDetailsDataObj.id) ?? 0
         vc.fees = fees
         vc.recdCurrency = recdCurrency
         vc.isFromLiveClass = true
@@ -851,7 +877,7 @@ class LiveClassDetailsViewController: BaseViewController {
         if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
             if self.classDetailDataObj.coach_class_type == CoachClassType.live {
                 if !classDetailDataObj.class_completed {
-                    if !isFutureClass {
+                    if isFutureClass {
                         if Reachability.isConnectedToNetwork() {
                             self.getAWSDetails(isFromBroadcasting: true)
                         }
@@ -863,7 +889,7 @@ class LiveClassDetailsViewController: BaseViewController {
                 self.goToPlayOndemandClass()
             }
         } else {
-            if !isFutureClass {
+            if isFutureClass {
                 checkUserSubscriptionOfClass()
             } else {
                 handleSinglePopup(message: "You can not join class before class time")
