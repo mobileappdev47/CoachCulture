@@ -40,6 +40,8 @@ class PaymentMethodViewController: BaseViewController {
     var arrColour = [UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random, UIColor.random]
     var coachID = 0
     var coachClassID = 0
+    var isForCoach = false
+    var transectionID = "avc"
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -156,7 +158,7 @@ class PaymentMethodViewController: BaseViewController {
             id = self.arrCards[0].data.id
         }*/
 
-        mainParams[StripeParams.PaymentIntents.amount] = fees
+        mainParams[StripeParams.PaymentIntents.amount] = String((Int(fees) ?? 0) * 100)
         mainParams[StripeParams.PaymentIntents.currency] = recdCurrency
         mainParams[StripeParams.PaymentIntents.customer] = customer
 //        mainParams[StripeParams.PaymentIntents.payment_method] = id
@@ -182,56 +184,60 @@ class PaymentMethodViewController: BaseViewController {
     }
     
     func callPaymentIntentsConfirmAPI(transactionId: String) {
-        var mainParams = [String:Any]()
-        
-        mainParams[StripeParams.UserToCoach.coachId] = self.coachID
-        mainParams[StripeParams.UserToCoach.transactionId] = transactionId
-        let apiUrl = "\(API.ADD_USER_TO_COACH)"
-        
-        _ =  ApiCallManager.requestApi(method: .post, urlString: apiUrl, parameters: mainParams, headers: nil) { responseObj in
-            self.hideLoader()
-        } failure: { (error) in
-            self.hideLoader()
-            Utility.shared.showToast(error.localizedDescription)
-            return true
-        }
-        
-        var mainParams1 = [String:Any]()
-
-        mainParams1[StripeParams.UserToCoachClass.coachClassId] = self.coachClassID
-        mainParams1[StripeParams.UserToCoachClass.transactionId] = transactionId
-        let apiUrl1 = "\(API.ADD_USER_TO_COACH_CLASS)"
-        _ = ApiCallManager.requestApi(method: .post, urlString: apiUrl1, parameters: mainParams1, headers: nil) { responseObj in
-            self.hideLoader()
-            DispatchQueue.main.async {
-                LiveClassDetailsViewController.isFromTransection = true
-                self.popVC(animated: true)
-            }
-            if let next_action = responseObj["coach_details"] as? [String:Any] {
-                if let redirect_to_url = next_action["coach_class_id"] as? Int {
-                    let apiUrl = "\(API.COACH_CLASS_DETAILS)"
-                    var param = [String:Any]()
-                    param["id"] = redirect_to_url
-                    
-                    _ = ApiCallManager.requestApi(method: .post, urlString: apiUrl, parameters: param, headers: nil) { responseObj in
-                        let coachClassData = responseObj["coach_class"] as? [String:Any]
-                        if let finalURL = URL(string: coachClassData?["thumbnail_video"] as? String ?? "") {
-                            self.redirectToWebView(webURL: finalURL, transaction_id: responseObj["transaction_id"] as? String ?? "")
-                        }
-                    
-                    } failure: { (err) -> Bool in
-                        self.hideLoader()
-                        Utility.shared.showToast(err.localizedDescription)
-                        return true
-                    }
-                }
-            } else {
+        if isForCoach {
+            var mainParams = [String:Any]()
+            
+            mainParams[StripeParams.UserToCoach.coachId] = self.coachID
+            mainParams[StripeParams.UserToCoach.transactionId] = transactionId
+            let apiUrl = "\(API.ADD_USER_TO_COACH)"
+            
+            _ =  ApiCallManager.requestApi(method: .post, urlString: apiUrl, parameters: mainParams, headers: nil) { responseObj in
                 self.hideLoader()
+                CoachViseOnDemandClassViewController.isFromTransection = true
+                self.popVC(animated: true)
+            } failure: { (error) in
+                self.hideLoader()
+                Utility.shared.showToast(error.localizedDescription)
+                return true
             }
-        } failure: { (err) -> Bool in
-            self.hideLoader()
-            Utility.shared.showToast(err.localizedDescription)
-            return true
+        } else {
+            var mainParams1 = [String:Any]()
+            
+            mainParams1[StripeParams.UserToCoachClass.coachClassId] = self.coachClassID
+            mainParams1[StripeParams.UserToCoachClass.transactionId] = transactionId
+            let apiUrl1 = "\(API.ADD_USER_TO_COACH_CLASS)"
+            _ = ApiCallManager.requestApi(method: .post, urlString: apiUrl1, parameters: mainParams1, headers: nil) { responseObj in
+                self.hideLoader()
+                DispatchQueue.main.async {
+                    LiveClassDetailsViewController.isFromTransection = true
+                    self.popVC(animated: true)
+                }
+                if let next_action = responseObj["coach_details"] as? [String:Any] {
+                    if let redirect_to_url = next_action["coach_class_id"] as? Int {
+                        let apiUrl = "\(API.COACH_CLASS_DETAILS)"
+                        var param = [String:Any]()
+                        param["id"] = redirect_to_url
+                        
+                        _ = ApiCallManager.requestApi(method: .post, urlString: apiUrl, parameters: param, headers: nil) { responseObj in
+                            let coachClassData = responseObj["coach_class"] as? [String:Any]
+                            if let finalURL = URL(string: coachClassData?["thumbnail_video"] as? String ?? "") {
+                                self.redirectToWebView(webURL: finalURL, transaction_id: responseObj["transaction_id"] as? String ?? "")
+                            }
+                            
+                        } failure: { (err) -> Bool in
+                            self.hideLoader()
+                            Utility.shared.showToast(err.localizedDescription)
+                            return true
+                        }
+                    }
+                } else {
+                    self.hideLoader()
+                }
+            } failure: { (err) -> Bool in
+                self.hideLoader()
+                Utility.shared.showToast(err.localizedDescription)
+                return true
+            }
         }
     }
     
@@ -431,11 +437,33 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
         }
     }
 
+    func callSelectedPreferrdMethod(_ selectedPath: Int) {
+        showLoader()
+        let data = arrDatam?[selectedPath]
+        let apiUrl = "\(STRIPE_API.payment_update_customer)/\(data?["customer"] ?? "")"
+        
+        var param = [String:Any]()
+        param["invoice_settings[default_payment_method]"] = data?["id"]
+        param["default_card"] = data?["id"]
+        
+        _ =  ApiCallManager.requestApiStripe(method: .post, urlString: apiUrl, parameters: param, headers: nil) { responseObj, statusCode in
+            if statusCode == RESPONSE_CODE.SUCCESS {
+                self.hideLoader()
+                Utility().showToast("Card set as a Preferred Method")
+            } else {
+                self.hideLoader()
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
+    }
+    
     @IBAction func btnSelectPrefferedClick( _ sender : UIButton) {
-//        let model = arrCards?.data[sender.tag]
-//        if let cardDict = StripeCardsDataModel.getCardDictionary(from: model) {
-//            AppPrefsManager.sharedInstance.saveSelectedPrefferedCardData(userData: cardDict)
-//        }
+        if Reachability.isConnectedToNetwork() {
+            self.callSelectedPreferrdMethod(sender.tag)
+        }
         isPrefferedSelected = false
         isDeleteSelected = false
         DispatchQueue.main.async {

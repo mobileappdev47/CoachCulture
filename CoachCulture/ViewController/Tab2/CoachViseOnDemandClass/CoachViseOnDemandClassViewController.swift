@@ -68,6 +68,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
     var logOutView:LogOutView!
     var isFromInitialLoadingBlock: (() -> Void)!
+    static var isFromTransection = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -88,6 +89,9 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         setData()
         if self.isFromInitialLoadingBlock != nil {
             self.isFromInitialLoadingBlock()
+        }
+        if CoachViseOnDemandClassViewController.isFromTransection {
+            Utility().showToast("Coach subscribe Successfully")
         }
     }
     
@@ -149,7 +153,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         }
 
         let vc = PaymentMethodViewController.viewcontroller()
-        vc.didFinishPaymentBlock = { transaction_id, status in
+            vc.didFinishPaymentBlock = { transaction_id, status in
             if status {
                 if Reachability.isConnectedToNetwork() {
                     self.callAddUserToCoachAPI(transaction_id: transaction_id)
@@ -159,8 +163,10 @@ class CoachViseOnDemandClassViewController: BaseViewController {
             }
         }
         vc.fees = fees
+        vc.coachID = Int(selectedCoachId) ?? 0
         vc.recdCurrency = recdCurrency
         vc.isFromLiveClass = true
+        vc.isForCoach = true
         self.pushVC(To: vc, animated: true)
     }
     

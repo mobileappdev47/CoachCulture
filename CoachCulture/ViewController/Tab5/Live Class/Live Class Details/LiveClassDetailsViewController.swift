@@ -128,11 +128,12 @@ class LiveClassDetailsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupAfterClassStatusUpdation()
         if LiveClassDetailsViewController.isFromTransection {
             if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
                 if self.classDetailDataObj.coach_class_type == CoachClassType.live {
                     if !classDetailDataObj.class_completed {
-                        if isFutureClass {
+                        if !isFutureClass {
                             if Reachability.isConnectedToNetwork() {
                                 self.getAWSDetails(isFromBroadcasting: true)
                             }
@@ -144,7 +145,7 @@ class LiveClassDetailsViewController: BaseViewController {
                     self.goToPlayOndemandClass()
                 }
             } else {
-                if isFutureClass {
+                if !isFutureClass {
                     checkUserSubscriptionOfClass()
                 } else {
                     handleSinglePopup(message: "You can not join class before class time")
@@ -720,7 +721,6 @@ class LiveClassDetailsViewController: BaseViewController {
             }
         }
         vc.coachClassID = Int(classDetailDataObj.id) ?? 0
-        vc.coachID = Int(classDetailDataObj.coachDetailsDataObj.id) ?? 0
         vc.fees = fees
         vc.recdCurrency = recdCurrency
         vc.isFromLiveClass = true
@@ -877,7 +877,7 @@ class LiveClassDetailsViewController: BaseViewController {
         if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
             if self.classDetailDataObj.coach_class_type == CoachClassType.live {
                 if !classDetailDataObj.class_completed {
-                    if isFutureClass {
+                    if !isFutureClass {
                         if Reachability.isConnectedToNetwork() {
                             self.getAWSDetails(isFromBroadcasting: true)
                         }
@@ -889,11 +889,12 @@ class LiveClassDetailsViewController: BaseViewController {
                 self.goToPlayOndemandClass()
             }
         } else {
-            if isFutureClass {
-                checkUserSubscriptionOfClass()
-            } else {
-                handleSinglePopup(message: "You can not join class before class time")
-            }
+            getAWSDetails(isFromBroadcasting: false)
+//            if !isFutureClass {
+//
+//            } else {
+//                handleSinglePopup(message: "You can not join class before class time")
+//            }
         }
     }
     
@@ -1021,21 +1022,30 @@ extension LiveClassDetailsViewController {
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_AWS_DETAILS, parameters: param, headers: nil) { responseObj in
             
             let responseModel = ResponseDataModel(responseObj: responseObj)
-            if responseModel.success {
-                if let dataObj = responseObj["data"] as? [String:Any] {
-                    self.streamObj = StreamInfo(responseObj: dataObj)
-                }
-                self.hideLoader()
-                if isFromBroadcasting {
-                    if Reachability.isConnectedToNetwork() {
-                        self.callJoinSessionsAPI(isFromLiveStream: true)
-                        self.goForBroadcastAWSClass()
+            if (responseObj["message"] as? String ?? "") == "You are not subscribed to this class" {
+                self.checkUserSubscriptionOfClass()
+            } else {
+                if !self.isFutureClass {
+                    if responseModel.success {
+                        if let dataObj = responseObj["data"] as? [String:Any] {
+                            self.streamObj = StreamInfo(responseObj: dataObj)
+                        }
+                        self.hideLoader()
+                        if isFromBroadcasting {
+                            if Reachability.isConnectedToNetwork() {
+                                self.callJoinSessionsAPI(isFromLiveStream: true)
+                                self.goForBroadcastAWSClass()
+                            }
+                        } else {
+                            if Reachability.isConnectedToNetwork() {
+                                self.callJoinSessionsAPI(isFromLiveStream: false)
+                                self.goToStartClass()
+                            }
+                        }
                     }
                 } else {
-                    if Reachability.isConnectedToNetwork() {
-                        self.callJoinSessionsAPI(isFromLiveStream: false)
-                        self.goToStartClass()
-                    }
+                    self.hideLoader()
+                    self.handleSinglePopup(message: "You can not join class before class time")
                 }
             }
         } failure: { (error) in

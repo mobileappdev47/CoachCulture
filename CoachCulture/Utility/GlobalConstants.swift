@@ -28,7 +28,7 @@ struct STRIPE_API {
     static let payment_token = BASE_URL + "tokens"
     static let payment_add_card = BASE_URL + "customers"
     static let payment_card_list = BASE_URL + "customers"
-    static let payment_update_customer = BASE_URL + "customers/:customer"
+    static let payment_update_customer = BASE_URL + "customers"
     static let payment_card_delete = BASE_URL + "customers"
     static let payment_create_charge = BASE_URL + "charges"
 }
