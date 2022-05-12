@@ -322,8 +322,8 @@ class LiveClassDetailsViewController: BaseViewController {
             lblClassType.text = "LIVE"
             viwClassType.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             viwClassStartIn.isHidden = false
-            lblDate.text = classDetailDataObj.class_date
-            lblTime.text = classDetailDataObj.class_time
+            lblDate.text = updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time).0
+            lblTime.text = updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time).1
             imgDownload.isHidden = true
             viewRecipeBottomButton.backgroundColor = COLORS.THEME_RED
             if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
@@ -439,6 +439,13 @@ class LiveClassDetailsViewController: BaseViewController {
         default:
             break
         }
+    }
+    
+    func updateDate(date: String, time: String) -> (String, String) {
+        let updatedRow = "\(date) \(time)"
+        let selectedDate = convertUTCToLocal(dateStr: updatedRow, sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "dd MMM yyyy")
+        let selectedTime = convertUTCToLocal(dateStr: updatedRow, sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "HH:mm")
+        return (selectedDate, selectedTime)
     }
     
     func setGlutesMuscles(isSelected: Bool) {
@@ -1039,7 +1046,11 @@ extension LiveClassDetailsViewController {
                         } else {
                             if Reachability.isConnectedToNetwork() {
                                 self.callJoinSessionsAPI(isFromLiveStream: false)
-                                self.goToStartClass()
+                                if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+                                    self.goToStartClass()
+                                } else {
+                                    self.goToPlayOndemandClass()
+                                }
                             }
                         }
                     }
@@ -1117,6 +1128,7 @@ extension LiveClassDetailsViewController {
             } else {
                 let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!)
                 let classStartDateTime = convertUTCToLocalDate(dateStr: "\(classDetailDataObj.class_date) \(classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm:ss")
+                _ = updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time)
                 let diffClass = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDateTime, to: classStartDateTime)
                 if diffClass.day ?? 0 == 0 {
                     if diffClass.hour ?? 0 == 0 {
@@ -1159,9 +1171,9 @@ extension LiveClassDetailsViewController {
                         let currentHourTime = Date().getDateStringWithFormate("HH:mm", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "HH:mm", timezone: TimeZone.current.abbreviation()!)
                         isFutureClass = true
                         if todayEndDayTime > currentHourTime {
-                            self.lblClassStartIn.text = "Class starts today at \(convertUTCToLocal(dateStr: classDetailDataObj.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm"))"
+                            self.lblClassStartIn.text = "Class starts today at \(updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time).1)"
                         } else {
-                            self.lblClassStartIn.text = "Class starts at \(convertUTCToLocal(dateStr: classDetailDataObj.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm"))"
+                            self.lblClassStartIn.text = "Class starts at \(updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time).1)"
                         }
                     } else if diffClass.hour ?? 0 < 0 {
                         if !classDetailDataObj.started_at.isEmpty || classDetailDataObj.started_at != "" {

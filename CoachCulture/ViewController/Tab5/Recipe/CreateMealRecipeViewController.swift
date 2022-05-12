@@ -169,15 +169,17 @@ class CreateMealRecipeViewController: BaseViewController {
     //MARK: - Click EVENTS
     
     @IBAction func clickToBtnUplaodThumbnail(_ sender : UIButton) {
+        view.endEditing(true)
         setAddPhotoView()
-        
     }
     
     @IBAction func clickToBtnRecipeDuration(_ sender : UIButton) {
+        view.endEditing(true)
         setClassDurationView()
     }
     
     @IBAction func clickToBtnDeleteRecipeStep(_ sender : UIButton) {
+        view.endEditing(true)
         arrAddStepOfRecipe.remove(at: sender.tag)
         tblAddStepOfRecipe.layoutIfNeeded()
         tblAddStepOfRecipe.reloadData()

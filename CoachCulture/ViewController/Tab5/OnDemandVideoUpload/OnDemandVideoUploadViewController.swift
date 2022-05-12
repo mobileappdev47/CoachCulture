@@ -9,7 +9,8 @@ import UIKit
 import MobileCoreServices
 import AWSS3
 import AWSCognito
-
+import AVKit
+import AVFoundation
 
 class OnDemandVideoUploadViewController: BaseViewController {
     
@@ -257,7 +258,8 @@ class OnDemandVideoUploadViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnClassDuration(_ sender : UIButton) {
-        setClassDurationView()
+//        setClassDurationView()
+        Utility().showToast("Class duration time is based on video you have uploaded")
     }
     
     @IBAction func clickTobBtnSelectSubscriptionCurrency(_ sender: UIButton) {
@@ -582,13 +584,23 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
             guard let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL else {
                 return
             }
-            do {
-                photoData = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
-                
-            } catch  { }
+            let asset = AVURLAsset(url: videoUrl)
+            let durationInSeconds = asset.duration.seconds
             
-            btnUploadVideo.isEnabled = false
-            self.uploadVideo(nameOfResource: videoUrl.lastPathComponent, Url: videoUrl)
+            if(durationInSeconds > 300)
+            {
+                
+                do {
+                    photoData = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
+                    
+                } catch  { }
+                
+                btnUploadVideo.isEnabled = false
+                self.uploadVideo(nameOfResource: videoUrl.lastPathComponent, Url: videoUrl)
+                lblClassDuration.text = "\(Int(durationInSeconds / 60)) mins"
+            } else {
+                Utility().showToast("Please upload a minimum video of 5 minutes")
+            }
             
         } else {
             editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage

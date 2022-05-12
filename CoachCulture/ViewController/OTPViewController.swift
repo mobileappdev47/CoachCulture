@@ -159,6 +159,7 @@ extension OTPViewController {
                 let dataObj = resObj["data"] as? [String:Any] ?? [String:Any]()
                 AppPrefsManager.sharedInstance.saveUserAccessToken(token: dataObj["access_token"] as? String ?? "")
                 AppPrefsManager.sharedInstance.setIsUserLogin(isUserLogin: true)
+                AppPrefsManager.sharedInstance.saveUserData(userData: dataObj["user"] as? [String:Any] ?? [String:Any]())
                 self.goToTabBar()
             }
             

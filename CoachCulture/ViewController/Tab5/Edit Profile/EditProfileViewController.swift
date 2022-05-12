@@ -580,7 +580,9 @@ extension EditProfileViewController {
                 print("Uploaded to:\(String(describing: publicURL))")
                 self.coach_trailer_file = publicURL?.absoluteString ?? ""
                 self.hideLoader()
-                //do any task here.
+                DispatchQueue.main.async {
+                    self.dismiss(animated: true, completion: nil)
+                }
             }
         }
         
@@ -632,13 +634,22 @@ extension EditProfileViewController: UIImagePickerControllerDelegate, UINavigati
             guard let videoUrl = info[UIImagePickerController.InfoKey.mediaURL] as? URL else {
                 return
             }
-            do {
-                photoData = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
-                
-            } catch  {
-            }
             
-            self.uploadCoachTrailer(nameOfResource: videoUrl.lastPathComponent, Url: videoUrl)
+            let asset = AVURLAsset(url: videoUrl)
+            let durationInSeconds = asset.duration.seconds
+            
+            if(durationInSeconds < 30)
+            {
+                do {
+                    photoData = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
+                } catch  {
+                    print("Error: \(error)")
+                }
+                
+                self.uploadCoachTrailer(nameOfResource: videoUrl.lastPathComponent, Url: videoUrl)
+            } else {
+                Utility().showToast("Only allow maximum 30 secound duration of trailer")
+            }
             
         } else {
             editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage

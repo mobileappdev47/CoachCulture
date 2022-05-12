@@ -57,6 +57,8 @@ class PreviousUploadViewController: BaseViewController {
     var class_type_name = ""
     var arrCoachClassInfoList = [CoachClassInfoList]()
     var arrCoachRecipe = [PopularRecipeData]()
+    var classDetailDataObj = ClassDetailData()
+    var recipeDetailDataObj = RecipeDetailData()
 
     // MARK: - Life cycle
     override func viewDidLoad() {
@@ -340,20 +342,60 @@ extension PreviousUploadViewController : UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if viwOnDemandLine.isHidden == false || viwLiveLine.isHidden == false {
-            let vc = LiveClassDetailsViewController.viewcontroller()
-            vc.selectedId = arrCoachClassInfoList[indexPath.row].id
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.getClassDetails(selectedId: Int(arrCoachClassInfoList[indexPath.row].id) ?? 0)
         } else {
-            let vc = RecipeDetailsViewController.viewcontroller()
-            let obj = arrCoachRecipe[indexPath.row]
-            vc.recipeID = obj.id
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.getClassDetails(selectedId: Int(arrCoachRecipe[indexPath.row].id) ?? 0)
         }
     }
 }
 
 //MARK: - API CALL
 extension PreviousUploadViewController {
+    
+    func getClassDetails(selectedId: Int) {
+        showLoader()
+        let param = ["id" : selectedId]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.COACH_CLASS_DETAILS, parameters: param, headers: nil) { responseObj in
+            
+            let dataObj = responseObj["coach_class"] as? [String:Any] ?? [String:Any]()
+            self.classDetailDataObj = ClassDetailData(responseObj: dataObj)
+            
+            if self.viwLiveLine.isHidden == false {
+                let vc = ScheduleLiveClassViewController.viewcontroller()
+                vc.isFromEdit = true
+                vc.isFromTemplate = true
+                self.classDetailDataObj.class_subtitle = ""
+                self.classDetailDataObj.thumbnail_image = ""
+                self.classDetailDataObj.id = ""
+                vc.classDetailDataObj = self.classDetailDataObj
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else if self.viwOnDemandLine.isHidden == false{
+                let vc = OnDemandVideoUploadViewController.viewcontroller()
+                vc.isFromEdit = true
+                vc.isFromTemplate = true
+                self.classDetailDataObj.class_subtitle = ""
+                self.classDetailDataObj.thumbnail_image = ""
+                self.classDetailDataObj.thumbnail_video = ""
+                self.classDetailDataObj.id = ""
+                vc.classDetailDataObj = self.classDetailDataObj
+                self.navigationController?.pushViewController(vc, animated: true)
+            } else {
+                let vc = CreateMealRecipeViewController.viewcontroller()
+                vc.isFromEdit = true
+                vc.isFromTemplate = true
+                self.recipeDetailDataObj.title = ""
+                self.recipeDetailDataObj.thumbnail_image = ""
+                self.recipeDetailDataObj.id = ""
+                vc.recipeDetailDataObj = self.recipeDetailDataObj
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            self.hideLoader()
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
     
     func getCoachesWiseClassList() {
         if(isDataLoading || !continueLoadingData){

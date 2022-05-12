@@ -6,10 +6,12 @@
 //
 
 import UIKit
+import AVKit
+import AVFoundation
 
 var isFromSelectedType = "onDemand"
 
-class CoachViseOnDemandClassViewController: BaseViewController {
+class CoachViseOnDemandClassViewController: BaseViewController, AVPlayerViewControllerDelegate {
     
     static func viewcontroller() -> CoachViseOnDemandClassViewController {
         let vc = UIStoryboard(name: "Followers", bundle: nil).instantiateViewController(withIdentifier: "CoachViseOnDemandClassViewController") as! CoachViseOnDemandClassViewController
@@ -49,11 +51,15 @@ class CoachViseOnDemandClassViewController: BaseViewController {
     @IBOutlet weak var btnUserProfile: UIButton!
     
     @IBOutlet weak var lblCreateClass: UILabel!
+    
+    @IBOutlet weak var btnTrailer: UIButton!
+    
     var arrCoachClassInfoList = [CoachClassInfoList]()
     var coachInfoDataObj = CoachInfoData()
     var selectedCoachId = ""
     var arrCoachRecipe = [PopularRecipeData]()
     var dropDown = DropDown()
+    var coachTrailerURL = ""
     
     var isDataLoading = false
     var continueLoadingData = true
@@ -92,6 +98,7 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         }
         if CoachViseOnDemandClassViewController.isFromTransection {
             Utility().showToast("Coach subscribe Successfully")
+            CoachViseOnDemandClassViewController.isFromTransection = false
         }
     }
     
@@ -312,6 +319,17 @@ class CoachViseOnDemandClassViewController: BaseViewController {
         vc.selectedCoachId = self.selectedCoachId
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func onClkBtnTrailer(_ sender: UIButton) {
+        let url = URL(string: userDataObj?.coach_trailer_file ?? "")!
+        let player = AVPlayer(url: url)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.delegate = self
+        playerViewController.player = player
+        self.present(playerViewController, animated: true) {
+            playerViewController.player!.play()
+        }
+    }
 }
 
 
@@ -457,7 +475,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             cell.lblClassDifficultyLevel.text = obj.class_subtitle
             cell.lbltitle.text = obj.class_type_name
             cell.lblClassDate.text = obj.created_atFormated
-            cell.lblClassTime.text = obj.total_viewers + " Views"
+            cell.lblClassTime.text = convertUTCToLocal(dateStr: obj.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm")
             
             if obj.bookmark == "no" {
                 cell.imgBookMark.image = UIImage(named: "BookmarkLight")
@@ -568,7 +586,6 @@ extension CoachViseOnDemandClassViewController {
                 self.viewFollow.backgroundColor = (self.userDataObj?.is_followed ?? false) ? COLORS.BLUR_COLOR : COLORS.THEME_RED
                 
                 self.lblFollowers.text =  "\(self.userDataObj?.total_followers ?? "") Followers"
-                
                 let currencySybmol = getCurrencySymbol(from: self.userDataObj?.feesDataObj.fee_regional_currency ?? "")
                 self.lblFees.text =  "\(currencySybmol)\(self.userDataObj?.feesDataObj.subscriber_fee ?? "")"
                 self.lblUserName.text = "@ \(self.userDataObj?.username ?? "")"

@@ -174,6 +174,7 @@ struct StripeParams {
         static let customer = "customer"
         static let payment_method = "payment_method"
         static let confirm = "confirm"
+        static let description = "description"
     }
     
     struct PaymentIntentsConfirm {

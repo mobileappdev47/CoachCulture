@@ -495,7 +495,7 @@ extension CoachClassProfileViewController : UITableViewDelegate, UITableViewData
             cell.lblDuration.text = obj.duration
             
             cell.lblClassDate.text = getRealDate(date: obj.created_at)
-            cell.lblClassTime.text = obj.class_time
+            cell.lblClassTime.text = convertUTCToLocal(dateStr: obj.class_time, sourceFormate: "HH:mm", destinationFormate: "HH:mm")
             cell.lblClassDate.font = UIFont(name: cell.lblClassTime.font.fontName, size: 13)
             cell.lblClassTime.font = UIFont(name: cell.lblClassTime.font.fontName, size: 14)
             cell.lblClassDate.sizeToFit()

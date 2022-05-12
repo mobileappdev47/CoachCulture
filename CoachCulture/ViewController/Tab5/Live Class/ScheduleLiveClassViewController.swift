@@ -166,7 +166,7 @@ class ScheduleLiveClassViewController: BaseViewController {
         customDatePickerForSelectTime = CustomDatePickerViewForTextFeild(textField: txtDummyTime, format: "HH:mm", mode: .time)
         customDatePickerForSelectTime.pickerView { (str, date) in
             let arrStr = str.components(separatedBy: ":")
-            self.selectedTime = str
+            self.selectedTime = convertToUTC(dateToConvert: str, dateFormate: "HH:mm")
             self.lblMin.text = arrStr.last
             self.lblHour.text = arrStr.first
         }
@@ -315,8 +315,8 @@ class ScheduleLiveClassViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
-        
-         if thumbailUrl.isEmpty {
+        removeAllErr()
+        if thumbailUrl.isEmpty {
             errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             Utility.shared.showToast("Please select thumbnail Image")
         } else if selectClassTypeObj.id.isEmpty {
@@ -358,7 +358,7 @@ class ScheduleLiveClassViewController: BaseViewController {
             param["non_subscriber_fee"] = txtNonSubscriberFee.text!
             param["thumbnail_image"] = thumbailUrl
             param["base_currency"] = baseCurrency
-                    
+            
             let vc = UsedMusclesViewController.viewcontroller()
             vc.isFromLive = true
             vc.paramDic = param

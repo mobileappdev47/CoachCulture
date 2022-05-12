@@ -124,15 +124,19 @@ class PaymentMethodViewController: BaseViewController {
                             }
                             self.clvCard.reloadItems(at: arrIndexPaths)
                         }
+                        self.viewConfirmPayment.isHidden = false
                     } else {
                         self.viewNoDataFound.isHidden = false
+                        self.viewConfirmPayment.isHidden = true
                     }
                 }
             } else {
                 self.viewNoDataFound.isHidden = false
+                self.viewConfirmPayment.isHidden = true
             }
         } failure: { (error) in
             self.viewNoDataFound.isHidden = false
+            self.viewConfirmPayment.isHidden = true
             self.hideLoader()
             Utility.shared.showToast(error.localizedDescription)
             return true
@@ -161,7 +165,11 @@ class PaymentMethodViewController: BaseViewController {
         mainParams[StripeParams.PaymentIntents.amount] = String((Int(fees) ?? 0) * 100)
         mainParams[StripeParams.PaymentIntents.currency] = recdCurrency
         mainParams[StripeParams.PaymentIntents.customer] = customer
-//        mainParams[StripeParams.PaymentIntents.payment_method] = id
+        if isForCoach {
+            mainParams[StripeParams.PaymentIntents.description] = "coach subscribe"
+        } else {
+            mainParams[StripeParams.PaymentIntents.description] = "class subscribe"
+        }
 //        mainParams[StripeParams.PaymentIntents.confirm] = true
                     
         let apiUrl = STRIPE_API.payment_create_charge
