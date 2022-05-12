@@ -65,7 +65,7 @@ class LoginSignUpVc: BaseViewController {
     var isFromLogin = false
     let apimanager = ApiManager()
     var countryCodeDesc = ""
-    var base_currency = ""
+    var base_currency = "USD"
     var LoginType = LoginTypeConst(rawValue: 0)
     let txtPlaceholders = ["Username", "Password", "Username", "Email", "", "Phone", "Password", "Retype Password"]
     var loginParams = [String:Any]()
