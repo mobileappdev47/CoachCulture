@@ -3416,7 +3416,6 @@
                                                         <state key="normal" title="Button"/>
                                                         <connections>
                                                             <action selector="clickToBtnClassDifficulty:" destination="VMd-Rr-EnN" eventType="touchUpInside" id="dH1-Ef-Vxu"/>
-                                                            <action selector="clickTobBtnNationality:" destination="EsD-6N-yGF" eventType="touchUpInside" id="4Iz-N9-9aB"/>
                                                         </connections>
                                                     </button>
                                                     <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_wrong" translatesAutoresizingMaskIntoConstraints="NO" id="PnJ-qi-Rzg">
@@ -4472,7 +4471,7 @@
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <state key="normal" image="ic_back"/>
                                         <connections>
-                                            <action selector="didTapBack:" destination="bqY-no-HMh" eventType="touchUpInside" id="8UH-f3-SAx"/>
+                                            <action selector="onClkBack:" destination="bqY-no-HMh" eventType="touchUpInside" id="n8O-nI-gsW"/>
                                         </connections>
                                     </button>
                                 </subviews>

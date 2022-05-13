@@ -129,7 +129,7 @@ class OTPViewController: BaseViewController {
 extension OTPViewController {
     
     func verifyAPI() {
-        
+        view.endEditing(true)
         var param = [String:Any]()
         
         if LoginType == LoginTypeConst.Google {
@@ -192,6 +192,7 @@ extension OTPViewController {
     
     func resendOtpAPI() {
         SVProgressHUD.show()
+        view.endEditing(true)
         let param = [
             "countrycode":countryCode,
             "phonecode":phoneCode,
@@ -219,7 +220,7 @@ extension OTPViewController {
     func verifyOTPForForgotPasswordAPI() {
         showLoader()
         paramDic["verification_code"] = otp
-        
+        view.endEditing(true)
         
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.VERIFY_OTP, parameters: paramDic, headers: nil) { responseObj in

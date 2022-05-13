@@ -291,31 +291,38 @@ class ScheduleLiveClassViewController: BaseViewController {
     
     // MARK: - Click Event
     @IBAction func clickToBtnClassType(_ sender : UIButton) {
+        view.endEditing(true)
         tblClassTypeList.isHidden = !tblClassTypeList.isHidden
     }
     
     @IBAction func clickToBtnClassDifficulty(_ sender : UIButton) {
+        view.endEditing(true)
         tblClassDifficulty.isHidden = !tblClassDifficulty.isHidden
     }
     
     @IBAction func clickToBtnClassDuration(_ sender : UIButton) {
+        view.endEditing(true)
         setClassDurationView()
     }
     
-    @IBAction func clickTobBtnSelectSubscriptionCurrency(_ sender: UIButton) {        
+    @IBAction func clickTobBtnSelectSubscriptionCurrency(_ sender: UIButton) {
+        view.endEditing(true)
         dropDown.show()
         dropDown.anchorView = btnSubCurrency
         dropDown.width = sender.frame.width
     }
     
     @IBAction func onClkBack(_ sender: UIButton) {
+        view.endEditing(true)
         errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
         removeAllErr()
         self.popVC(animated: true)
     }
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
+        view.endEditing(true)
         removeAllErr()
+        
         if thumbailUrl.isEmpty {
             errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             Utility.shared.showToast("Please select thumbnail Image")
@@ -374,7 +381,7 @@ class ScheduleLiveClassViewController: BaseViewController {
     }
         
     @IBAction func clickToBtnUplaodThumbnail(_ sender : UIButton) {
-        
+        view.endEditing(true)
         //goToPerticularTab(index: 3)
         selectedButton = btnUploadthumbnail
         setAddPhotoView()

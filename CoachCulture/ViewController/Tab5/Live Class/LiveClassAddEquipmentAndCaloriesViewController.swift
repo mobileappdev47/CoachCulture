@@ -104,7 +104,12 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
         currentSelectedIndForCell = sender.tag
     }
     
-    // MARK: - Click Events
+    @IBAction func onClkBack(_ sender: UIButton) {
+        txtCalories.setError()
+        txtDummyDes.setError()
+        self.popVC(animated: true)
+    }
+    
     @IBAction func clickToBTnAddDeleteEquipment( _ sender : UIButton) {
         
         arrAddedEquipment.remove(at: sender.tag)
@@ -134,7 +139,6 @@ class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
             imgErrKcal.isHidden = false
             txtCalories.setError("Please Edit kcal", show: true)
         } else if txtDescription.text!.isEmpty {
-            Utility.shared.showToast("Description required")
             txtDummyDes.setError("Please Edit Description", show: true)
             imgErrKcal.isHidden = true
             imgErrDeq.isHidden = false

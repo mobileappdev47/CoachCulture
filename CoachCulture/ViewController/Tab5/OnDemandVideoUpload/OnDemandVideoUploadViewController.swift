@@ -244,6 +244,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
     
     // MARK: - Click Event
     @IBAction func clickToBtnClassType(_ sender : UIButton) {
+        view.endEditing(true)
         tblClassTypeList.isHidden = !tblClassTypeList.isHidden
     }
     
@@ -254,21 +255,25 @@ class OnDemandVideoUploadViewController: BaseViewController {
     }
         
     @IBAction func clickToBtnClassDifficulty(_ sender : UIButton) {
+        view.endEditing(true)
         tblClassDifficulty.isHidden = !tblClassDifficulty.isHidden
     }
     
     @IBAction func clickToBtnClassDuration(_ sender : UIButton) {
 //        setClassDurationView()
+        view.endEditing(true)
         Utility().showToast("Class duration time is based on video you have uploaded")
     }
     
     @IBAction func clickTobBtnSelectSubscriptionCurrency(_ sender: UIButton) {
+        view.endEditing(true)
         dropDown.show()
         dropDown.anchorView = btnCurrency
         dropDown.width = sender.frame.width
     }
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
+        view.endEditing(true)
         if uploadedVideoUrl.isEmpty {
             Utility.shared.showToast("Please upload demand video")
         } else if  thumbailUrl.isEmpty {
@@ -322,6 +327,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnUplaodOnDemandVideo(_ sender : UIButton) {
+        view.endEditing(true)
         if uploadedVideoUrl == "" {
             selectedButton = btnUploadVideo
             let picker = UIImagePickerController()
@@ -335,11 +341,13 @@ class OnDemandVideoUploadViewController: BaseViewController {
     }
     
     @IBAction func btnUpdateThum(_ sender: UIButton) {
+        view.endEditing(true)
         selectedButton = btnUploadthumbnail
         setAddPhotoView()
     }
     
     @IBAction func btnUpdateVideo(_ sender: UIButton) {
+        view.endEditing(true)
         selectedButton = btnUploadVideo
         let picker = UIImagePickerController()
         picker.delegate = self

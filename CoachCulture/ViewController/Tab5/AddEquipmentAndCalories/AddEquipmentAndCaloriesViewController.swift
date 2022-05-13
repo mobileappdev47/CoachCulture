@@ -115,7 +115,12 @@ class AddEquipmentAndCaloriesViewController: BaseViewController {
         currentSelectedIndForCell = sender.tag
     }
     
-    // MARK: - Click Events
+    @IBAction func onClkBack(_ sender: UIButton) {
+        txtCalories.setError()
+        txtDummyDes.setError()
+        self.popVC(animated: true)
+    }
+    
     @IBAction func clickToBTnAddDeleteEquipment( _ sender : UIButton) {
         
         arrAddedEquipment.remove(at: sender.tag)

@@ -168,7 +168,9 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let vc = CoachViseOnDemandClassViewController.viewcontroller()
+        vc.selectedCoachId = arrSubsciptionList[indexPath.row].id
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 

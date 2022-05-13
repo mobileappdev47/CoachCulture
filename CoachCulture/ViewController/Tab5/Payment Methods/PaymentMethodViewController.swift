@@ -51,8 +51,9 @@ class PaymentMethodViewController: BaseViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+        super.viewWillAppear(animated)        
+        isPrefferedSelected = false
+        isDeleteSelected = false
         if Reachability.isConnectedToNetwork() {
             callGetCardsAPI(isShowLoader: true)
         }
@@ -481,6 +482,8 @@ extension PaymentMethodViewController: UICollectionViewDataSource, UICollectionV
 
     @IBAction func btnYesClick( _ sender : UIButton) {
 //        let model = arrCards?.data[sender.tag]
+        isPrefferedSelected = false
+        isDeleteSelected = false
         if Reachability.isConnectedToNetwork() {
             self.callPaymentMethodsDetachAPI(arrDatam?[sender.tag] ?? [String:Any]())
         }
