@@ -165,9 +165,8 @@ class LiveClassDetailsViewController: BaseViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        viwScanQr.roundCorners(corners: [.bottomLeft], radius: 30)
-        viwJoinClass.roundCorners(corners: [.bottomRight], radius: 30)
+        viwScanQr.roundCorners(corners: [.topLeft], radius: 10)
+        viwJoinClass.roundCorners(corners: [.topRight], radius: 10)
     }
 
     private func setUpUI() {
@@ -916,6 +915,7 @@ class LiveClassDetailsViewController: BaseViewController {
         let vc = BroadcastClassVC.instantiate(fromAppStoryboard: .Recipe)
         vc.streamObj = self.streamObj
         vc.didEndStreamingBlock = { isSuccessfullyJoinned in
+            self.lblClassStartIn.text = "Class has Ended"
             if isSuccessfullyJoinned {
                 if Reachability.isConnectedToNetwork() {
                     self.callEndLiveClassAPI(isFromLiveStream: true)
@@ -1149,7 +1149,7 @@ extension LiveClassDetailsViewController {
                                 //if class time is gone and allow coach to start class within 15 minute and then disable
                                 if classDetailDataObj.coachDetailsDataObj.id != AppPrefsManager.sharedInstance.getUserData().id {
                                     if (diffClass.minute ?? 0 < -15) {
-                                        self.lblClassStartIn.text = "coach was missed to start the class"
+                                        self.lblClassStartIn.text = "class was cancelled"
                                         btnJoinClass.isEnabled = false
                                     } else {
                                         //start timer to join class
@@ -1187,7 +1187,7 @@ extension LiveClassDetailsViewController {
                             if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
                                 self.lblClassStartIn.text = "You was missed to start the class"
                             } else {
-                                self.lblClassStartIn.text = "coach was missed to start the class"
+                                self.lblClassStartIn.text = "Class was cancelled"
                             }
                             btnJoinClass.isEnabled = false
                         }
@@ -1196,7 +1196,7 @@ extension LiveClassDetailsViewController {
                     if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
                         self.lblClassStartIn.text = "You was missed to start the class"
                     } else {
-                        self.lblClassStartIn.text = "coach was missed to start the class"
+                        self.lblClassStartIn.text = "Class was cancelled"
                     }
                     btnJoinClass.isEnabled = false
                 } else if diffClass.day ?? 0 > 0 {
@@ -1387,6 +1387,7 @@ extension LiveClassDetailsViewController {
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.END_LIVE_CLASS, parameters: param, headers: nil) { responseObj in
             _ = ResponseDataModel(responseObj: responseObj)
             self.counter = 0.0
+            self.lblClassStartIn.text = "Class has ended"
         } failure: { (error) in
             self.counter = 0.0
             return true

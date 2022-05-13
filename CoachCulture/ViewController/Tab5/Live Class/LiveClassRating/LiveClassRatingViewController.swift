@@ -95,10 +95,16 @@ class LiveClassRatingViewController: BaseViewController {
 
     // MARK: - Click events
     @IBAction func clickToBtnNext(_ sender : UIButton) {
-        if Reachability.isConnectedToNetwork(){
-            giveRatting()
+        if txtTellUsAbout.text == "" {
+            view.endEditing(true)
+            Utility().showToast("Please tell us about your experience!!")
+        } else {
+            if Reachability.isConnectedToNetwork(){
+                giveRatting()
+            }
         }
     }
+     
     @IBAction func clickOnCoachPro(_ sender: UIButton) {
         let vc = CoachViseOnDemandClassViewController.viewcontroller()
         vc.selectedCoachId = classDetailDataObj.coachDetailsDataObj.id

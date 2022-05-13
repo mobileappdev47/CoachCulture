@@ -323,6 +323,8 @@ class ScheduleLiveClassViewController: BaseViewController {
         view.endEditing(true)
         removeAllErr()
         
+        let date = ("\(lblDate.text ?? "")-\(lblMonth.text ?? "")-\(lblYear.text ?? "") \(lblHour.text ?? ""):\(lblMin.text ?? "")").getDateWithFormate(formate: "dd-MM-yyyy HH:mm", timezone: "")
+        
         if thumbailUrl.isEmpty {
             errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             Utility.shared.showToast("Please select thumbnail Image")
@@ -341,6 +343,9 @@ class ScheduleLiveClassViewController: BaseViewController {
         } else if selectedTime.isEmpty {
             errorTextEditProfile(subFee: true, date: true, time: false, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             txtDummyTime.setError("Time is required", show: true)
+        } else if date < Date() {
+            errorTextEditProfile(subFee: true, date: true, time: false, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+            txtDummyTime.setError("Please select vaild time", show: true)
         } else if lblClassDuration.text!.lowercased() == "0 mins" {
             errorTextEditProfile(subFee: true, date: true, time: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: false)
             txtDuration.setError("Class duration is required", show: true)

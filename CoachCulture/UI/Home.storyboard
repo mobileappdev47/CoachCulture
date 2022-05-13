@@ -136,15 +136,6 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YbC-iX-8TS" userLabel="PopClass">
                                                 <rect key="frame" x="20" y="269" width="355" height="219"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Classes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joj-m7-K1B">
-                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="24"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="24" id="Glw-m3-HUU"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
-                                                        <color key="textColor" name="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="inA-hx-nfq">
                                                         <rect key="frame" x="0.0" y="29" width="355" height="190"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -194,6 +185,15 @@
                                                             <constraint firstItem="7rS-da-E3D" firstAttribute="centerY" secondItem="iA2-FX-D7P" secondAttribute="centerY" id="zgc-dQ-Aqj"/>
                                                         </constraints>
                                                     </view>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Popular Classes" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Joj-m7-K1B">
+                                                        <rect key="frame" x="0.0" y="0.0" width="355" height="24"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="24" id="Glw-m3-HUU"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="20"/>
+                                                        <color key="textColor" name="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>

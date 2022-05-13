@@ -39,14 +39,18 @@ class PopularCoachRecipeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpUI()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        self.setUpUI()
         if Reachability.isConnectedToNetwork(){
-            getPopularRecipeList(str: "")
+            self.getPopularRecipeList(str: "")
+            self.getYourCoachRecipeList()
+            self.isDataLoading = false
+            self.continueLoadingData = true
+            self.pageNo = 1
         }
         showTabBar()
     }
@@ -54,15 +58,15 @@ class PopularCoachRecipeViewController: BaseViewController {
     
     // MARK: - METHODS
     func setUpUI() {
-        tblCoachRecipe.register(UINib(nibName: kHomeNewClassHeaderViewID, bundle: nil), forHeaderFooterViewReuseIdentifier: kHomeNewClassHeaderViewID)
-        tblCoachRecipe.register(UINib(nibName: "NewClassesTBLViewCell", bundle: nil), forCellReuseIdentifier: "NewClassesTBLViewCell")
-        tblCoachRecipe.delegate = self
-        tblCoachRecipe.dataSource = self
-        tblCoachRecipe.layoutIfNeeded()
+        self.tblCoachRecipe.register(UINib(nibName: kHomeNewClassHeaderViewID, bundle: nil), forHeaderFooterViewReuseIdentifier: kHomeNewClassHeaderViewID)
+        self.tblCoachRecipe.register(UINib(nibName: "NewClassesTBLViewCell", bundle: nil), forCellReuseIdentifier: "NewClassesTBLViewCell")
+        self.tblCoachRecipe.delegate = self
+        self.tblCoachRecipe.dataSource = self
+        self.tblCoachRecipe.layoutIfNeeded()
         
-        clvPopularRecipeItem.register(UINib(nibName: "PopularRecipeItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PopularRecipeItemCollectionViewCell")
-        clvPopularRecipeItem.delegate = self
-        clvPopularRecipeItem.dataSource = self
+        self.clvPopularRecipeItem.register(UINib(nibName: "PopularRecipeItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PopularRecipeItemCollectionViewCell")
+        self.clvPopularRecipeItem.delegate = self
+        self.clvPopularRecipeItem.dataSource = self
         
         self.tblCoachRecipe.isScrollEnabled = false
         self.scrollView.delegate = self
@@ -327,6 +331,7 @@ extension PopularCoachRecipeViewController {
             let dataObj = responseObj["coach_recipe_list"] as? [Any] ?? [Any]()
             let arr = PopularRecipeData.getData(data: dataObj)
             
+            self.arrCoachRecipeData = []
             if arr.count > 0 {
                 self.arrCoachRecipeData.append(contentsOf: arr)
                 

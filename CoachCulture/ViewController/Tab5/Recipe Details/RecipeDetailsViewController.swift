@@ -67,8 +67,8 @@ class RecipeDetailsViewController: BaseViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        viwNutritionFacts.roundCorners(corners: [.bottomLeft], radius: 50)
-        viwViewRecipe.roundCorners(corners: [.bottomRight], radius: 50)
+        viwNutritionFacts.roundCorners(corners: [.topLeft], radius: 10)
+        viwViewRecipe.roundCorners(corners: [.topRight], radius: 10)
     }
     
     
@@ -186,7 +186,7 @@ class RecipeDetailsViewController: BaseViewController {
         lblRecipeTitle.text = recipeDetailDataObj.title
         lblRecipeSubTitle.text = recipeDetailDataObj.sub_title
         lblViews.text = recipeDetailDataObj.total_viewers + "Views"
-        lblDate.text = recipeDetailDataObj.created_at
+        lblDate.text = convertUTCToLocal(dateStr: recipeDetailDataObj.created_at, sourceFormate: "yyyy-MM-dd hh:mm:ss", destinationFormate: "dd MMM yyyy")
         
         showDetailView.setData(title: recipeDetailDataObj.title, SubTitle: recipeDetailDataObj.sub_title, Data: recipeDetailDataObj)
         self.showDetailView.heightDescriptionDetailTbl.constant = 0.5

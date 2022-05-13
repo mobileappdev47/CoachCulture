@@ -135,7 +135,7 @@ class CoachViseOnDemandClassViewController: BaseViewController, AVPlayerViewCont
             }
             
             if item.lowercased() == "Share".lowercased() {
-                let textToShare = [ "" ]
+                let textToShare = [ "Check out Coach @\(self.userDataObj?.username ?? "") on CoachCulture https://www.coachculture.com/coach/timnorton" ]
                 let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
                 activityViewController.excludedActivityTypes = [ UIActivity.ActivityType.airDrop, UIActivity.ActivityType.postToFacebook ]                
