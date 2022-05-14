@@ -266,12 +266,12 @@ extension ManageSubscriptionListViewController : UITextFieldDelegate {
     
   
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if arrSubsciptionList.count > 0 {
+//        if arrSubsciptionList.count > 0 {
             self.resetAll()
             if Reachability.isConnectedToNetwork(){
                 getCoachSubscriptionList(isShowLoader: true)
             }
-        }
+//        }
     }
 
 }

@@ -160,6 +160,8 @@ class CoachViseOnDemandClassViewController: BaseViewController, AVPlayerViewCont
         }
 
         let vc = PaymentMethodViewController.viewcontroller()
+        
+        vc.isForTransection = false
             vc.didFinishPaymentBlock = { transaction_id, status in
             if status {
                 if Reachability.isConnectedToNetwork() {
@@ -401,7 +403,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        let height = selectedCoachId == AppPrefsManager.sharedInstance.getUserData().id ? 120.0 : 50.0
+        let height = selectedCoachId == AppPrefsManager.sharedInstance.getUserData().id ? 100.0 : 50.0
         self.topConstantViewNoDataFound.constant = CGFloat(height + 35)
         return CGFloat(height)
     }

@@ -42,6 +42,7 @@ class PaymentMethodViewController: BaseViewController {
     var coachClassID = 0
     var isForCoach = false
     var transectionID = "avc"
+    var isForTransection = true
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -56,6 +57,11 @@ class PaymentMethodViewController: BaseViewController {
         isDeleteSelected = false
         if Reachability.isConnectedToNetwork() {
             callGetCardsAPI(isShowLoader: true)
+        }
+        if isForTransection {
+            viewConfirmPayment.isHidden = true
+        } else {
+            viewConfirmPayment.isHidden = false
         }
     }
     
@@ -125,7 +131,7 @@ class PaymentMethodViewController: BaseViewController {
                             }
                             self.clvCard.reloadItems(at: arrIndexPaths)
                         }
-                        self.viewConfirmPayment.isHidden = false
+//                        self.viewConfirmPayment.isHidden = false
                     } else {
                         self.viewNoDataFound.isHidden = false
                         self.viewConfirmPayment.isHidden = true

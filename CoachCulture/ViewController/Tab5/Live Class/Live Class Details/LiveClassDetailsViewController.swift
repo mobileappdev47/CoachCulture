@@ -716,6 +716,7 @@ class LiveClassDetailsViewController: BaseViewController {
         }
 
         let vc = PaymentMethodViewController.viewcontroller()
+        vc.isForTransection = false
         vc.didFinishPaymentBlock = { transaction_id, status in
             if status {
                 if Reachability.isConnectedToNetwork() {
