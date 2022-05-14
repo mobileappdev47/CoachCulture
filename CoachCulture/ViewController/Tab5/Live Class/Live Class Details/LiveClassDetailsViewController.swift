@@ -148,7 +148,7 @@ class LiveClassDetailsViewController: BaseViewController {
                 if !isFutureClass {
                     checkUserSubscriptionOfClass()
                 } else {
-                    handleSinglePopup(message: "You can not join class before class time")
+                    handleSinglePopup(message: "Thank you your class subscription has been recevived")
                 }
             }
             LiveClassDetailsViewController.isFromTransection = false
@@ -778,6 +778,7 @@ class LiveClassDetailsViewController: BaseViewController {
     
     private func goToStartClass() {
         let vc = JoinLiveClassVC.instantiate(fromAppStoryboard: .Recipe)
+        vc.isForClassWaiting = false
         vc.didEndStreamingBlock = { isSuccessfullyJoinned in
             if isSuccessfullyJoinned {
                 if Reachability.isConnectedToNetwork() {
@@ -1057,7 +1058,11 @@ extension LiveClassDetailsViewController {
                     }
                 } else {
                     self.hideLoader()
-                    self.handleSinglePopup(message: "You can not join class before class time")
+                    let vc = JoinLiveClassVC.instantiate(fromAppStoryboard: .Recipe)
+                    vc.isForClassWaiting = true
+                    vc.classStartingTime = "Class starts at \(self.updateDate(date: self.classDetailDataObj.class_date, time: self.classDetailDataObj.class_time).1)"
+                    self.pushVC(To: vc, animated: false)
+//                    self.handleSinglePopup(message: "You can not join class before class time")
                 }
             }
         } failure: { (error) in
@@ -1174,7 +1179,7 @@ extension LiveClassDetailsViewController {
                         if todayEndDayTime > currentHourTime {
                             self.lblClassStartIn.text = "Class starts today at \(updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time).1)"
                         } else {
-                            self.lblClassStartIn.text = "Class starts at \(updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time).1)"
+                            self.lblClassStartIn.text = "Class starts at \(updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time).0)"
                         }
                     } else if diffClass.hour ?? 0 < 0 {
                         if !classDetailDataObj.started_at.isEmpty || classDetailDataObj.started_at != "" {
@@ -1202,8 +1207,7 @@ extension LiveClassDetailsViewController {
                     btnJoinClass.isEnabled = false
                 } else if diffClass.day ?? 0 > 0 {
                     isFutureClass = true
-                    let classStartDateTime = convertUTCToLocal(dateStr: "\(classDetailDataObj.class_date) \(classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd mm:ss", destinationFormate: "dd MMM, yyyy")
-                    self.lblClassStartIn.text = "Class starts at \(classStartDateTime)"
+                    self.lblClassStartIn.text = "Class starts at \(updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time).0)"
                 }
             }
         } else {

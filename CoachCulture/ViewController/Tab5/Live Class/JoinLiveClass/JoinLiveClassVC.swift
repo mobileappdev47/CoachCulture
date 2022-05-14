@@ -24,14 +24,15 @@ class JoinLiveClassVC: BaseViewController {
     @IBOutlet private var shareButton: UIButton!
     @IBOutlet private var likeButton: UIButton!
     @IBOutlet private var topGradientView: UIView!
+    @IBOutlet weak var lblClassStarts: PaddingLabel!
     
     // MARK: IBAction
     
     @IBAction func btnBackClick(_ sender: Any) {
         if didEndStreamingBlock != nil {
             didEndStreamingBlock(self.isSuccessfullyJoinned)
-            self.popVC(animated: true)
         }
+        self.popVC(animated: true)
     }
     
     @IBAction private func didTapMute(_ sender: Any) {
@@ -82,12 +83,19 @@ class JoinLiveClassVC: BaseViewController {
     private var gradientBottom: CAGradientLayer?
     var didEndStreamingBlock: ((_ isSuccessfullyJoinned: Bool) -> Void)!
     var isSuccessfullyJoinned = false
+    var isForClassWaiting = true
+    var classStartingTime = ""
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        lblClassStarts.text = classStartingTime
         didSupportAllOrientation = true
         checkMicrophonePermission()
+        if !isForClassWaiting {
+            self.lblClassStarts.isHidden = true
+        } else {
+            self.lblClassStarts.isHidden = false
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

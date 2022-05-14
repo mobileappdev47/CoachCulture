@@ -89,7 +89,7 @@ class CoachClassProfileViewController: BaseViewController {
             self.selectedCoachId = AppPrefsManager.sharedInstance.getUserData().id
         }
         btnBack.isHidden = true
-        viwNoDataFound.isHidden = false
+        viwNoDataFound.isHidden = true
         
         tblOndemand.register(UINib(nibName: "HeaderTableView", bundle: nil), forHeaderFooterViewReuseIdentifier: "HeaderTableView")
 
