@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -105,7 +105,7 @@
                                                         <rect key="frame" x="0.0" y="29" width="355" height="165"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular trainers found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkZ-wY-w92">
-                                                                <rect key="frame" x="63" y="70.5" width="229" height="24"/>
+                                                                <rect key="frame" x="49" y="70.5" width="257.5" height="24"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -173,7 +173,7 @@
                                                         <rect key="frame" x="0.0" y="29" width="355" height="190"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No popular classes found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7rS-da-E3D">
-                                                                <rect key="frame" x="63" y="83" width="229" height="24"/>
+                                                                <rect key="frame" x="50.5" y="83" width="254.5" height="24"/>
                                                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                                 <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
@@ -218,10 +218,10 @@
                                                 </constraints>
                                             </tableView>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gY-up-mth">
-                                                <rect key="frame" x="0.0" y="543" width="375" height="54"/>
+                                                <rect key="frame" x="0.0" y="563" width="375" height="34"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No new class found" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lJ8-1G-uhX">
-                                                        <rect key="frame" x="99" y="15" width="177.5" height="24"/>
+                                                        <rect key="frame" x="90" y="5" width="195" height="24"/>
                                                         <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="20"/>
                                                         <color key="textColor" red="0.32156862749999998" green="0.37254901959999998" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -242,7 +242,7 @@
                                             <constraint firstItem="6gY-up-mth" firstAttribute="trailing" secondItem="Duj-xG-TXn" secondAttribute="trailing" id="Npv-UT-H8t"/>
                                             <constraint firstItem="VrI-eL-8yU" firstAttribute="top" secondItem="Dpy-Ie-ce6" secondAttribute="bottom" constant="10" id="PsA-W5-E2v"/>
                                             <constraint firstAttribute="bottom" secondItem="Duj-xG-TXn" secondAttribute="bottom" id="V7E-Oy-Q8R"/>
-                                            <constraint firstItem="6gY-up-mth" firstAttribute="top" secondItem="Duj-xG-TXn" secondAttribute="top" constant="40" id="Vr3-mq-G3r"/>
+                                            <constraint firstItem="6gY-up-mth" firstAttribute="top" secondItem="Duj-xG-TXn" secondAttribute="top" constant="60" id="Vr3-mq-G3r"/>
                                             <constraint firstAttribute="trailing" secondItem="Duj-xG-TXn" secondAttribute="trailing" id="XZo-rh-6yH"/>
                                             <constraint firstAttribute="bottom" secondItem="6gY-up-mth" secondAttribute="bottom" id="bPc-Q4-taO"/>
                                             <constraint firstItem="6gY-up-mth" firstAttribute="leading" secondItem="Duj-xG-TXn" secondAttribute="leading" id="hyn-QA-omh"/>
