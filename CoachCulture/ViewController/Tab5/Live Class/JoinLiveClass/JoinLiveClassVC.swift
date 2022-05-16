@@ -85,6 +85,9 @@ class JoinLiveClassVC: BaseViewController {
     var isSuccessfullyJoinned = false
     var isForClassWaiting = true
     var classStartingTime = ""
+    var isTimerStart = false
+    var totalTime = 00
+    var timer : Timer?
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -95,6 +98,9 @@ class JoinLiveClassVC: BaseViewController {
             self.lblClassStarts.isHidden = true
         } else {
             self.lblClassStarts.isHidden = false
+            if isTimerStart {
+                self.startTimerForRemainTimeFromClassStart()
+            }
         }
     }
     
@@ -120,6 +126,34 @@ class JoinLiveClassVC: BaseViewController {
                 self.initialSetupForStreaming()
             } else {
                 self.initialSetupForStreaming()
+            }
+        }
+    }
+    
+    func timeFormatted(_ totalSeconds: Int) -> String {
+        let seconds: Int = totalSeconds % 60
+        let minutes: Int = (totalSeconds / 60) % 60
+        return String(format: "%02d:%02d", minutes, seconds)
+    }
+    
+    private func startTimerForRemainTimeFromClassStart() {
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimerForRemainTimeFromClassStart), userInfo: nil, repeats: true)
+    }
+    
+    private func startTimerToCheckClassStatus() {
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 30.0, target: self, selector: #selector(updateTimerForRemainTimeFromClassStart), userInfo: nil, repeats: true)
+    }
+    
+    @objc func updateTimerForRemainTimeFromClassStart() {
+        self.lblClassStarts.text = "Class starts in : \(self.timeFormatted(self.totalTime))"
+        if totalTime != 0 {
+            totalTime -= 1  // decrease counter timer
+        } else {
+            if let timer = self.timer {
+                timer.invalidate()
+                self.timer = nil
             }
         }
     }
@@ -211,7 +245,7 @@ class JoinLiveClassVC: BaseViewController {
                 self.streamUrl = streamUrl
             }
             
-            player.muted = true
+//            player.muted = true
             pausePlayback()
         }
     }

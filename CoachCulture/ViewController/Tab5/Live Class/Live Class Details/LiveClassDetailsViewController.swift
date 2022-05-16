@@ -118,6 +118,7 @@ class LiveClassDetailsViewController: BaseViewController {
     var streamObj : StreamInfo?
     var isFutureClass = false
     var isFromPaymentFlow = false
+    var isTodayDate = false
     static var isFromTransection = false
     
     override func viewDidLoad() {
@@ -148,7 +149,20 @@ class LiveClassDetailsViewController: BaseViewController {
                 if !isFutureClass {
                     checkUserSubscriptionOfClass()
                 } else {
-                    handleSinglePopup(message: "Thank you your class subscription has been recevived")
+                    let vc = PopupViewController.viewcontroller()
+                    vc.isHide = true
+                    vc.message = "Thank you your class subscription has been recevived"
+                    vc.dismissHandler = {self.hideLoader()
+                        let vc = JoinLiveClassVC.instantiate(fromAppStoryboard: .Recipe)
+                        vc.isForClassWaiting = true
+                        if !self.isTodayDate {
+                            vc.classStartingTime = "Class starts at \(self.updateDate(date: self.classDetailDataObj.class_date, time: self.classDetailDataObj.class_time).0)"
+                        } else {
+                            vc.isTimerStart = true
+                        }
+                        self.pushVC(To: vc, animated: false)
+                    }
+                    self.present(vc, animated: true, completion: nil)
                 }
             }
             LiveClassDetailsViewController.isFromTransection = false
@@ -1060,7 +1074,15 @@ extension LiveClassDetailsViewController {
                     self.hideLoader()
                     let vc = JoinLiveClassVC.instantiate(fromAppStoryboard: .Recipe)
                     vc.isForClassWaiting = true
-                    vc.classStartingTime = "Class starts at \(self.updateDate(date: self.classDetailDataObj.class_date, time: self.classDetailDataObj.class_time).1)"
+                    if !self.isTodayDate {
+                        vc.classStartingTime = "Class starts at \(self.updateDate(date: self.classDetailDataObj.class_date, time: self.classDetailDataObj.class_time).0)"
+                    } else {
+                        vc.isTimerStart = true                        
+                        let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!)
+                        let classStartDateTime = convertUTCToLocalDate(dateStr: "\(self.classDetailDataObj.class_date) \(self.classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm:ss")
+                        let diffClass = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDateTime, to: classStartDateTime)
+                        vc.totalTime = (((diffClass.minute ?? 0) * 60) + (diffClass.second ?? 0))
+                    }
                     self.pushVC(To: vc, animated: false)
 //                    self.handleSinglePopup(message: "You can not join class before class time")
                 }
@@ -1134,12 +1156,12 @@ extension LiveClassDetailsViewController {
             } else {
                 let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!)
                 let classStartDateTime = convertUTCToLocalDate(dateStr: "\(classDetailDataObj.class_date) \(classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm:ss")
-                _ = updateDate(date: classDetailDataObj.class_date, time: classDetailDataObj.class_time)
                 let diffClass = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDateTime, to: classStartDateTime)
                 if diffClass.day ?? 0 == 0 {
                     if diffClass.hour ?? 0 == 0 {
                         if (diffClass.minute ?? 0 > 0) || (diffClass.second ?? 0 > 0) {
                             //start Timer For Remain Time From Class Start
+                            isTodayDate = true
                             isFutureClass = true
                             self.totalTime = (((diffClass.minute ?? 0) * 60) + (diffClass.second ?? 0))
                             self.startTimerForRemainTimeFromClassStart()
@@ -1393,6 +1415,11 @@ extension LiveClassDetailsViewController {
             _ = ResponseDataModel(responseObj: responseObj)
             self.counter = 0.0
             self.lblClassStartIn.text = "Class has ended"
+            let vc = PopupViewController.viewcontroller()
+            vc.isHide = true
+            vc.message = "Class has ended"
+            self.present(vc, animated: true, completion: nil)
+            
         } failure: { (error) in
             self.counter = 0.0
             return true

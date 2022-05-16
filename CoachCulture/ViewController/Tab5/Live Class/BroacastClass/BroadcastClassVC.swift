@@ -293,13 +293,6 @@ extension BroadcastClassVC : IVSBroadcastSession.Delegate {
         if didEndStreamingBlock != nil {
             didEndStreamingBlock(self.isSuccessfullyJoinned)
             
-            let vc = PopupViewController.viewcontroller()
-            vc.isHide = true
-            vc.message = "Class has ended"
-            vc.dismissHandler = {
-                self.popVC(animated: true)
-            }
-            self.present(vc, animated: true, completion: nil)
         }
     }
     
