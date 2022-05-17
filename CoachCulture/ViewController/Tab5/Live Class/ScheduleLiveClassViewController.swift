@@ -581,14 +581,14 @@ extension ScheduleLiveClassViewController: UIImagePickerControllerDelegate, UINa
         
         var editedImage:UIImage?
         
-            editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
-            if editedImage == nil {
-                editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
-            }
-            
-        photoData = editedImage?.jpegData(compressionQuality: 1)
-            self.imgThumbnail.image = editedImage
-            self.uploadVideoThumbnail()
+        editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage
+        if editedImage == nil {
+            editedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        }
+        
+        photoData = editedImage?.jpegData(compressionQuality: 0.5)
+        self.imgThumbnail.image = editedImage
+        self.uploadVideoThumbnail()
         
         
     }
@@ -643,3 +643,4 @@ extension ScheduleLiveClassViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
     }
 }
+

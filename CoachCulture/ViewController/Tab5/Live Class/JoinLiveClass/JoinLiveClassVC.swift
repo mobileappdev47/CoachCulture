@@ -36,6 +36,7 @@ class JoinLiveClassVC: BaseViewController {
     }
     
     @IBAction private func didTapMute(_ sender: Any) {
+        checkMicrophonePermission()
         if let player = player {
             toggleMuteStatus(!player.muted)
         }
@@ -88,6 +89,7 @@ class JoinLiveClassVC: BaseViewController {
     var isTimerStart = false
     var totalTime = 00
     var timer : Timer?
+    var classId = ""
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -148,13 +150,38 @@ class JoinLiveClassVC: BaseViewController {
     
     @objc func updateTimerForRemainTimeFromClassStart() {
         self.lblClassStarts.text = "Class starts in : \(self.timeFormatted(self.totalTime))"
-        if totalTime != 0 {
+        if totalTime > 0 {
             totalTime -= 1  // decrease counter timer
         } else {
             if let timer = self.timer {
+                LiveClassDetailsViewController.isTimer0 = true
+                self.lblClassStarts.text = "Class will start shortly"
                 timer.invalidate()
                 self.timer = nil
+                getAWSDetails()
             }
+        }
+    }
+    
+    func getAWSDetails() {
+        showLoader()
+        let param = ["class_id" : self.classId]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_AWS_DETAILS, parameters: param, headers: nil) { responseObj in
+            
+            let responseModel = ResponseDataModel(responseObj: responseObj)
+            if (responseObj["message"] as? String ?? "") != "You are not subscribed to this class" {
+                if responseModel.success {
+                    if let dataObj = responseObj["data"] as? [String:Any] {
+                        self.hideLoader()
+                        self.stream = StreamInfo(responseObj: dataObj)
+                        self.checkMicrophonePermission()
+                    }
+                }
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            return true
         }
     }
     
@@ -295,10 +322,12 @@ extension JoinLiveClassVC: IVSPlayer.Delegate {
         updateForState(state)
         if state == .ended {
             if didEndStreamingBlock != nil {
+                LiveClassDetailsViewController.isLiveEnded = true
                 didEndStreamingBlock(self.isSuccessfullyJoinned)
                 self.popVC(animated: true)
             }
         } else if state == .playing {
+            self.lblClassStarts.isHidden = true
             self.isSuccessfullyJoinned = true
         }
     }

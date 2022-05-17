@@ -119,7 +119,10 @@ class LiveClassDetailsViewController: BaseViewController {
     var isFutureClass = false
     var isFromPaymentFlow = false
     var isTodayDate = false
+    var isAlreadyPlayed = false
     static var isFromTransection = false
+    static var isLiveEnded = false
+    static var isTimer0 = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,6 +132,13 @@ class LiveClassDetailsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!)
+        let classStartDateTime = convertUTCToLocalDate(dateStr: "\(self.classDetailDataObj.class_date) \(self.classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm:ss")
+        let diffClass = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDateTime, to: classStartDateTime)
+        if diffClass.day ?? 0 < 0 || diffClass.hour ?? 0 < 0 || diffClass.minute ?? 0 < 0 || diffClass.second ?? 0 < 0 {
+            self.lblClassTitle.text = "Class will start shortly"
+            self.isFutureClass = false
+        }
         setupAfterClassStatusUpdation()
         if LiveClassDetailsViewController.isFromTransection {
             if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
@@ -155,10 +165,27 @@ class LiveClassDetailsViewController: BaseViewController {
                     vc.dismissHandler = {self.hideLoader()
                         let vc = JoinLiveClassVC.instantiate(fromAppStoryboard: .Recipe)
                         vc.isForClassWaiting = true
+                        vc.classId = self.classDetailDataObj.id
+                        vc.stream = self.streamObj
+                        vc.didEndStreamingBlock = { isSuccessfullyJoinned in
+                            if isSuccessfullyJoinned {
+                                if LiveClassDetailsViewController.isLiveEnded {
+                                    if Reachability.isConnectedToNetwork() {
+                                        self.callEndLiveClassAPI(isFromLiveStream: true)
+                                    }
+                                } else {
+                                    self.updateTimerToCheckClassStatus()
+                                }
+                            }
+                        }
                         if !self.isTodayDate {
                             vc.classStartingTime = "Class starts at \(self.updateDate(date: self.classDetailDataObj.class_date, time: self.classDetailDataObj.class_time).0)"
                         } else {
                             vc.isTimerStart = true
+                            let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!)
+                            let classStartDateTime = convertUTCToLocalDate(dateStr: "\(self.classDetailDataObj.class_date) \(self.classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm:ss")
+                            let diffClass = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDateTime, to: classStartDateTime)
+                            vc.totalTime = (((diffClass.minute ?? 0) * 60) + (diffClass.second ?? 0))
                         }
                         self.pushVC(To: vc, animated: false)
                     }
@@ -317,7 +344,7 @@ class LiveClassDetailsViewController: BaseViewController {
         self.timer?.invalidate()
         let tempCounter = counter / 60
         counter = tempCounter.rounded() <= 0.0 ? 1.0 : tempCounter
-        if Reachability.isConnectedToNetwork(){
+        if Reachability.isConnectedToNetwork() {
             self.callEndLiveClassAPI(isFromLiveStream: false)
         }
     }
@@ -795,8 +822,12 @@ class LiveClassDetailsViewController: BaseViewController {
         vc.isForClassWaiting = false
         vc.didEndStreamingBlock = { isSuccessfullyJoinned in
             if isSuccessfullyJoinned {
-                if Reachability.isConnectedToNetwork() {
-                    self.callEndLiveClassAPI(isFromLiveStream: true)
+                if LiveClassDetailsViewController.isLiveEnded {
+                    if Reachability.isConnectedToNetwork() {
+                        self.callEndLiveClassAPI(isFromLiveStream: true)
+                    }
+                } else {
+                    self.updateTimerToCheckClassStatus()
                 }
             }
         }
@@ -933,6 +964,7 @@ class LiveClassDetailsViewController: BaseViewController {
         vc.didEndStreamingBlock = { isSuccessfullyJoinned in
             self.lblClassStartIn.text = "Class has Ended"
             if isSuccessfullyJoinned {
+                self.updateTimerToCheckClassStatus()
                 if Reachability.isConnectedToNetwork() {
                     self.callEndLiveClassAPI(isFromLiveStream: true)
                 }
@@ -1074,10 +1106,23 @@ extension LiveClassDetailsViewController {
                     self.hideLoader()
                     let vc = JoinLiveClassVC.instantiate(fromAppStoryboard: .Recipe)
                     vc.isForClassWaiting = true
+                    vc.classId = self.classDetailDataObj.id
+                    vc.stream = self.streamObj
+                    vc.didEndStreamingBlock = { isSuccessfullyJoinned in
+                        if isSuccessfullyJoinned {
+                            if LiveClassDetailsViewController.isLiveEnded {
+                                if Reachability.isConnectedToNetwork() {
+                                    self.callEndLiveClassAPI(isFromLiveStream: true)
+                                }
+                            } else {
+                                self.updateTimerToCheckClassStatus()
+                            }
+                        }
+                    }
                     if !self.isTodayDate {
                         vc.classStartingTime = "Class starts at \(self.updateDate(date: self.classDetailDataObj.class_date, time: self.classDetailDataObj.class_time).0)"
                     } else {
-                        vc.isTimerStart = true                        
+                        vc.isTimerStart = true
                         let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!)
                         let classStartDateTime = convertUTCToLocalDate(dateStr: "\(self.classDetailDataObj.class_date) \(self.classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm:ss")
                         let diffClass = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDateTime, to: classStartDateTime)
@@ -1101,13 +1146,15 @@ extension LiveClassDetailsViewController {
     @objc func updateTimerForRemainTimeFromClassStart() {
         print(self.totalTime)
         self.lblClassStartIn.text = "Class starts in : \(self.timeFormatted(self.totalTime))"
-        if totalTime != 0 {
+        if totalTime > 0 {
             totalTime -= 1  // decrease counter timer
         } else {
             if let timer = self.timer {
+                LiveClassDetailsViewController.isTimer0 = true
                 isFutureClass = false
                 timer.invalidate()
                 self.timer = nil
+                self.lblClassStartIn.text = "Class will start shortly"
             }
         }
     }
@@ -1119,6 +1166,7 @@ extension LiveClassDetailsViewController {
 
     @objc func updateTimerForClassHasBeenStarted() {
         print(self.totalTime)
+        self.lblClassStartIn.isHidden = false
         self.lblClassStartIn.text = "Class started: \(self.timeFormatted(self.totalTime))"
         if totalTime != 0 {
             totalTime += 1  // decrease counter timer
@@ -1172,7 +1220,9 @@ extension LiveClassDetailsViewController {
                                 let classStartedTime = convertUTCToLocalDate(dateStr: "\(classDetailDataObj.started_at)", sourceFormate: "yyyy-MM-dd HH:mm:ss", destinationFormate: "yyyy-MM-dd HH:mm:ss")
                                 let diffClass = Calendar.current.dateComponents([.minute, .second], from: classStartedTime, to: currentDateTime)
                                 self.totalTime = (((diffClass.minute ?? 0) * 60) + (diffClass.second ?? 0))
-                                self.startTimerForClassHasBeenStarted()
+                                if !LiveClassDetailsViewController.isLiveEnded {
+                                    self.startTimerForClassHasBeenStarted()
+                                }
                             } else {
                                 //if class time is gone and allow coach to start class within 15 minute and then disable
                                 if classDetailDataObj.coachDetailsDataObj.id != AppPrefsManager.sharedInstance.getUserData().id {
@@ -1181,7 +1231,9 @@ extension LiveClassDetailsViewController {
                                         btnJoinClass.isEnabled = false
                                     } else {
                                         //start timer to join class
-                                        self.startTimerToCheckClassStatus()
+                                        if !LiveClassDetailsViewController.isLiveEnded {
+                                            self.startTimerToCheckClassStatus()
+                                        }
                                     }
                                 } else {
                                     if (diffClass.minute ?? 0 < -15) {
@@ -1189,7 +1241,9 @@ extension LiveClassDetailsViewController {
                                         btnJoinClass.isEnabled = false
                                     } else {
                                         //start timer to join class
-                                        self.startTimerToCheckClassStatus()
+                                        if !LiveClassDetailsViewController.isLiveEnded {
+                                            self.startTimerToCheckClassStatus()
+                                        }
                                     }
                                 }
                             }
@@ -1415,11 +1469,13 @@ extension LiveClassDetailsViewController {
             _ = ResponseDataModel(responseObj: responseObj)
             self.counter = 0.0
             self.lblClassStartIn.text = "Class has ended"
-            let vc = PopupViewController.viewcontroller()
-            vc.isHide = true
-            vc.message = "Class has ended"
-            self.present(vc, animated: true, completion: nil)
-            
+            if LiveClassDetailsViewController.isLiveEnded {
+                let vc = PopupViewController.viewcontroller()
+                vc.isHide = true
+                vc.message = "Class has ended"
+                self.present(vc, animated: true, completion: nil)
+                LiveClassDetailsViewController.isLiveEnded = false
+            }
         } failure: { (error) in
             self.counter = 0.0
             return true
