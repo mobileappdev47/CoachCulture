@@ -71,8 +71,12 @@ class WorkoutStatisticVC: BaseViewController {
         xAxis.granularity                   = -0.5
         xAxis.valueFormatter                = BarChartFormatter()
         xAxis.centerAxisLabelsEnabled = false
-        xAxis.setLabelCount(ITEM_COUNT, force: true)
+        xAxis.setLabelCount(ITEM_COUNT + 2, force: true)
                 
+//        xAxis.granularity = 1.0
+//        xAxis.granularityEnabled = true
+//        xAxis.labelCount = 9
+        
         xAxis.drawGridLinesEnabled = false
         xAxis.labelTextColor = .white
         xAxis.avoidFirstLastClippingEnabled = true
@@ -135,11 +139,16 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: ChartDataEntry
         var entries = [ChartDataEntry]()
                 
-        for (index, model) in self.userWorkoutStatisticsModel.arrWeeklyDataObj.enumerated() {
-            let value = Double(model.user_total_burn_calories)! * 1000
-            let devideValue = value / maxMin
-            let mainValue = devideValue / 1000
-            entries.append(ChartDataEntry(x: Double(index), y: mainValue))
+        for i in 0..<self.ITEM_COUNT + 2 {
+            if i != 0 && i != 8 {
+                let model = self.userWorkoutStatisticsModel.arrWeeklyDataObj
+                let value = Double(model[i - 1].user_total_burn_calories)! * 1000
+                let devideValue = value / maxMin
+                let mainValue = devideValue / 1000
+                entries.append(ChartDataEntry(x: Double(i), y: 2))
+            } else {
+                entries.append(ChartDataEntry(x: 0, y: 0))
+            }
         }
         
         // MARK: LineChartDataSet
@@ -169,11 +178,15 @@ class WorkoutStatisticVC: BaseViewController {
         // MARK: BarChartDataEntry
         var entries1 = [BarChartDataEntry]()
         
-        for index in 0..<ITEM_COUNT {
-            let user_total_duration = self.userWorkoutStatisticsModel.arrWeeklyDataObj[index].user_total_duration.components(separatedBy: .whitespaces).first
-            entries1.append(BarChartDataEntry(x: Double(index), y: Double(user_total_duration ?? "0.0") ?? 0.0))
-            if Double(user_total_duration ?? "")! > maxMin {
-                maxMin = Double(user_total_duration!)!
+        for index in 0..<ITEM_COUNT + 2 {
+            if index != 0 || index != 8 {
+                let user_total_duration = "20"//self.userWorkoutStatisticsModel.arrWeeklyDataObj[index].user_total_duration.components(separatedBy: .whitespaces).first
+                entries1.append(BarChartDataEntry(x: Double(index), y: Double(user_total_duration ?? "0.0") ?? 0.0))
+                if Double("20" ?? "")! > maxMin {
+                    maxMin = Double(100)
+                }
+            } else {
+                entries1.append(BarChartDataEntry(x: Double(0), y: Double(0)))
             }
         }
         
