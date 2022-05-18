@@ -889,6 +889,7 @@ class LiveClassDetailsViewController: BaseViewController {
                         }) { completed, error in
                             if completed {
                                 print("Video is saved!")
+                                self.imgDownload.image = UIImage(named: "Download Progress")
                             }
                         }
                     }
@@ -1450,7 +1451,6 @@ extension LiveClassDetailsViewController {
                     }
                     self.hideLoader()
                     self.isClassDownloaded = true
-                    self.imgDownload.image = UIImage(named: "Download Progress")
                 }
             }
             task.resume()
