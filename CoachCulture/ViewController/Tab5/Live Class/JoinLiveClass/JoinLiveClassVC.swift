@@ -29,10 +29,28 @@ class JoinLiveClassVC: BaseViewController {
     // MARK: IBAction
     
     @IBAction func btnBackClick(_ sender: Any) {
-        if didEndStreamingBlock != nil {
-            didEndStreamingBlock(self.isSuccessfullyJoinned)
+        logOutView.lblTitle.text = "Leave the Class?"
+        logOutView.lblMessage.text = "Are you sure you want to leave the class?"
+        logOutView.btnLeft.setTitle("Yes", for: .normal)
+        logOutView.btnRight.setTitle("No", for: .normal)
+        logOutView.tapToBtnLogOut {
+            if self.didEndStreamingBlock != nil {
+                self.didEndStreamingBlock(self.isSuccessfullyJoinned)
+            }
+            self.popVC(animated: true)
+            self.removeConfirmationView()
         }
-        self.popVC(animated: true)
+    }
+    
+    func addConfirmationView() {
+        logOutView.frame.size = self.view.frame.size
+        self.view.addSubview(logOutView)
+    }
+    
+    func removeConfirmationView() {
+        if logOutView != nil{
+            logOutView.removeFromSuperview()
+        }
     }
     
     @IBAction private func didTapMute(_ sender: Any) {
@@ -90,7 +108,13 @@ class JoinLiveClassVC: BaseViewController {
     var totalTime = 00
     var timer : Timer?
     var classId = ""
+    var logOutView:LogOutView!
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         lblClassStarts.text = classStartingTime
