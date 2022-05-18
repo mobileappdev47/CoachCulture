@@ -8,6 +8,7 @@
 import UIKit
 import AVKit
 import AVFoundation
+import Photos
 
 class LiveClassDetailsViewController: BaseViewController {
     
@@ -874,7 +875,25 @@ class LiveClassDetailsViewController: BaseViewController {
             arrLocalCoachClassData.append(resObj)
             AppPrefsManager.sharedInstance.saveClassData(classData: arrLocalCoachClassData)
             downloadClassVideoImage(fileName: classDetailDataObj.thumbnail_video_file, downloadUrl: classDetailDataObj.thumbnail_video)
-            
+            let videoImageUrl = classDetailDataObj.thumbnail_video
+
+            DispatchQueue.global(qos: .background).async {
+                if let url = URL(string: videoImageUrl),
+                    let urlData = NSData(contentsOf: url) {
+                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+                    let filePath = getDirectoryPath() + "/" +  folderName
+                    DispatchQueue.main.async {
+                        urlData.write(toFile: filePath, atomically: true)
+                        PHPhotoLibrary.shared().performChanges({
+                            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(fileURLWithPath: filePath))
+                        }) { completed, error in
+                            if completed {
+                                print("Video is saved!")
+                            }
+                        }
+                    }
+                }
+            }
         } else {
             self.addConfirmationView()
             logOutView.lblTitle.text = "Delete downloaded class"
@@ -942,7 +961,11 @@ class LiveClassDetailsViewController: BaseViewController {
                 self.goToPlayOndemandClass()
             }
         } else {
-            getAWSDetails(isFromBroadcasting: false)
+            if Reachability.isConnectedToNetwork() {
+                self.getAWSDetails(isFromBroadcasting: false)
+            } else {
+                self.goToPlayOndemandClass()
+            }
 //            if !isFutureClass {
 //
 //            } else {
