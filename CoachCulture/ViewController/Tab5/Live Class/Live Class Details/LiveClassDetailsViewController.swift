@@ -8,6 +8,8 @@
 import UIKit
 import AVKit
 import AVFoundation
+import AWSS3
+import AWSCore
 import Photos
 
 class LiveClassDetailsViewController: BaseViewController {
@@ -96,11 +98,18 @@ class LiveClassDetailsViewController: BaseViewController {
     @IBOutlet weak var btnCalfsFrontLeft: UIButton!
     @IBOutlet weak var btnCalfsFrontRight: UIButton!
 
+    @IBOutlet weak var viwDownloading: UIView!
+    @IBOutlet weak var lblDownloading: UILabel!
+    @IBOutlet weak var progressDownloading: UIProgressView!
+    @IBOutlet weak var btnCancleDownloading: UIButton!
+    
+    
     var classDetailDataObj = ClassDetailData()
     var dropDown = DropDown()
     var classDescriptionView : ClassDescriptionView!
     var selectedId = ""
     var arrLocalCoachClassData = [Any]()
+    var arrLocalCoachClassID = [String]()
     var isClassDownloaded = false
     var isFromClassDownloadedPage = false
     var ratingListPopUp : RatingListPopUp!
@@ -124,10 +133,10 @@ class LiveClassDetailsViewController: BaseViewController {
     static var isFromTransection = false
     static var isLiveEnded = false
     static var isTimer0 = false
+    let expression = AWSS3TransferUtilityDownloadExpression()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         setUpUI()
     }
     
@@ -865,36 +874,109 @@ class LiveClassDetailsViewController: BaseViewController {
         }
     }
     
+    @IBAction func onClkCancleDownloading(_ sender: UIButton) {
+        expression.progressBlock = {(task, progress) in DispatchQueue.main.async(execute: {
+            progress.cancel()
+            task.cancel()
+            self.viwDownloading.isHidden = true
+        })
+        }
+    }
+    
     @IBAction func clickToBtnDownload( _ sender: UIButton) {
         
         if !isClassDownloaded {
+            
             let folderName = classDetailDataObj.id + "_" + classDetailDataObj.class_subtitle
-            let _ =  createDirectory(MyFolderName: folderName)
-            downloadClassVideoImage(fileName: URL(string: classDetailDataObj.thumbnail_image_path)?.lastPathComponent ?? "", downloadUrl: classDetailDataObj.thumbnail_image)
-            let resObj = classDetailDataObj.responseDic
-            arrLocalCoachClassData.append(resObj)
-            AppPrefsManager.sharedInstance.saveClassData(classData: arrLocalCoachClassData)
-            downloadClassVideoImage(fileName: classDetailDataObj.thumbnail_video_file, downloadUrl: classDetailDataObj.thumbnail_video)
-            let videoImageUrl = classDetailDataObj.thumbnail_video
-
-            DispatchQueue.global(qos: .background).async {
-                if let url = URL(string: videoImageUrl),
-                    let urlData = NSData(contentsOf: url) {
-                    let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
-                    let filePath = getDirectoryPath() + "/" +  folderName
-                    DispatchQueue.main.async {
-                        urlData.write(toFile: filePath, atomically: true)
-                        PHPhotoLibrary.shared().performChanges({
-                            PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(fileURLWithPath: filePath))
-                        }) { completed, error in
-                            if completed {
-                                print("Video is saved!")
-                                self.imgDownload.image = UIImage(named: "Download Progress")
-                            }
+            let awsURL = URL(fileURLWithPath: getDirectoryPath())
+            viwDownloading.isHidden = false
+            progressDownloading.progress = 0.0
+            self.lblDownloading.text = "Downloading..."
+            let DirPath = awsURL.appendingPathComponent("\(folderName)")
+            do
+            {
+                try FileManager.default.createDirectory(atPath: DirPath.path, withIntermediateDirectories: true, attributes: nil)
+            }
+            catch let error as NSError
+            {
+                print("Unable to create directory \(error.debugDescription)")
+            }
+            print("Dir Path = \(DirPath)")
+   
+            let DirPath1 = DirPath.appendingPathComponent(self.classDetailDataObj.thumbnail_video_file)
+            do
+            {
+                try FileManager.default.createDirectory(atPath: DirPath.path, withIntermediateDirectories: true, attributes: nil)
+            }
+            catch let error as NSError
+            {
+                print("Unable to create directory \(error.debugDescription)")
+            }
+            print("Dir Path = \(DirPath1)")
+            
+            expression.progressBlock = {(task, progress) in DispatchQueue.main.async(execute: {
+                print("Downloading...")
+                print(progress)
+                self.progressDownloading.progress = Float(progress.fractionCompleted)
+                self.lblDownloading.text = "\(Int(progress.fractionCompleted * 100))%"
+                print(task)
+                if progress.isFinished {
+                    self.viwDownloading.isHidden = true
+                    var isDownloaded = false
+                    for i in self.arrLocalCoachClassID {
+                        if i == self.classDetailDataObj.id {
+                            isDownloaded = true
                         }
                     }
+                    if !isDownloaded {
+                        self.arrLocalCoachClassID.append(self.classDetailDataObj.id)
+                        self.imgDownload.image = UIImage(named: "Download Progress")
+                        let resObj = self.classDetailDataObj.responseDic
+                        self.arrLocalCoachClassData.append(resObj)
+                        AppPrefsManager.sharedInstance.saveClassData(classData: self.arrLocalCoachClassData)
+                        self.isClassDownloaded = true
+                    }
+                    }
+            })
+            }
+            
+            AWSS3TransferUtility.default().download(to: DirPath1, bucket: BUCKET_NAME, key: classDetailDataObj.thumbnail_video_file, expression: expression) { (AWSS3TransferUtilityDownloadTask, url, data, err) in
+                DispatchQueue.main.async {
+                    print(AWSS3TransferUtilityDownloadTask.progress)
+                    print(url)
+                    print(data)
+                    print(err)
                 }
             }
+            
+            /*
+             
+             let _ =  createDirectory(MyFolderName: folderName)
+             downloadClassVideoImage(fileName: URL(string: classDetailDataObj.thumbnail_image_path)?.lastPathComponent ?? "", downloadUrl: classDetailDataObj.thumbnail_image)
+             let resObj = classDetailDataObj.responseDic
+             arrLocalCoachClassData.append(resObj)
+             AppPrefsManager.sharedInstance.saveClassData(classData: arrLocalCoachClassData)
+             downloadClassVideoImage(fileName: classDetailDataObj.thumbnail_video_file, downloadUrl: classDetailDataObj.thumbnail_video)
+             let videoImageUrl = classDetailDataObj.thumbnail_video
+             
+             DispatchQueue.global(qos: .background).async {
+             if let url = URL(string: videoImageUrl),
+             let urlData = NSData(contentsOf: url) {
+             let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0];
+             let filePath = getDirectoryPath() + "/" +  folderName
+             DispatchQueue.main.async {
+             urlData.write(toFile: filePath, atomically: true)
+             PHPhotoLibrary.shared().performChanges({
+             PHAssetChangeRequest.creationRequestForAssetFromVideo(atFileURL: URL(fileURLWithPath: filePath))
+             }) { completed, error in
+             if completed {
+             print("Video is saved!")
+             
+             }
+             }
+             }
+             }
+             }*/
         } else {
             self.addConfirmationView()
             logOutView.lblTitle.text = "Delete downloaded class"
@@ -912,6 +994,7 @@ class LiveClassDetailsViewController: BaseViewController {
                         let id = dic["id"] as! Int
                         if "\(id)" == self.classDetailDataObj.id {
                             self.arrLocalCoachClassData.remove(at: i)
+//                            self.arrLocalCoachClassID.remove(at: i)
                             AppPrefsManager.sharedInstance.saveClassData(classData: self.arrLocalCoachClassData)
                             break
                         }
@@ -919,6 +1002,7 @@ class LiveClassDetailsViewController: BaseViewController {
                     }
                 } else {
                     self.arrLocalCoachClassData.remove(at: self.deleteID)
+//                    self.arrLocalCoachClassID.remove(at: self.deleteID)
                     AppPrefsManager.sharedInstance.saveClassData(classData: self.arrLocalCoachClassData)
                     self.checkIfDataIsUpdated()
                 }
