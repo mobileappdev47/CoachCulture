@@ -34,6 +34,11 @@ class AccountBalanceListViewController: BaseViewController {
         
     }
     
+    @IBAction func onClkTransfre(_ sender: UIButton) {
+        let vc = PaymentMethodViewController.viewcontroller()
+        vc.isFromTransfer = true
+        self.pushVC(To: vc, animated: true)
+    }
 }
 
 

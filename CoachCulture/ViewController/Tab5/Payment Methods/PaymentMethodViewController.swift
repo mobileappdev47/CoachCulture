@@ -9,6 +9,7 @@ import UIKit
 import CarLensCollectionViewLayout
 import Stripe
 import CHIPageControl
+import FacebookCore
 
 class PaymentMethodViewController: BaseViewController {
     
@@ -23,6 +24,14 @@ class PaymentMethodViewController: BaseViewController {
     @IBOutlet weak var clvCard: UICollectionView!
     @IBOutlet weak var lblAccountBalance: UILabel!
     @IBOutlet weak var CHIPagerControl: CHIPageControlJaloro!
+    
+    @IBOutlet weak var btnCurrency: UIButton!
+    @IBOutlet weak var txtAmount: UITextField!
+    @IBOutlet weak var viwAccount: UIView!
+    @IBOutlet weak var lblBankAccount: UILabel!
+    @IBOutlet weak var lblCurrency: UILabel!
+    @IBOutlet weak var btnSave: UIButton!
+    @IBOutlet weak var viwBtnSave: UIView!
     
     var arrCards : Welcome?
     var arrDatam : [[String:Any]]?
@@ -43,6 +52,7 @@ class PaymentMethodViewController: BaseViewController {
     var isForCoach = false
     var transectionID = "avc"
     var isForTransection = true
+    var isFromTransfer = false
     
     //MARK: - Life cycle
     override func viewDidLoad() {
@@ -67,6 +77,9 @@ class PaymentMethodViewController: BaseViewController {
     
     //MARK: -  methods
     func setUpUI() {
+        if DEFAULTS.string(forKey: DEFAULTS_KEY.STRIPE_USER_ID) == "" {
+            self.redirectToWebView(webURL: URL(string: "https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=ca_Lhjt9uv2EmZRO67i4gDDupF9V119bNz4&scope=read_write")!, transaction_id: "")
+        }
         self.manageViews(isFromLiveClass: self.isFromLiveClass)
         hideTabBar()
         let options = CarLensCollectionViewLayoutOptions(minimumSpacing: 20)
@@ -74,6 +87,18 @@ class PaymentMethodViewController: BaseViewController {
         clvCard.register(UINib(nibName: "PaymentCardItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "PaymentCardItemCollectionViewCell")
         clvCard.delegate = self
         clvCard.dataSource = self
+        if isFromTransfer {
+            viwAccount.isHidden = false
+            lblBankAccount.isHidden = false
+            viwBtnSave.isHidden = false
+            viewConfirmPayment.isHidden = true
+            viewBalance.isHidden = true
+            viewManageSubscription.isHidden = true
+        } else {
+            viwAccount.isHidden = true
+            lblBankAccount.isHidden = true
+            viwBtnSave.isHidden = true
+        }
     }
     
     func manageViews(isFromLiveClass: Bool) {
@@ -262,6 +287,28 @@ class PaymentMethodViewController: BaseViewController {
         nextVC.didLoadPaymentURLBlock = { transaction_id, status in
             self.navigateToRoot()
             if self.didFinishPaymentBlock != nil {
+                self.popVC(animated: true)
+                let url = "https://connect.stripe.com/oauth/token"
+                var params: [String:Any] = [:]
+                params["client_secret"] = StripeConstant.Secret_key
+                params["code"] = transaction_id
+                params["grant_type"] = "authorization_code"
+        
+                _ =  ApiCallManager.requestApiStripe(method: .post, urlString: url, parameters: params, headers: nil) { responseObj, statusCode in
+                    if statusCode == RESPONSE_CODE.SUCCESS {
+                        if Reachability.isConnectedToNetwork() {
+                            if let id = responseObj["stripe_user_id"] as? String {
+                                DEFAULTS.set(id, forKey: DEFAULTS_KEY.STRIPE_USER_ID)
+                            }
+                        }
+                    } else {
+                        self.hideLoader()
+                    }
+                } failure: { (error) in
+                    self.hideLoader()
+                    Utility.shared.showToast(error.localizedDescription)
+                    return true
+                }
                 self.didFinishPaymentBlock(transaction_id, status)
             }
         }
@@ -286,6 +333,31 @@ class PaymentMethodViewController: BaseViewController {
         if Reachability.isConnectedToNetwork() {
             callPaymentIntentsAPI(isShowLoader: true, customer: arrDatam?[sender.tag]["customer"] as? String ?? "")
         }
+    }
+    
+    @IBAction func btnSaveAmmount(_ sender: UIButton) {
+        var params: [String:Any] = [:]
+        params["amount"] = txtAmount.text ?? ""
+        params["currency"] = lblCurrency.text ?? ""
+        params["destination"] = DEFAULTS.string(forKey: DEFAULTS_KEY.STRIPE_USER_ID)
+        
+        _ =  ApiCallManager.requestApiStripe(method: .post, urlString: STRIPE_API.payment_transfer, parameters: params, headers: nil) { responseObj, statusCode in
+            if statusCode == RESPONSE_CODE.SUCCESS {
+                if Reachability.isConnectedToNetwork() {
+                    Utility.shared.showToast("Amount Transfer to Account Soon")
+                }
+            } else {
+                self.hideLoader()
+            }
+        } failure: { (error) in
+            self.hideLoader()
+            Utility.shared.showToast(error.localizedDescription)
+            return true
+        }
+    }
+    
+    @IBAction func btnCurruncyTap(_ sender: UIButton) {
+        
     }
     
     @IBAction func clickTobtnAddPaymentMethod( _ sender : UIButton) {

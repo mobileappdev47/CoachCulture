@@ -18,6 +18,7 @@ struct DEFAULTS_KEY {
     static let USER_PASSWORD = "UserPassword"
     static let IS_REMEMBER_ME = "isRememberMe"
     static var STRIPE_CUSTOMER_ID = "stripe_customer_id"
+    static var STRIPE_USER_ID = "stripe_user_id"
 }
 
 struct STRIPE_API {
@@ -31,6 +32,7 @@ struct STRIPE_API {
     static let payment_update_customer = BASE_URL + "customers"
     static let payment_card_delete = BASE_URL + "customers"
     static let payment_create_charge = BASE_URL + "charges"
+    static let payment_transfer = BASE_URL + "transfers"
 }
 
 struct API {

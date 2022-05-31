@@ -39,7 +39,19 @@ class CommonWebViewVC: BaseViewController, WKNavigationDelegate, WKScriptMessage
         print("Strat to load")
         if let url = webView.url?.absoluteString {
             print("url = \(url)")
-            showLoader()
+            guard let components = NSURLComponents(url: webView.url!, resolvingAgainstBaseURL: true),
+                    let _ = components.path
+                else { return }
+            var tempStatus = false
+            if let status = getValueFromQueryParam(key: "code", components: components) {
+                if status == PaymentURLResponse.succeeded {
+                    tempStatus = true
+                }
+                if self.didLoadPaymentURLBlock != nil {
+                    self.popVC(animated: true)
+                    self.didLoadPaymentURLBlock(self.transaction_id, tempStatus)
+                }
+            }
         }
     }
     
