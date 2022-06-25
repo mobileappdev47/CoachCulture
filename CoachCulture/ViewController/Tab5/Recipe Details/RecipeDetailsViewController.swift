@@ -7,6 +7,12 @@
 
 import UIKit
 
+struct qtyAndIngridiant {
+    var qty: Int
+    var unit: String
+    var ingridiant: String
+}
+
 class RecipeDetailsViewController: BaseViewController {
     
     static func viewcontroller() -> RecipeDetailsViewController {
@@ -51,6 +57,7 @@ class RecipeDetailsViewController: BaseViewController {
     var logOutView:LogOutView!
     var ratingListPopUp : RatingListPopUp!
     var arrClassRatingList = [ClassRatingList]()
+    var arrQtyIngridiant = [qtyAndIngridiant]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +69,7 @@ class RecipeDetailsViewController: BaseViewController {
         if Reachability.isConnectedToNetwork(){
             getRecipeDetails()
         }
+        nutritionFact()
     }
     
     override func viewWillLayoutSubviews() {
@@ -162,6 +170,73 @@ class RecipeDetailsViewController: BaseViewController {
         
         
         hideTabBar()
+    }
+    
+    func nutritionFact() {
+        
+        let qtyParams = ["g", "ml", "tbsp", "tsp", "cup", "liter", "fl oz", "gallon", "pint"]
+        var qtyValue = ""
+        
+        for i in 0..<recipeDetailDataObj.arrQtyIngredient.count {
+            for param in qtyParams {
+                if recipeDetailDataObj.arrQtyIngredient[i].quantity.contains(param) {
+                    let count = param.count
+                    var ingridiant = recipeDetailDataObj.arrQtyIngredient[i].quantity
+                    for j in 0..<count {
+//                        ingridiant = ingridiant.remove(at: j)
+                    }
+                    arrQtyIngridiant.append(qtyAndIngridiant(qty: Int(ingridiant) ?? 0, unit: param, ingridiant: recipeDetailDataObj.arrQtyIngredient[i].ingredients))
+                }
+            }
+        }
+            
+        
+        print(qtyValue)
+        
+/*
+        var type: [String:Any] = [:]
+        
+        for i in recipeDetailDataObj.arrQtyIngredient {
+            type["\(i)"] = [
+                type["ingredient"] = i.ingredients,
+                type["quantity"] = i.quantity
+            ]
+        }
+        
+        print(type)
+        
+        var params: [String:Any] = [
+            "id": recipeDetailDataObj.id,
+            "recipe": [
+                "123456": [
+                    "amount": 12,
+                    "unit": "cup"
+                ]
+            ]
+        ]
+        
+        let savedData = ["Something": 1]
+        
+        let jsonObject: [String: Any] = [
+            "type_id": 1,
+            "model_id": 1,
+            "transfer": [
+                "startDate": "10/04/2015 12:45",
+                "endDate": "10/04/2015 16:00"
+            ],
+            "custom": savedData
+        ]
+        
+        print(jsonObject)
+        let jsonData: NSData
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: JSONSerialization.WritingOptions()) as NSData
+            let jsonString = NSString(data: jsonData as Data, encoding: String.Encoding.utf8.rawValue)! as String
+            print("json string = \(jsonString)")
+
+        } catch _ {
+            print ("JSON Failure")
+        }*/
     }
     
     func setData() {
@@ -326,7 +401,7 @@ extension RecipeDetailsViewController : UITableViewDelegate, UITableViewDataSour
         let obj = recipeDetailDataObj.arrQtyIngredient[indexPath.row]
         cell.selectionStyle = .none
         cell.lblQty.text = obj.quantity
-        cell.lblIngredient.text = obj.ingredients
+        cell.lblIngredient.text = obj.ingredients.components(separatedBy: ",").first
         return cell
         
     }
@@ -356,7 +431,7 @@ extension RecipeDetailsViewController {
             let dataObj = responseObj["coach_recipe"] as? [String:Any] ?? [String:Any]()
             self.recipeDetailDataObj = RecipeDetailData(responseObj: dataObj)
             self.setData()
-            
+                    self.nutritionFact()
             self.hideLoader()
             
         } failure: { (error) in

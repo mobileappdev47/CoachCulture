@@ -62,7 +62,9 @@
 		519CDD7427D9DC98001958B8 /* JoinLiveClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */; };
 		BD24B26A27CA4CEE00176981 /* BottomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24B26827CA4CEE00176981 /* BottomDetailView.swift */; };
 		BD24B26B27CA4CEE00176981 /* BottomDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD24B26927CA4CEE00176981 /* BottomDetailView.xib */; };
-		BD25A6BD27C740CB0048CF15 /* continent.json in Resources */ = {isa = PBXBuildFile; fileRef = BD25A6BC27C740CB0048CF15 /* continent.json */; };
+		BD93C9A92845CF9C00425B6F /* name_to_id_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = BD93C9A82845CF9C00425B6F /* name_to_id_mapping.json */; };
+		BD93C9AB2845CFDA00425B6F /* continent.json in Resources */ = {isa = PBXBuildFile; fileRef = BD93C9AA2845CFDA00425B6F /* continent.json */; };
+		BD93C9AE2845D1D900425B6F /* NutritionIngredientsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD93C9AD2845D1D900425B6F /* NutritionIngredientsVC.swift */; };
 		BDD3663427C8A11500911E4E /* ShowDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3663227C8A11500911E4E /* ShowDetailView.swift */; };
 		BDD3663527C8A11500911E4E /* ShowDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BDD3663327C8A11500911E4E /* ShowDetailView.xib */; };
 		BDD3663927C8B12D00911E4E /* RecipeTestCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD3663727C8B12D00911E4E /* RecipeTestCellTableViewCell.swift */; };
@@ -559,7 +561,9 @@
 		8D2B8E0B4D497DEC5D11191E /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
 		BD24B26827CA4CEE00176981 /* BottomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomDetailView.swift; sourceTree = "<group>"; };
 		BD24B26927CA4CEE00176981 /* BottomDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomDetailView.xib; sourceTree = "<group>"; };
-		BD25A6BC27C740CB0048CF15 /* continent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = continent.json; sourceTree = "<group>"; };
+		BD93C9A82845CF9C00425B6F /* name_to_id_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = name_to_id_mapping.json; sourceTree = "<group>"; };
+		BD93C9AA2845CFDA00425B6F /* continent.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = continent.json; sourceTree = "<group>"; };
+		BD93C9AD2845D1D900425B6F /* NutritionIngredientsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NutritionIngredientsVC.swift; sourceTree = "<group>"; };
 		BDD3663227C8A11500911E4E /* ShowDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowDetailView.swift; sourceTree = "<group>"; };
 		BDD3663327C8A11500911E4E /* ShowDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowDetailView.xib; sourceTree = "<group>"; };
 		BDD3663727C8B12D00911E4E /* RecipeTestCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTestCellTableViewCell.swift; sourceTree = "<group>"; };
@@ -1188,6 +1192,7 @@
 				512ABC7C27180D05008CB198 /* ABLoaderView.swift */,
 				512ABC7D27180D05008CB198 /* Custom Fonts */,
 				512ABD9327180D08008CB198 /* GradientView.swift */,
+				BD93C9AC2845D12400425B6F /* NutritionIngredients */,
 				F196388E272BB78500D19373 /* CountryPicker */,
 			);
 			path = Helper;
@@ -1278,6 +1283,15 @@
 				BD24B26927CA4CEE00176981 /* BottomDetailView.xib */,
 			);
 			path = BottomDetailView;
+			sourceTree = "<group>";
+		};
+		BD93C9AC2845D12400425B6F /* NutritionIngredients */ = {
+			isa = PBXGroup;
+			children = (
+				BD93C9A82845CF9C00425B6F /* name_to_id_mapping.json */,
+				BD93C9AD2845D1D900425B6F /* NutritionIngredientsVC.swift */,
+			);
+			path = NutritionIngredients;
 			sourceTree = "<group>";
 		};
 		D40136C12758D74400E36A39 /* Tab5 */ = {
@@ -1891,7 +1905,7 @@
 		F196388E272BB78500D19373 /* CountryPicker */ = {
 			isa = PBXGroup;
 			children = (
-				BD25A6BC27C740CB0048CF15 /* continent.json */,
+				BD93C9AA2845CFDA00425B6F /* continent.json */,
 				F1963A92272BB7DD00D19373 /* CountryPickerVC.swift */,
 				F196388F272BB78500D19373 /* CountryFlag */,
 				F196398E272BB78600D19373 /* SMCountry.swift */,
@@ -2379,6 +2393,7 @@
 				F1963A2E272BB78600D19373 /* MV.png in Resources */,
 				F1963A58272BB78600D19373 /* SE.png in Resources */,
 				F1963A02272BB78600D19373 /* JE.png in Resources */,
+				BD93C9A92845CF9C00425B6F /* name_to_id_mapping.json in Resources */,
 				F1963A48272BB78600D19373 /* PN.png in Resources */,
 				F1963A44272BB78600D19373 /* PH.png in Resources */,
 				F1963A78272BB78600D19373 /* TZ.png in Resources */,
@@ -2437,6 +2452,7 @@
 				D4C887AC2759FE9C0068F7A9 /* SFProText-Bold.otf in Resources */,
 				F19639FB272BB78600D19373 /* IM.png in Resources */,
 				BDD3663A27C8B12D00911E4E /* RecipeTestCellTableViewCell.xib in Resources */,
+				BD93C9AB2845CFDA00425B6F /* continent.json in Resources */,
 				F1963A85272BB78600D19373 /* VU.png in Resources */,
 				D4156CDC27646DFC00328E4F /* Recipe.storyboard in Resources */,
 				F1963A6D272BB78600D19373 /* TH.png in Resources */,
@@ -2524,7 +2540,6 @@
 				F1963A2B272BB78600D19373 /* MS.png in Resources */,
 				D48AEAFD27587A5E00896B0B /* SFProText-Semibold.otf in Resources */,
 				F19639B2272BB78600D19373 /* BS.png in Resources */,
-				BD25A6BD27C740CB0048CF15 /* continent.json in Resources */,
 				D4156CF72764868400328E4F /* DropDownCell.xib in Resources */,
 				D48F45242770921C00B0EAD8 /* CoachViseOnDemandClassItemTableViewCell.xib in Resources */,
 				D47C3B0D2771B21D007ACF96 /* RecipeDietartyItemCollectionViewCell.xib in Resources */,
@@ -2739,6 +2754,7 @@
 				F1963A8F272BB78600D19373 /* SMCountry.swift in Sources */,
 				D417985227631793001FA192 /* AddStepOfRecipeTableViewCell.swift in Sources */,
 				D417985527632512001FA192 /* AddIngredientsForRecipeViewController.swift in Sources */,
+				BD93C9AE2845D1D900425B6F /* NutritionIngredientsVC.swift in Sources */,
 				F196388D272BABBB00D19373 /* SignupUserModel.swift in Sources */,
 				516E135327DB314C008EEC72 /* UserDefaultsAuthDao.swift in Sources */,
 				D48AC8CE277DB43C00D1D370 /* PreviousUploadViewController.swift in Sources */,

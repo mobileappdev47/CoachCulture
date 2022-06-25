@@ -92,3 +92,76 @@ class SMCountry: NSObject {
         return nil
     }
 }
+/*
+struct Ingredient {
+    var name: String?
+    var id: Int?
+    
+    init(name: String?, id: Int?) {
+        self.name = name
+        self.id = id
+    }
+}
+
+class SMIngredint: NSObject {
+    
+    fileprivate var arrIngredient = [Ingredient]()
+    class var shared : SMIngredint {
+        struct Static {
+            static let instance : SMIngredint = SMIngredint()
+        }
+        return Static.instance
+    }
+    
+    // Populates the metadata from the included json file resource
+    
+    func getAllCountry(withreload:Bool) -> [Ingredient] {
+        if withreload == false && arrIngredient.count != 0 {
+            return arrIngredient
+        }
+        
+        arrIngredient.removeAll()
+        let frameworkBundle = Bundle(for: type(of: self))
+        guard let jsonPath = frameworkBundle.path(forResource: "SwiftCountryPicker.bundle/Data/countryCodes", ofType: "json"), let jsonData = try? Data(contentsOf: URL(fileURLWithPath: jsonPath)) else {
+            return arrIngredient
+        }
+        
+        do {
+            if let jsonObjects = try JSONSerialization.jsonObject(with: jsonData, options: JSONSerialization.ReadingOptions.allowFragments) as? NSArray {
+                
+                for jsonObject in jsonObjects {
+                    
+                    guard let countryObj = jsonObject as? NSDictionary else {
+                        return arrIngredient
+                    }
+                    
+                    guard let code = countryObj["code"] as? String, let phoneCode = countryObj["dial_code"] as? String, let name = countryObj["name"] as? String else {
+                        return arrIngredient
+                    }
+                    let loc = Locale(identifier: "_\(code)")
+                    let curCode = loc.currencyCode ?? "USD"
+//                    let ingredient = Ingredient(name: <#String?#>, id: <#Int?#>)
+//                    arrIngredient.append(ingredient)
+                }
+                
+            }
+        } catch {
+            return arrIngredient
+        }
+        return arrIngredient
+    }
+    
+    /*func getinfoUsingCountryCode(code:String) -> Country? {
+        let allCountry = self.getAllCountry(withreload: false)
+        let arrResult = allCountry.filter { (objCountry) -> Bool in
+            return objCountry.code?.lowercased() == code.lowercased()
+        }
+        
+        if  arrResult.count != 0 {
+            return arrResult.first
+        }
+        
+        return nil
+    }*/
+}
+*/

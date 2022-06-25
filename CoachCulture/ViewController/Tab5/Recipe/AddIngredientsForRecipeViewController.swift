@@ -42,7 +42,7 @@ class AddIngredientsForRecipeViewController: BaseViewController {
     func setUpUI() {
         
         dropDown.dataSource  = ["Option 1", "Option 2", "Option 3"]
-        dropDown.cellHeight = 50       
+        dropDown.cellHeight = 50
         
         clvDietaryRestriction.register(UINib(nibName: "MuscleItemCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "MuscleItemCollectionViewCell")
         clvDietaryRestriction.delegate = self
@@ -141,7 +141,7 @@ class AddIngredientsForRecipeViewController: BaseViewController {
         
         if dietary_restriction.isEmpty {
             Utility.shared.showToast("Please select dietary restriction")
-        } else  if qty_ingredient.isEmpty {
+        } else if qty_ingredient.isEmpty {
             Utility.shared.showToast("Please select ingredient")
         }
         
@@ -161,7 +161,6 @@ class AddIngredientsForRecipeViewController: BaseViewController {
                             createRecipe()
                         }
                     }
-                    
                 }
             } else {
                 Utility.shared.showToast("Please select One Ingredient")
@@ -305,7 +304,7 @@ extension AddIngredientsForRecipeViewController : UITableViewDelegate, UITableVi
         }
         cell.dropDown2.selectionAction = { [unowned self] (index: Int, item: String) in
             let obj = arrAddIngredientsListData[cell.txtIngredient.tag]
-            obj.unit = item
+            obj.addIngredients = item
             cell.txtIngredient.text = item
         }
         cell.ddDelegete = self
@@ -336,6 +335,7 @@ extension AddIngredientsForRecipeViewController : UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
+        
         let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
         
         let cell = tblIntredienta.cellForRow(at: IndexPath(row: textField.tag, section: 0)) as! AddIngredientIemTableViewCell
@@ -344,13 +344,15 @@ extension AddIngredientsForRecipeViewController : UITextFieldDelegate {
         let obj = arrAddIngredientsListData[textField.tag]
         
         if textField ==  cell.txtIngredient {
-            obj.addIngredients = finalString
+            obj.addIngredients = cell.txtIngredient.text ?? ""
+            cell.filterText(finalString)
         }
         
-        if textField ==  cell.txtQty {
-            obj.qty = finalString
+        if textField == cell.txtQty {
+            obj.qty = cell.txtQty.text ?? ""
         }
-                
+        
+        obj.unit = cell.lblUnit.text ?? ""
         return true
     }
     

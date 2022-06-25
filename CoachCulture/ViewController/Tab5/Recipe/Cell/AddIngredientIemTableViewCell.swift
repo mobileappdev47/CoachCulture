@@ -14,10 +14,9 @@ class AddIngredientIemTableViewCell: UITableViewCell {
     @IBOutlet weak var txtQty : UITextField!
     @IBOutlet weak var txtIngredient : UITextField!
     @IBOutlet weak var lblUnit : UILabel!
-
-    
     @IBOutlet weak var btnDelete : UIButton!
     @IBOutlet weak var btnSelectUnit : UIButton!
+    
     var dropDown = DropDown()
     var dropDown2 = DropDown()
     var ddArr = [ "Chopped Raw Vegetables",
@@ -28,11 +27,19 @@ class AddIngredientIemTableViewCell: UITableViewCell {
                   "Beans and Legumes",
                   "Whole Grains"]
     var ddDelegete = AddIngredientsForRecipeViewController()
-
+    var arrIngredient = [String]()
+    var didTapBack : (() -> Void)!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        dropDown.dataSource  = ["gm", "kg", "mg"]
-        dropDown2.dataSource  = ddArr
+        dropDown.dataSource  = ["g", "ml", "tbsp", "tsp", "cup", "liter", "fl oz", "gallon", "pint"]
+        let continentObj = Utility.shared.readLocalFile(forName: "name_to_id_mapping")
+        _ = continentObj?.filter({ (dict) -> Bool in
+            arrIngredient.append(dict.key)
+            return dict.key == ""
+        })
+        
+//        dropDown2.dataSource = arrIngredient
         
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
@@ -41,7 +48,7 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         dropDown2.textColor = UIColor.white
         
         dropDown.anchorView = btnSelectUnit
-        dropDown2.anchorView = txtIngredient
+        dropDown2.anchorView = txtIngredient.topAnchor as! AnchorView
         
         dropDown.cellHeight = 50
         dropDown2.cellHeight = 50
@@ -53,7 +60,7 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         if txtQty.text == "" {
             Utility.shared.showToast("Enter Ingredients Quanitity")
             return false
-        } else if txtIngredient.text == "" {
+        } else if txtIngredient.text == "" { 
             Utility.shared.showToast("Enter qty unit type")
             return false
         } else if lblUnit.text == "" {
@@ -62,6 +69,13 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         } else {
             return true
         }
+    }
+    
+    func filterText(_ txt: String) {
+        var array = [""]
+        array = self.arrIngredient.filter({$0.lowercased().contains(txt.lowercased())})
+        self.dropDown2.dataSource = array
+        dropDown2.show()
     }
     
     @IBAction func clickToBtnSelectUnit(_ sender : UIButton) {
@@ -80,7 +94,8 @@ class AddIngredientIemTableViewCell: UITableViewCell {
 extension AddIngredientIemTableViewCell : UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        dropDown2.show()
+//        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        filterText("")
         return true
     }
     
