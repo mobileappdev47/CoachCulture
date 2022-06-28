@@ -181,6 +181,7 @@ class RecipeDetailsViewController: BaseViewController {
             for param in qtyParams {
                 if recipeDetailDataObj.arrQtyIngredient[i].quantity.contains(param) {
                     let count = param.count
+                    recipeDetailDataObj.arrQtyIngredient[0].quantity.contains(param)
                     var ingridiant = recipeDetailDataObj.arrQtyIngredient[i].quantity
                     for j in 0..<count {
 //                        ingridiant = ingridiant.remove(at: j)

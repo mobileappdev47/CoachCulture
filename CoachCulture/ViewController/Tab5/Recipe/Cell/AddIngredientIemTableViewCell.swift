@@ -48,7 +48,7 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         dropDown2.textColor = UIColor.white
         
         dropDown.anchorView = btnSelectUnit
-        dropDown2.anchorView = txtIngredient.topAnchor as! AnchorView
+        dropDown2.anchorView = txtIngredient
         
         dropDown.cellHeight = 50
         dropDown2.cellHeight = 50
