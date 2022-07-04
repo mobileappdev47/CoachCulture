@@ -60,6 +60,7 @@
 		516E135527DB314C008EEC72 /* AuthItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E135227DB314C008EEC72 /* AuthItem.swift */; };
 		516E135827DB31A2008EEC72 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516E135727DB31A2008EEC72 /* Utils.swift */; };
 		519CDD7427D9DC98001958B8 /* JoinLiveClassVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */; };
+		77CAC7CF2872C46100D3A013 /* NutritionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77CAC7CE2872C46100D3A013 /* NutritionDetailsViewController.swift */; };
 		BD24B26A27CA4CEE00176981 /* BottomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD24B26827CA4CEE00176981 /* BottomDetailView.swift */; };
 		BD24B26B27CA4CEE00176981 /* BottomDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = BD24B26927CA4CEE00176981 /* BottomDetailView.xib */; };
 		BD93C9A92845CF9C00425B6F /* name_to_id_mapping.json in Resources */ = {isa = PBXBuildFile; fileRef = BD93C9A82845CF9C00425B6F /* name_to_id_mapping.json */; };
@@ -558,6 +559,7 @@
 		516E135727DB31A2008EEC72 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLiveClassVC.swift; sourceTree = "<group>"; };
 		519CDE0027D9E073001958B8 /* AmazonIVSPlayer.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AmazonIVSPlayer.xcframework; path = Pods/AmazonIVSPlayer/AmazonIVSPlayer.xcframework; sourceTree = "<group>"; };
+		77CAC7CE2872C46100D3A013 /* NutritionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDetailsViewController.swift; sourceTree = "<group>"; };
 		8D2B8E0B4D497DEC5D11191E /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
 		BD24B26827CA4CEE00176981 /* BottomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomDetailView.swift; sourceTree = "<group>"; };
 		BD24B26927CA4CEE00176981 /* BottomDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomDetailView.xib; sourceTree = "<group>"; };
@@ -1357,6 +1359,7 @@
 		D4156CDD2764713900328E4F /* Recipe Details */ = {
 			isa = PBXGroup;
 			children = (
+				77CAC7CE2872C46100D3A013 /* NutritionDetailsViewController.swift */,
 				D4156CDE2764715600328E4F /* RecipeDetailsViewController.swift */,
 				D4860E9E276B993E00C9F6EB /* RecipeRating */,
 				D4156CE027647D5100328E4F /* Cell */,
@@ -2671,6 +2674,7 @@
 				D417985827632825001FA192 /* AddIngredientIemTableViewCell.swift in Sources */,
 				D4122BDC275B216D00A68E56 /* AddPhotoPopUp.swift in Sources */,
 				512ABBF62718015F008CB198 /* Utility.swift in Sources */,
+				77CAC7CF2872C46100D3A013 /* NutritionDetailsViewController.swift in Sources */,
 				D4C887A72759DA480068F7A9 /* HomeViewModel.swift in Sources */,
 				D48F45322770B17E00B0EAD8 /* PopularCoachRecipeModel.swift in Sources */,
 				F10C0411272A5C5D004E46F7 /* CoachContentEditViewController.swift in Sources */,
