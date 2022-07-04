@@ -203,6 +203,14 @@ class CreateMealRecipeViewController: BaseViewController {
     
     @IBAction func clickToBtnNext(_ sender : UIButton) {
         view.endEditing(true)
+//        let vc = AddIngredientsForRecipeViewController.viewcontroller()
+//        if isFromTemplate {
+//            vc.isFromEdit = false
+//        } else {
+//            vc.isFromEdit = isFromEdit
+//        }
+//        self.navigationController?.pushViewController(vc, animated: true)
+//        return
         
         var meal_type = ""
         for temp in arrMealTypeListData {

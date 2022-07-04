@@ -30,6 +30,7 @@ class AddIngredientsForRecipeViewController: BaseViewController {
     var recipeDetailDataObj = RecipeDetailData()
     var isFromEdit = false
     var isFromTemplate = false
+    private var arrIngredientTagList = [String]()
     
     
     // MARK: - Life Cycle
@@ -60,6 +61,12 @@ class AddIngredientsForRecipeViewController: BaseViewController {
         if Reachability.isConnectedToNetwork(){
             getDietaryList()
         }
+        getIngredients()
+    }
+    
+    func getIngredients() {
+        let continentObj = Utility.shared.readLocalFile(forName: "name_to_id_mapping")
+        arrIngredientTagList = continentObj?.compactMap({$0.key}) ?? []
     }
     
     func setData() {
@@ -115,6 +122,11 @@ class AddIngredientsForRecipeViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnSave(_ sender : UIButton) {
+//        let vc = RecipeDetailsViewController.viewcontroller()
+//        vc.isNew = true
+////                vc.recipeID = "\(dic["recipe_id"]!)"
+//        self.navigationController?.pushViewController(vc, animated: true)
+//        return
         var dietary_restriction = ""
         for temp in arrDietaryRestrictionListData {
             if temp.isSelected {
@@ -258,11 +270,13 @@ extension AddIngredientsForRecipeViewController {
             if responseModel.success {
                 _ = responseObj["data"] as? [Any] ?? [Any]()
             }
-            let vc = RecipeDetailsViewController.viewcontroller()
-            vc.isNew = true
-            let dic = responseModel.map.data?["coach_recipe"] as! [String:Any]
-            vc.recipeID = "\(dic["recipe_id"]!)"
-            self.navigationController?.pushViewController(vc, animated: true)
+            let dic = responseModel.map.data?["coach_recipe"] as? [String:Any] ?? [:]
+            if dic.count > 0 {
+                let vc = RecipeDetailsViewController.viewcontroller()
+                vc.isNew = true
+                vc.recipeID = "\(dic["recipe_id"]!)"
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
             Utility.shared.showToast(responseModel.message)
             self.hideLoader()
             
@@ -297,6 +311,8 @@ extension AddIngredientsForRecipeViewController : UITableViewDelegate, UITableVi
         cell.txtIngredient.tag = indexPath.row
         cell.txtQty.tag = indexPath.row
         
+        cell.arrIngredient = arrIngredientTagList
+        
         cell.dropDown.selectionAction = { [unowned self] (index: Int, item: String) in
             let obj = arrAddIngredientsListData[cell.lblUnit.tag]
             obj.unit = item
@@ -307,9 +323,14 @@ extension AddIngredientsForRecipeViewController : UITableViewDelegate, UITableVi
             obj.addIngredients = item
             cell.txtIngredient.text = item
         }
-        cell.ddDelegete = self
-        cell.txtQty.delegate = self
-        cell.txtIngredient.delegate = self
+        cell.didChangeQTYValue = { [weak self] qtyy in
+            guard let self = self else {return}
+            let obj = self.arrAddIngredientsListData[cell.txtIngredient.tag]
+            obj.qty = qtyy
+        }
+//        cell.ddDelegete = self
+//        cell.txtQty.delegate = self
+//        cell.txtIngredient.delegate = self
         
         cell.btnDelete.tag = indexPath.row
         cell.btnDelete.addTarget(self, action: #selector(self.clickToBtnDeleteIngreint(_:)), for: .touchUpInside)
@@ -331,32 +352,32 @@ extension AddIngredientsForRecipeViewController : UITableViewDelegate, UITableVi
 }
 
 //MARK: - UITextFieldDelegate
-extension AddIngredientsForRecipeViewController : UITextFieldDelegate {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        
-        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        
-        let cell = tblIntredienta.cellForRow(at: IndexPath(row: textField.tag, section: 0)) as! AddIngredientIemTableViewCell
-//        cell.dropDown2.show()
-        
-        let obj = arrAddIngredientsListData[textField.tag]
-        
-        if textField ==  cell.txtIngredient {
-            obj.addIngredients = cell.txtIngredient.text ?? ""
-            cell.filterText(finalString)
-        }
-        
-        if textField == cell.txtQty {
-            obj.qty = cell.txtQty.text ?? ""
-        }
-        
-        obj.unit = cell.lblUnit.text ?? ""
-        return true
-    }
-    
-}
+//extension AddIngredientsForRecipeViewController : UITextFieldDelegate {
+//
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+//
+//
+//        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+//
+//        let cell = tblIntredienta.cellForRow(at: IndexPath(row: textField.tag, section: 0)) as! AddIngredientIemTableViewCell
+////        cell.dropDown2.show()
+//
+//        let obj = arrAddIngredientsListData[textField.tag]
+//
+//        if textField ==  cell.txtIngredient {
+//            obj.addIngredients = cell.txtIngredient.text ?? ""
+//            cell.filterText(finalString)
+//        }
+//
+//        if textField == cell.txtQty {
+//            obj.qty = cell.txtQty.text ?? ""
+//        }
+//
+//        obj.unit = cell.lblUnit.text ?? ""
+//        return true
+//    }
+//
+//}
 
 
 

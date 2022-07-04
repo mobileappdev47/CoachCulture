@@ -49,6 +49,37 @@ class RecipeDetailsViewController: BaseViewController {
     @IBOutlet weak var viwViewRecipe: UIView!
     @IBOutlet weak var imgUserBlur: UIImageView!
     
+    //nutrition facts popup
+    @IBOutlet weak var viewNutri: UIView!
+    @IBOutlet weak var lblCal: UILabel!
+    @IBOutlet weak var lblTotalFatT: UILabel!
+    @IBOutlet weak var lblTotalFatV: UILabel!
+    @IBOutlet weak var lblSatFatT: UILabel!
+    @IBOutlet weak var lblSatFatV: UILabel!
+    @IBOutlet weak var lblCholeT: UILabel!
+    @IBOutlet weak var lblCholeV: UILabel!
+    @IBOutlet weak var lblSodT: UILabel!
+    @IBOutlet weak var lblSodV: UILabel!
+    @IBOutlet weak var lblTotCarbT: UILabel!
+    @IBOutlet weak var lblTotCarbV: UILabel!
+    @IBOutlet weak var lblDietT: UILabel!
+    @IBOutlet weak var lblDietV: UILabel!
+    @IBOutlet weak var lblTotSugT: UILabel!
+    @IBOutlet weak var lblTotSugV: UILabel!
+    @IBOutlet weak var lblProT: UILabel!
+    @IBOutlet weak var lblProV: UILabel!
+    @IBOutlet weak var lblVitDT: UILabel!
+    @IBOutlet weak var lblVitDV: UILabel!
+    @IBOutlet weak var lblCalT: UILabel!
+    @IBOutlet weak var lblCalV: UILabel!
+    @IBOutlet weak var lblIronT: UILabel!
+    @IBOutlet weak var lblIronV: UILabel!
+    @IBOutlet weak var lblPotT: UILabel!
+    @IBOutlet weak var lblPotV: UILabel!
+    @IBOutlet weak var lblDaily: UILabel!
+    
+    
+    
     var recipeDetailDataObj = RecipeDetailData()
     var dropDown = DropDown()
     var recipeID = ""
@@ -58,6 +89,7 @@ class RecipeDetailsViewController: BaseViewController {
     var ratingListPopUp : RatingListPopUp!
     var arrClassRatingList = [ClassRatingList]()
     var arrQtyIngridiant = [qtyAndIngridiant]()
+    var nutritionDataObj = [DataKeyValue]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +101,8 @@ class RecipeDetailsViewController: BaseViewController {
         if Reachability.isConnectedToNetwork(){
             getRecipeDetails()
         }
-        nutritionFact()
+//        nutritionFact()
+//        getRecipeNutritionFacts()
     }
     
     override func viewWillLayoutSubviews() {
@@ -320,7 +353,11 @@ class RecipeDetailsViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnNutritionFacts(_ sender : UIButton) {
-       
+        let vc = storyboard?.instantiateViewController(withIdentifier: "NutritionDetailsViewController") as! NutritionDetailsViewController
+        vc.modalTransitionStyle = .crossDissolve
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.nutritionData = nutritionDataObj
+        self.present(vc, animated: true, completion: nil)
     }
     
     @IBAction func clickToBtnViewRecipe(_ sender : UIButton) {
@@ -432,7 +469,8 @@ extension RecipeDetailsViewController {
             let dataObj = responseObj["coach_recipe"] as? [String:Any] ?? [String:Any]()
             self.recipeDetailDataObj = RecipeDetailData(responseObj: dataObj)
             self.setData()
-                    self.nutritionFact()
+//                    self.nutritionFact()
+            self.getRecipeNutritionFacts()
             self.hideLoader()
             
         } failure: { (error) in
@@ -502,4 +540,130 @@ extension RecipeDetailsViewController {
             return true
         }
     }
+    
+    func getRecipeNutritionFacts() {
+        //showLoader()
+        
+//        let qtyParams = ["g", "ml", "tbsp", "tsp", "cup", "liter", "fl oz", "gallon", "pint"]
+//        let params = ["id": 3,
+//            "recipe": [
+//                "1097511": [
+//                    "amount": 1,
+//                    "unit": "liter"
+//                ],
+//                "1097623": [
+//                    "amount": 2,
+//                    "unit": "cup"
+//                ],
+//                "1097548": [
+//                    "amount": 1,
+//                    "unit": "cup"
+//                ]
+//            ]] as [String : Any]
+        
+        
+        
+        let continentObj = Utility.shared.readLocalFile(forName: "name_to_id_mapping") ?? [:]
+        var params = [String: Any]()
+        params["id"] = recipeID
+        var recipee = [String: Any]()
+        _ = recipeDetailDataObj.arrQtyIngredient.compactMap({recipee["\(continentObj[$0.ingredients] ?? -1)"] = ["amount": $0.quantity.digits, "unit": $0.quantity.alphas]})
+        params["recipe"] = recipee
+    
+    
+    
+        //
+        //
+        //        let param = ["coach_class_id" : recipeID,
+        //                     "page_no" : "1",
+        //                     "per_page" : "10"
+        //        ]
+        //
+        //        _ =  ApiCallManager.requestApi(method: .post, urlString: API.RECIPE_RATING, parameters: param, headers: nil) { responseObj in
+        //
+        //            let dataObj = responseObj["data"] as? [String:Any] ?? [String:Any]()
+        //            let coach_class_rating = dataObj["coach_class_rating"] as? [Any] ?? [Any]()
+        //            let ratevalue = (dataObj["average_rating"] as? NSNumber)?.stringValue ?? ""
+        //            self.arrClassRatingList = ClassRatingList.getData(data: coach_class_rating)
+        //            self.ratingListPopUp.setData(title: self.recipeDetailDataObj.title, SubTitle: self.recipeDetailDataObj.sub_title, rateValue: ratevalue)
+        //            self.ratingListPopUp.arrClassRatingList = self.arrClassRatingList
+        //            self.ratingListPopUp.reloadTable()
+        //            // self.hideLoader()
+        //
+        //        } failure: { (error) in
+        //            self.hideLoader()
+        //            return true
+        //        }
+//        showLoader()
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.GET_NUTRITIONFACTS, parameters: params, headers: nil) { responseObj in
+            
+            let bodyObj = responseObj["body"] as? [String:Any] ?? [String:Any]()
+            self.nutritionDataObj = self.getValues(dict: bodyObj)
+//            self.hideLoader()
+            
+        } failure: { (error) in
+//            self.hideLoader()
+            return true
+        }
+    }
+    
+    func getValues(dict: [String: Any]) -> [DataKeyValue] {
+        let keys = dict["recipe_nutrients"] as? [String: Any] ?? [:]
+        let values = dict["pct_of_daily_val"] as? [String: Any] ?? [:]
+        var arr = [DataKeyValue]()
+        
+        let requireArr = ["Total Fat",
+                          "Saturated Fat",
+                          "Cholesterol",
+                          "Sodium",
+                          "Total Carbohydrate",
+                          "Dietary Fiber",
+                          "Total Sugars",
+                          "Protein",
+                          "Vitamin D",
+                          "Calcium",
+                          "Iron",
+                          "Potassium"]
+        let cale = keys["Calories"] as? [Any] ?? []
+        let calKey = String(format: "%.f", cale.first as? Double ?? 0)
+        arr.append(DataKeyValue(key: calKey, value: ""))
+        requireArr.forEach { keyData in
+            let cal = (keys[keyData] as? [Any] ?? [])
+            let calValue = values[keyData] as? Double ?? 0
+            
+            let weight = cal.last as? String ?? ""
+            
+            let digitt = weight == "g" ? "%.1f%@" : weight == "mg" ? "%.f%@" : "%.2f%@"
+            
+            let strKey = String(format: digitt, cal.first as? Double ?? 0, weight)
+            let strValue = String(format: "%.f", calValue) + "%"
+            arr.append(DataKeyValue(key: strKey, value: strValue))
+        }
+        return arr
+    }
+}
+
+
+struct NutritionDetailData {
+    
+    var calories: String
+    var totalFat: DataKeyValue
+    var satFat: DataKeyValue
+    var cholestrol: DataKeyValue
+    var sodium: DataKeyValue
+    var carbohyd: DataKeyValue
+    var fiber: DataKeyValue
+    var sugar: DataKeyValue
+    var protein: DataKeyValue
+    var vitamin: DataKeyValue
+    var calcium: DataKeyValue
+    var iron: DataKeyValue
+    var potassium: DataKeyValue
+    
+}
+
+struct DataKeyValue {
+    var key: String
+    var value: String
 }

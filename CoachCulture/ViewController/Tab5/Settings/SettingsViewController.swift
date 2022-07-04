@@ -99,7 +99,6 @@ class SettingsViewController: BaseViewController {
     @IBAction func clickToBtnLogout(_ sender: UIButton) {
         hideTabBar()
         setCountryView()
-        DEFAULTS.set("", forKey: DEFAULTS_KEY.STRIPE_USER_ID)
     }
     
     @IBAction func clickToBtnCreateCoach(_ sender: UIButton) {
@@ -125,7 +124,6 @@ class SettingsViewController: BaseViewController {
     @IBAction func clickToBtnPaymentMethods(_ sender: UIButton) {
         hideTabBar()
         let vc = PaymentMethodViewController.viewcontroller()
-        vc.didFinishPaymentBlock = { transaction_id, status in }
         self.navigationController?.pushViewController(vc, animated: true)
     }
     

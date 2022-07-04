@@ -112,7 +112,8 @@ struct API {
     static let GET_USER_PREVIOUS_CLASS = BASE_URL + "api/auth/get-user-previous-class"
     static let GET_AWS_DETAILS = BASE_URL + "api/coach-class/aws-details"
     static let GET_NOTIFICATION_LIST = BASE_URL + "api/notification-list"
-    
+    static let GET_NUTRITIONFACTS = "https://41b5asem71.execute-api.us-east-1.amazonaws.com/" + "prod/recipe_to_nutritionfacts"
+
     
 }
 

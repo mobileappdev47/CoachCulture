@@ -26,20 +26,21 @@ class AddIngredientIemTableViewCell: UITableViewCell {
                   "Fresh Fruit",
                   "Beans and Legumes",
                   "Whole Grains"]
-    var ddDelegete = AddIngredientsForRecipeViewController()
+//    var ddDelegete = AddIngredientsForRecipeViewController()
     var arrIngredient = [String]()
     var didTapBack : (() -> Void)!
+    var didChangeQTYValue: ((String) -> Void)?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         dropDown.dataSource  = ["g", "ml", "tbsp", "tsp", "cup", "liter", "fl oz", "gallon", "pint"]
-        let continentObj = Utility.shared.readLocalFile(forName: "name_to_id_mapping")
-        _ = continentObj?.filter({ (dict) -> Bool in
-            arrIngredient.append(dict.key)
-            return dict.key == ""
-        })
+//        let continentObj = Utility.shared.readLocalFile(forName: "name_to_id_mapping")
+//        _ = continentObj?.filter({ (dict) -> Bool in
+//            arrIngredient.append(dict.key)
+//            return dict.key == ""
+//        })
         
-//        dropDown2.dataSource = arrIngredient
+        dropDown2.dataSource = arrIngredient
         
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
@@ -49,11 +50,14 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         
         dropDown.anchorView = btnSelectUnit
         dropDown2.anchorView = txtIngredient
+        dropDown2.bottomOffset = CGPoint(x: 16, y: txtIngredient.bounds.height)
         
         dropDown.cellHeight = 50
         dropDown2.cellHeight = 50
         
-        txtIngredient.delegate = self
+//        txtIngredient.delegate = self
+        txtIngredient.addTarget(self, action: #selector(filterText(_:)), for: .editingChanged)
+        txtQty.addTarget(self, action: #selector(didChangeQty(_:)), for: .editingChanged)
     }
     
     func isNav() -> Bool {
@@ -71,36 +75,40 @@ class AddIngredientIemTableViewCell: UITableViewCell {
         }
     }
     
-    func filterText(_ txt: String) {
+    @objc func filterText(_ txt: UITextField) {
         var array = [""]
-        array = self.arrIngredient.filter({$0.lowercased().contains(txt.lowercased())})
+        array = self.arrIngredient.filter({$0.lowercased().contains(txt.text!.lowercased())})
         self.dropDown2.dataSource = array
-        dropDown2.show()
+        if array.count > 0 && dropDown2.isHidden {
+            DispatchQueue.main.async {
+                self.dropDown2.show()
+            }
+        } else {
+            dropDown2.reloadAllComponents()
+        }
+    }
+    
+    @objc private func didChangeQty(_ txt: UITextField) {
+        didChangeQTYValue?(txt.text!)
     }
     
     @IBAction func clickToBtnSelectUnit(_ sender : UIButton) {
         dropDown.show()
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
 }
 
 //MARK: - UITextFieldDelegate
-extension AddIngredientIemTableViewCell : UITextFieldDelegate {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-//        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        filterText("")
-        return true
-    }
-    
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-        return true
-    }
-    
-}
+//extension AddIngredientIemTableViewCell : UITextFieldDelegate {
+//
+//    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+////        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+//        filterText("")
+//        return true
+//    }
+//
+//    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+//        return true
+//    }
+//
+//}

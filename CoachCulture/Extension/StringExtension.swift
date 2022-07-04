@@ -1,5 +1,5 @@
 
-import Foundation
+import UIKit
 
 extension String {
     func getDateWithFormate(formate: String, timezone: String) -> Date {
@@ -23,7 +23,7 @@ extension String {
     
     var isValidEmail: Bool {
         let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
-
+        
         let emailPred = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailPred.evaluate(with: self)
     }
@@ -39,4 +39,25 @@ extension String {
         let passwordCheck = NSPredicate(format: "SELF MATCHES %@",passwordRegx)
         return passwordCheck.evaluate(with: password)
     }
+    
+    var digits: Int {
+        return Int(components(separatedBy: CharacterSet.decimalDigits.inverted)
+            .joined()) ?? 0
+    }
+    
+    var alphas: String {
+        return components(separatedBy: CharacterSet.decimalDigits)
+            .joined()
+    }
+    
 }
+
+extension String {
+    func withBoldText(text: String, font: UIFont? = nil) -> NSAttributedString {
+        let _font = font ?? UIFont.systemFont(ofSize: 14, weight: .regular)
+        let fullString = NSMutableAttributedString(string: self, attributes: [NSAttributedString.Key.font: _font])
+        let boldFontAttribute: [NSAttributedString.Key: Any] = [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: _font.pointSize)]
+        let range = (self as NSString).range(of: text)
+        fullString.addAttributes(boldFontAttribute, range: range)
+        return fullString
+    }}

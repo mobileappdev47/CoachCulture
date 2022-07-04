@@ -371,12 +371,8 @@ class PaymentMethodViewController: BaseViewController {
     }
     
     @IBAction func clickTobtnAccountBalance( _ sender : UIButton) {
-        if DEFAULTS.string(forKey: DEFAULTS_KEY.STRIPE_USER_ID) == "" || DEFAULTS.string(forKey: DEFAULTS_KEY.STRIPE_USER_ID) == nil {
-            self.redirectToWebView(webURL: URL(string: "https://connect.stripe.com/express/oauth/authorize?response_type=code&client_id=ca_Lhjt9uv2EmZRO67i4gDDupF9V119bNz4&scope=read_write")!, transaction_id: "")
-        } else {
-            let vc = AccountBalanceListViewController.viewcontroller()
-            self.navigationController?.pushViewController(vc, animated: true)
-        }
+        let vc = AccountBalanceListViewController.viewcontroller()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
