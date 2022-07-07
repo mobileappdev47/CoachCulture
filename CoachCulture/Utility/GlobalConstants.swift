@@ -299,7 +299,8 @@ struct UserRole {
 
 var COGNITO_POOL_ID = "us-east-1:0e74eb1e-5f9f-4f32-94fa-a76e99140dd4"
 var MY_REGION = "us-east-1"
-var BUCKET_NAME = "class-resources/coach_trailer"
+var BUCKET_NAME = "all-class-resources/on_demand_class"//"class-resources/coach_trailer"
+var BUCKET_TRAILER_NAME = "all-class-resources/coach_trailer"
 let GOOGLE_CLIENT_ID = "865862274412-bgpqh1lqatmuo12r1qkr97atabcipddl.apps.googleusercontent.com"
 
 //

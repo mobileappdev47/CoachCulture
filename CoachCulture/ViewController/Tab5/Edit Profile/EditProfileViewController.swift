@@ -521,6 +521,7 @@ extension EditProfileViewController {
             if responseModel.success {
                 let dataObj = responseObj["data"] as? [String:Any] ?? [String:Any]()
                 self.userDataObj = UserData(responseObj: dataObj)
+                AppPrefsManager.sharedInstance.saveUserData(userData: dataObj)
                 self.setData()
             }
             
@@ -576,7 +577,7 @@ extension EditProfileViewController {
                 print("Upload Finished...")
                 Utility.shared.showToast("Video uploaded successfully")
                 let url = AWSS3.default().configuration.endpoint.url
-                let publicURL = url?.appendingPathComponent(BUCKET_NAME).appendingPathComponent(nameOfResource)
+                let publicURL = url?.appendingPathComponent(BUCKET_TRAILER_NAME).appendingPathComponent(nameOfResource)
                 print("Uploaded to:\(String(describing: publicURL))")
                 self.coach_trailer_file = publicURL?.absoluteString ?? ""
                 self.hideLoader()
@@ -596,7 +597,7 @@ extension EditProfileViewController {
             }else{
                 print("Success uploading file")
                 let url = AWSS3.default().configuration.endpoint.url
-                let publicURL = url?.appendingPathComponent(BUCKET_NAME).appendingPathComponent(nameOfResource)
+                let publicURL = url?.appendingPathComponent(BUCKET_TRAILER_NAME).appendingPathComponent(nameOfResource)
                 print("Uploaded to:\(String(describing: publicURL))")
             }
             
@@ -606,7 +607,7 @@ extension EditProfileViewController {
         
         
         //5
-        AWSS3TransferUtility.default().uploadFile(Url, bucket: BUCKET_NAME, key: nameOfResource, contentType: "video", expression: expression, completionHandler: self.completionHandler).continueWith(block: { (task:AWSTask) -> AnyObject? in
+        AWSS3TransferUtility.default().uploadFile(Url, bucket: BUCKET_TRAILER_NAME, key: nameOfResource, contentType: "video", expression: expression, completionHandler: self.completionHandler).continueWith(block: { (task:AWSTask) -> AnyObject? in
             if(task.error != nil){
                 print("Error uploading file: \(String(describing: task.error?.localizedDescription))")
             }

@@ -152,10 +152,10 @@ class CoachViseOnDemandClassViewController: BaseViewController, AVPlayerViewCont
         var recdCurrency = ""
         
         if self.userDataObj?.is_coach_subscribed ?? false {
-            fees = userDataObj?.feesDataObj.subscriber_fee ?? ""
+            fees = userDataObj?.feesDataObj.base_subscriber_fee ?? ""
             recdCurrency = userDataObj?.feesDataObj.base_currency ?? ""
         } else {
-            fees = userDataObj?.feesDataObj.base_subscriber_fee ?? ""
+            fees = userDataObj?.feesDataObj.subscriber_fee ?? ""
             recdCurrency = userDataObj?.feesDataObj.fee_regional_currency ?? ""
         }
 

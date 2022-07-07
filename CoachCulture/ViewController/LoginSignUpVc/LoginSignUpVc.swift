@@ -581,6 +581,11 @@ extension LoginSignUpVc {
 extension LoginSignUpVc: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        removeAllErrLogin()
+        removeAllErrSignUp()
+        errorForBlankText(true, true, true, true, true)
+        imgErrPasswordLogin.isHidden = true
+        imgErrUserNameLogin.isHidden = true
         if textField == txtPassword {
             let newText = (textField.text! as NSString).replacingCharacters(in: range, with: string)
             txtPassword.text = ""

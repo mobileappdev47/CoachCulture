@@ -55,7 +55,7 @@ class CoachClassProfileViewController: BaseViewController {
     var pageNoRecipe = 1
     var perPageCountRecipe = 10
     var maxMin = 0.0
-    let role = AppPrefsManager.sharedInstance.getUserRole()
+    var role = AppPrefsManager.sharedInstance.getUserRole()
     let safeAreaTop = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0.0
     var userWorkoutStatisticsModel = UserWorkoutStatisticsModel()
     var ITEM_COUNT  = 0
@@ -74,6 +74,7 @@ class CoachClassProfileViewController: BaseViewController {
         isFromInitialLoading = true
         resetVariable()
         setUpUI()
+        self.setData()
         self.showTabBar()
         DispatchQueue.main.async {
             if self.isFromInitialLoadingBlock != nil {
@@ -247,8 +248,12 @@ class CoachClassProfileViewController: BaseViewController {
     
     
     func setData() {
+        role = AppPrefsManager.sharedInstance.getUserRole()
+        
         if role == UserType.user {
             self.viewSettings.isHidden = false
+        } else {
+            self.viewSettings.isHidden = true
         }
         let userData = AppPrefsManager.sharedInstance.getUserData()
         

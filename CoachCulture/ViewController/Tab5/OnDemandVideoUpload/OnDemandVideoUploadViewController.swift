@@ -11,6 +11,7 @@ import AWSS3
 import AWSCognito
 import AVKit
 import AVFoundation
+import SwiftUI
 
 class OnDemandVideoUploadViewController: BaseViewController {
     
@@ -431,7 +432,7 @@ extension OnDemandVideoUploadViewController {
     
     
     func uploadVideo(nameOfResource : String, Url : URL){   //1
-        
+        let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(nameOfResource)
         let expression  = AWSS3TransferUtilityUploadExpression()
         expression.progressBlock = { (task: AWSS3TransferUtilityTask,progress: Progress) -> Void in
             print("\(progress.fractionCompleted)" + "progress")   //2
@@ -452,6 +453,7 @@ extension OnDemandVideoUploadViewController {
                 print("Uploaded to:\(String(describing: publicURL))")
                 self.uploadedVideoUrl = publicURL?.absoluteString ?? ""
                 self.hideLoader()
+                self.removeItem(path: path)
                 //do any task here.
             }
         }
@@ -462,12 +464,13 @@ extension OnDemandVideoUploadViewController {
         completionHandler = { (task:AWSS3TransferUtilityUploadTask, error:NSError?) -> Void in
             if(error != nil){
                 print("Failure uploading file")
-                
+                self.removeItem(path: path)
             }else{
                 print("Success uploading file")
                 let url = AWSS3.default().configuration.endpoint.url
                 let publicURL = url?.appendingPathComponent(BUCKET_NAME).appendingPathComponent(nameOfResource)
                 print("Uploaded to:\(String(describing: publicURL))")
+                self.removeItem(path: path)
             }
             
             
@@ -488,6 +491,16 @@ extension OnDemandVideoUploadViewController {
             }
             return nil
         })
+    }
+    
+    func removeItem(path : String) {
+        do {
+            let filemanager = FileManager.default
+            try filemanager.removeItem(atPath: path)
+            print("Local path removed successfully")
+        } catch let error as NSError {
+            print("------Error",error.debugDescription)
+        }
     }
     
     func uploadVideoThumbnail() {
@@ -600,11 +613,14 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
                 
                 do {
                     photoData = try Data(contentsOf: videoUrl, options: .mappedIfSafe)
-                    
+                    let fileManager = FileManager.default
+                    let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(videoUrl.lastPathComponent)
+                    fileManager.createFile(atPath: path as String, contents: photoData, attributes: nil)
+                    self.uploadVideo(nameOfResource: videoUrl.lastPathComponent, Url: URL(fileURLWithPath: path))
                 } catch  { }
                 
                 btnUploadVideo.isEnabled = false
-                self.uploadVideo(nameOfResource: videoUrl.lastPathComponent, Url: videoUrl)
+//                self.uploadVideo(nameOfResource: videoUrl.lastPathComponent, Url: videoUrl)
                 lblClassDuration.text = "\(Int(durationInSeconds / 60)) mins"
             } else {
                 Utility().showToast("Please upload a minimum video of 5 minutes")
