@@ -97,6 +97,7 @@ class BroadcastClassVC: BaseViewController {
             broadcastSession?.stop()
             isRunning = false
             self.classEndedBlock()
+            self.popVC(animated: true)
         } else {
             // Start the session if we're not running.
             guard let endpointPath = streamObj?.ingest_endpoint, let url = URL(string: "rtmps://\(endpointPath)/app"), let key = streamObj?.streamdata else {

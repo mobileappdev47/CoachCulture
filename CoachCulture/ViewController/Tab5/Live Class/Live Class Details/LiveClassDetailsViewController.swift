@@ -149,7 +149,9 @@ class LiveClassDetailsViewController: BaseViewController {
             self.lblClassTitle.text = "Class will start shortly"
             self.isFutureClass = false
         }
-        setupAfterClassStatusUpdation()
+        if LiveClassDetailsViewController.isLiveEnded {
+            setupAfterClassStatusUpdation()
+        }
         if LiveClassDetailsViewController.isFromTransection {
             if classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id {
                 if self.classDetailDataObj.coach_class_type == CoachClassType.live {

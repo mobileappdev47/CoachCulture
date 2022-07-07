@@ -40,6 +40,7 @@ class JoinLiveClassVC: BaseViewController {
             self.popVC(animated: true)
             self.removeConfirmationView()
         }
+        self.popVC(animated: true)
     }
     
     func addConfirmationView() {
