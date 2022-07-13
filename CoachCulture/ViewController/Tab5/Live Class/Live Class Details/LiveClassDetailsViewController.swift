@@ -142,6 +142,9 @@ class LiveClassDetailsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        if Reachability.isConnectedToNetwork(){
+            getClassDetails(isFromTimerToCheckClassStatus: false)
+        }
         let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!)
         let classStartDateTime = convertUTCToLocalDate(dateStr: "\(self.classDetailDataObj.class_date) \(self.classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm:ss")
         let diffClass = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDateTime, to: classStartDateTime)
@@ -239,6 +242,19 @@ class LiveClassDetailsViewController: BaseViewController {
             imgNoEquipment.isHidden = false
         }
         
+        if isFromClassDownloadedPage && !Reachability.isConnectedToNetwork() {
+            for temp in AppPrefsManager.sharedInstance.getClassData() {
+                if temp.id == selectedId {
+                    self.classDetailDataObj = temp
+                    self.setData()
+                }
+            }
+        } else {
+            if Reachability.isConnectedToNetwork(){
+                getClassDetails(isFromTimerToCheckClassStatus: false)
+            }
+        }
+        
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
         
@@ -255,6 +271,7 @@ class LiveClassDetailsViewController: BaseViewController {
                 } else {
                     let vc = OnDemandVideoUploadViewController.viewcontroller()
                     vc.isFromEdit = true
+                    vc.isFromTemplate = false
                     vc.classDetailDataObj = self.classDetailDataObj
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -278,7 +295,7 @@ class LiveClassDetailsViewController: BaseViewController {
                     self.navigationController?.pushViewController(vc, animated: true)
                 } else {
                     let vc = OnDemandVideoUploadViewController.viewcontroller()
-                    vc.isFromEdit = true
+                    vc.isFromEdit = false
                     vc.isFromTemplate = true
                     self.classDetailDataObj.class_subtitle = ""
                     self.classDetailDataObj.thumbnail_image = ""
@@ -335,18 +352,6 @@ class LiveClassDetailsViewController: BaseViewController {
         
         bottomDetailView = Bundle.main.loadNibNamed("BottomDetailView", owner: nil, options: nil)?.first as! BottomDetailView
         
-        if isFromClassDownloadedPage && !Reachability.isConnectedToNetwork() {
-            for temp in AppPrefsManager.sharedInstance.getClassData() {
-                if temp.id == selectedId {
-                    self.classDetailDataObj = temp
-                    self.setData()
-                }
-            }
-        } else {
-            if Reachability.isConnectedToNetwork(){
-                getClassDetails(isFromTimerToCheckClassStatus: false)
-            }
-        }
         self.viewClassDifficultyLevel.layer.maskedCorners = [.layerMaxXMinYCorner]
         self.viewDuration.layer.maskedCorners = [.layerMinXMinYCorner]
     }
@@ -1010,9 +1015,6 @@ class LiveClassDetailsViewController: BaseViewController {
                 }
             }
         }
-        
-        
-        
     }
     
     @IBAction func didTapBottomDetaile(_ sender: UIButton) {

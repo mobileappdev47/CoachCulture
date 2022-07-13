@@ -185,22 +185,39 @@ extension PopularSearchResultCoachRecipeViewController : UITableViewDelegate, UI
 
 //MARK: - UITextFieldDelegate
 extension PopularSearchResultCoachRecipeViewController : UITextFieldDelegate {
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
-        searchString = finalString
-        //textFieldDidEndEditing(textField)
-        return true
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
+
+    @objc func getHintsFromTextField(textField: UITextField) {
         self.resetAll()
         let coach_only = selectedParam["coach_only"] as? String ?? ""
         if Reachability.isConnectedToNetwork(){
             self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
         }
+        print("Hints for textField: \(textField)")
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        let finalString = (textField.text! as NSString).replacingCharacters(in: range, with: string)
+        searchString = finalString
+        NSObject.cancelPreviousPerformRequests(
+                withTarget: self,
+                selector: #selector(self.getHintsFromTextField),
+                object: textField)
+            self.perform(
+                #selector(self.getHintsFromTextField),
+                with: textField,
+                afterDelay: 1)
+            return true
+        //textFieldDidEndEditing(textField)
+        return true
+    }
+    
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        self.resetAll()
+//        let coach_only = selectedParam["coach_only"] as? String ?? ""
+//        if Reachability.isConnectedToNetwork(){
+//            self.getAllCoachRecipeList(duration: selectedParam["duration"] as? String ?? "", meal_type_name: selectedParam["meal_type_name"] as? String ?? "", dietary_restriction_name: selectedParam["dietary_restriction_name"] as? String ?? "", coach_only: coach_only)
+//        }
+//    }
     
 }
 

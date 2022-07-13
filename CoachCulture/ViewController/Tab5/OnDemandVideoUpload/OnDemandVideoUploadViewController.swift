@@ -143,9 +143,17 @@ class OnDemandVideoUploadViewController: BaseViewController {
         dropDown.textColor = UIColor.white
         dropDown.selectionBackgroundColor = .clear
         dropDown.dataSource  = ["US$", "S$", "€"]
+       
+        if isFromTemplate {
+           setData()
+        }
         
         if isFromEdit {
             setData()
+            self.updateStack.isHidden = false
+            self.lblUploadThumbnail.isHidden = true
+            self.imgUpload.isHidden = true
+            self.btnUploadVideo.isEnabled = false
         }
         
         if Reachability.isConnectedToNetwork(){
