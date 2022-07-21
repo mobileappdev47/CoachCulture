@@ -389,6 +389,14 @@ class EditProfileViewController: BaseViewController {
         dropDown.width = sender.frame.width
     }
     
+    @IBAction func clickTobBtnDeleteAccount(_ sender: UIButton) {
+        
+        let nextViewController = DeleteAcc1ViewController.viewcontroller()
+        self.navigationController?.pushViewController(nextViewController, animated: true)
+      
+    }
+    
+   
 }
 
 

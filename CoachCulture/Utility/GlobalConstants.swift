@@ -19,6 +19,8 @@ struct DEFAULTS_KEY {
     static let IS_REMEMBER_ME = "isRememberMe"
     static var STRIPE_CUSTOMER_ID = "stripe_customer_id"
     static var STRIPE_USER_ID = "stripe_user_id"
+    static var LOGIN_TYPE = "login_type"
+
 }
 
 struct STRIPE_API {
@@ -114,7 +116,8 @@ struct API {
     static let GET_NOTIFICATION_LIST = BASE_URL + "api/notification-list"
     static let GET_NUTRITIONFACTS = "https://41b5asem71.execute-api.us-east-1.amazonaws.com/" + "prod/recipe_to_nutritionfacts"
 
-    
+    static let DELETE_ACCOUNT = BASE_URL + "api/auth/delete-account"
+
 }
 
 // MARK: - PARAMS KEYS
@@ -203,6 +206,7 @@ struct Params {
         static let login_type = "login_type"
         static let facebook_id = "facebook_id"
         static let device_token = "device_token"
+        static let apple_id = "apple_id"
     }
     
     struct AddRemoveBookmark {
@@ -234,6 +238,7 @@ struct BookmarkType {
 }
 
 enum LoginTypeConst: Int {
+    case Apple = 3
     case Facebook = 2
     case Google = 1
     case Standard = 0

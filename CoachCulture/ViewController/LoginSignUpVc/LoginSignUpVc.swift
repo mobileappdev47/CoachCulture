@@ -6,8 +6,9 @@ import GoogleSignIn
 import FBSDKLoginKit
 import PhoneNumberKit
 import SafariServices
+import AuthenticationServices
 
-class LoginSignUpVc: BaseViewController {
+class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
     
     //MARK: - OUTLET
     
@@ -58,6 +59,8 @@ class LoginSignUpVc: BaseViewController {
     @IBOutlet weak var imgErrUserNameLogin: UIImageView!
     @IBOutlet weak var imgErrPasswordLogin: UIImageView!
     
+    @IBOutlet weak var viewAppleLogin: UIView!
+
     //MARK: - VARIABLE
     
     var isRememberMe = false
@@ -85,6 +88,7 @@ class LoginSignUpVc: BaseViewController {
             self.txtCountryCode.text = "+\(strPhoneCode)"
             self.countryCodeDesc = countryCode
         }
+        self.setUpSignInAppleButton()
     }
     
     fileprivate func setupViews() {
@@ -435,6 +439,99 @@ class LoginSignUpVc: BaseViewController {
         }
     }
     
+
+
+//MARK:- Login with apple id
+
+    func setUpSignInAppleButton() {
+        if #available(iOS 13.0, *) {
+            let authorizationButton = ASAuthorizationAppleIDButton()
+            authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
+            authorizationButton.cornerRadius = 10
+//
+            //Add button on some view or stack
+            self.viewAppleLogin.addSubview(authorizationButton)
+            authorizationButton.translatesAutoresizingMaskIntoConstraints = false
+               let horizontalConstraint = NSLayoutConstraint(item: authorizationButton, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewAppleLogin, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 0)
+               let verticalConstraint = NSLayoutConstraint(item: authorizationButton, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewAppleLogin, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
+//            let widthConstraint = NSLayoutConstraint(item: authorizationButton, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 100)
+//            let heightConstraint = NSLayoutConstraint(item: authorizationButton, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 100)
+
+
+            
+            viewAppleLogin.addConstraints([horizontalConstraint, verticalConstraint])
+            
+            
+            
+        } else {
+            // Fallback on earlier versions
+        }
+     
+    }
+    
+    
+    @objc func handleAppleIdRequest() {
+        if #available(iOS 13.0, *) {
+            let appleIDProvider = ASAuthorizationAppleIDProvider()
+            let request = appleIDProvider.createRequest()
+            request.requestedScopes = [.fullName, .email]
+            let authorizationController = ASAuthorizationController(authorizationRequests: [request])
+            authorizationController.delegate = self
+            authorizationController.performRequests()
+        } else {
+            // Fallback on earlier versions
+        }
+     
+    }
+    
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    if let appleIDCredential = authorization.credential as?  ASAuthorizationAppleIDCredential {
+    let userIdentifier = appleIDCredential.user
+        let fullName = appleIDCredential.fullName
+    let email = appleIDCredential.email
+    let userFirstName = appleIDCredential.fullName?.givenName
+    let userLastName = appleIDCredential.fullName?.familyName
+        print("User id is \(userIdentifier) \n Full Name is \(String(describing: fullName)) \n Email id is \(String(describing: email))")
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        appleIDProvider.getCredentialState(forUserID: userIdentifier) {  (credentialState, error) in
+             switch credentialState {
+                case .authorized:
+                    // The Apple ID credential is valid.
+                    self.loginParams = [
+                        Params.Login.apple_id: userIdentifier,
+                        Params.Login.login_type: LoginTypeConst.Apple.rawValue,
+                        Params.Login.device_token: DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? "",
+                        "email":email ?? "",
+                        "first_name" : userFirstName ?? "",
+                        "last_name" : userLastName ?? ""
+                        //"username"
+                    ]
+                    self.loginAPI()
+                    
+                    break
+                case .revoked:
+                    // The Apple ID credential is revoked.
+                    break
+                case .notFound:
+                    // No credential was found, so show the sign-in UI.
+                    break
+                default:
+                    break
+             }
+        }
+    }
+        
+    }
+    
+    @available(iOS 13.0, *)
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    // Handle error.
+    }
+    
+    
+    
+
 }
 
 extension LoginSignUpVc: countryPickDelegate {
@@ -555,7 +652,10 @@ extension LoginSignUpVc {
                 let userObj = dataObj["user"] as? [String:Any] ?? [String:Any]()
                 AppPrefsManager.sharedInstance.saveUserData(userData: userObj)
                 let stripeCustomeId = userObj["stripe_customer_id"] as? String ?? ""
+                let loginType = userObj["login_type"] as? String ?? ""
                 DEFAULTS.setValue(stripeCustomeId, forKey: DEFAULTS_KEY.STRIPE_CUSTOMER_ID)
+                DEFAULTS.setValue(loginType, forKey: DEFAULTS_KEY.LOGIN_TYPE)
+
                 let role = userObj["role"] as? String ?? ""
                 AppPrefsManager.sharedInstance.saveUserRole(role: role)
                 self.goToTabBar()
@@ -575,9 +675,8 @@ extension LoginSignUpVc {
             return true
         }
     }
-    
 }
-
+    
 extension LoginSignUpVc: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
