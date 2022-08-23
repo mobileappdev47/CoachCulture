@@ -312,12 +312,19 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
             ]
             if let email = user?.profile?.email {
                 self.email = email
+                self.txtEmail.text = self.email
             }
             if let username = user?.profile?.name {
                 self.username = username
+                self.txtUsername.text = self.username
             }
+            
+            viewPasswordSignUp.isHidden = true
+            viewRetypePasswordSignUp.isHidden = true
+            
             LoginType = LoginTypeConst.Google
             loginAPI()
+//            signupAPI()
         }
     }
     
@@ -326,23 +333,33 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
         if let _ = AccessToken.current {
             loginManager.logOut()
         } else {
-            loginManager.logIn(permissions: [], from: self) { [weak self] (result, error) in
+            loginManager.logIn(permissions: ["public_profile", "email"], from: self) { [weak self] results, error in
                 guard error == nil else {
                     Utility.shared.showToast(error?.localizedDescription ?? "Something went wrong!")
                     return
                 }
-                guard let result = result, !result.isCancelled else {
+                guard let result = results, !result.isCancelled else {
                     return
                 }
                 Profile.loadCurrentProfile { (profile, error) in
-                    self?.socialID = result.token?.tokenString ?? ""
+                    self?.socialID = (results?.token!.tokenString)!
                     self?.loginParams = [
-                        Params.Login.facebook_id: result.token?.tokenString ?? "",
+                        Params.Login.facebook_id: results?.token?.tokenString ?? "",
                         Params.Login.login_type: LoginTypeConst.Facebook.rawValue,
                         Params.Login.device_token: DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
                     ]
+                    
+                    if let username = profile?.name {
+                        self?.username = username
+                        self?.txtUsername.text = self?.username
+                    }
+
+                    self?.viewPasswordSignUp.isHidden = true
+                    self?.viewRetypePasswordSignUp.isHidden = true
+                    
                     self?.LoginType = LoginTypeConst.Facebook
                     self?.loginAPI()
+//                    self?.signupAPI()
                     //print(Profile.current?.name)
                 }
             }
@@ -528,9 +545,6 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
     // Handle error.
     }
-    
-    
-    
 
 }
 
@@ -573,6 +587,7 @@ extension LoginSignUpVc {
         if LoginType == LoginTypeConst.Google {
             param["signup_type"] = LoginTypeConst.Google.rawValue
             param[Params.Login.google_id] = self.socialID
+            
         } else if LoginType == LoginTypeConst.Facebook {
             param["signup_type"] = LoginTypeConst.Facebook.rawValue
             param[Params.Login.facebook_id] = self.socialID
@@ -607,7 +622,7 @@ extension LoginSignUpVc {
                     vc.password = self.txtPassword.text!
                     DEFAULTS.setValue(self.txtPassword.text, forKey: DEFAULTS_KEY.USER_PASSWORD)
                     AppPrefsManager.sharedInstance.saveUserRole(role: "user")
-                    //                    vc.verifyotp = "\(userr.user?.verificationCode ?? 1234)"
+                    vc.otp = "\(userr.user?.verificationCode ?? 1234)"
                     DispatchQueue.main.async {
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
@@ -635,7 +650,7 @@ extension LoginSignUpVc {
     
     func loginAPI() {
         showLoader()
-        _ =  ApiCallManager.requestApi(method: .post, urlString: API.LOGIN, parameters: loginParams, headers: nil) { responseObj in
+        _ =  ApiCallManager.requestApi(method: .post, urlString: API.LOGIN, parameters: loginParams, headers: nil) { [self] responseObj in
             let resObj = responseObj as? [String:Any] ?? [String:Any]()
             print(resObj)
             
@@ -655,10 +670,36 @@ extension LoginSignUpVc {
                 let loginType = userObj["login_type"] as? String ?? ""
                 DEFAULTS.setValue(stripeCustomeId, forKey: DEFAULTS_KEY.STRIPE_CUSTOMER_ID)
                 DEFAULTS.setValue(loginType, forKey: DEFAULTS_KEY.LOGIN_TYPE)
-
-                let role = userObj["role"] as? String ?? ""
-                AppPrefsManager.sharedInstance.saveUserRole(role: role)
-                self.goToTabBar()
+                
+                
+                if self.LoginType == LoginTypeConst.Google || self.LoginType == LoginTypeConst.Facebook {
+                    if (userObj["phoneno"] as? String != nil && userObj["phoneno"] as? String != "") && (userObj["email"] as? String != nil && userObj["email"] as? String != "") {
+                        let role = userObj["role"] as? String ?? ""
+                        AppPrefsManager.sharedInstance.saveUserRole(role: role)
+                        self.goToTabBar()
+                    } else {
+//                        self.signupAPI()
+                        self.manageLoginSignUpView(isLogin: false)
+                        
+                        if let email = userObj["email"] as? String{
+                            self.email = email
+                            self.txtEmail.text = self.email
+                        }
+                        if let username = userObj["phoneno"] as? String {
+                            self.username = username
+                            self.txtUsername.text = self.username
+                        }
+                        
+                        viewPasswordSignUp.isHidden = true
+                        viewRetypePasswordSignUp.isHidden = true
+                    }
+                } else {
+                    let role = userObj["role"] as? String ?? ""
+                    AppPrefsManager.sharedInstance.saveUserRole(role: role)
+                    self.goToTabBar()
+                    
+                }
+                
             } else {
                 if self.LoginType == LoginTypeConst.Google || self.LoginType == LoginTypeConst.Facebook {
                     self.viewPasswordSignUp.isHidden = true
