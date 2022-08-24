@@ -571,6 +571,8 @@ extension LoginSignUpVc: countryPickDelegate {
                 base_currency = BaseCurrencyList.SGD
             case BaseCurrencyList.EUR:
                 base_currency = BaseCurrencyList.EUR
+            case BaseCurrencyList.INR:
+                base_currency = BaseCurrencyList.INR
             default:
                 base_currency = BaseCurrencyList.USD
             }

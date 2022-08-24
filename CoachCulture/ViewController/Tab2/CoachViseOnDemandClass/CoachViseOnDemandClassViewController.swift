@@ -914,10 +914,12 @@ struct BaseCurrencyList {
     static let SGD = "SGD"
     static let USD = "USD"
     static let EUR = "EUR"
+    static let INR = "INR"
 }
 
 struct BaseCurrencySymbol {
     static let SGD = "S$"
     static let USD = "US$"
     static let EUR = "€"
+    static let INR = "₹"
 }

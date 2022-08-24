@@ -499,6 +499,8 @@ func getCurrencySymbol(from currency: String) -> String {
         currencySybmol = BaseCurrencySymbol.USD
     case BaseCurrencyList.EUR:
         currencySybmol = BaseCurrencySymbol.EUR
+    case BaseCurrencyList.INR:
+        currencySybmol = BaseCurrencySymbol.INR
     default:
         currencySybmol = ""
     }

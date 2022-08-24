@@ -129,12 +129,17 @@ class ScheduleLiveClassViewController: BaseViewController {
                 lblNonSubscriptionCurrentSym.text = item
                 baseCurrency = "EUR"
             }
+            if item.lowercased() == "₹".lowercased() {
+                lblSubscriptionCurrentSym.text = item
+                lblNonSubscriptionCurrentSym.text = item
+                baseCurrency = "INR"
+            }
         }
         
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
         dropDown.selectionBackgroundColor = .clear
-        dropDown.dataSource  = ["US$", "S$", "€"]
+        dropDown.dataSource  = ["US$", "S$", "€", "₹"]
             
         addPhotoPopUp.tapToBtnGallery {
             self.loadPhotoGalleryView()
@@ -294,6 +299,8 @@ class ScheduleLiveClassViewController: BaseViewController {
         view.endEditing(true)
         tblClassTypeList.isHidden = !tblClassTypeList.isHidden
     }
+    
+    
     
     @IBAction func clickToBtnClassDifficulty(_ sender : UIButton) {
         view.endEditing(true)

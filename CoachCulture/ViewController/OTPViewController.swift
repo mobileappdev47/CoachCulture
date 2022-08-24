@@ -16,6 +16,9 @@ class OTPViewController: BaseViewController {
         return vc
     }
     
+    
+    @IBOutlet weak var phonenoLable: UILabel!
+    @IBOutlet weak var phoneCodeLable: UILabel!
     @IBOutlet weak var lblTitle: UILabel!
     @IBOutlet weak var lblDesc: UILabel!
     @IBOutlet weak var btnResend: UIButton!
@@ -55,10 +58,13 @@ class OTPViewController: BaseViewController {
         /*btnDigits.forEach { btn in
          btn.addTarget(self, action: #selector(didTapDigit(_:)), for: .touchUpInside)
          }*/
+//        phoneCodeLable.text = phoneCode
+//        phonenoLable.text = phoneNo
         btnResend.setTitle("Resent OTP", for: .normal)
         btnChangeNumber.setTitle("Change Number", for: .normal)
         btnResend.titleLabel?.font = UIFont.systemFont(ofSize: 12)
         btnChangeNumber.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        
                 
         if !emaiOrPhone.isEmpty {
             let seperatedComponents = emaiOrPhone.components(separatedBy: "@")
@@ -80,7 +86,7 @@ class OTPViewController: BaseViewController {
                 phoneX.append("x")
             }
 
-            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneX)."
+            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneNo)."
         }
     }
     

@@ -31,7 +31,7 @@ class PopularCoachRecipeViewController: BaseViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var lblNoDataFoundNewRecipies: UILabel!
 
-   private var isDataLoading = false
+    private var isDataLoading = false
     private var continueLoadingData = true
     private var pageNo = 1
     private var perPageCount = 10

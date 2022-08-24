@@ -137,12 +137,17 @@ class OnDemandVideoUploadViewController: BaseViewController {
                 lblNonSubscriptionCurrentSym.text = item
                 baseCurrency = "EUR"
             }
+            if item.lowercased() == "₹".lowercased() {
+                lblSubscriptionCurrentSym.text = item
+                lblNonSubscriptionCurrentSym.text = item
+                baseCurrency = "INR"
+            }
         }
         
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
         dropDown.selectionBackgroundColor = .clear
-        dropDown.dataSource  = ["US$", "S$", "€"]
+        dropDown.dataSource  = ["US$", "S$", "€", "₹"]
        
         if isFromTemplate {
            setData()

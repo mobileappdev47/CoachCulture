@@ -126,6 +126,10 @@ class EditProfileViewController: BaseViewController {
                     lblSubscriptionCurrentSym.text = item
                     baseCurrency = "EUR"
                 }
+                if item.lowercased() == "₹".lowercased() {
+                    lblSubscriptionCurrentSym.text = item
+                    baseCurrency = "INR"
+                }
             } else {
                 if item.lowercased() == "US$".lowercased() {
                     lblAcCurrency.text = item
@@ -138,6 +142,10 @@ class EditProfileViewController: BaseViewController {
                 if item.lowercased() == "€".lowercased() {
                     lblAcCurrency.text = item
                     accountCurrency = "EUR"
+                }
+                if item.lowercased() == "₹".lowercased() {
+                    lblAcCurrency.text = item
+                    accountCurrency = "INR"
                 }
             }
         }
@@ -205,7 +213,7 @@ class EditProfileViewController: BaseViewController {
     }
     
     func setData() {
-        dropDown.dataSource  = ["US$", "S$", "€"]
+        dropDown.dataSource  = ["US$", "S$", "€" ,"₹"]
         self.baseCurrency = self.userDataObj.base_currency
         if baseCurrency == BaseCurrencyList.USD {
             lblSubscriptionCurrentSym.text = BaseCurrencySymbol.USD
@@ -213,7 +221,10 @@ class EditProfileViewController: BaseViewController {
             lblSubscriptionCurrentSym.text = BaseCurrencySymbol.SGD
         } else if baseCurrency == BaseCurrencyList.EUR {
             lblSubscriptionCurrentSym.text = BaseCurrencySymbol.EUR
+        } else if baseCurrency == BaseCurrencyList.INR {
+            lblSubscriptionCurrentSym.text = BaseCurrencySymbol.INR
         }
+        
         self.accountCurrency = self.userDataObj.account_currency
         if accountCurrency == BaseCurrencyList.USD {
             lblAcCurrency.text = BaseCurrencySymbol.USD
@@ -221,6 +232,8 @@ class EditProfileViewController: BaseViewController {
             lblAcCurrency.text = BaseCurrencySymbol.SGD
         } else if accountCurrency == BaseCurrencyList.EUR {
             lblAcCurrency.text = BaseCurrencySymbol.EUR
+        } else if accountCurrency == BaseCurrencyList.INR {
+            lblAcCurrency.text = BaseCurrencySymbol.INR
         }
         txtUserName.text = userDataObj.username
         txtEmail.text = userDataObj.email

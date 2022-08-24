@@ -96,16 +96,16 @@ class MainSearchViewController: BaseViewController {
         btnOnDemand.isSelected = false
         if sender == btnLive {
             btnLive.isSelected = true
-            viwLive.backgroundColor = hexStringToUIColor(hex: "#061424")
+            viwLive.backgroundColor = hexStringToUIColor(hex: "#ACBACA") //#061424
             viwOnDemand.backgroundColor = .clear
-            lblLiveTitle.textColor = hexStringToUIColor(hex: "#C12734")
-            lblOnDemandTitle.textColor = hexStringToUIColor(hex: "#ffffff")
+            lblLiveTitle.textColor = hexStringToUIColor(hex: "#FFFFFF") //#C12734
+            lblOnDemandTitle.textColor = hexStringToUIColor(hex: "#ffffff") //#ffffff
         } else {
             btnOnDemand.isSelected = true
-            viwOnDemand.backgroundColor = hexStringToUIColor(hex: "#061424")
+            viwOnDemand.backgroundColor = hexStringToUIColor(hex: "#ACBACA")//#061424
             viwLive.backgroundColor = .clear
-            lblOnDemandTitle.textColor = hexStringToUIColor(hex: "#C12734")
-            lblLiveTitle.textColor = hexStringToUIColor(hex: "#ffffff")
+            lblOnDemandTitle.textColor = hexStringToUIColor(hex: "#FFFFFF")//#C12734
+            lblLiveTitle.textColor = hexStringToUIColor(hex: "#ffffff") //#ffffff
         }
     }
     
@@ -146,12 +146,12 @@ extension MainSearchViewController: UICollectionViewDataSource, UICollectionView
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "MuscleItemCollectionViewCell", for: indexPath) as!  MuscleItemCollectionViewCell
         let obj  = arrClassTypeList[indexPath.row]
         cell.lblTitle.text = obj.class_type_name
-        cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#525F6F")
-        cell.lblTitle.textColor = hexStringToUIColor(hex: "#ffffff")
+        cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#525F6F")//#525F6F
+        cell.lblTitle.textColor = hexStringToUIColor(hex: "#ffffff") //#ffffff
         
         if obj.isSelected {
-            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#061424")
-            cell.lblTitle.textColor = hexStringToUIColor(hex: "#C12734")
+            cell.viwContainer.backgroundColor = hexStringToUIColor(hex: "#ACBACA") //#061424
+            cell.lblTitle.textColor = hexStringToUIColor(hex: "#ffffff") //#C12734
         }
         
         return cell

@@ -122,6 +122,10 @@ class EditCoachProfileViewController: BaseViewController {
                     lblCurrency.text = item
                     baseCurrency = "EUR"
                 }
+                if item.lowercased() == "₹".lowercased() {
+                    lblCurrency.text = item
+                    baseCurrency = "INR"
+                }
             } else {
                 if item.lowercased() == "US$".lowercased() {
                     lblAcCurrency.text = item
@@ -134,6 +138,10 @@ class EditCoachProfileViewController: BaseViewController {
                 if item.lowercased() == "€".lowercased() {
                     lblAcCurrency.text = item
                     accountCurrency = "EUR"
+                }
+                if item.lowercased() == "₹".lowercased() {
+                    lblAcCurrency.text = item
+                    accountCurrency = "INR"
                 }
             }
         }
@@ -207,7 +215,7 @@ class EditCoachProfileViewController: BaseViewController {
     }
     
     func setData() {
-        dropDown.dataSource  = ["US$", "S$", "€"]
+        dropDown.dataSource  = ["US$", "S$", "€","₹"]
         txtProfileUserName.text = userDataObj.username
         txtProfileEmail.text = userDataObj.email
         txtProfilePhone.text = userDataObj.phoneno
@@ -222,6 +230,8 @@ class EditCoachProfileViewController: BaseViewController {
             lblAcCurrency.text = BaseCurrencySymbol.SGD
         } else if accountCurrency == BaseCurrencyList.EUR {
             lblAcCurrency.text = BaseCurrencySymbol.EUR
+        } else if accountCurrency == BaseCurrencyList.INR {
+            lblAcCurrency.text = BaseCurrencySymbol.INR
         }
         countryCodeDesc = userDataObj.countrycode
         self.imgCountryCode.image = UIImage.init(named: "\(countryCodeDesc).png")
