@@ -203,7 +203,7 @@ class WorkoutStatisticVC: BaseViewController {
     }
 
     func initialSetupUI() {
-        ChartUtils.getAndSetForWorkoutStat(isFromStat: true)
+//        ChartUtils.getAndSetForWorkoutStat(isFromStat: true)
         //self.chartView.backgroundColor = COLORS.CHART_BG_COLOR
         self.hideTabBar()
         tblPreviousClassView.register(UINib(nibName: kHomeNewClassHeaderViewID, bundle: nil), forHeaderFooterViewReuseIdentifier: kHomeNewClassHeaderViewID)

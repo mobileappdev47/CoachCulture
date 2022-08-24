@@ -75,6 +75,9 @@ class EditCoachProfileViewController: BaseViewController {
     @IBOutlet weak var imgErrPassword: UIImageView!
     @IBOutlet weak var imgErrReEnterPass: UIImageView!    
     
+    @IBOutlet weak var viwAddProfileImage: UIView!
+    @IBOutlet weak var btnAddProfileImage: UIButton!
+    
     var customDatePickerForBirthDate:CustomDatePickerViewForTextFeild!
     
     var addPhotoPopUp:AddPhotoPopUp!
@@ -201,9 +204,6 @@ class EditCoachProfileViewController: BaseViewController {
         txtProfileRetypePassword.delegate = self
         txtProfileCountryCode.delegate = self
         txtMonthlySubFee.delegate = self
-        
-        
-        
     }
     
     func setData() {
@@ -226,6 +226,10 @@ class EditCoachProfileViewController: BaseViewController {
         countryCodeDesc = userDataObj.countrycode
         self.imgCountryCode.image = UIImage.init(named: "\(countryCodeDesc).png")
         self.imgUserProfile.setImageFromURL(imgUrl: userDataObj.user_image, placeholderImage: nil)
+        if userDataObj.user_image != "" {
+            viwAddProfileImage.isHidden = true
+            btnAddProfileImage.isHidden = true
+        }
     }
     
     
@@ -336,7 +340,7 @@ class EditCoachProfileViewController: BaseViewController {
     }
     
     @IBAction func clickToBtnTermsAndCondition(_ sender: UIButton) {
-        guard let url = URL(string: "https://developers.google.com/assistant/console/policies/privacy-policy-guide") else {
+        guard let url = URL(string: "https://generator.lorem-ipsum.info/terms-and-conditions") else {
             return
         }
         let vc = SFSafariViewController(url: url)

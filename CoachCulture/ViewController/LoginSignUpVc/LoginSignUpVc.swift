@@ -248,7 +248,7 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
     }
     
     @IBAction func btnTermsAndConditionClicked(_ sender: UIButton) {        
-        guard let url = URL(string: "https://developers.google.com/assistant/console/policies/privacy-policy-guide") else {
+        guard let url = URL(string: "https://generator.lorem-ipsum.info/terms-and-conditions") else {
             return
         }
         let vc = SFSafariViewController(url: url)
@@ -524,8 +524,9 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
                         "last_name" : userLastName ?? ""
                         //"username"
                     ]
+                    self.socialID = userIdentifier
                     self.loginAPI()
-                    
+                    self.LoginType = LoginTypeConst.Apple
                     break
                 case .revoked:
                     // The Apple ID credential is revoked.
@@ -591,6 +592,10 @@ extension LoginSignUpVc {
         } else if LoginType == LoginTypeConst.Facebook {
             param["signup_type"] = LoginTypeConst.Facebook.rawValue
             param[Params.Login.facebook_id] = self.socialID
+        } else if LoginType == LoginTypeConst.Apple {
+            param["signup_type"] = LoginTypeConst.Apple.rawValue
+            param[Params.Login.apple_id] = self.socialID
+            param["password"] = txtPassword.text!
         } else {
             param["signup_type"] = LoginTypeConst.Standard.rawValue
             param["password"] = txtPassword.text!
@@ -672,7 +677,7 @@ extension LoginSignUpVc {
                 DEFAULTS.setValue(loginType, forKey: DEFAULTS_KEY.LOGIN_TYPE)
                 
                 
-                if self.LoginType == LoginTypeConst.Google || self.LoginType == LoginTypeConst.Facebook {
+                if self.LoginType == LoginTypeConst.Google || self.LoginType == LoginTypeConst.Facebook || self.LoginType == LoginTypeConst.Apple {
                     if (userObj["phoneno"] as? String != nil && userObj["phoneno"] as? String != "") && (userObj["email"] as? String != nil && userObj["email"] as? String != "") {
                         let role = userObj["role"] as? String ?? ""
                         AppPrefsManager.sharedInstance.saveUserRole(role: role)
@@ -701,9 +706,14 @@ extension LoginSignUpVc {
                 }
                 
             } else {
-                if self.LoginType == LoginTypeConst.Google || self.LoginType == LoginTypeConst.Facebook {
+                if self.LoginType == LoginTypeConst.Google || self.LoginType == LoginTypeConst.Facebook || self.LoginType == LoginTypeConst.Apple {
+                    self.manageLoginSignUpView(isLogin: false)
                     self.viewPasswordSignUp.isHidden = true
                     self.viewRetypePasswordSignUp.isHidden = true
+                    self.txtPassword.text = "Test@123"
+                    self.txtRePassword.text = "Test@123"
+                    self.txtPassword.isUserInteractionEnabled = false
+                    self.txtRePassword.isUserInteractionEnabled = false
                     self.txtEmail.text = self.email
                     self.txtUsername.text = self.username
                 } else {

@@ -81,6 +81,8 @@ class CoachClassProfileViewController: BaseViewController {
                 self.isFromInitialLoadingBlock()
             }
         }
+        let userData = AppPrefsManager.sharedInstance.getUserData()
+        imgUserProfile.setImageFromURL(imgUrl: userData.user_image, placeholderImage: nil)
     }
         
     // MARK: - Methods

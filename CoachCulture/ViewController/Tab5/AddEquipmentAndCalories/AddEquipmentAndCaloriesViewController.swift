@@ -334,9 +334,9 @@ extension AddEquipmentAndCaloriesViewController : UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         
         let finalString = (textView.text! as NSString).replacingCharacters(in: range, with: text)
-        if finalString.count < 300 {
+        if finalString.count < 600 {
                       
-            lblCharCount.text = "\(finalString.count)" + "/300"
+            lblCharCount.text = "\(finalString.count)" + "/600"
             return true
         } else {
             return false

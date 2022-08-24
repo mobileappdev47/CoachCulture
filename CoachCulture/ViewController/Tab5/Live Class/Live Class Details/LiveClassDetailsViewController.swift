@@ -116,6 +116,7 @@ class LiveClassDetailsViewController: BaseViewController {
     var arrClassRatingList = [ClassRatingList]()
     var bottomDetailView = BottomDetailView()
     var logOutView:LogOutView!
+    var cancleView:LogOutView!
     var timer : Timer?
     var totalTime = 00
     var counter = 0.0
@@ -256,6 +257,7 @@ class LiveClassDetailsViewController: BaseViewController {
         }
         
         logOutView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
+        cancleView = Bundle.main.loadNibNamed("LogOutView", owner: nil, options: nil)?.first as? LogOutView
         arrLocalCoachClassData = AppPrefsManager.sharedInstance.getClassDataJson()
         
         dropDown.anchorView = btnMore
@@ -327,6 +329,19 @@ class LiveClassDetailsViewController: BaseViewController {
                 
                 self.present(activityViewController, animated: true, completion: nil)
             }
+            
+            if item.lowercased() == "Cancle".lowercased() {
+                addConfirmationView1()
+                cancleView.lblTitle.text = "Cancle Classes?"
+                cancleView.lblMessage.text = "Would you like to cancel \(self.lblUserName.text ?? "") Live Class? Live classes can be canceled up to one hour before their start time."
+                cancleView.btnLeft.setTitle("Confirm", for: .normal)
+                cancleView.btnRight.setTitle("Cancel", for: .normal)
+                cancleView.tapToBtnLogOut {
+//                    self.redirectToPaymentMethod()
+                    self.removeConfirmationView1()
+                }
+
+            }
         }
         dropDown.backgroundColor = hexStringToUIColor(hex: "#2C3A4A")
         dropDown.textColor = UIColor.white
@@ -372,7 +387,11 @@ class LiveClassDetailsViewController: BaseViewController {
         } else if self.classDetailDataObj.coachDetailsDataObj.id == AppPrefsManager.sharedInstance.getUserData().id { // personal class
             dropDown.dataSource  = ["Edit", "Delete", "Send", "Template", "Ratings", "Share"]
         } else {
-            dropDown.dataSource  = ["Send", "Share"]
+            if classDetailDataObj.coach_class_type == CoachClassType.live {
+                dropDown.dataSource = ["Send", "Share", "Cancle"]
+            } else {
+                dropDown.dataSource = ["Send", "Share"]
+            }
         }
         imgClassCover.setImageFromURL(imgUrl: classDetailDataObj.thumbnail_image, placeholderImage: nil)
         if classDetailDataObj.coach_class_type == CoachClassType.live {
@@ -802,7 +821,18 @@ class LiveClassDetailsViewController: BaseViewController {
             logOutView.removeFromSuperview()
         }
     }
-
+    
+    func addConfirmationView1() {
+        cancleView.frame.size = self.view.frame.size
+        self.view.addSubview(cancleView)
+    }
+    
+    func removeConfirmationView1() {
+        if cancleView != nil{
+            cancleView.removeFromSuperview()
+        }
+    }
+    
     func goToPlayOndemandClass() {
         let folderName = self.classDetailDataObj.id + "_" + self.classDetailDataObj.class_subtitle
         let directoryUrl =  URL(fileURLWithPath: getDirectoryPath() + "/" + folderName + "/")

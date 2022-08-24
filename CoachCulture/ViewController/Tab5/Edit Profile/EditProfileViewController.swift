@@ -57,6 +57,10 @@ class EditProfileViewController: BaseViewController {
     @IBOutlet weak var imgErrPhone: UIImageView!
     @IBOutlet weak var imgErrConPass: UIImageView!
     
+    @IBOutlet weak var viwAddProfileImg: UIView!
+    @IBOutlet weak var btnAddProfileImg: UIButton!
+    @IBOutlet weak var btnVideo: UIButton!
+    
     var countryCodeDesc = ""
     var addPhotoPopUp:AddPhotoPopUp!
     var userDataObj = UserData()
@@ -225,6 +229,15 @@ class EditProfileViewController: BaseViewController {
         countryCodeDesc = userDataObj.countrycode
         self.imgCountryCode.image = UIImage.init(named: "\(countryCodeDesc).png")
         self.imgUserProfile.setImageFromURL(imgUrl: userDataObj.user_image, placeholderImage: nil)
+        if userDataObj.user_image.description != "" {
+            viwAddProfileImg.isHidden = true
+            btnAddProfileImg.isHidden = true
+        }
+        if userDataObj.coach_trailer_file == "" {
+            btnVideo.isHidden = true
+        } else {
+            btnVideo.isHidden = false
+        }
         self.imgCoachBanner.setImageFromURL(imgUrl: userDataObj.coach_banner_file, placeholderImage: nil)
         txtMonthlySubscriptionFees.text = userDataObj.monthly_subscription_fee
         coach_trailer_file = userDataObj.coach_trailer_file
