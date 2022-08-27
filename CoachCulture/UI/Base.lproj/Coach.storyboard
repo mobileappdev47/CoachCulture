@@ -857,7 +857,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXk-6p-TvS">
-                                <rect key="frame" x="30" y="561" width="315" height="40"/>
+                                <rect key="frame" x="100" y="555" width="175" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="8Ah-gW-ehS"/>
@@ -875,14 +875,14 @@
                             <constraint firstItem="p9B-gj-htF" firstAttribute="centerY" secondItem="Pjw-YA-QM4" secondAttribute="centerY" constant="10" id="Bo9-mV-gXx"/>
                             <constraint firstItem="p9B-gj-htF" firstAttribute="height" secondItem="Pjw-YA-QM4" secondAttribute="height" multiplier="0.55" id="Cew-ek-LuN"/>
                             <constraint firstItem="Z9L-c5-ezz" firstAttribute="leading" secondItem="Pjw-YA-QM4" secondAttribute="leading" constant="10" id="L87-4k-kuP"/>
+                            <constraint firstItem="TLs-IF-yCO" firstAttribute="top" secondItem="qXk-6p-TvS" secondAttribute="bottom" constant="8" id="LGP-PA-2cM"/>
                             <constraint firstItem="p9B-gj-htF" firstAttribute="centerX" secondItem="Pjw-YA-QM4" secondAttribute="centerX" id="LXp-It-4q4"/>
-                            <constraint firstItem="qXk-6p-TvS" firstAttribute="leading" secondItem="Pjw-YA-QM4" secondAttribute="leading" constant="30" id="T7a-ij-8CE"/>
-                            <constraint firstItem="TLs-IF-yCO" firstAttribute="top" secondItem="qXk-6p-TvS" secondAttribute="bottom" constant="2" id="YYM-15-tie"/>
+                            <constraint firstItem="qXk-6p-TvS" firstAttribute="leading" secondItem="Pjw-YA-QM4" secondAttribute="leading" constant="100" id="T7a-ij-8CE"/>
                             <constraint firstItem="Pjw-YA-QM4" firstAttribute="trailing" secondItem="p9B-gj-htF" secondAttribute="trailing" constant="30" id="Z4r-iV-2qn"/>
                             <constraint firstItem="p9B-gj-htF" firstAttribute="leading" secondItem="Pjw-YA-QM4" secondAttribute="leading" constant="30" id="dPu-5x-tmj"/>
                             <constraint firstItem="gdu-LH-dFU" firstAttribute="leading" secondItem="TLs-IF-yCO" secondAttribute="trailing" constant="10" id="fzN-Ox-L8a"/>
                             <constraint firstItem="Pjw-YA-QM4" firstAttribute="bottom" secondItem="TLs-IF-yCO" secondAttribute="bottom" constant="10" id="rzt-zT-wZi"/>
-                            <constraint firstItem="Pjw-YA-QM4" firstAttribute="trailing" secondItem="qXk-6p-TvS" secondAttribute="trailing" constant="30" id="vNg-3R-dga"/>
+                            <constraint firstItem="Pjw-YA-QM4" firstAttribute="trailing" secondItem="qXk-6p-TvS" secondAttribute="trailing" constant="100" id="vNg-3R-dga"/>
                             <constraint firstItem="gdu-LH-dFU" firstAttribute="centerY" secondItem="TLs-IF-yCO" secondAttribute="centerY" id="yK0-W9-M8p"/>
                             <constraint firstItem="gdu-LH-dFU" firstAttribute="height" secondItem="TLs-IF-yCO" secondAttribute="height" id="z9D-hJ-6z8"/>
                         </constraints>

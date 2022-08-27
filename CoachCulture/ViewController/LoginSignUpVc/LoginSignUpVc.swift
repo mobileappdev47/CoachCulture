@@ -91,6 +91,11 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
         self.setUpSignInAppleButton()
     }
     
+    override func viewDidLayoutSubviews() {
+//        viewAppleLogin.addSubview(authorizationButton)
+        self.setUpSignInAppleButton()
+    }
+    
     fileprivate func setupViews() {
         [txtUsernameLogin,
          txtPasswordLogin,
@@ -327,7 +332,7 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
 //            signupAPI()
         }
     }
-    
+
     @IBAction func clickToBtnFacebookLogin ( _ sender: UIButton) {
         let loginManager = LoginManager()
         if let _ = AccessToken.current {
@@ -341,7 +346,7 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
                 guard let result = results, !result.isCancelled else {
                     return
                 }
-                Profile.loadCurrentProfile { (profile, error) in
+                Profile.loadCurrentProfile { [self] (profile, error) in
                     self?.socialID = (results?.token!.tokenString)!
                     self?.loginParams = [
                         Params.Login.facebook_id: results?.token?.tokenString ?? "",
@@ -461,31 +466,26 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
 //MARK:- Login with apple id
 
     func setUpSignInAppleButton() {
+        
         if #available(iOS 13.0, *) {
-            let authorizationButton = ASAuthorizationAppleIDButton()
-            authorizationButton.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
-            authorizationButton.cornerRadius = 10
-//
-            //Add button on some view or stack
-            self.viewAppleLogin.addSubview(authorizationButton)
-            authorizationButton.translatesAutoresizingMaskIntoConstraints = false
-               let horizontalConstraint = NSLayoutConstraint(item: authorizationButton, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewAppleLogin, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 0)
-               let verticalConstraint = NSLayoutConstraint(item: authorizationButton, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: viewAppleLogin, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
-//            let widthConstraint = NSLayoutConstraint(item: authorizationButton, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 100)
-//            let heightConstraint = NSLayoutConstraint(item: authorizationButton, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1, constant: 100)
+            let customAppleLoginBtn = UIButton()
+            customAppleLoginBtn.layer.cornerRadius = 8.0
+            customAppleLoginBtn.layer.borderWidth = 2.0
+            customAppleLoginBtn.backgroundColor = UIColor.black
+            customAppleLoginBtn.layer.borderColor = UIColor.black.cgColor
+            customAppleLoginBtn.setTitle("Sign in with Apple", for: .normal)
+            customAppleLoginBtn.setTitleColor(UIColor.white, for: .normal)
+            customAppleLoginBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .semibold)
+            customAppleLoginBtn.setImage(UIImage(named: "appleLogo"), for: .normal)
+            customAppleLoginBtn.imageEdgeInsets = UIEdgeInsets.init(top: 2, left: 0, bottom: 5, right: 12)
+            customAppleLoginBtn.addTarget(self, action: #selector(handleAppleIdRequest), for: .touchUpInside)
 
-
-            
-            viewAppleLogin.addConstraints([horizontalConstraint, verticalConstraint])
-            
-            
-            
-        } else {
-            // Fallback on earlier versions
+                //Add button on some view or stack
+            self.viewAppleLogin.addSubview(customAppleLoginBtn)
+            customAppleLoginBtn.center = self.viewAppleLogin.center
+            customAppleLoginBtn.frame = CGRect(x: 0, y: 0, width: self.viewAppleLogin.frame.width, height: self.viewAppleLogin.frame.height)
         }
-     
     }
-    
     
     @objc func handleAppleIdRequest() {
         if #available(iOS 13.0, *) {
@@ -571,8 +571,8 @@ extension LoginSignUpVc: countryPickDelegate {
                 base_currency = BaseCurrencyList.SGD
             case BaseCurrencyList.EUR:
                 base_currency = BaseCurrencyList.EUR
-            case BaseCurrencyList.INR:
-                base_currency = BaseCurrencyList.INR
+//            case BaseCurrencyList.INR:
+//                base_currency = BaseCurrencyList.INR
             default:
                 base_currency = BaseCurrencyList.USD
             }
@@ -688,13 +688,13 @@ extension LoginSignUpVc {
 //                        self.signupAPI()
                         self.manageLoginSignUpView(isLogin: false)
                         
-                        if let email = userObj["email"] as? String{
+                        if let email = dataObj["email"] as? String{
                             self.email = email
                             self.txtEmail.text = self.email
                         }
-                        if let username = userObj["phoneno"] as? String {
-                            self.username = username
-                            self.txtUsername.text = self.username
+                        if let phone = dataObj["phoneno"] as? String {
+                            self.username = phone
+                            self.txtPhone.text = self.username
                         }
                         
                         viewPasswordSignUp.isHidden = true
