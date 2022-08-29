@@ -321,7 +321,9 @@ class LiveClassDetailsViewController: BaseViewController {
             }
             
             if item.lowercased() == "Share".lowercased() {
-                let textToShare = [ "" ]
+                
+                let textToShare = [ "Check out Coach @\(self.classDetailDataObj.coachDetailsDataObj.username ?? "") on CoachCulture https://www.coachculture.com/coach/timnorton" ]
+//                let textToShare = [ "" ]
                 let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.view // so that iPads won't crash
                 

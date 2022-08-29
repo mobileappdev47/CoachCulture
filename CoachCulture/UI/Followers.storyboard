@@ -368,14 +368,24 @@
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="movieAction" translatesAutoresizingMaskIntoConstraints="NO" id="Ucd-RQ-UzB">
                                                         <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                     </imageView>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RTE-es-tyb">
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
+                                                        <connections>
+                                                            <action selector="onClkBtnTrailer:" destination="hgy-cn-j0V" eventType="touchUpInside" id="ySY-BB-pJM"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="RTE-es-tyb" secondAttribute="bottom" id="51v-et-anT"/>
+                                                    <constraint firstItem="RTE-es-tyb" firstAttribute="top" secondItem="ivA-8D-pax" secondAttribute="top" id="H7h-a2-ZMy"/>
                                                     <constraint firstAttribute="width" constant="25" id="IUx-79-iiK"/>
                                                     <constraint firstAttribute="trailing" secondItem="Ucd-RQ-UzB" secondAttribute="trailing" id="UFW-Iv-6ty"/>
                                                     <constraint firstItem="Ucd-RQ-UzB" firstAttribute="top" secondItem="ivA-8D-pax" secondAttribute="top" id="Va3-BI-dAV"/>
                                                     <constraint firstAttribute="height" constant="25" id="YNR-rT-ghL"/>
                                                     <constraint firstAttribute="bottom" secondItem="Ucd-RQ-UzB" secondAttribute="bottom" id="g30-Kp-J2w"/>
+                                                    <constraint firstAttribute="trailing" secondItem="RTE-es-tyb" secondAttribute="trailing" id="hvV-nY-lcT"/>
+                                                    <constraint firstItem="RTE-es-tyb" firstAttribute="leading" secondItem="ivA-8D-pax" secondAttribute="leading" id="ltn-se-ogQ"/>
                                                     <constraint firstItem="Ucd-RQ-UzB" firstAttribute="leading" secondItem="ivA-8D-pax" secondAttribute="leading" id="vhr-oD-rsO"/>
                                                 </constraints>
                                             </view>
@@ -636,6 +646,7 @@
                     <connections>
                         <outlet property="bottomConstantViewUserProfile" destination="dqD-sy-iBi" id="ZCd-6O-cbF"/>
                         <outlet property="btn3Dots" destination="Tpa-Oa-e3N" id="Axj-1n-Cku"/>
+                        <outlet property="btnTrailer" destination="RTE-es-tyb" id="rMa-We-5vP"/>
                         <outlet property="btnUserProfile" destination="Mz7-9o-DuG" id="jOK-m4-t62"/>
                         <outlet property="heightConstantImgBanner" destination="3PO-ju-VYI" id="wyd-ey-0Sx"/>
                         <outlet property="imgClassCover" destination="xsT-91-XX5" id="26W-42-3Wd"/>
@@ -1988,7 +1999,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pOV-7Y-dXe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="590" y="1767"/>
+            <point key="canvasLocation" x="345" y="1782"/>
         </scene>
         <!--Recipe Filter View Controller-->
         <scene sceneID="BHX-ve-fT5">
@@ -2569,7 +2580,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="26" height="26"/>
         <image name="Switch" width="17" height="18.5"/>
-        <image name="Trainers Icon" width="42" height="36"/>
+        <image name="Trainers Icon" width="29.5" height="24"/>
         <image name="chatting" width="23.5" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.5"/>

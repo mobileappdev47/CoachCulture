@@ -378,8 +378,8 @@
                                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Live" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="liB-Sx-tOf">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="155" height="40"/>
                                                                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="18"/>
-                                                                                <color key="textColor" name="themeRedColor"/>
-                                                                                <color key="highlightedColor" red="0.023529411764705882" green="0.078431372549019607" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <color key="textColor" name="textColor"/>
+                                                                                <color key="highlightedColor" red="0.67450980392156867" green="0.72941176470588232" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                                             </label>
                                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHD-Ox-UIc">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="155" height="40"/>
@@ -390,7 +390,7 @@
                                                                                 </connections>
                                                                             </button>
                                                                         </subviews>
-                                                                        <color key="backgroundColor" red="0.023529411760000001" green="0.078431372550000003" blue="0.14117647059999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <color key="backgroundColor" red="0.67450980390000004" green="0.72941176470000002" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="trailing" secondItem="liB-Sx-tOf" secondAttribute="trailing" id="0PK-di-5iw"/>
                                                                             <constraint firstAttribute="bottom" secondItem="CHD-Ox-UIc" secondAttribute="bottom" id="9UP-VU-7Fe"/>
