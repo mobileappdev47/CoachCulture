@@ -442,8 +442,8 @@ class LiveClassDetailsViewController: BaseViewController {
         
         let currencySybmol = getCurrencySymbol(from: classDetailDataObj.feesDataObj.fee_regional_currency)
 
-        lblNonSubscriberFee.text = "Non-Subscribers Fee: " + currencySybmol + " " + classDetailDataObj.feesDataObj.non_subscriber_fee
-        lblOneTimeFee.text = "One Time Fee: " + currencySybmol + " " + classDetailDataObj.feesDataObj.subscriber_fee
+        lblNonSubscriberFee.text = "Non-Subscribers Fee: " + "$" + " " + "30" //classDetailDataObj.feesDataObj.non_subscriber_fee
+        lblOneTimeFee.text = "One Time Fee: " + "$" + " " + "30" //classDetailDataObj.feesDataObj.subscriber_fee
         
         lblMoreIngredients.text = "\(classDetailDataObj.arrEquipmentList.count) more ingredients"
         viwMoreIngredient.isHidden = classDetailDataObj.arrEquipmentList.count > 4 ? false : true
@@ -773,7 +773,7 @@ class LiveClassDetailsViewController: BaseViewController {
             classTypeName = "live"
         }
         logOutView.lblTitle.text = classTypeTitle
-        logOutView.lblMessage.text = "Would you like to join \(self.lblUserName.text ?? "")'s \(classDetailDataObj.class_type) \(classTypeName) Class for a one time fee of \(currencySybmol + fees)?"
+        logOutView.lblMessage.text = "Would you like to join \(self.lblUserName.text ?? "")'s \(classDetailDataObj.class_type) \(classTypeName) Class for a one time fee of \("$" + "30")?"
         logOutView.btnLeft.setTitle("Confirm", for: .normal)
         logOutView.btnRight.setTitle("Cancel", for: .normal)
         logOutView.tapToBtnLogOut {
@@ -807,10 +807,19 @@ class LiveClassDetailsViewController: BaseViewController {
             }
         }
         vc.coachClassID = Int(classDetailDataObj.id) ?? 0
+//
+        let classID = Int(classDetailDataObj.id) ?? 0
         vc.fees = fees
         vc.recdCurrency = recdCurrency
         vc.isFromLiveClass = true
-        self.navigationController?.pushViewController(vc, animated: true)
+//        vc.forWVClassID = classID
+        
+        let vc1 = PaymentWebViewController.viewcontroller()
+        vc1.webUrl = "http://admin.coachculture.com/api/payment/pay-amount/\(AppPrefsManager.sharedInstance.getUserData().id)/\(classID)"
+        navigationController?.pushViewController(vc1, animated: true)
+
+        
+       // self.navigationController?.pushViewController(vc, animated: true)
     }
     
     func addConfirmationView() {

@@ -8,6 +8,7 @@
 import UIKit
 import KMPlaceholderTextView
 
+
 class LiveClassAddEquipmentAndCaloriesViewController: BaseViewController {
 
     static func viewcontroller() -> LiveClassAddEquipmentAndCaloriesViewController {

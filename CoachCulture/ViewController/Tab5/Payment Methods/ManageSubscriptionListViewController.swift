@@ -109,7 +109,7 @@ extension ManageSubscriptionListViewController : UITableViewDelegate, UITableVie
         
         let currencySybmol = isFromSubscribers ? getCurrencySymbol(from: obj.base_currency) : getCurrencySymbol(from: obj.feesDataObj.fee_regional_currency)
         cell.lblPrice.text = isFromSubscribers ? "\(currencySybmol)\(obj.amount)" : "\(currencySybmol)\(obj.feesDataObj.subscriber_fee)"
-        cell.lblSubscriptionPrice.text = "\(currencySybmol)\(obj.feesDataObj.subscriber_fee)"
+        cell.lblSubscriptionPrice.text = "$ 30"
 
         cell.didTapUnsubscribeClick = {
             self.addConfirmationView()

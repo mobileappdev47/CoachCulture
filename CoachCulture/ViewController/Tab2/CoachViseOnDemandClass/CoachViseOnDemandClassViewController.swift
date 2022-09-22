@@ -148,35 +148,40 @@ class CoachViseOnDemandClassViewController: BaseViewController, AVPlayerViewCont
     }
     
     func redirectToPaymentMethod() {
-        var fees = ""
-        var recdCurrency = ""
-        
-        if self.userDataObj?.is_coach_subscribed ?? false {
-            fees = userDataObj?.feesDataObj.base_subscriber_fee ?? ""
-            recdCurrency = userDataObj?.feesDataObj.base_currency ?? ""
-        } else {
-            fees = userDataObj?.feesDataObj.subscriber_fee ?? ""
-            recdCurrency = userDataObj?.feesDataObj.fee_regional_currency ?? ""
-        }
-
-        let vc = PaymentMethodViewController.viewcontroller()
-        
-        vc.isForTransection = false
-            vc.didFinishPaymentBlock = { transaction_id, status in
-            if status {
-                if Reachability.isConnectedToNetwork() {
-                    self.callAddUserToCoachAPI(transaction_id: transaction_id)
-                }
-            } else {
-                Utility.shared.showToast("Ooops!! Something went wrong!")
-            }
-        }
-        vc.fees = fees
-        vc.coachID = Int(selectedCoachId) ?? 0
-        vc.recdCurrency = recdCurrency
-        vc.isFromLiveClass = true
-        vc.isForCoach = true
-        self.pushVC(To: vc, animated: true)
+//        var fees = ""
+//        var recdCurrency = ""
+//
+//        if self.userDataObj?.is_coach_subscribed ?? false {
+//            fees = "$30"//userDataObj?.feesDataObj.base_subscriber_fee ?? ""
+//            recdCurrency = userDataObj?.feesDataObj.base_currency ?? ""
+//        } else {
+//            fees = "$30"//userDataObj?.feesDataObj.subscriber_fee ?? ""
+//            recdCurrency = userDataObj?.feesDataObj.fee_regional_currency ?? ""
+//        }
+//
+//        let vc = PaymentMethodViewController.viewcontroller()
+//
+//        vc.isForTransection = false
+//            vc.didFinishPaymentBlock = { transaction_id, status in
+//            if status {
+//                if Reachability.isConnectedToNetwork() {
+//                    self.callAddUserToCoachAPI(transaction_id: transaction_id)
+//                }
+//            } else {
+//                Utility.shared.showToast("Ooops!! Something went wrong!")
+//            }
+//        }
+//        vc.fees = fees
+        let coachID = Int(selectedCoachId) ?? 0
+//        vc.recdCurrency = recdCurrency
+//        vc.isFromLiveClass = true
+//        vc.isForCoach = true
+//
+//
+//        self.pushVC(To: vc, animated: true)
+        let vc = PaymentWebViewController.viewcontroller()
+        vc.webUrl = "http://admin.coachculture.com/api/payment/pay-amount/\(AppPrefsManager.sharedInstance.getUserData().id)/\(coachID)"
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     func resetVariable() {
@@ -458,7 +463,7 @@ extension CoachViseOnDemandClassViewController : UITableViewDelegate, UITableVie
             }
             return cell
         } else if isFromSelectedType == SelectedDemandClass.live {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseOnDemandClassItemTableViewCell", for: indexPath) as! CoachViseOnDemandClassItemTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CoachViseOnDemandClassItemTableViewCell", for: indexPath) as! CoachViseOnDemandClassItemTableViewCell 
             cell.lblClassType.text = "Live".uppercased()
             cell.viwClassTypeContainer.backgroundColor = hexStringToUIColor(hex: "#CC2936")
             let obj = arrCoachClassInfoList[indexPath.row]
@@ -589,7 +594,7 @@ extension CoachViseOnDemandClassViewController {
                 
                 self.lblFollowers.text =  "\(self.userDataObj?.total_followers ?? "") Followers"
                 let currencySybmol = getCurrencySymbol(from: self.userDataObj?.feesDataObj.fee_regional_currency ?? "")
-                self.lblFees.text =  "\(currencySybmol)\(self.userDataObj?.feesDataObj.subscriber_fee ?? "")"
+                self.lblFees.text =  "$30"//"\(currencySybmol)\(self.userDataObj?.feesDataObj.subscriber_fee ?? "")"
                 self.lblUserName.text = "@ \(self.userDataObj?.username ?? "")"
                 
                 self.viewSubscription.backgroundColor = (self.userDataObj?.is_coach_subscribed ?? false) ? COLORS.BLUR_COLOR : COLORS.THEME_RED

@@ -357,7 +357,7 @@ extension PreviousUploadViewController {
         let param = ["id" : selectedId]
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: API.COACH_CLASS_DETAILS, parameters: param, headers: nil) { responseObj in
-            
+              
             let dataObj = responseObj["coach_class"] as? [String:Any] ?? [String:Any]()
             self.classDetailDataObj = ClassDetailData(responseObj: dataObj)
             

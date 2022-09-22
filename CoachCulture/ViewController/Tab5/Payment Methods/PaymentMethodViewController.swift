@@ -53,11 +53,10 @@ class PaymentMethodViewController: BaseViewController {
     var transectionID = "avc"
     var isForTransection = true
     var isFromTransfer = false
-    
+
     //MARK: - Life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setUpUI()
     }
     
@@ -330,9 +329,14 @@ class PaymentMethodViewController: BaseViewController {
     //MARK: - CLICK EVENTS
     
     @IBAction func btnConfirmPaymentClick( _ sender : UIButton) {
-        if Reachability.isConnectedToNetwork() {
-            callPaymentIntentsAPI(isShowLoader: true, customer: arrDatam?[sender.tag]["customer"] as? String ?? "")
-        }
+//        if Reachability.isConnectedToNetwork() {
+//            callPaymentIntentsAPI(isShowLoader: true, customer: arrDatam?[sender.tag]["customer"] as? String ?? "")
+//        }
+        
+        let vc = PaymentWebViewController.viewcontroller()
+        vc.webUrl = "http://admin.coachculture.com/api/payment/pay-amount/\(AppPrefsManager.sharedInstance.getUserData().id)/\(coachID)"
+        navigationController?.pushViewController(vc, animated: true)
+        
     }
     
     @IBAction func btnSaveAmmount(_ sender: UIButton) {

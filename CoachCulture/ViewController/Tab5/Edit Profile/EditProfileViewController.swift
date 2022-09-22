@@ -252,7 +252,7 @@ class EditProfileViewController: BaseViewController {
             btnVideo.isHidden = false
         }
         self.imgCoachBanner.setImageFromURL(imgUrl: userDataObj.coach_banner_file, placeholderImage: nil)
-        txtMonthlySubscriptionFees.text = userDataObj.monthly_subscription_fee
+        txtMonthlySubscriptionFees.text = "$30"//userDataObj.monthly_subscription_fee
         coach_trailer_file = userDataObj.coach_trailer_file
         if !userDataObj.coach_trailer_file.isEmpty {
             lblCoachTrailer.text = "Delete Coach Trailer"

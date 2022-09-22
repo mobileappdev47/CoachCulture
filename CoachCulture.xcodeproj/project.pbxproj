@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0467A37228DAD7FD006D58BE /* PaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467A37128DAD7FD006D58BE /* PaymentWebViewController.swift */; };
 		049C09C52887DACA00E87B07 /* DeleteAcc1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C09C42887DACA00E87B07 /* DeleteAcc1ViewController.swift */; };
 		049C09C82887DAEA00E87B07 /* DeleteAcc2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C09C72887DAEA00E87B07 /* DeleteAcc2ViewController.swift */; };
 		510A93B827DA00C1000EDFF3 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */; };
@@ -497,6 +498,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0467A37128DAD7FD006D58BE /* PaymentWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentWebViewController.swift; sourceTree = "<group>"; };
 		049C09C42887DACA00E87B07 /* DeleteAcc1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAcc1ViewController.swift; sourceTree = "<group>"; };
 		049C09C72887DAEA00E87B07 /* DeleteAcc2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAcc2ViewController.swift; sourceTree = "<group>"; };
 		2797DA3766B97BEE907AE49E /* Pods-CoachCulture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.debug.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.debug.xcconfig"; sourceTree = "<group>"; };
@@ -1887,6 +1889,7 @@
 		D4E6FA41277329F000E3593C /* Payment Methods */ = {
 			isa = PBXGroup;
 			children = (
+				0467A37128DAD7FD006D58BE /* PaymentWebViewController.swift */,
 				D4E6FA4227732A2100E3593C /* PaymentMethodViewController.swift */,
 				D4F3C70B27743B7E001EDDE1 /* AddPaymentMethodViewController.swift */,
 				D4F3C71427746412001EDDE1 /* ManageSubscriptionListViewController.swift */,
@@ -2764,6 +2767,7 @@
 				D417984E27630FF7001FA192 /* CreateRecipeModel.swift in Sources */,
 				BDD3663927C8B12D00911E4E /* RecipeTestCellTableViewCell.swift in Sources */,
 				D48F45362770B49F00B0EAD8 /* YourCoachRecipeItemTableViewCell.swift in Sources */,
+				0467A37228DAD7FD006D58BE /* PaymentWebViewController.swift in Sources */,
 				512ABC14271804B3008CB198 /* Localize.swift in Sources */,
 				512ABC052718020C008CB198 /* UIViewControllerExtension.swift in Sources */,
 				512ABDA527180D08008CB198 /* Segue.swift in Sources */,

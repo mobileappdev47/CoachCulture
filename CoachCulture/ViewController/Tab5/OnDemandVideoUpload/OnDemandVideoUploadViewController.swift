@@ -84,6 +84,9 @@ class OnDemandVideoUploadViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        
+        txtSubscriberFee.isEnabled = false
+        txtNonSubscriberFee.isEnabled = false
     }
     
     // MARK: - Methods
@@ -189,8 +192,8 @@ class OnDemandVideoUploadViewController: BaseViewController {
         } ?? ClassDifficultyList()
         
         self.lblClassDuration.text = classDetailDataObj.duration
-        txtSubscriberFee.text = classDetailDataObj.feesDataObj.base_subscriber_fee
-        txtNonSubscriberFee.text = classDetailDataObj.feesDataObj.base_non_subscriber_fee
+        txtSubscriberFee.text = "$30"//classDetailDataObj.feesDataObj.base_subscriber_fee
+        txtNonSubscriberFee.text = "$30"//classDetailDataObj.feesDataObj.base_non_subscriber_fee
         
         let ind = arrNationalityData.firstIndex { obj in
             return classDetailDataObj.feesDataObj.base_currency == obj.currency
