@@ -132,5 +132,53 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ADE26172-81A0-483E-8755-0CF368C75E42"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/ViewController/LoginSignUpVc/LoginSignUpVc.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "614"
+            endingLineNumber = "614"
+            landmarkName = "signupAPI()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "ADE26172-81A0-483E-8755-0CF368C75E42 - da4e47e5946344d1"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoachCulture.LoginSignUpVc.signupAPI() -&gt; ()"
+                  moduleName = "CoachCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/live/CoachCulture/CoachCulture/ViewController/LoginSignUpVc/LoginSignUpVc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "614"
+                  endingLineNumber = "614"
+                  offsetFromSymbolStart = "6914">
+               </Location>
+               <Location
+                  uuid = "ADE26172-81A0-483E-8755-0CF368C75E42 - 28df9a6c54f1f0fb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;CoachCulture.SignupUserModel&gt;, Swift.Optional&lt;Swift.Int&gt;) -&gt; () in CoachCulture.LoginSignUpVc.signupAPI() -&gt; ()"
+                  moduleName = "CoachCulture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/live/CoachCulture/CoachCulture/ViewController/LoginSignUpVc/LoginSignUpVc.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "615"
+                  endingLineNumber = "615"
+                  offsetFromSymbolStart = "302">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

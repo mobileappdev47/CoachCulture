@@ -797,7 +797,7 @@
                                     <constraint firstItem="fzn-qq-6b5" firstAttribute="leading" secondItem="4FD-I7-uHf" secondAttribute="leading" id="zA2-KA-czL"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLs-IF-yCO" userLabel="viewGoogle">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TLs-IF-yCO" userLabel="viewGoogle">
                                 <rect key="frame" x="130.5" y="603" width="54" height="54"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_google" translatesAutoresizingMaskIntoConstraints="NO" id="Vpa-2s-ZK0">
@@ -824,7 +824,7 @@
                                     <constraint firstAttribute="width" constant="54" id="tF4-Cm-lRV"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdu-LH-dFU" userLabel="viewfb">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gdu-LH-dFU" userLabel="viewfb">
                                 <rect key="frame" x="194.5" y="603" width="54" height="54"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_fb" translatesAutoresizingMaskIntoConstraints="NO" id="feW-B7-BOk">
@@ -856,7 +856,7 @@
                                 <color key="textColor" name="themeRedColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXk-6p-TvS">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qXk-6p-TvS">
                                 <rect key="frame" x="100" y="555" width="175" height="40"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>

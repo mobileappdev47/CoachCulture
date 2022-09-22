@@ -267,7 +267,7 @@ class OnDemandVideoUploadViewController: BaseViewController {
     
     @IBAction func onClkBack(_ sender: UIButton) {
         self.popVC(animated: true)
-        errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
+        errorTextEditProfile(subFee: false, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
         removeAllErr()
     }
         
@@ -307,12 +307,6 @@ class OnDemandVideoUploadViewController: BaseViewController {
         } else if lblClassDuration.text!.lowercased() == "0 mins" {
             errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: false)
             txtClassDuration.setError("Class duration is required", show: true)
-        } else if txtSubscriberFee.text!.isEmpty {
-            errorTextEditProfile(subFee: false, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
-            txtSubscriberFee.setError("Subscriber fee is required", show: true)
-        } else if txtNonSubscriberFee.text!.isEmpty {
-            errorTextEditProfile(subFee: true, difficulty: true, nonSub: false, subTitle: true, classType: true, duration: true)
-            txtNonSubscriberFee.setError("Non-Subscriber fee is required", show: true)
         } else {
             errorTextEditProfile(subFee: true, difficulty: true, nonSub: true, subTitle: true, classType: true, duration: true)
             removeAllErr()
