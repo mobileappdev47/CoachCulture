@@ -11,7 +11,7 @@ class PayMentConfirmationViewController: UIViewController {
 
     var coachIDForPaymentWV = Int()
     var classIDForPaymentWV = Int()
-    var netflix = "Netflix."
+    var coachCulture = "CoachCulture."
     var isClass: Bool = false
     
     @IBOutlet weak var lblTitle: UILabel!
@@ -30,7 +30,7 @@ class PayMentConfirmationViewController: UIViewController {
         super.viewDidLoad()
 
         lblTitle.text = "You're about to leave the app and go to an external website. You will no longer be transacting with Apple."
-        lblDisctiption.text = "Any accounts or purchases made outside of this app will be managed by the developer \(netflix) Your App Storeaccount , stored payment methods , and related features , such as subscription management and refund requests , will not be available . Apple is not responsible for"
+        lblDisctiption.text = "Any accounts or purchases made outside of this app will be managed by the developer \(coachCulture) Your App Storeaccount , stored payment methods , and related features , such as subscription management and refund requests , will not be available . Apple is not responsible for"
         // Do any additional setup after loading the view.
     }
     

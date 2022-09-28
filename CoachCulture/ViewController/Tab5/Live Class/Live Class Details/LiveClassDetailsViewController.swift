@@ -765,21 +765,22 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     func setupConfirmationView(fees: String, recdCurrency: String) {
-        let currencySybmol = getCurrencySymbol(from: recdCurrency)
-        var classTypeTitle = "Join Class"
-        var classTypeName = "on demand"
-        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
-            classTypeTitle = "Join the CoachCulture"
-            classTypeName = "live"
-        }
-        logOutView.lblTitle.text = classTypeTitle
-        logOutView.lblMessage.text = "Would you like to join \(self.lblUserName.text ?? "")'s \(classDetailDataObj.class_type) \(classTypeName) Class for a one time fee of \("$" + "30")?"
-        logOutView.btnLeft.setTitle("Confirm", for: .normal)
-        logOutView.btnRight.setTitle("Cancel", for: .normal)
-        logOutView.tapToBtnLogOut {
-            self.redirectToPaymentMethod()
-            self.removeConfirmationView()
-        }
+//        let currencySybmol = getCurrencySymbol(from: recdCurrency)
+//        var classTypeTitle = "Join Class"
+//        var classTypeName = "on demand"
+//        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+//            classTypeTitle = "Join the CoachCulture"
+//            classTypeName = "live"
+//        }
+//        logOutView.lblTitle.text = classTypeTitle
+//        logOutView.lblMessage.text = "Would you like to join \(self.lblUserName.text ?? "")'s \(classDetailDataObj.class_type) \(classTypeName) Class for a one time fee of \("$" + "30")?"
+//        logOutView.btnLeft.setTitle("Confirm", for: .normal)
+//        logOutView.btnRight.setTitle("Cancel", for: .normal)
+//        logOutView.tapToBtnLogOut {
+//            self.redirectToPaymentMethod()
+//            self.removeConfirmationView()
+//        }
+        self.redirectToPaymentMethod()
     }
     
     func redirectToPaymentMethod() {
@@ -1157,7 +1158,7 @@ class LiveClassDetailsViewController: BaseViewController {
                         self.goToPlayOndemandClass()
                     }
                 } else {
-                    self.addConfirmationView()
+//                    self.addConfirmationView()
                     self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
                 }
             }
