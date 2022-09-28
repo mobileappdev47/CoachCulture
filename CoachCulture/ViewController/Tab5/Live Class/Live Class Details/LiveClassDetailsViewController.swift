@@ -783,43 +783,52 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     func redirectToPaymentMethod() {
-        var fees = ""
-        var recdCurrency = ""
-        
-        if self.classDetailDataObj.subscription {
-            fees = classDetailDataObj.feesDataObj.subscriber_fee
-            recdCurrency = classDetailDataObj.feesDataObj.base_currency
-        } else {
-            fees = classDetailDataObj.feesDataObj.non_subscriber_fee
-            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
-        }
-
-        let vc = PaymentMethodViewController.viewcontroller()
-        vc.isForTransection = false
-        vc.didFinishPaymentBlock = { transaction_id, status in
-            if status {
-                if Reachability.isConnectedToNetwork() {
-                    self.isFromPaymentFlow = true
-                    self.callAddUserToCoachClassAPI(transaction_id: transaction_id)
-                }
-            } else {
-                Utility.shared.showToast("Ooops!! Something went wrong!")
-            }
-        }
-        vc.coachClassID = Int(classDetailDataObj.id) ?? 0
+//        var fees = ""
+//        var recdCurrency = ""
+//
+//        if self.classDetailDataObj.subscription {
+//            fees = classDetailDataObj.feesDataObj.subscriber_fee
+//            recdCurrency = classDetailDataObj.feesDataObj.base_currency
+//        } else {
+//            fees = classDetailDataObj.feesDataObj.non_subscriber_fee
+//            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
+//        }
+//
+//        let vc = PaymentMethodViewController.viewcontroller()
+//        vc.isForTransection = false
+//        vc.didFinishPaymentBlock = { transaction_id, status in
+//            if status {
+//                if Reachability.isConnectedToNetwork() {
+//                    self.isFromPaymentFlow = true
+//                    self.callAddUserToCoachClassAPI(transaction_id: transaction_id)
+//                }
+//            } else {
+//                Utility.shared.showToast("Ooops!! Something went wrong!")
+//            }
+//        }
+//        vc.coachClassID = Int(classDetailDataObj.id) ?? 0
 //
         let classID = Int(classDetailDataObj.id) ?? 0
-        vc.fees = fees
-        vc.recdCurrency = recdCurrency
-        vc.isFromLiveClass = true
+//        vc.fees = fees
+//        vc.recdCurrency = recdCurrency
+//        vc.isFromLiveClass = true
 //        vc.forWVClassID = classID
         
-        let vc1 = PaymentWebViewController.viewcontroller()
-        vc1.webUrl = "http://admin.coachculture.com/api/payment/pay-amount/\(AppPrefsManager.sharedInstance.getUserData().id)/\(classID)"
-        navigationController?.pushViewController(vc1, animated: true)
+        goToConfirmationPaymentPage(classId: classID, isClass: true)
+        
+//        let vc1 = PaymentWebViewController.viewcontroller()
+//        vc1.webUrl = "http://admin.coachculture.com/api/payment/pay-amount/\(AppPrefsManager.sharedInstance.getUserData().id)/\(classID)"
+//        navigationController?.pushViewController(vc1, animated: true)
 
         
        // self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func goToConfirmationPaymentPage(classId: Int, isClass: Bool) {
+        let vc = PayMentConfirmationViewController.viewcontroller()
+        vc.classIDForPaymentWV = classId
+        vc.isClass = isClass
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
     func addConfirmationView() {

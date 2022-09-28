@@ -22,32 +22,64 @@ class PaymentWebViewController: UIViewController, WKNavigationDelegate, WKScript
     }
     
     var webUrl = ""
+    var isClass: Bool = false
+    var classID = Int()
+    var coachID = Int()
+    var redirected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let url = URL(string: webUrl) {
-            paymentWebView.load(URLRequest(url: url))
-            view.addSubview(paymentWebView)
-        }
+        
+        showWebView(webUrl: webUrl)
+        
+        
+        
+//        if let url = URL(string: "\(webUrl)") {
+//            paymentWebView.load(URLRequest(url: url))
+//            view.addSubview(paymentWebView)
+//        }
+        
+       
         paymentWebView.allowsBackForwardNavigationGestures = true
         paymentWebView.uiDelegate = self
         paymentWebView.navigationDelegate = self
     }
     
+    func showWebView(webUrl: String) {
+        if let url = URL(string: webUrl) {
+            paymentWebView.load(URLRequest(url: url))
+            view.addSubview(paymentWebView)
+        }
+    }
+    
+    func showRedirectedWebView(redirectedUrl: String) {
+        if let url = URL(string: redirectedUrl) {
+            paymentWebView.load(URLRequest(url: url))
+            view.addSubview(paymentWebView)
+        }
+        redirected = true
+    }
+    
+    
     @IBAction func btnBack(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+        self.dismiss(animated: false, completion: nil)
     }
     
     public func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Swift.Void) {
         if(navigationAction.navigationType == .other) {
             if let redirectedUrl = navigationAction.request.url {
-                if(redirectedUrl.absoluteString.contains("succes")) {
-                    showToast(message: "Payment success", seconds: 3)
-                    self.navigationController?.popViewController(animated: true)
-                } else if (redirectedUrl.absoluteString.contains("fail")) {
-                    showToast(message: "Payment failed, please try again", seconds: 3)
-                    self.navigationController?.popViewController(animated: true)
+                redirected = false
+                if redirected {
+                    showRedirectedWebView(redirectedUrl: redirectedUrl.absoluteString)
+                    if(redirectedUrl.absoluteString.contains("succes")) {
+                        showToast(message: "Payment success", seconds: 3)
+                        self.navigationController?.popViewController(animated: true)
+                    } else if (redirectedUrl.absoluteString.contains("fail")) {
+                        showToast(message: "Payment failed, please try again", seconds: 3)
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    redirected = true
                 }
             }
         }

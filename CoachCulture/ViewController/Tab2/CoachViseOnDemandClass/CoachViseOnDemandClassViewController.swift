@@ -179,9 +179,9 @@ class CoachViseOnDemandClassViewController: BaseViewController, AVPlayerViewCont
 //
 //
 //        self.pushVC(To: vc, animated: true)
-        let vc = PaymentWebViewController.viewcontroller()
-        vc.webUrl = "http://admin.coachculture.com/api/payment/pay-amount/\(AppPrefsManager.sharedInstance.getUserData().id)/\(coachID)"
-        navigationController?.pushViewController(vc, animated: true)
+        let vc = PayMentConfirmationViewController.viewcontroller()
+        vc.coachIDForPaymentWV = coachID
+        navigationController?.present(vc, animated: true, completion: nil)
     }
     
     func resetVariable() {

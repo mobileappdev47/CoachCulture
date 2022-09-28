@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		045AF29328E2CB01001A1FFC /* PayMentConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045AF29228E2CB01001A1FFC /* PayMentConfirmationViewController.swift */; };
 		0467A37228DAD7FD006D58BE /* PaymentWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0467A37128DAD7FD006D58BE /* PaymentWebViewController.swift */; };
 		049C09C52887DACA00E87B07 /* DeleteAcc1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C09C42887DACA00E87B07 /* DeleteAcc1ViewController.swift */; };
 		049C09C82887DAEA00E87B07 /* DeleteAcc2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C09C72887DAEA00E87B07 /* DeleteAcc2ViewController.swift */; };
@@ -498,6 +499,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		045AF29228E2CB01001A1FFC /* PayMentConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayMentConfirmationViewController.swift; sourceTree = "<group>"; };
 		0467A37128DAD7FD006D58BE /* PaymentWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentWebViewController.swift; sourceTree = "<group>"; };
 		049C09C42887DACA00E87B07 /* DeleteAcc1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAcc1ViewController.swift; sourceTree = "<group>"; };
 		049C09C72887DAEA00E87B07 /* DeleteAcc2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAcc2ViewController.swift; sourceTree = "<group>"; };
@@ -1471,6 +1473,7 @@
 		D41DB04A2770538A007FC5F7 /* Tab2 */ = {
 			isa = PBXGroup;
 			children = (
+				045AF29228E2CB01001A1FFC /* PayMentConfirmationViewController.swift */,
 				5125332327DCC25B00910318 /* Notification */,
 				510B86FE27CDEEEA00FD09A8 /* WorkoutStatistic */,
 				D495BC852782D93E0013C292 /* CoachClassProfile */,
@@ -2707,6 +2710,7 @@
 				F18BF9AD2728091B007BB3CB /* ForgotPassViewController.swift in Sources */,
 				D40136C42758D78600E36A39 /* SettingsViewController.swift in Sources */,
 				512ABC042718020C008CB198 /* ExtensionMKMapView.swift in Sources */,
+				045AF29328E2CB01001A1FFC /* PayMentConfirmationViewController.swift in Sources */,
 				BDD3663427C8A11500911E4E /* ShowDetailView.swift in Sources */,
 				512ABDA727180D08008CB198 /* SideMenuController.swift in Sources */,
 				D4E54BEB275F846800D6A80F /* MuscleItemCollectionViewCell.swift in Sources */,
