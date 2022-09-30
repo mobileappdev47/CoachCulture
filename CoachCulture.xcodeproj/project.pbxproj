@@ -1111,6 +1111,7 @@
 				D492C554276DF269007CE556 /* Search.storyboard */,
 				D41DB04B277053F9007FC5F7 /* Followers.storyboard */,
 				D4E6FA3F277328DC00E3593C /* Payment.storyboard */,
+				049C09C32887DA8A00E87B07 /* DeleteAccount */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -1132,7 +1133,6 @@
 		512ABBEB27180033008CB198 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				049C09C32887DA8A00E87B07 /* DeleteAccount */,
 				D40136C12758D74400E36A39 /* Tab5 */,
 				D492C556276E111A007CE556 /* Tab4 */,
 				D4D2864627587D0B00970987 /* Tab3 */,
