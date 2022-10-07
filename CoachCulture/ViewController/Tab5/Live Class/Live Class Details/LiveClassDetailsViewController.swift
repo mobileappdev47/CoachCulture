@@ -135,11 +135,16 @@ class LiveClassDetailsViewController: BaseViewController {
     static var isLiveEnded = false
     static var isTimer0 = false
     let expression = AWSS3TransferUtilityDownloadExpression()
-    
+    var userDataObj = UserData()
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        print("Bearer \(AppPrefsManager.sharedInstance.getUserAccessToken())")
+        getUserData()
+        
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -211,6 +216,25 @@ class LiveClassDetailsViewController: BaseViewController {
             LiveClassDetailsViewController.isFromTransection = false
         }
         hideTabBar()
+    }
+    
+    func getUserData() {
+        _ =  ApiCallManager.requestApi(method: .get, urlString: API.GET_PROFILE, parameters: nil, headers: nil) { responseObj in
+            
+            let responseModel = ResponseDataModel(responseObj: responseObj)
+            
+            if responseModel.success {
+                let dataObj = responseObj["data"] as? [String:Any] ?? [String:Any]()
+                self.userDataObj = UserData(responseObj: dataObj)
+                self.setData()
+            }
+            
+            self.hideLoader()
+            
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -764,6 +788,31 @@ class LiveClassDetailsViewController: BaseViewController {
         }
     }
     
+    func sendConfirmPaymentToMail() {
+        
+        let param = ["class_id": classDetailDataObj.id] as [String : Any]
+        let urlString = "\(API.BASE_URL)api/coach-class/class-purchase-mail"
+        let header = ["Authorization": "Bearer \(AppPrefsManager.sharedInstance.getUserAccessToken())", ]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlString, parameters: param, headers: header) { responseObj in
+            
+            let responseModel = ResponseDataModel(responseObj: responseObj)
+            
+            if responseModel.success {
+                let message = responseObj["message"] as? [String:Any] ?? [String:Any]()
+                print(responseObj)
+//                self.userDataObj = UserData(responseObj: dataObj)
+//                self.setData()
+            }
+            
+            self.hideLoader()
+            
+        } failure: { (error) in
+            self.hideLoader()
+            return true
+        }
+    }
+    
     func setupConfirmationView(fees: String, recdCurrency: String) {
 //        let currencySybmol = getCurrencySymbol(from: recdCurrency)
 //        var classTypeTitle = "Join Class"
@@ -780,9 +829,43 @@ class LiveClassDetailsViewController: BaseViewController {
 //            self.redirectToPaymentMethod()
 //            self.removeConfirmationView()
 //        }
-        self.redirectToPaymentMethod()
+//        self.redirectToPaymentMethod()
+    
+        sendConfirmPaymentToMail()
+        
+        var classTypeTitle = "Join Class"
+        //        var classTypeName = "on demand"
+        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+            classTypeTitle = "Complete Payment"
+        }
+        
+        let stringEmailID = "\(userDataObj.email)"
+//
+        logOutView.lblTitle.text = classTypeTitle
+        
+        let longString = "We have sent an email with a payment link to your registered email address \(stringEmailID) Please complete the payment to join the class. If you are unable to locate our email, please check your Spam folder."
+        
+        let longestWord = "\(stringEmailID)"
+
+        let longestWordRange = (longString as NSString).range(of: longestWord)
+
+        let attributedString = NSMutableAttributedString(string: longString, attributes: [NSAttributedString.Key.font : UIFont(name: "SFProText-Bold", size: 19)!])
+
+        attributedString.setAttributes([NSAttributedString.Key.font : UIFont(name: "SFProText-Heavy", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white], range: longestWordRange)
+
+        logOutView.lblMessage.attributedText = attributedString
+        
+        logOutView.btnLeft.setTitle("Ok", for: .normal)
+        logOutView.btnRight.isHidden = true
+        logOutView.tapToBtnLogOut {
+            self.redirectToPaymentMethod()
+            self.removeConfirmationView()
+        }
+        
     }
     
+    
+
     func redirectToPaymentMethod() {
 //        var fees = ""
 //        var recdCurrency = ""
@@ -808,14 +891,14 @@ class LiveClassDetailsViewController: BaseViewController {
 //            }
 //        }
 //        vc.coachClassID = Int(classDetailDataObj.id) ?? 0
-//
-        let classID = Int(classDetailDataObj.id) ?? 0
+         
+//        let classID = Int(classDetailDataObj.id) ?? 0
 //        vc.fees = fees
 //        vc.recdCurrency = recdCurrency
 //        vc.isFromLiveClass = true
 //        vc.forWVClassID = classID
-        
-        goToConfirmationPaymentPage(classId: classID, isClass: true)
+        dismiss(animated: true, completion: nil)
+//        goToConfirmationPaymentPage(classId: classID, isClass: true)
         
 //        let vc1 = PaymentWebViewController.viewcontroller()
 //        vc1.webUrl = "http://admin.coachculture.com/api/payment/pay-amount/\(AppPrefsManager.sharedInstance.getUserData().id)/\(classID)"
@@ -1158,7 +1241,7 @@ class LiveClassDetailsViewController: BaseViewController {
                         self.goToPlayOndemandClass()
                     }
                 } else {
-//                    self.addConfirmationView()
+                    self.addConfirmationView()
                     self.setupConfirmationView(fees: fees, recdCurrency: recdCurrency)
                 }
             }

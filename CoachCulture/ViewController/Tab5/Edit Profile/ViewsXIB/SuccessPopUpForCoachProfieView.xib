@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,9 +11,6 @@
     <customFonts key="customFonts">
         <array key="SFProText-Bold.otf">
             <string>SFProText-Bold</string>
-        </array>
-        <array key="SFProText-Heavy.otf">
-            <string>SFProText-Heavy</string>
         </array>
     </customFonts>
     <objects>
@@ -24,7 +21,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jiq-mc-INj">
-                    <rect key="frame" x="30" y="166.5" width="315" height="334.5"/>
+                    <rect key="frame" x="30" y="198" width="315" height="271.5"/>
                     <subviews>
                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="successRight" translatesAutoresizingMaskIntoConstraints="NO" id="QJZ-9g-Sat">
                             <rect key="frame" x="127.5" y="15" width="60" height="60"/>
@@ -34,24 +31,24 @@
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WWK-f4-Xhn">
-                            <rect key="frame" x="10" y="85" width="295" height="162.5"/>
+                            <rect key="frame" x="10" y="85" width="295" height="99.5"/>
                             <string key="text">We are excited that you want to be 
 a part of the CoachCulture family.
 We are reviewing your documents
 and will come back to you via 
 email within 24hrs.</string>
-                            <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="17"/>
                             <color key="textColor" name="textColor"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5BZ-1q-7lE">
-                            <rect key="frame" x="107.5" y="267.5" width="100" height="47"/>
+                            <rect key="frame" x="107.5" y="204.5" width="100" height="47"/>
                             <color key="backgroundColor" name="themeRedColor"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="47" id="62I-I0-C4K"/>
                                 <constraint firstAttribute="width" constant="100" id="YuM-q5-flA"/>
                             </constraints>
-                            <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="17"/>
+                            <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="18"/>
                             <color key="tintColor" name="textColor"/>
                             <state key="normal" title="OK"/>
                             <userDefinedRuntimeAttributes>

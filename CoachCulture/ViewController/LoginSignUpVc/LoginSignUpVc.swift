@@ -394,19 +394,23 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
             txtUsername.setError("Space not allowed", show: true)
             errorForBlankText(false, true, true, true, true)
             return false
-        } else  if txtPhone.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
-            txtPhone.setError("Please enter a valid phone", show: true)
-            errorForBlankText(true, false, true, true, true)
-            return false
-        } else if !(txtPhone.text?.isEmpty ?? false) && !Utility.shared.checkPhoneNumberValidation(number: phoneNo, countryCodeStr: dialCode) {
-            txtPhone.setError("Please enter a valid phone", show: true)
-            errorForBlankText(true, false, true, true, true)
-            return false
-        } else  if txtEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+        }
+//        else  if txtPhone.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
+//            txtPhone.setError("Please enter a valid phone", show: true)
+//            errorForBlankText(true, false, true, true, true)
+//            return false
+//        }
+//        else if !(txtPhone.text?.isEmpty ?? false) && !Utility.shared.checkPhoneNumberValidation(number: phoneNo, countryCodeStr: dialCode) {
+//            txtPhone.setError("Please enter a valid phone", show: true)
+//            errorForBlankText(true, false, true, true, true)
+//            return false
+//        }
+        else if txtEmail.text?.trimmingCharacters(in: .whitespacesAndNewlines).count == 0 {
             txtEmail.setError("Email is mandatory field", show: true)
             errorForBlankText(true, true, false, true, true)
             return false
-        } else if !(txtEmail.text!.isValidEmail) {
+        }
+        else if !(txtEmail.text!.isValidEmail) {
             txtEmail.setError("Wrong formate for email address", show: true)
             errorForBlankText(true, true, false, true, true)
             return false
@@ -630,6 +634,11 @@ extension LoginSignUpVc {
                     DEFAULTS.setValue(self.txtPassword.text, forKey: DEFAULTS_KEY.USER_PASSWORD)
                     AppPrefsManager.sharedInstance.saveUserRole(role: "user")
                     vc.otp = "\(userr.user?.verificationCode ?? 1234)"
+                    if userr.user?.phoneno == "" {
+                        vc.emaiOrPhone = self.txtEmail.text!
+                    } else {
+                        vc.phoneNo = self.txtPhone.text!
+                    }
                     DispatchQueue.main.async {
                         self.navigationController?.pushViewController(vc, animated: true)
                     }
@@ -638,9 +647,11 @@ extension LoginSignUpVc {
         } failure: { error, statusCode in
             if let email = error?.errors?.email {
                 Utility.shared.showToast(email.first ?? "")
-            } else if let phone = error?.errors?.phoneno {
+            }
+            else if let phone = error?.errors?.phoneno {
                 Utility.shared.showToast(phone.first ?? "")
-            } else if let username = error?.errors?.username {
+            }
+            else if let username = error?.errors?.username {
                 Utility.shared.showToast(username.first ?? "")
             }
         }
