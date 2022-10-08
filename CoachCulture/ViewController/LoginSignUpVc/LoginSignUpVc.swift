@@ -634,6 +634,7 @@ extension LoginSignUpVc {
                     DEFAULTS.setValue(self.txtPassword.text, forKey: DEFAULTS_KEY.USER_PASSWORD)
                     AppPrefsManager.sharedInstance.saveUserRole(role: "user")
                     vc.otp = "\(userr.user?.verificationCode ?? 1234)"
+                    vc.email = self.txtEmail.text!
                     if userr.user?.phoneno == "" {
                         vc.emaiOrPhone = self.txtEmail.text!
                     } else {

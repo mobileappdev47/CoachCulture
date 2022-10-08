@@ -47,6 +47,7 @@ class OTPViewController: BaseViewController {
     var LoginType = LoginTypeConst(rawValue: 0)
     var paramDic = [String:Any]()
     var isFromInitial = false
+    var email = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -151,6 +152,7 @@ extension OTPViewController {
         param["countrycode"] = countryCode
         param["phonecode"] = phoneCode
         param["phoneno"] = phoneNo
+        param["email"] = email
         param["verification_code"] = otp
         param["device_token"] = DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
         
