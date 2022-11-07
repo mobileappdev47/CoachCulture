@@ -84,7 +84,7 @@ class CheckBalanceViewController: UIViewController {
     }
     
     func presentPassSheet() {
-        let paymentItem = PKPaymentSummaryItem.init(label: "For Points", amount: 50.00, type: .final)
+        let paymentItem = PKPaymentSummaryItem.init(label: "For Points", amount: 0.09, type: .final)
         let paymentNetworks = [PKPaymentNetwork.amex, .discover, .masterCard, .visa]
         if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks) {
             let request = PKPaymentRequest()
