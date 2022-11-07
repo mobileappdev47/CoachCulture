@@ -87,7 +87,7 @@ class CoachClassProfileViewController: BaseViewController {
         
     // MARK: - Methods
     private func setUpUI() {
-        ChartUtils.getAndSetForWorkoutStat(isFromStat: false)
+        //ChartUtils.getAndSetForWorkoutStat(isFromStat: false)
         if self.selectedCoachId.isEmpty || self.selectedCoachId == "" {
             self.selectedCoachId = AppPrefsManager.sharedInstance.getUserData().id
         }

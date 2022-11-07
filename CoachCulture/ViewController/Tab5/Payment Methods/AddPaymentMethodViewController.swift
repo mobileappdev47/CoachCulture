@@ -294,14 +294,14 @@ func getMaxLength(cardBrand: STPCardBrand) -> Int {
         return 16
     case .amex:
         return 15
-    case .maestro:
-        return 19
+//    case .maestro:
+//        return 19
     case .dinersClub:
         return 19
-    case .JCB, .discover, .unionPay, .mir:
+    case .JCB, .discover, .unionPay:
         return 19
-    case .hipercard:
-        return 16
+//    case .hipercard:
+//        return 16
     default:
         return 16
     }
