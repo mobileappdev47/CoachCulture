@@ -204,16 +204,6 @@ public class STPImageLibrary: NSObject {
             imageName = "stp_card_unknown"
         case .visa:
             imageName = shouldUseTemplate ? "stp_card_visa_template" : "stp_card_visa"
-        case .mir:
-            shouldUseTemplate = true
-            imageName = "stp_card_unknown"
-        case .maestro:
-            shouldUseTemplate = true
-            imageName = "stp_card_unknown"
-        case .hipercard:
-            shouldUseTemplate = true
-            imageName = "stp_card_unknown"
-
         @unknown default:
             shouldUseTemplate = true
             imageName = "stp_card_unknown"
@@ -270,12 +260,6 @@ extension STPCardBrand {
         case .unionPay:
             imageName = "card_unionpay"
         case .unknown:
-            imageName = "card_unknown"
-        case .maestro:
-            imageName = "card_unknown"
-        case .mir:
-            imageName = "card_unknown"
-        case .hipercard:
             imageName = "card_unknown"
         }
         let brandImage = STPImageLibrary.safeImageNamed(imageName, templateIfAvailable: false)

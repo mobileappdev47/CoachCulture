@@ -493,7 +493,7 @@ open class BarLineChartViewBase: ChartViewBase, BarLineScatterCandleBubbleChartD
         if drawGridBackgroundEnabled
         {
             // draw the grid background
-            context.setFillColor(#colorLiteral(red: 0.721568644, green: 0.8862745166, blue: 0.5921568871, alpha: 1))
+            context.setFillColor(gridBackgroundColor.cgColor)
             context.fill(_viewPortHandler.contentRect)
         }
         

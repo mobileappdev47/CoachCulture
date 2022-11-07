@@ -97,7 +97,7 @@ open class Legend: ComponentBase
     /// The text direction of the legend
     @objc open var direction: Direction = Direction.leftToRight
 
-    @objc open var font: NSUIFont = NSUIFont.systemFont(ofSize: 5.0)
+    @objc open var font: NSUIFont = NSUIFont.systemFont(ofSize: 10.0)
     @objc open var textColor = NSUIColor.labelOrBlack
 
     /// The form/shape of the legend forms

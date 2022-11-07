@@ -20,10 +20,6 @@ import CoreGraphics
 import Cocoa
 #endif
 
-var arr = [Float]()
-var maxMin = Float()
-var _isFromWorkoutStat = false
-
 extension Comparable
 {
     func clamped(to range: ClosedRange<Self>) -> Self
@@ -132,12 +128,6 @@ open class ChartUtils
 {
     private static var _defaultValueFormatter: IValueFormatter = ChartUtils.generateDefaultValueFormatter()
     
-    static let trueFalse = false
-    
-    open class func getAndSetForWorkoutStat(isFromStat: Bool) {
-        _isFromWorkoutStat = isFromStat
-    }
-    
     open class func drawImage(
         context: CGContext,
         image: NSUIImage,
@@ -181,23 +171,10 @@ open class ChartUtils
         NSUIGraphicsPopContext()
     }
     
-    open class func drawText(context: CGContext, text: String, point: CGPoint, align: NSTextAlignment, attributes: [NSAttributedString.Key : Any]?, boolTF: Bool)
+    open class func drawText(context: CGContext, text: String, point: CGPoint, align: NSTextAlignment, attributes: [NSAttributedString.Key : Any]?)
     {
         var point = point
-        let firstAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor(cgColor: #colorLiteral(red: 0.3019607843, green: 0.7176470588, blue: 0.2823529412, alpha: 1)),
-                                                              NSAttributedString.Key.kern: 0.1,
-                                                              NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)),
-                                                              NSAttributedString.Key.font: NSUIFont(name: "SFProText-Bold", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
         
-        let barAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor(cgColor: #colorLiteral(red: 0.8862745098, green: 0, blue: 1, alpha: 1)),
-                                                              NSAttributedString.Key.kern: 0.1,
-                                                              NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)),
-                                                              NSAttributedString.Key.font: NSUIFont(name: "SFProText-Regular", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
-        let barClearValueAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor.clear,
-                                                              NSAttributedString.Key.kern: 0.1,
-                                                              NSAttributedString.Key.foregroundColor: UIColor.clear,
-                                                              NSAttributedString.Key.font: NSUIFont(name: "SFProText-Regular", size: 10.0) ?? NSUIFont.systemFont(ofSize: 10)]
-
         if align == .center
         {
             point.x -= text.size(withAttributes: attributes).width / 2.0
@@ -208,28 +185,8 @@ open class ChartUtils
         }
         
         NSUIGraphicsPushContext(context)
-        if boolTF {
-            let value = (Int(Float(text)! * maxMin))
-            let formattedValue = " \(value.delimiter)" + " kcal " as String
-            
-            (formattedValue).draw(at: point, withAttributes: _isFromWorkoutStat ? firstAttributes : barClearValueAttributes)
-        } else {
-            if text.last == "s" {
-                let conStr = text.replacingOccurrences(of: " Mins", with: "")
-                if Int(Float(conStr)!) > 0 {
-                    (" \(Int(Float(conStr)!).delimiter)" + " Mins " as NSString).draw(at: point, withAttributes: _isFromWorkoutStat ? barAttributes : barClearValueAttributes)
-                } else {
-                    (" \(Int(Float(conStr)!).delimiter)" + " Mins " as NSString).draw(at: point, withAttributes: barClearValueAttributes)
-                }
-                //arr.append(Float(conStr)!)
-                if Float(conStr)! > maxMin {
-                    (maxMin) = Float(conStr)!
-                }
-//                (text as NSString).draw(at: point, withAttributes: attributes)
-            } else {
-                (text as NSString).draw(at: point, withAttributes: _isFromWorkoutStat ? attributes : barClearValueAttributes)
-            }
-        }
+        
+        (text as NSString).draw(at: point, withAttributes: attributes)
         
         NSUIGraphicsPopContext()
     }
@@ -336,16 +293,8 @@ open class ChartUtils
     
     internal class func drawMultilineText(context: CGContext, text: String, point: CGPoint, attributes: [NSAttributedString.Key : Any]?, constrainedToSize: CGSize, anchor: CGPoint, angleRadians: CGFloat)
     {
-        
-        let firstAttributes: [NSAttributedString.Key: Any] = [.backgroundColor: UIColor(cgColor: #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)),
-                                                              NSAttributedString.Key.kern: 0.1,
-                                                              NSAttributedString.Key.foregroundColor: UIColor(cgColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)),
-                                                              NSAttributedString.Key.font: NSUIFont(name: "SFProText-Bold", size: 7.0) ?? NSUIFont.systemFont(ofSize: 10)
-                                                              
-        ]
-        
-        let rect = text.boundingRect(with: constrainedToSize, options: .usesLineFragmentOrigin, attributes: firstAttributes, context: nil)
-        drawMultilineText(context: context, text: text, knownTextSize: rect.size, point: point, attributes: firstAttributes, constrainedToSize: constrainedToSize, anchor: anchor, angleRadians: angleRadians)
+        let rect = text.boundingRect(with: constrainedToSize, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
+        drawMultilineText(context: context, text: text, knownTextSize: rect.size, point: point, attributes: attributes, constrainedToSize: constrainedToSize, anchor: anchor, angleRadians: angleRadians)
     }
 
     private class func generateDefaultValueFormatter() -> IValueFormatter
@@ -358,18 +307,5 @@ open class ChartUtils
     open class func defaultValueFormatter() -> IValueFormatter
     {
         return _defaultValueFormatter
-    }
-}
-
-extension Int {
-    private static var numberFormatter: NumberFormatter = {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-
-        return numberFormatter
-    }()
-
-    var delimiter: String {
-        return Int.numberFormatter.string(from: NSNumber(value: self)) ?? ""
     }
 }

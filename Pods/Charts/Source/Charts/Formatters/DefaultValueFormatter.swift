@@ -97,7 +97,7 @@ open class DefaultValueFormatter: NSObject, IValueFormatter
         if let block = block {
             return block(value, entry, dataSetIndex, viewPortHandler)
         } else {
-            return String(format: "%5f", value)
+            return formatter?.string(from: NSNumber(floatLiteral: value)) ?? ""
         }
     }
 }

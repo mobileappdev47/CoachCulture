@@ -148,9 +148,9 @@ class LiveClassDetailsViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if Reachability.isConnectedToNetwork(){
-            getClassDetails(isFromTimerToCheckClassStatus: false)
-        }
+//        if Reachability.isConnectedToNetwork(){
+//            getClassDetails(isFromTimerToCheckClassStatus: false)
+//        }
         let currentDateTime = Date().getDateStringWithFormate("yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!).getDateWithFormate(formate: "yyyy-MM-dd HH:mm:ss", timezone: TimeZone.current.abbreviation()!)
         let classStartDateTime = convertUTCToLocalDate(dateStr: "\(self.classDetailDataObj.class_date) \(self.classDetailDataObj.class_time)", sourceFormate: "yyyy-MM-dd HH:mm", destinationFormate: "yyyy-MM-dd HH:mm:ss")
         let diffClass = Calendar.current.dateComponents([.day, .hour, .minute, .second], from: currentDateTime, to: classStartDateTime)
@@ -466,8 +466,8 @@ class LiveClassDetailsViewController: BaseViewController {
         
         let currencySybmol = getCurrencySymbol(from: classDetailDataObj.feesDataObj.fee_regional_currency)
 
-        lblNonSubscriberFee.text = "Non-Subscribers Fee: " + "$" + " " + "30" //classDetailDataObj.feesDataObj.non_subscriber_fee
-        lblOneTimeFee.text = "One Time Fee: " + "$" + " " + "30" //classDetailDataObj.feesDataObj.subscriber_fee
+        lblNonSubscriberFee.text = "Non-Subscribers Fee: " + "points " + classDetailDataObj.feesDataObj.non_subscriber_fee
+        lblOneTimeFee.text = "One Time Fee: " + "points " + classDetailDataObj.feesDataObj.subscriber_fee
         
         lblMoreIngredients.text = "\(classDetailDataObj.arrEquipmentList.count) more ingredients"
         viwMoreIngredient.isHidden = classDetailDataObj.arrEquipmentList.count > 4 ? false : true
@@ -814,69 +814,112 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     func setupConfirmationView(fees: String, recdCurrency: String) {
-//        let currencySybmol = getCurrencySymbol(from: recdCurrency)
-//        var classTypeTitle = "Join Class"
-//        var classTypeName = "on demand"
-//        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
-//            classTypeTitle = "Join the CoachCulture"
-//            classTypeName = "live"
-//        }
-//        logOutView.lblTitle.text = classTypeTitle
-//        logOutView.lblMessage.text = "Would you like to join \(self.lblUserName.text ?? "")'s \(classDetailDataObj.class_type) \(classTypeName) Class for a one time fee of \("$" + "30")?"
-//        logOutView.btnLeft.setTitle("Confirm", for: .normal)
-//        logOutView.btnRight.setTitle("Cancel", for: .normal)
-//        logOutView.tapToBtnLogOut {
-//            self.redirectToPaymentMethod()
-//            self.removeConfirmationView()
-//        }
-//        self.redirectToPaymentMethod()
-    
-        sendConfirmPaymentToMail()
-        
+
+        let currencySybmol = getCurrencySymbol(from: recdCurrency)
         var classTypeTitle = "Join Class"
-        //        var classTypeName = "on demand"
+        var classTypeName = "on demand"
         if self.classDetailDataObj.coach_class_type == CoachClassType.live {
-            classTypeTitle = "Complete Payment"
+            classTypeTitle = "Join the CoachCulture"
+            classTypeName = "live"
         }
-        
-        let stringEmailID = "\(userDataObj.email)"
-//
         logOutView.lblTitle.text = classTypeTitle
+        logOutView.lblMessage.text = classDetailDataObj.subscription ? "Would you like to join \(self.lblUserName.text ?? "")'s \(classDetailDataObj.class_type) \(classTypeName), you are already subscribed Class for a one time fee of \("points " + classDetailDataObj.feesDataObj.subscriber_fee)?" : "Would you like to join \(self.lblUserName.text ?? "")'s \(classDetailDataObj.class_type) \(classTypeName), you are not subscribed the class so for non-subscription fee of \("points " + classDetailDataObj.feesDataObj.non_subscriber_fee)?"
         
-        let longString = "We have sent an email with a payment link to your registered email address \(stringEmailID) Please complete the payment to join the class. If you are unable to locate our email, please check your Spam folder."
-        
-        let longestWord = "\(stringEmailID)"
-
-        let longestWordRange = (longString as NSString).range(of: longestWord)
-
-        let attributedString = NSMutableAttributedString(string: longString, attributes: [NSAttributedString.Key.font : UIFont(name: "SFProText-Bold", size: 19)!])
-
-        attributedString.setAttributes([NSAttributedString.Key.font : UIFont(name: "SFProText-Heavy", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white], range: longestWordRange)
-
-        logOutView.lblMessage.attributedText = attributedString
-        
-        logOutView.btnLeft.setTitle("Ok", for: .normal)
-        logOutView.btnRight.isHidden = true
+        logOutView.btnLeft.setTitle("Confirm", for: .normal)
+        logOutView.btnRight.setTitle("Cancel", for: .normal)
         logOutView.tapToBtnLogOut {
             self.redirectToPaymentMethod()
             self.removeConfirmationView()
         }
+//        self.redirectToPaymentMethod()
+    
+        
+        
+        // Using Mail To Payment Confirm
+//        sendConfirmPaymentToMail()
+//
+//        var classTypeTitle = "Join Class"
+//        //        var classTypeName = "on demand"
+//        if self.classDetailDataObj.coach_class_type == CoachClassType.live {
+//            classTypeTitle = "Complete Payment"
+//        }
+//
+//        let stringEmailID = "\(userDataObj.email)"
+////
+//        logOutView.lblTitle.text = classTypeTitle
+//
+//        let longString = "We have sent an email with a payment link to your registered email address \(stringEmailID) Please complete the payment to join the class. If you are unable to locate our email, please check your Spam folder."
+//
+//        let longestWord = "\(stringEmailID)"
+//
+//        let longestWordRange = (longString as NSString).range(of: longestWord)
+//
+//        let attributedString = NSMutableAttributedString(string: longString, attributes: [NSAttributedString.Key.font : UIFont(name: "SFProText-Bold", size: 19)!])
+//
+//        attributedString.setAttributes([NSAttributedString.Key.font : UIFont(name: "SFProText-Heavy", size: 20)!, NSAttributedString.Key.foregroundColor : UIColor.white], range: longestWordRange)
+//
+//        logOutView.lblMessage.attributedText = attributedString
+//
+//        logOutView.btnLeft.setTitle("Ok", for: .normal)
+//        logOutView.btnRight.isHidden = true
+//        logOutView.tapToBtnLogOut {
+//            self.redirectToPaymentMethod()
+//            self.removeConfirmationView()
+//        }
+        
         
     }
     
     
+    //MARK:- Alert Pop-Ups
+    func displayDefaultAlert(title: String?, message: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Go to Top-Up Page", style: .default) { (ok) in
+            let gotoTopUpPage = CheckBalanceViewController.viewcontroller()
+            self.pushVC(To: gotoTopUpPage, animated: true)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive) { (cancel) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
+    }
 
     func redirectToPaymentMethod() {
+        let userDefault = UserDefaults.standard
 //        var fees = ""
 //        var recdCurrency = ""
 //
-//        if self.classDetailDataObj.subscription {
-//            fees = classDetailDataObj.feesDataObj.subscriber_fee
+        if self.classDetailDataObj.subscription {
+            let fees = classDetailDataObj.feesDataObj.subscriber_fee
+            if let totalPoints = userDefault.value(forKey: "purchasedPoints") {
+                let totalFees = Int(Int(fees)! - (totalPoints as! Int))
+                showToast(message: "Succsessfully subscribed class with \(fees) points", seconds: 3.96)
+                userDefault.set(totalFees, forKey: "purchasedPoints")
+                let when = DispatchTime.now() + 7
+                DispatchQueue.main.asyncAfter(deadline: when){
+                    self.callAddUserToCoachClassAPI(transaction_id: "jhgdfj")
+                }
+            } else {
+                displayDefaultAlert(title: "You haven't points so please purchase as soon", message: "if you want to top-up your points then click to Go to Top-Up Page")
+            }
 //            recdCurrency = classDetailDataObj.feesDataObj.base_currency
-//        } else {
-//            fees = classDetailDataObj.feesDataObj.non_subscriber_fee
+        } else {
+            let fees = classDetailDataObj.feesDataObj.non_subscriber_fee
+            if let totalPoints = userDefault.value(forKey: "purchasedPoints") {
+                let totalFees = (totalPoints as! Int) - Int(fees)!
+                showToast(message: "Succsessfully subscribed class with \(fees) points", seconds: 3.96)
+                userDefault.set(totalFees, forKey: "purchasedPoints")
+                let when = DispatchTime.now() + 7
+                DispatchQueue.main.asyncAfter(deadline: when){
+                    self.callAddUserToCoachClassAPI(transaction_id: "jhgdfj")
+                }
+            } else {
+                displayDefaultAlert(title: "You haven't points so please purchase as soon", message: "")
+            }
 //            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
-//        }
+        }
 //
 //        let vc = PaymentMethodViewController.viewcontroller()
 //        vc.isForTransection = false
@@ -884,7 +927,6 @@ class LiveClassDetailsViewController: BaseViewController {
 //            if status {
 //                if Reachability.isConnectedToNetwork() {
 //                    self.isFromPaymentFlow = true
-//                    self.callAddUserToCoachClassAPI(transaction_id: transaction_id)
 //                }
 //            } else {
 //                Utility.shared.showToast("Ooops!! Something went wrong!")
@@ -897,7 +939,7 @@ class LiveClassDetailsViewController: BaseViewController {
 //        vc.recdCurrency = recdCurrency
 //        vc.isFromLiveClass = true
 //        vc.forWVClassID = classID
-        dismiss(animated: true, completion: nil)
+//        dismiss(animated: true, completion: nil)
 //        goToConfirmationPaymentPage(classId: classID, isClass: true)
         
 //        let vc1 = PaymentWebViewController.viewcontroller()

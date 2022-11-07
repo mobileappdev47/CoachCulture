@@ -245,7 +245,7 @@ open class RadarChartRenderer: LineRadarRenderer
                         point: CGPoint(x: p.x, y: p.y - yoffset - valueFont.lineHeight),
                         align: .center,
                         attributes: [NSAttributedString.Key.font: valueFont,
-                                     NSAttributedString.Key.foregroundColor: dataSet.valueTextColorAt(j)], boolTF: true
+                            NSAttributedString.Key.foregroundColor: dataSet.valueTextColorAt(j)]
                     )
                 }
                 

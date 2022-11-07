@@ -151,6 +151,13 @@ class SettingsViewController: BaseViewController {
         let vc = DownloadedClassViewController.viewcontroller()
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    @IBAction func clickToBtnCheckBalance(_ sender: UIButton) {
+        hideTabBar()
+        let vc = CheckBalanceViewController.viewcontroller()
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
 }
 
 extension SettingsViewController: MFMailComposeViewControllerDelegate {

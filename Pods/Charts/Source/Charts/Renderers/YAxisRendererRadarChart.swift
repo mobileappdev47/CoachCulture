@@ -205,8 +205,7 @@ open class YAxisRendererRadarChart: YAxisRenderer
                 attributes: [
                     NSAttributedString.Key.font: labelFont,
                     NSAttributedString.Key.foregroundColor: labelTextColor
-                ],
-                boolTF: false)
+                ])
         }
     }
     

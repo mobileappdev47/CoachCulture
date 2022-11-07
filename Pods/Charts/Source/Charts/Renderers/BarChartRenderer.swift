@@ -427,33 +427,11 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
             
             if !isSingleColor
             {
-                let fillColors = [dataSet.color(atIndex: 0).cgColor, dataSet.color(atIndex: 1).cgColor]
-                let locations:[CGFloat] = [0.0, 1.0]
-                
-                context.saveGState()
-                context.clip(to: barRect)
-                let gradient:CGGradient
-                let colorspace:CGColorSpace
-                colorspace = CGColorSpaceCreateDeviceRGB()
-                
-                gradient = CGGradient(colorsSpace: colorspace, colors: fillColors as CFArray, locations: locations)!
-                
-                //Vertical Gradient
-                let startPoint:CGPoint = CGPoint(x: 0.0, y: viewPortHandler.contentBottom)
-                let endPoint:CGPoint = CGPoint(x: 0.0, y: viewPortHandler.contentTop)
-                let cornerRadius: CGFloat = barRect.width <= 5 ? 1.0 : 2.0
-                let bezierPath = UIBezierPath(roundedRect: barRect, byRoundingCorners: UIRectCorner.allCorners, cornerRadii: CGSize(width: cornerRadius, height: cornerRadius))
-                
-                let roundedPath = bezierPath.cgPath
-                
-                context.addPath(roundedPath)
-                context.drawLinearGradient(gradient, start: startPoint, end: endPoint, options: .init(rawValue: 0))
-//                context.fillPath()
-                context.restoreGState()
-            } else {
-                context.fill(barRect)
+                // Set the color for the currently drawn value. If the index is out of bounds, reuse colors.
+                context.setFillColor(dataSet.color(atIndex: j).cgColor)
             }
             
+            context.fill(barRect)
             
             if drawBorder
             {
@@ -765,7 +743,7 @@ open class BarChartRenderer: BarLineScatterCandleBubbleRenderer
     /// Draws a value at the specified x and y position.
     @objc open func drawValue(context: CGContext, value: String, xPos: CGFloat, yPos: CGFloat, font: NSUIFont, align: NSTextAlignment, color: NSUIColor)
     {
-        ChartUtils.drawText(context: context, text: value + " Mins", point: CGPoint(x: xPos, y: yPos), align: align, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color], boolTF: false)
+        ChartUtils.drawText(context: context, text: value, point: CGPoint(x: xPos, y: yPos), align: align, attributes: [NSAttributedString.Key.font: font, NSAttributedString.Key.foregroundColor: color])
     }
     
     open override func drawExtras(context: CGContext)

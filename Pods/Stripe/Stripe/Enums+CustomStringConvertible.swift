@@ -86,13 +86,6 @@ extension STPCardBrand: CustomStringConvertible {
             return "unknown"
         case .visa:
             return "visa"
-        case .hipercard:
-            return "hipercard"
-        case .maestro:
-            return "maestro"
-        case .mir:
-            return "mir"
-
         }
     }
 }

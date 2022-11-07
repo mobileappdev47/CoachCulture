@@ -2770,7 +2770,7 @@
                                                     <constraint firstItem="4du-gL-6Ra" firstAttribute="centerY" secondItem="n43-gX-34m" secondAttribute="centerY" id="yWs-4H-epr"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNG-pO-uAO">
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NNG-pO-uAO">
                                                 <rect key="frame" x="161.5" y="570" width="57" height="37"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9kb-V2-BYn">
@@ -3813,7 +3813,7 @@
                                 <rect key="frame" x="0.0" y="79.5" width="375" height="820.5"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GcW-QO-zzZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="622"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="732"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IGD-xu-d0A" userLabel="UploadVideo">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
@@ -4281,7 +4281,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="NSb-Ck-zL8">
-                                                <rect key="frame" x="20" y="495" width="335" height="40"/>
+                                                <rect key="frame" x="20" y="495" width="335" height="150"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDd-FZ-8ot" userLabel="Class Duration">
                                                         <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -4358,10 +4358,10 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hR-eu-gmy" userLabel="Subscriber fee">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7hR-eu-gmy" userLabel="Subscriber fee">
+                                                        <rect key="frame" x="0.0" y="55" width="335" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="30" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ts6-PZ-Cbg">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ts6-PZ-Cbg">
                                                                 <rect key="frame" x="75" y="5" width="252" height="30"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="textColor" name="textColor"/>
@@ -4432,10 +4432,10 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </view>
-                                                    <view hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oDC-ym-nNr" userLabel="Subscriber fee">
-                                                        <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
+                                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oDC-ym-nNr" userLabel="Subscriber fee">
+                                                        <rect key="frame" x="0.0" y="110" width="335" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="30" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEL-sc-Uua">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dEL-sc-Uua">
                                                                 <rect key="frame" x="75" y="5" width="252" height="30"/>
                                                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <color key="textColor" name="textColor"/>
@@ -4509,7 +4509,7 @@
                                                 </subviews>
                                             </stackView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6bh-DX-EE9">
-                                                <rect key="frame" x="30" y="555" width="315" height="47"/>
+                                                <rect key="frame" x="30" y="665" width="315" height="47"/>
                                                 <color key="backgroundColor" name="themeRedColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="47" id="mCS-2z-Elt"/>
@@ -4527,7 +4527,7 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UpS-Fg-lpo">
-                                                <rect key="frame" x="168.5" y="568" width="38" height="21"/>
+                                                <rect key="frame" x="168.5" y="678" width="38" height="21"/>
                                                 <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="18"/>
                                                 <color key="textColor" name="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -5213,7 +5213,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class starts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="981-wr-Iyi" customClass="PaddingLabel" customModule="CoachCulture" customModuleProvider="target">
-                                <rect key="frame" x="131.5" y="318.5" width="112.5" height="30.5"/>
+                                <rect key="frame" x="136.5" y="323.5" width="102.5" height="20"/>
                                 <color key="backgroundColor" name="blur_color"/>
                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="17"/>
                                 <color key="textColor" name="textColor"/>
@@ -5403,22 +5403,16 @@
     </scenes>
     <designables>
         <designable name="981-wr-Iyi">
-            <size key="intrinsicContentSize" width="112.5" height="30.5"/>
+            <size key="intrinsicContentSize" width="102.5" height="20.5"/>
         </designable>
         <designable name="BIM-nz-QMh">
             <size key="intrinsicContentSize" width="91.5" height="18"/>
-        </designable>
-        <designable name="CpG-bk-cey">
-            <size key="intrinsicContentSize" width="268" height="44"/>
         </designable>
         <designable name="DvX-xw-RPq">
             <size key="intrinsicContentSize" width="99.5" height="18"/>
         </designable>
         <designable name="VqP-Au-dIJ">
             <size key="intrinsicContentSize" width="94.5" height="18"/>
-        </designable>
-        <designable name="ZqS-EK-QPa">
-            <size key="intrinsicContentSize" width="268" height="44"/>
         </designable>
     </designables>
     <resources>

@@ -85,8 +85,6 @@ class OnDemandVideoUploadViewController: BaseViewController {
         super.viewDidLoad()
         setUpUI()
         
-        txtSubscriberFee.isEnabled = false
-        txtNonSubscriberFee.isEnabled = false
     }
     
     // MARK: - Methods

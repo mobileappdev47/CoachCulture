@@ -376,8 +376,7 @@ open class ChartViewBase: NSUIView, ChartDataProvider, AnimatorDelegate
             text: descriptionText,
             point: position,
             align: description.textAlign,
-            attributes: attrs,
-            boolTF: false)
+            attributes: attrs)
     }
     
     // MARK: - Accessibility
