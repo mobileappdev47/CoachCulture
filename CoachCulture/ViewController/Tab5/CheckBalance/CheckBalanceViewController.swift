@@ -14,9 +14,9 @@ class CheckBalanceViewController: UIViewController {
     @IBOutlet weak var totalPointLbl: UILabel!
     @IBOutlet weak var addPointsBtn: UIButton!
     
-    let userDefaults = UserDefaults.standard
     var countingPoints = 0
     
+    let userDefaults = UserDefaults.standard
     
     static func viewcontroller() -> CheckBalanceViewController {
         let vc = UIStoryboard(name: "Profile", bundle: nil).instantiateViewController(withIdentifier: "CheckBalanceViewController") as! CheckBalanceViewController
@@ -31,26 +31,15 @@ class CheckBalanceViewController: UIViewController {
         super.viewDidLoad()
         
         if let points = userDefaults.value(forKey: "purchasedPoints") {
-//            let alert = UIAlertController(title: "You have \(points) points, if you want to increase your points so then purchase it", message: "", preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: "Ok", style: .default) { (ok) in
-//
-//            }
-//            alert.addAction(okAction)
-//            self.present(alert, animated: true, completion: nil)
+            countingPoints = points as! Int
             totalPointLbl.text = "\(points)"
         }
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if let points = userDefaults.value(forKey: "purchasedPoints") {
-//            let alert = UIAlertController(title: "You have \(points) points, if you want to increase your points so then purchase it", message: "", preferredStyle: .alert)
-//            let okAction = UIAlertAction(title: "Ok", style: .default) { (ok) in
-//                
-//            }
-//            alert.addAction(okAction)
-//            self.present(alert, animated: true, completion: nil)
+            countingPoints = points as! Int
             totalPointLbl.text = "\(points)"
         }
     }
@@ -86,7 +75,8 @@ class CheckBalanceViewController: UIViewController {
     func presentPassSheet() {
         let paymentItem = PKPaymentSummaryItem.init(label: "For Points", amount: 0.09, type: .final)
         let paymentNetworks = [PKPaymentNetwork.amex, .discover, .masterCard, .visa]
-        if PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks) {
+        let canMakePayment = !PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks)
+        if canMakePayment {
             let request = PKPaymentRequest()
                 request.currencyCode = "USD" // 1
                 request.countryCode = "US" // 2
@@ -95,25 +85,37 @@ class CheckBalanceViewController: UIViewController {
                 request.supportedNetworks = paymentNetworks // 5
                 request.paymentSummaryItems = [paymentItem] // 6
             guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: request) else {
-                displayDefaultAlert(title: "Error", message: "Unable to present Apple Pay authorization.")
+                displayDefaultErrorAlert(title: "Error", message: "Unable to present Apple Pay authorization.")
                 return
             }
+//            canMakePayment = PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks)
             paymentVC.delegate = self
             self.present(paymentVC, animated: true, completion: nil)
-
         } else {
-            displayDefaultAlert(title: "Error", message: "Unable to make Apple Pay transaction.")
+            displayDefaultErrorAlert(title: "Error", message: "Unable to make Apple Pay transaction.")
         }
+    }
+    
+    func displayDefaultErrorAlert(title: String?, message: String?) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default) { (ok) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
     }
 
     func displayDefaultAlert(title: String?, message: String?) {
+        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "Ok", style: .default) { (ok) in
+            
             self.countingPoints = self.countingPoints + 50
             self.userDefaults.set(self.countingPoints, forKey: "purchasedPoints")
-            if let credits = self.userDefaults.value(forKey: "purchasedPoints") {
-                self.totalPointLbl.text = "\(credits)"
-            }
+            
+            guard let credits = self.userDefaults.value(forKey: "purchasedPoints") else { return }
+            
+            self.totalPointLbl.text = "\(credits)"
         }
         alert.addAction(okAction)
         self.present(alert, animated: true, completion: nil)
