@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -2670,7 +2669,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="25.666666030883789" height="25.666666030883789"/>
         <image name="Switch" width="17" height="18.333333969116211"/>
-        <image name="Trainers Icon" width="29.333333969116211" height="24"/>
+        <image name="Trainers Icon" width="41.666667938232422" height="36"/>
         <image name="chatting" width="23.666666030883789" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.333333969116211"/>

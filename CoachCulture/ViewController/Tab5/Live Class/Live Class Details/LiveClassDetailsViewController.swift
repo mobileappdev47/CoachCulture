@@ -18,6 +18,7 @@ class LiveClassDetailsViewController: BaseViewController {
         let vc = UIStoryboard(name: "Recipe", bundle: nil).instantiateViewController(withIdentifier: "LiveClassDetailsViewController") as! LiveClassDetailsViewController
         return vc
     }
+    
     @IBOutlet weak var btnJoinClass: UIButton!
     @IBOutlet weak var imgMusclesFront: UIImageView!
     @IBOutlet weak var imgMusclesBack: UIImageView!
@@ -136,12 +137,14 @@ class LiveClassDetailsViewController: BaseViewController {
     static var isTimer0 = false
     let expression = AWSS3TransferUtilityDownloadExpression()
     var userDataObj = UserData()
+    var totalPoint = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
         print("Bearer \(AppPrefsManager.sharedInstance.getUserAccessToken())")
         getUserData()
-        
+        getPointData()
     }
     
     
@@ -789,7 +792,7 @@ class LiveClassDetailsViewController: BaseViewController {
     }
     
     func sendConfirmPaymentToMail() {
-        
+        self.showLoader()
         let param = ["class_id": classDetailDataObj.id] as [String : Any]
         let urlString = "\(API.BASE_URL)api/coach-class/class-purchase-mail"
         let header = ["Authorization": "Bearer \(AppPrefsManager.sharedInstance.getUserAccessToken())", ]
@@ -906,18 +909,13 @@ class LiveClassDetailsViewController: BaseViewController {
             }
 //            recdCurrency = classDetailDataObj.feesDataObj.base_currency
         } else {
-            let fees = classDetailDataObj.feesDataObj.non_subscriber_fee
-            if let totalPoints = userDefault.value(forKey: "purchasedPoints") {
-                let totalFees = (totalPoints as! Int) - Int(fees)!
-                showToast(message: "Succsessfully subscribed class with \(fees) points", seconds: 3.96)
-                userDefault.set(totalFees, forKey: "purchasedPoints")
-                let when = DispatchTime.now() + 7
-                DispatchQueue.main.asyncAfter(deadline: when){
-                    self.callAddUserToCoachClassAPI(transaction_id: "jhgdfj")
-                }
+
+            if totalPoint != 0 {
+                paidPointCoachClass(point: classDetailDataObj.feesDataObj.non_subscriber_fee, coach_class_id: Int(classDetailDataObj.id)!)
             } else {
-                displayDefaultAlert(title: "You haven't points so please purchase as soon", message: "")
+                displayDefaultAlert(title: "You haven't capable point to join class so please purchase as soon", message: "if you want to top-up your points then click to Go to Top-Up Page")
             }
+            
 //            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
         }
 //
@@ -948,6 +946,61 @@ class LiveClassDetailsViewController: BaseViewController {
 
         
        // self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //MARK:- Point Data API
+    func getPointData(){
+        
+        let urlString = "\(API.BASE_URL)api/point/get-point-details"
+        
+        let header = ["Authorization": "Bearer \(AppPrefsManager.sharedInstance.getUserAccessToken())", ]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlString, parameters: nil, headers: header) { responseObj in
+            
+            //            let responseModel = ResponseDataModel(responseObj: responseObj)
+            
+            let data = responseObj["point_info"] as? [String:Any] ?? [String:Any]()
+        
+            self.totalPoint = data["total"] as? Int ?? 0
+            
+            
+        } failure: { (error) -> Bool in
+            return true
+        }
+    }
+    
+    func paidPointCoachClass(point: String, coach_class_id: Int) {
+        self.showLoader()
+        let urlString = "\(API.BASE_URL)api/point/paid-point-coach-class"
+        
+        let header = ["Authorization": "Bearer \(AppPrefsManager.sharedInstance.getUserAccessToken())", ]
+        
+        let parameter = ["point": Int(point),
+                         "coach_class_id": coach_class_id]
+        
+        _ =  ApiCallManager.requestApi(method: .post, urlString: urlString, parameters: parameter, headers: header) { responseObj in
+            
+            let responseModel = ResponseDataModel(responseObj: responseObj)
+            
+//            if responseModel.success {
+                let message = responseObj["message"] as! String
+                let coachDetailsData = responseObj["coach_details"] as? [String:Any] ?? [String:Any]()
+                let transactionID = coachDetailsData["transaction_id"]
+                
+                print("<------------Start PaidPointCoachClass------------>")
+                print(message)
+                print(coachDetailsData)
+                print("<------------End PaidPointCoachClass------------>")
+                DispatchQueue.main.async {
+                    self.showToast(message: message, seconds: 4.5)
+                    self.callAddUserToCoachClassAPI(transaction_id: transactionID as? String ?? "")
+                }
+//            }
+            self.hideLoader()
+        } failure: { (error) -> Bool in
+            self.hideLoader()
+            return true
+        }
     }
     
     func goToConfirmationPaymentPage(classId: Int, isClass: Bool) {
