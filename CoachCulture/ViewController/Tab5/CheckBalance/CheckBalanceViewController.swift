@@ -8,36 +8,36 @@
 import UIKit
 import PassKit
 
-class LastHistoryCell: UITableViewCell {
-    
-}
-
 class Trans {
     
     var id = 0
     var status = ""
     var point = 0
+    var pointUse = ""
+    var createdDate = ""
+    var pointStatus = ""
     
     init(data: [String:Any]) {
         id = data["id"] as! Int
         status = data["status"] as! String
         point = data["point"] as! Int
+        pointUse = data["point_use"] as! String
+        createdDate = data["created_date"] as! String
+        pointStatus = data["point_status"] as! String
     }
 }
-
-
 
 class CheckBalanceViewController: UIViewController {
 
     @IBOutlet weak var clickBtnBack: UIButton!
     @IBOutlet weak var totalPointLbl: UILabel!
     @IBOutlet weak var addPointsBtn: UIButton!
-    @IBOutlet weak var enterPointsTxtField: UITextField!
     @IBOutlet weak var icWrongImg: UIImageView!
     @IBOutlet weak var btnOne: UIButton!
     @IBOutlet weak var btnTwo: UIButton!
     @IBOutlet weak var btnThree: UIButton!
     @IBOutlet weak var lastHistoryTblView: UITableView!
+    @IBOutlet weak var NoLastTransactionView: UIView!
     
     var btnValuePoints = 0
     
@@ -61,21 +61,17 @@ class CheckBalanceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         lastHistoryTblView.register(UINib(nibName: "LastTransactionTableViewCell", bundle: nil), forCellReuseIdentifier: "LastTransactionTableViewCell")
-        getPointHistoryApi()
         
-//        if let points = userDefaults.value(forKey: "purchasedPoints") {
-//            countingPoints = points as! Int
-//            totalPointLbl.text = "\(points)"
-//        }
+        getPointHistoryApi()
+        lastHistoryTblView.reloadData()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        lastHistoryTblView.register(UINib(nibName: "LastTransactionTableViewCell", bundle: nil), forCellReuseIdentifier: "LastTransactionTableViewCell")
+        
         getPointHistoryApi()
-//        if let points = userDefaults.value(forKey: "purchasedPoints") {
-//            countingPoints = points as! Int
-//            totalPointLbl.text = "\(points)"
-//        }
+        lastHistoryTblView.reloadData()
     }
     
     
@@ -91,12 +87,11 @@ class CheckBalanceViewController: UIViewController {
 
         _ =  ApiCallManager.requestApi(method: .post, urlString: urlString, parameters: parameter, headers: header) { responseObj in
 
-            //            let responseModel = ResponseDataModel(responseObj: responseObj)
-
             let message = responseObj["message"] as? String
             
             DispatchQueue.main.async {
                 self.showToast(message: message!, seconds: 3.5)
+                self.lastHistoryTblView.reloadData()
             }
 
         } failure: { (error) -> Bool in
@@ -106,20 +101,20 @@ class CheckBalanceViewController: UIViewController {
     }
     
     func getPointHistoryApi() {
-        
+
         let urlString = "\(API.BASE_URL)api/point/get-point-history"
         
         let parameter = ["page_no": 1,
-                         "per_page": 5] as [String: Any]
+                         "per_page": 8] as [String: Any]
         let header = ["Authorization": "Bearer \(AppPrefsManager.sharedInstance.getUserAccessToken())", ]
         
         _ =  ApiCallManager.requestApi(method: .post, urlString: urlString, parameters: parameter, headers: header) { responseObj in
             
-            //            let responseModel = ResponseDataModel(responseObj: responseObj)
+            self.pointHistoryArr = []
             
             let data = responseObj["data"] as? [String: Any]
             let pointInfo = data?["point_info"] as? [String: Any]
-            let totalPoints = pointInfo?["total"]
+            self.totalPoint = pointInfo?["total"] as? Int ?? 0
 
             if let pointHistory = data?["point_history"] as? [[String : Any]] {
                 for aDataItem in pointHistory {
@@ -127,12 +122,15 @@ class CheckBalanceViewController: UIViewController {
                 }
             }
             
+            self.NoLastTransactionView.isHidden = self.pointHistoryArr.count > 0 ? true : false
+            
             DispatchQueue.main.async {
-                self.totalPointLbl.text = "\(totalPoints!)"
+                self.totalPointLbl.text = "\(self.totalPoint)"
                 self.lastHistoryTblView.reloadData()
             }
             
         } failure: { (error) -> Bool in
+            self.NoLastTransactionView.isHidden = false
             return true
         }
     }
@@ -212,7 +210,7 @@ class CheckBalanceViewController: UIViewController {
             
         let paymentItem = PKPaymentSummaryItem.init(label: "For \(btnValuePoints) Points", amount: NSDecimalNumber(value: btnValuePoints), type: .final)
         let paymentNetworks = [PKPaymentNetwork.amex, .discover, .masterCard, .visa]
-        let canMakePayment = PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks)
+        let canMakePayment = !PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks)
         if canMakePayment {
             let request = PKPaymentRequest()
             request.currencyCode = "USD" // 1
@@ -273,16 +271,36 @@ extension CheckBalanceViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return pointHistoryArr.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = lastHistoryTblView.dequeueReusableCell(withIdentifier: "LastTransactionTableViewCell") as! LastTransactionTableViewCell
         let Objar = pointHistoryArr[indexPath.row]
-        cell.pointsLbl.text = "\(Objar.point)"
-        cell.statusLbl.text = Objar.status
+        if pointHistoryArr.count != 0 {
+            NoLastTransactionView.isHidden = true
+            cell.pointsLbl.text = "\(Objar.point)"
+            cell.statusLbl.text = "\(Objar.pointStatus)"
+            cell.dateLbl.text = "\(Objar.createdDate)"
+            cell.whereUsePointLbl.text = "\(Objar.pointUse)"
+            
+            if "\(Objar.pointUse)" == "Class Purchase" {
+                cell.imgGreenRedIcon.image = UIImage(named: "redClassPurchaseImg")
+                cell.pointsLbl.tintColor = .red
+                cell.imgMoneyTransaction.image = UIImage(named: "ClassPrchaseImg")
+            } else {
+                cell.imgGreenRedIcon.image = UIImage(named: "GreenTopUpLogo")
+                cell.pointsLbl.tintColor = .green
+                cell.imgMoneyTransaction.image = UIImage(named: "topupImg")
+            }
+            
+        } else {
+            NoLastTransactionView.isHidden = false
+        }
+        
+        
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 85
     }
 }

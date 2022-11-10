@@ -2669,7 +2669,7 @@
         <image name="Send" width="22" height="22"/>
         <image name="Settings Icon" width="25.666666030883789" height="25.666666030883789"/>
         <image name="Switch" width="17" height="18.333333969116211"/>
-        <image name="Trainers Icon" width="41.666667938232422" height="36"/>
+        <image name="Trainers Icon" width="29.333333969116211" height="24"/>
         <image name="chatting" width="23.666666030883789" height="21"/>
         <image name="coverBG" width="390" height="226"/>
         <image name="duration" width="16" height="17.333333969116211"/>

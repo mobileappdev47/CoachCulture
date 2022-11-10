@@ -12,6 +12,8 @@
 		047786EC2914D447007D0F0E /* CheckBalanceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047786EB2914D447007D0F0E /* CheckBalanceViewController.swift */; };
 		049C09C52887DACA00E87B07 /* DeleteAcc1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C09C42887DACA00E87B07 /* DeleteAcc1ViewController.swift */; };
 		049C09C82887DAEA00E87B07 /* DeleteAcc2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C09C72887DAEA00E87B07 /* DeleteAcc2ViewController.swift */; };
+		04AEB794291CB12F00387F3A /* LastTransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AEB792291CB12F00387F3A /* LastTransactionTableViewCell.swift */; };
+		04AEB795291CB12F00387F3A /* LastTransactionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04AEB793291CB12F00387F3A /* LastTransactionTableViewCell.xib */; };
 		4F4533AA9216B8657A0E6011 /* Pods_CoachCulture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B85706782F6A7DD766D65589 /* Pods_CoachCulture.framework */; };
 		510A93B827DA00C1000EDFF3 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */; };
 		510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */; };
@@ -505,6 +507,8 @@
 		047786EB2914D447007D0F0E /* CheckBalanceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBalanceViewController.swift; sourceTree = "<group>"; };
 		049C09C42887DACA00E87B07 /* DeleteAcc1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAcc1ViewController.swift; sourceTree = "<group>"; };
 		049C09C72887DAEA00E87B07 /* DeleteAcc2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteAcc2ViewController.swift; sourceTree = "<group>"; };
+		04AEB792291CB12F00387F3A /* LastTransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastTransactionTableViewCell.swift; sourceTree = "<group>"; };
+		04AEB793291CB12F00387F3A /* LastTransactionTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LastTransactionTableViewCell.xib; sourceTree = "<group>"; };
 		510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingIndicatorView.swift; sourceTree = "<group>"; };
 		510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkoutStatisticVC.swift; sourceTree = "<group>"; };
 		510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HeaderTableView.xib; sourceTree = "<group>"; };
@@ -1018,6 +1022,7 @@
 		047786EA2914D3FE007D0F0E /* CheckBalance */ = {
 			isa = PBXGroup;
 			children = (
+				04AEB791291CB11700387F3A /* Cell */,
 				047786EB2914D447007D0F0E /* CheckBalanceViewController.swift */,
 			);
 			path = CheckBalance;
@@ -1030,6 +1035,15 @@
 				049C09C72887DAEA00E87B07 /* DeleteAcc2ViewController.swift */,
 			);
 			path = DeleteAccount;
+			sourceTree = "<group>";
+		};
+		04AEB791291CB11700387F3A /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				04AEB792291CB12F00387F3A /* LastTransactionTableViewCell.swift */,
+				04AEB793291CB12F00387F3A /* LastTransactionTableViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		510B86FE27CDEEEA00FD09A8 /* WorkoutStatistic */ = {
@@ -2515,6 +2529,7 @@
 				F19639E5272BB78600D19373 /* GH.png in Resources */,
 				F1963A84272BB78600D19373 /* VN.png in Resources */,
 				F1963999272BB78600D19373 /* AN.png in Resources */,
+				04AEB795291CB12F00387F3A /* LastTransactionTableViewCell.xib in Resources */,
 				F196399E272BB78600D19373 /* AT.png in Resources */,
 				F19639A6272BB78600D19373 /* BE.png in Resources */,
 				F1963991272BB78600D19373 /* AC.png in Resources */,
@@ -2731,6 +2746,7 @@
 				D4156CDF2764715600328E4F /* RecipeDetailsViewController.swift in Sources */,
 				D4D2864927587D2000970987 /* HomeViewController.swift in Sources */,
 				D41DB053277056BE007FC5F7 /* SearchFollowerItemTableViewCell.swift in Sources */,
+				04AEB794291CB12F00387F3A /* LastTransactionTableViewCell.swift in Sources */,
 				D41DB05627705B33007FC5F7 /* YourCoachesViewController.swift in Sources */,
 				D41DB046277038D1007FC5F7 /* SearchResultItemTableViewCell.swift in Sources */,
 				512ABD9F27180D08008CB198 /* UIViewController+SideMenu.swift in Sources */,
