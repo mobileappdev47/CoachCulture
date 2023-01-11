@@ -60,20 +60,25 @@ class CheckBalanceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        lastHistoryTblView.separatorStyle = .none
+        
         lastHistoryTblView.register(UINib(nibName: "LastTransactionTableViewCell", bundle: nil), forCellReuseIdentifier: "LastTransactionTableViewCell")
         
         getPointHistoryApi()
         lastHistoryTblView.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        lastHistoryTblView.separatorStyle = .none
+        
         lastHistoryTblView.register(UINib(nibName: "LastTransactionTableViewCell", bundle: nil), forCellReuseIdentifier: "LastTransactionTableViewCell")
         
         getPointHistoryApi()
         lastHistoryTblView.reloadData()
     }
-    
     
     
     //MARK:- Point Related Api
@@ -210,7 +215,7 @@ class CheckBalanceViewController: UIViewController {
             
         let paymentItem = PKPaymentSummaryItem.init(label: "For \(btnValuePoints) Points", amount: NSDecimalNumber(value: btnValuePoints), type: .final)
         let paymentNetworks = [PKPaymentNetwork.amex, .discover, .masterCard, .visa]
-        let canMakePayment = !PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks)
+        let canMakePayment = PKPaymentAuthorizationViewController.canMakePayments(usingNetworks: paymentNetworks)
         if canMakePayment {
             let request = PKPaymentRequest()
             request.currencyCode = "USD" // 1
@@ -220,6 +225,7 @@ class CheckBalanceViewController: UIViewController {
             request.supportedNetworks = paymentNetworks // 5
             request.paymentSummaryItems = [paymentItem] // 6
             guard let paymentVC = PKPaymentAuthorizationViewController(paymentRequest: request) else {
+//                addPointsApi(paymentStatus: 2)
                 displayDefaultErrorAlert(title: "Error", message: "Unable to present Apple Pay authorization.")
                 return
             }
@@ -227,7 +233,7 @@ class CheckBalanceViewController: UIViewController {
             paymentVC.delegate = self
             self.present(paymentVC, animated: true, completion: nil)
         } else {
-            displayDefaultErrorAlert(title: "Error", message: "Unable to make Apple Pay transaction.")
+            displayDefaultErrorAlert(title: "Error!", message: "Unable to make Apple Pay transaction.")
         }
         
     }
@@ -261,8 +267,18 @@ extension CheckBalanceViewController: PKPaymentAuthorizationViewControllerDelega
     }
     
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
-        dismiss(animated: true, completion: nil)
-        displayDefaultAlert(title: "Success!", message: "The Apple Pay transaction was complete")
+        if Reachability.isConnectedToNetwork() {
+            let successResult = PKPaymentAuthorizationResult(status: .success, errors: nil)
+            dismiss(animated: true, completion: nil)
+            displayDefaultAlert(title: "Success!", message: "The Apple Pay transaction was complete")
+            completion(successResult)
+            print("success")
+        } else {
+            print("failure")
+            let defaultFailureResult = PKPaymentAuthorizationResult(status: .failure, errors: nil)
+            addPointsApi(paymentStatus: 2 )
+            completion(defaultFailureResult)
+        }
     }
     
 }
@@ -284,19 +300,17 @@ extension CheckBalanceViewController: UITableViewDelegate, UITableViewDataSource
             
             if "\(Objar.pointUse)" == "Class Purchase" {
                 cell.imgGreenRedIcon.image = UIImage(named: "redClassPurchaseImg")
-                cell.pointsLbl.tintColor = .red
+                cell.pointsLbl.textColor = .red
                 cell.imgMoneyTransaction.image = UIImage(named: "ClassPrchaseImg")
             } else {
                 cell.imgGreenRedIcon.image = UIImage(named: "GreenTopUpLogo")
-                cell.pointsLbl.tintColor = .green
+                cell.pointsLbl.textColor = .green
                 cell.imgMoneyTransaction.image = UIImage(named: "topupImg")
             }
             
         } else {
             NoLastTransactionView.isHidden = false
         }
-        
-        
         return cell
     }
 

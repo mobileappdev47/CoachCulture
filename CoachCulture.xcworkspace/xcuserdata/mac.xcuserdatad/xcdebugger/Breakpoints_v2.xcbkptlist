@@ -46,8 +46,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1379"
-            endingLineNumber = "1379"
+            startingLineNumber = "1380"
+            endingLineNumber = "1380"
             landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -110,8 +110,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1026"
-            endingLineNumber = "1026"
+            startingLineNumber = "1027"
+            endingLineNumber = "1027"
             landmarkName = "addConfirmationView1()"
             landmarkType = "7">
          </BreakpointContent>
@@ -446,8 +446,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1240"
-            endingLineNumber = "1240"
+            startingLineNumber = "1241"
+            endingLineNumber = "1241"
             landmarkName = "clickToBtnDownload(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -682,8 +682,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1267"
-            endingLineNumber = "1267"
+            startingLineNumber = "1268"
+            endingLineNumber = "1268"
             landmarkName = "clickToBtnJoinClass(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -698,8 +698,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1036"
-            endingLineNumber = "1036"
+            startingLineNumber = "1037"
+            endingLineNumber = "1037"
             landmarkName = "goToPlayOndemandClass()"
             landmarkType = "7">
          </BreakpointContent>
@@ -714,8 +714,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1285"
-            endingLineNumber = "1285"
+            startingLineNumber = "1286"
+            endingLineNumber = "1286"
             landmarkName = "clickToBtnJoinClass(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -730,8 +730,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1043"
-            endingLineNumber = "1043"
+            startingLineNumber = "1044"
+            endingLineNumber = "1044"
             landmarkName = "goToPlayOndemandClass()"
             landmarkType = "7">
          </BreakpointContent>
@@ -746,8 +746,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1415"
-            endingLineNumber = "1415"
+            startingLineNumber = "1416"
+            endingLineNumber = "1416"
             landmarkName = "getAWSDetails(isFromBroadcasting:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -778,8 +778,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "992"
-            endingLineNumber = "992"
+            startingLineNumber = "993"
+            endingLineNumber = "993"
             landmarkName = "paidPointCoachClass(point:coach_class_id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -842,8 +842,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "986"
-            endingLineNumber = "986"
+            startingLineNumber = "987"
+            endingLineNumber = "987"
             landmarkName = "paidPointCoachClass(point:coach_class_id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -858,8 +858,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "972"
-            endingLineNumber = "972"
+            startingLineNumber = "973"
+            endingLineNumber = "973"
             landmarkName = "paidPointCoachClass(point:coach_class_id:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -890,8 +890,8 @@
             filePath = "CoachCulture/ViewController/Tab5/CheckBalance/CheckBalanceViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "156"
-            endingLineNumber = "156"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "didSelectPointBtn(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -906,8 +906,8 @@
             filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "954"
-            endingLineNumber = "954"
+            startingLineNumber = "955"
+            endingLineNumber = "955"
             landmarkName = "getPointData()"
             landmarkType = "7">
          </BreakpointContent>
@@ -922,8 +922,8 @@
             filePath = "CoachCulture/ViewController/Tab5/CheckBalance/CheckBalanceViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "119"
-            endingLineNumber = "119"
+            startingLineNumber = "124"
+            endingLineNumber = "124"
             landmarkName = "getPointHistoryApi()"
             landmarkType = "7">
          </BreakpointContent>
@@ -938,9 +938,137 @@
             filePath = "CoachCulture/ViewController/Tab5/CheckBalance/CheckBalanceViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "275"
-            endingLineNumber = "275"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
             landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FB079B00-F8EE-4AE5-AE68-B7FBB9860AE3"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/Network/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "83"
+            endingLineNumber = "83"
+            landmarkName = "callMultiPartDataWebServiceNew(type:image:to:params:success:failure:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2286D13B-FE7D-4A4E-A016-973BEC480380"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/Network/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "97"
+            endingLineNumber = "97"
+            landmarkName = "callMultiPartDataWebServiceNew(type:image:to:params:success:failure:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "655DD0C4-9638-40E7-BC8B-D07D488DC32D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/Network/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "callMultiPartDataWebServiceNew(type:image:to:params:success:failure:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0C41A21A-2B43-464B-9F9C-4EDE3F9A245D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/Network/APIManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "callMultiPartDataWebServiceNew(type:image:to:params:success:failure:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "837624ED-539F-40B7-91EF-9981A9063B8B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/ViewController/Tab5/CheckBalance/CheckBalanceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "270"
+            endingLineNumber = "270"
+            landmarkName = "paymentAuthorizationViewController(_:didAuthorizePayment:handler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A0DC8F97-3B86-4815-BF46-AB6234341FD4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/ViewController/Tab5/CheckBalance/CheckBalanceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "paymentAuthorizationViewController(_:didAuthorizePayment:handler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4439535D-88F4-4361-ACF2-BE4909070E04"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/ViewController/Tab5/CheckBalance/CheckBalanceViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "addPointsApi(paymentStatus:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "135D6559-BF93-4CC9-A3CB-93EDE71B0686"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoachCulture/ViewController/Tab5/Live Class/Live Class Details/LiveClassDetailsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "913"
+            endingLineNumber = "913"
+            landmarkName = "redirectToPaymentMethod()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

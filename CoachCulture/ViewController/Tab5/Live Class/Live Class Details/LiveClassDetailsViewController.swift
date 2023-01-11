@@ -910,10 +910,11 @@ class LiveClassDetailsViewController: BaseViewController {
 //            recdCurrency = classDetailDataObj.feesDataObj.base_currency
         } else {
 
-            if totalPoint != 0 {
+            if totalPoint <= Int(classDetailDataObj.feesDataObj.non_subscriber_fee)! {
+                displayDefaultAlert(title: "Please Check Your Balance, you haven't capable point to join class so please purchase as soon", message: "if you want to top-up your points then click to Go to Top-Up Page")
+            }
+            else {
                 paidPointCoachClass(point: classDetailDataObj.feesDataObj.non_subscriber_fee, coach_class_id: Int(classDetailDataObj.id)!)
-            } else {
-                displayDefaultAlert(title: "You haven't capable point to join class so please purchase as soon", message: "if you want to top-up your points then click to Go to Top-Up Page")
             }
             
 //            recdCurrency = classDetailDataObj.feesDataObj.fee_regional_currency
