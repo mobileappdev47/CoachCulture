@@ -716,7 +716,6 @@ extension LoginSignUpVc {
                     let role = userObj["role"] as? String ?? ""
                     AppPrefsManager.sharedInstance.saveUserRole(role: role)
                     self.goToTabBar()
-                    
                 }
                 
             } else {
