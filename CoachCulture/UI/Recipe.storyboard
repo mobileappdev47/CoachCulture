@@ -5213,7 +5213,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Class starts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="981-wr-Iyi" customClass="PaddingLabel" customModule="CoachCulture" customModuleProvider="target">
-                                <rect key="frame" x="136.5" y="323.5" width="102.5" height="20.5"/>
+                                <rect key="frame" x="131.5" y="318.5" width="112.5" height="30.5"/>
                                 <color key="backgroundColor" name="blur_color"/>
                                 <fontDescription key="fontDescription" name="SFProText-Bold" family="SF Pro Text" pointSize="17"/>
                                 <color key="textColor" name="textColor"/>
@@ -5403,7 +5403,7 @@
     </scenes>
     <designables>
         <designable name="981-wr-Iyi">
-            <size key="intrinsicContentSize" width="102.5" height="20.5"/>
+            <size key="intrinsicContentSize" width="112.5" height="30.5"/>
         </designable>
         <designable name="BIM-nz-QMh">
             <size key="intrinsicContentSize" width="91.5" height="18"/>

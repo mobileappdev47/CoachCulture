@@ -616,7 +616,7 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
             let asset = AVURLAsset(url: videoUrl)
             let durationInSeconds = asset.duration.seconds
             
-            if(durationInSeconds > 04)
+            if(durationInSeconds > 300) // 04
             {
                 
                 do {
@@ -629,7 +629,7 @@ extension OnDemandVideoUploadViewController: UIImagePickerControllerDelegate, UI
                 
                 btnUploadVideo.isEnabled = false
 //                self.uploadVideo(nameOfResource: videoUrl.lastPathComponent, Url: videoUrl)
-                lblClassDuration.text = "05 mins"//"\(Int(durationInSeconds / 60)) mins"
+                lblClassDuration.text = "\(Int(durationInSeconds / 60)) mins" //"05 mins"
             } else {
                 Utility().showToast("Please upload a minimum video of 5 minutes")
             }
