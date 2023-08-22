@@ -14,7 +14,6 @@
 		049C09C82887DAEA00E87B07 /* DeleteAcc2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049C09C72887DAEA00E87B07 /* DeleteAcc2ViewController.swift */; };
 		04AEB794291CB12F00387F3A /* LastTransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AEB792291CB12F00387F3A /* LastTransactionTableViewCell.swift */; };
 		04AEB795291CB12F00387F3A /* LastTransactionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04AEB793291CB12F00387F3A /* LastTransactionTableViewCell.xib */; };
-		4F4533AA9216B8657A0E6011 /* Pods_CoachCulture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B85706782F6A7DD766D65589 /* Pods_CoachCulture.framework */; };
 		510A93B827DA00C1000EDFF3 /* LoadingIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510A93B727DA00C1000EDFF3 /* LoadingIndicatorView.swift */; };
 		510B870027CDEF0E00FD09A8 /* WorkoutStatisticVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 510B86FF27CDEF0E00FD09A8 /* WorkoutStatisticVC.swift */; };
 		510C1D9427BE6C2F007228E9 /* HeaderTableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 510C1D9327BE6C2F007228E9 /* HeaderTableView.xib */; };
@@ -499,6 +498,7 @@
 		F1963A93272BB7DD00D19373 /* CountryPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1963A92272BB7DD00D19373 /* CountryPickerVC.swift */; };
 		F1963A95272BCF2E00D19373 /* OTPViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1963A94272BCF2E00D19373 /* OTPViewController.swift */; };
 		F1A89A3D2729D29700C73634 /* SignupCoachEmbedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1A89A3C2729D29700C73634 /* SignupCoachEmbedViewController.swift */; };
+		FBB073EA69FF80F5DB5D89CC /* Pods_CoachCulture.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95633F475F96CE34450E6880 /* Pods_CoachCulture.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -571,10 +571,9 @@
 		516E135727DB31A2008EEC72 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		519CDD7327D9DC98001958B8 /* JoinLiveClassVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinLiveClassVC.swift; sourceTree = "<group>"; };
 		519CDE0027D9E073001958B8 /* AmazonIVSPlayer.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = AmazonIVSPlayer.xcframework; path = Pods/AmazonIVSPlayer/AmazonIVSPlayer.xcframework; sourceTree = "<group>"; };
-		7763653C9B9F4D2A135FCDB0 /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
 		77CAC7CE2872C46100D3A013 /* NutritionDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NutritionDetailsViewController.swift; sourceTree = "<group>"; };
-		A707E7C35A4583A3C026826F /* Pods-CoachCulture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.debug.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.debug.xcconfig"; sourceTree = "<group>"; };
-		B85706782F6A7DD766D65589 /* Pods_CoachCulture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoachCulture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		95633F475F96CE34450E6880 /* Pods_CoachCulture.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CoachCulture.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F1125B565368A411EEF3509 /* Pods-CoachCulture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.release.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.release.xcconfig"; sourceTree = "<group>"; };
 		BD24B26827CA4CEE00176981 /* BottomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomDetailView.swift; sourceTree = "<group>"; };
 		BD24B26927CA4CEE00176981 /* BottomDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomDetailView.xib; sourceTree = "<group>"; };
 		BD93C9A82845CF9C00425B6F /* name_to_id_mapping.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = name_to_id_mapping.json; sourceTree = "<group>"; };
@@ -584,6 +583,7 @@
 		BDD3663327C8A11500911E4E /* ShowDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShowDetailView.xib; sourceTree = "<group>"; };
 		BDD3663727C8B12D00911E4E /* RecipeTestCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeTestCellTableViewCell.swift; sourceTree = "<group>"; };
 		BDD3663827C8B12D00911E4E /* RecipeTestCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RecipeTestCellTableViewCell.xib; sourceTree = "<group>"; };
+		C211D630D9268683E119D872 /* Pods-CoachCulture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoachCulture.debug.xcconfig"; path = "Target Support Files/Pods-CoachCulture/Pods-CoachCulture.debug.xcconfig"; sourceTree = "<group>"; };
 		D40136C32758D78600E36A39 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		D40136C62758DCDF00E36A39 /* LogOutView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LogOutView.xib; sourceTree = "<group>"; };
 		D40136C82758DCFC00E36A39 /* LogOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogOutView.swift; sourceTree = "<group>"; };
@@ -1012,7 +1012,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4F4533AA9216B8657A0E6011 /* Pods_CoachCulture.framework in Frameworks */,
+				FBB073EA69FF80F5DB5D89CC /* Pods_CoachCulture.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1306,7 +1306,7 @@
 			isa = PBXGroup;
 			children = (
 				519CDE0027D9E073001958B8 /* AmazonIVSPlayer.xcframework */,
-				B85706782F6A7DD766D65589 /* Pods_CoachCulture.framework */,
+				95633F475F96CE34450E6880 /* Pods_CoachCulture.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1314,8 +1314,8 @@
 		B840B12236BB6BA44934DD0D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A707E7C35A4583A3C026826F /* Pods-CoachCulture.debug.xcconfig */,
-				7763653C9B9F4D2A135FCDB0 /* Pods-CoachCulture.release.xcconfig */,
+				C211D630D9268683E119D872 /* Pods-CoachCulture.debug.xcconfig */,
+				9F1125B565368A411EEF3509 /* Pods-CoachCulture.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -2231,12 +2231,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 512ABBA22717FD74008CB198 /* Build configuration list for PBXNativeTarget "CoachCulture" */;
 			buildPhases = (
-				0CA2779B1BB9A6953885B11B /* [CP] Check Pods Manifest.lock */,
+				B13220C9C04B2676C46E7890 /* [CP] Check Pods Manifest.lock */,
 				512ABB8A2717FD72008CB198 /* Sources */,
 				512ABB8B2717FD72008CB198 /* Frameworks */,
 				512ABB8C2717FD72008CB198 /* Resources */,
 				51252D5E28003C84000D4C11 /* ShellScript */,
-				C308493E0F2643F05C239A26 /* [CP] Embed Pods Frameworks */,
+				C9E78AF79F98BE46EE388224 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -2623,7 +2623,26 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0CA2779B1BB9A6953885B11B /* [CP] Check Pods Manifest.lock */ = {
+		51252D5E28003C84000D4C11 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
+		B13220C9C04B2676C46E7890 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2645,26 +2664,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		51252D5E28003C84000D4C11 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
-		};
-		C308493E0F2643F05C239A26 /* [CP] Embed Pods Frameworks */ = {
+		C9E78AF79F98BE46EE388224 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2997,7 +2997,7 @@
 		};
 		512ABBA32717FD74008CB198 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A707E7C35A4583A3C026826F /* Pods-CoachCulture.debug.xcconfig */;
+			baseConfigurationReference = C211D630D9268683E119D872 /* Pods-CoachCulture.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -3006,15 +3006,15 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 28;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = J6PSBNQBR2;
+				DEVELOPMENT_TEAM = 727NYQKL6L;
 				INFOPLIST_FILE = "$(SRCROOT)/CoachCulture/CommonFile/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.coachculture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lordix.masterforminecraft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
@@ -3024,7 +3024,7 @@
 		};
 		512ABBA42717FD74008CB198 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7763653C9B9F4D2A135FCDB0 /* Pods-CoachCulture.release.xcconfig */;
+			baseConfigurationReference = 9F1125B565368A411EEF3509 /* Pods-CoachCulture.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -3032,15 +3032,15 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 28;
-				DEVELOPMENT_TEAM = J6PSBNQBR2;
+				DEVELOPMENT_TEAM = 727NYQKL6L;
 				INFOPLIST_FILE = "$(SRCROOT)/CoachCulture/CommonFile/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.app.coachculture;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lordix.masterforminecraft;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;

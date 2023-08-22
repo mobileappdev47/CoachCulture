@@ -161,7 +161,7 @@ class CoachClassProfileViewController: BaseViewController {
         legend.form = .none
         legend.textColor = .clear
         // MARK: description
-        chartView.chartDescription?.enabled = false
+        chartView.chartDescription.enabled = false
         
         setChartData()
     }
@@ -196,8 +196,8 @@ class CoachClassProfileViewController: BaseViewController {
         set.axisDependency = .left
         
         // MARK: LineChartData
-        let data = LineChartData()
-        data.addDataSet(set)
+        let data = LineChartData(dataSet: set)
+//        data.addDataSet(set)
         return data
     }
     
@@ -793,7 +793,7 @@ extension CoachClassProfileViewController: ChartViewDelegate {
         print("chartValueNothingSelected")
     }
     
-    public class BarChartFormatter: NSObject, IAxisValueFormatter
+    public class BarChartFormatter: NSObject, AxisValueFormatter
     {
         var months: [String]! = arrMonths
         public func stringForValue(_ value: Double, axis: AxisBase?) -> String

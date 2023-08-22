@@ -271,7 +271,7 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
             loginParams = [
                 "username": txtUsernameLogin.text!,
                 "password": txtPasswordLogin.text!,
-                "device_token": DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? "",
+                "device_token": "cvcxvxv22v1xcvv2vaavavfdv2a2vdsv", //DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
                 "login_type": 0
             ]
             if Reachability.isConnectedToNetwork(){
@@ -296,39 +296,43 @@ class LoginSignUpVc: BaseViewController, ASAuthorizationControllerDelegate {
     @IBAction func clickToBtnGoogleSignIn( _ sender : UIButton) {
         guard let clientID = FirebaseApp.app()?.options.clientID else { return }
         let config = GIDConfiguration(clientID: clientID)
-        GIDSignIn.sharedInstance.signIn(with: config, presenting: self) { [unowned self] user, error in
+
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] user, error in
+//
             if let error = error {
-                Utility.shared.showToast(error.localizedDescription)
+                // ...
                 return
             }
-            guard
-                let authentication = user?.authentication,
-                let idToken = authentication.idToken
-            else {
-                return
-            }
+
+            guard let user =  user?.user, let idToken = user.idToken?.tokenString else { return }
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: user.accessToken.tokenString)
+
+//            guard let user = GIDSignIn.sharedInstance.currentUser, let authentication = user.authentication, let idToken = authentication.idToken else {
+//                return
+//            }
             //let credential = GoogleAuthProvider.credential(withIDToken: idToken, accessToken: authentication.accessToken)
-            
+
             self.socialID = idToken
             loginParams = [
                 Params.Login.google_id: idToken,
                 Params.Login.login_type: LoginTypeConst.Google.rawValue,
                 Params.Login.device_token: DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
             ]
-            if let email = user?.profile?.email {
+            if let email = user.profile?.email {
                 self.email = email
                 self.txtEmail.text = self.email
             }
-            if let username = user?.profile?.name {
+            if let username = user.profile?.name {
                 self.username = username
                 self.txtUsername.text = self.username
             }
-            
+
             viewPasswordSignUp.isHidden = true
             viewRetypePasswordSignUp.isHidden = true
-            
+
             LoginType = LoginTypeConst.Google
             loginAPI()
+            
 //            signupAPI()
         }
     }
@@ -613,7 +617,7 @@ extension LoginSignUpVc {
         param["phonecode"] = txtCountryCode.text!
         param["phoneno"]  = txtPhone.text!
         param["email"] = txtEmail.text!
-        param["device_token"] = DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? ""
+        param["device_token"] = "cvcxvxv22v1xcvv2vaavavfdv2a2vdsv" // DEFAULTS.value(forKey: DEFAULTS_KEY.FCM_TOKEN) as? String ?? "" // "cvcxvxv22v1xcvv2vaavavfdv2a2vdsv"
         
         apimanager.callMultiPartDataWebServiceNew(type: SignupUserModel.self, image: nil, to: API.REGISTER_USER, params: param) { userModel, statusCode in
             print("statusCode == == ",statusCode)

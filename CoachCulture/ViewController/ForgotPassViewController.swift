@@ -45,7 +45,7 @@ class ForgotPassViewController: BaseViewController {
     
     var countryCodeDesc = ""
 
-    let txtPlaceholders = ["Phone Number",  "Email"]
+    let txtPlaceholders = ["Phone",  "Email"]
 
     override func viewDidLoad() {
         super.viewDidLoad()

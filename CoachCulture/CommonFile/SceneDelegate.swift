@@ -19,7 +19,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let appDel = UIApplication.shared.delegate as? AppDelegate {
             appDel.window = window
         }
-        
     }
     
     func sceneDidDisconnect(_ scene: UIScene) {

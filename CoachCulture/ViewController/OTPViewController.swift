@@ -87,7 +87,7 @@ class OTPViewController: BaseViewController {
                 phoneX.append("x")
             }
 
-            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneNo)."
+            lblDesc.text = "Please type the verification code sent to \(phoneCode) \(phoneX)."
         }
     }
     
@@ -172,8 +172,6 @@ extension OTPViewController {
             }
             
             Utility.shared.showToast(responseModel.message)
-            
-            
             
         } failure: { (error) in
             print(error.localizedDescription)
@@ -310,7 +308,8 @@ extension OTPViewController : DPOTPViewDelegate {
             } else {
                 print("Done ----- verify")
                 if Reachability.isConnectedToNetwork(){
-                    self.verifyAPI()
+//                    self.verifyAPI()
+                    self.goToTabBar()
                 }
             }
         }

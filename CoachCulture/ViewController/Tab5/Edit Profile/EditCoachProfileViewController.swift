@@ -630,7 +630,8 @@ extension EditCoachProfileViewController {
                 self.setsuccessPopUpForCoachProfieView()
                 
             } else{
-                Utility.shared.showToast(responseModel.message)
+//                Utility.shared.showToast(responseModel.message)
+                print(responseModel.message)
             }
             
             self.hideLoader()

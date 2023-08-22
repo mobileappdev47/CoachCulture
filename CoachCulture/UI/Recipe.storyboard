@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -5408,11 +5408,17 @@
         <designable name="BIM-nz-QMh">
             <size key="intrinsicContentSize" width="91.5" height="18"/>
         </designable>
+        <designable name="CpG-bk-cey">
+            <size key="intrinsicContentSize" width="268" height="44"/>
+        </designable>
         <designable name="DvX-xw-RPq">
             <size key="intrinsicContentSize" width="99.5" height="18"/>
         </designable>
         <designable name="VqP-Au-dIJ">
             <size key="intrinsicContentSize" width="94.5" height="18"/>
+        </designable>
+        <designable name="ZqS-EK-QPa">
+            <size key="intrinsicContentSize" width="268" height="44"/>
         </designable>
     </designables>
     <resources>
@@ -5502,7 +5508,7 @@
             <color red="0.17299999296665192" green="0.22400000691413879" blue="0.28600001335144043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

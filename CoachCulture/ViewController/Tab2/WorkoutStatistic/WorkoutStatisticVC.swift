@@ -110,7 +110,7 @@ class WorkoutStatisticVC: BaseViewController {
         legend.form = .none
         legend.textColor = .clear
         // MARK: description
-        chartView.chartDescription?.enabled = false
+        chartView.chartDescription.enabled = false
         
         setChartData()
     }
@@ -164,8 +164,7 @@ class WorkoutStatisticVC: BaseViewController {
         set.axisDependency = .left
         
         // MARK: LineChartData
-        let data = LineChartData()
-        data.addDataSet(set)
+        let data = LineChartData(dataSet: set)
         return data
     }
     
@@ -521,7 +520,7 @@ extension WorkoutStatisticVC: ChartViewDelegate {
         print("chartValueNothingSelected")
     }
     
-    public class BarChartFormatter: NSObject, IAxisValueFormatter
+    public class BarChartFormatter: NSObject, AxisValueFormatter
     {
         var months: [String]! = arrMonths
         
