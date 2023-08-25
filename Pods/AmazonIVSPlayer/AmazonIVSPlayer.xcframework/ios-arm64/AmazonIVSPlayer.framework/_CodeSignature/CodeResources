@@ -4,9 +4,13 @@
 <dict>
 	<key>files</key>
 	<dict>
+		<key>Headers/AVPictureInPictureController+IVSPlayer.h</key>
+		<data>
+		bBdjdOz3adjrgEqAx+oSzZhFqJI=
+		</data>
 		<key>Headers/AmazonIVSPlayer.h</key>
 		<data>
-		SXPGE2y4KXaLBqu9BT+V2IzJVG8=
+		Ajl+H4x4ZXf6jBOmDKmcO52PxUo=
 		</data>
 		<key>Headers/IVSBase.h</key>
 		<data>
@@ -22,7 +26,7 @@
 		</data>
 		<key>Headers/IVSPlayer.h</key>
 		<data>
-		rGXXhWHeEp1zALuKpXjAmIPxS78=
+		tAhyfuPALF6VAyrjAEaLz+0GWE8=
 		</data>
 		<key>Headers/IVSPlayerDelegate.h</key>
 		<data>
@@ -50,7 +54,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		0G6QzdVH3wDnhXlB5wpw46euzuQ=
+		zAAoGUFDNxdfKahTk8EOEJ5/hIQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -59,11 +63,18 @@
 	</dict>
 	<key>files2</key>
 	<dict>
+		<key>Headers/AVPictureInPictureController+IVSPlayer.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			CY4nIAWpW8qhyTGJ9NvxIeedxLM5TMdIkyzJnhUYxIo=
+			</data>
+		</dict>
 		<key>Headers/AmazonIVSPlayer.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			7NthjCxoMx9o6nafa7NF9HSsOl0RpeD4haWs+ju9aaU=
+			yaOaVo00W3rhuNlwi8+b92rBgD0sE/KxHI4xJJY8hKw=
 			</data>
 		</dict>
 		<key>Headers/IVSBase.h</key>
@@ -91,7 +102,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8QMyNoj6gmF7AgA91THliRUgLsYY/wAdNJFOQKJ2T6c=
+			z4YWm5f5UAgOowW5h9rpEhRRc4aKsVbrqcb/hUv+MXI=
 			</data>
 		</dict>
 		<key>Headers/IVSPlayerDelegate.h</key>

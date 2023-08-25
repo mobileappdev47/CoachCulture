@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -40,24 +40,24 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qtq-wE-Yx9">
-                                <rect key="frame" x="0.0" y="106.5" width="110" height="43.5"/>
+                                <rect key="frame" x="0.0" y="105" width="110" height="45"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zxD-e7-D3X">
-                                        <rect key="frame" x="0.0" y="0.0" width="110" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="110" height="45"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">
                                                 <real key="value" value="0.0"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="@timnorton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJd-wP-3wf">
-                                        <rect key="frame" x="0.0" y="5" width="110" height="18"/>
-                                        <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="15"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="@timnorton" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FJd-wP-3wf">
+                                        <rect key="frame" x="2" y="5" width="106" height="19.5"/>
+                                        <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="12"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="22.5k Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYb-Bl-cE1">
-                                        <rect key="frame" x="0.0" y="24" width="110" height="14.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22.5k Followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYb-Bl-cE1">
+                                        <rect key="frame" x="2" y="25.5" width="106" height="14.5"/>
                                         <fontDescription key="fontDescription" name="SFProText-Heavy" family="SF Pro Text" pointSize="12"/>
                                         <color key="textColor" name="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -69,14 +69,14 @@
                                     <constraint firstItem="FJd-wP-3wf" firstAttribute="top" secondItem="qtq-wE-Yx9" secondAttribute="top" constant="5" id="FSA-7Y-xZa"/>
                                     <constraint firstAttribute="trailing" secondItem="zxD-e7-D3X" secondAttribute="trailing" id="IQB-z5-009"/>
                                     <constraint firstItem="zxD-e7-D3X" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" id="M3t-bD-21u"/>
-                                    <constraint firstItem="jYb-Bl-cE1" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" id="PdN-x0-yak"/>
-                                    <constraint firstAttribute="trailing" secondItem="FJd-wP-3wf" secondAttribute="trailing" id="X20-z0-MsN"/>
-                                    <constraint firstAttribute="height" constant="43.5" id="ZUF-hO-jBT"/>
+                                    <constraint firstItem="jYb-Bl-cE1" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" constant="2" id="PdN-x0-yak"/>
+                                    <constraint firstAttribute="trailing" secondItem="FJd-wP-3wf" secondAttribute="trailing" constant="2" id="X20-z0-MsN"/>
+                                    <constraint firstAttribute="height" constant="45" id="ZUF-hO-jBT"/>
                                     <constraint firstItem="zxD-e7-D3X" firstAttribute="top" secondItem="qtq-wE-Yx9" secondAttribute="top" id="ba4-t4-ALN"/>
                                     <constraint firstItem="jYb-Bl-cE1" firstAttribute="top" secondItem="FJd-wP-3wf" secondAttribute="bottom" constant="1" id="gBH-Qe-5ep"/>
                                     <constraint firstAttribute="bottom" secondItem="zxD-e7-D3X" secondAttribute="bottom" id="mBD-G1-Ova"/>
-                                    <constraint firstItem="FJd-wP-3wf" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" id="pED-mL-NXP"/>
-                                    <constraint firstAttribute="trailing" secondItem="jYb-Bl-cE1" secondAttribute="trailing" id="vsG-8J-YPr"/>
+                                    <constraint firstItem="FJd-wP-3wf" firstAttribute="leading" secondItem="qtq-wE-Yx9" secondAttribute="leading" constant="2" id="pED-mL-NXP"/>
+                                    <constraint firstAttribute="trailing" secondItem="jYb-Bl-cE1" secondAttribute="trailing" constant="2" id="vsG-8J-YPr"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiuss">

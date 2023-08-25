@@ -7,6 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import <AmazonIVSPlayer/AVPictureInPictureController+IVSPlayer.h>
 #import <AmazonIVSPlayer/IVSBase.h>
 #import <AmazonIVSPlayer/IVSCue.h>
 #import <AmazonIVSPlayer/IVSPlayer.h>

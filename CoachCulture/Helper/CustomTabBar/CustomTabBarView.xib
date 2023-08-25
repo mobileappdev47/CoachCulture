@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -40,11 +40,11 @@
                                     </connections>
                                 </button>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_diet_tab" highlightedImage="ic_diet_tab" translatesAutoresizingMaskIntoConstraints="NO" id="w3e-gP-3U3">
-                                    <rect key="frame" x="25" y="12" width="25" height="25"/>
+                                    <rect key="frame" x="22.5" y="9.5" width="30" height="30"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="25" id="1XS-Uo-MdI"/>
-                                        <constraint firstAttribute="height" constant="25" id="Mpx-RN-nih"/>
+                                        <constraint firstAttribute="width" constant="30" id="1XS-Uo-MdI"/>
+                                        <constraint firstAttribute="height" constant="30" id="Mpx-RN-nih"/>
                                     </constraints>
                                 </imageView>
                             </subviews>
@@ -73,11 +73,11 @@
                                     </connections>
                                 </button>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_trainer_tab" highlightedImage="ic_trainer_tab" translatesAutoresizingMaskIntoConstraints="NO" id="Hdz-2h-b0E">
-                                    <rect key="frame" x="25" y="12" width="25" height="25"/>
+                                    <rect key="frame" x="22.5" y="9.5" width="30" height="30"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="25" id="ZRf-LN-mWL"/>
-                                        <constraint firstAttribute="height" constant="25" id="ya2-Gf-Bgk"/>
+                                        <constraint firstAttribute="width" constant="30" id="ZRf-LN-mWL"/>
+                                        <constraint firstAttribute="height" constant="30" id="ya2-Gf-Bgk"/>
                                     </constraints>
                                 </imageView>
                             </subviews>
@@ -106,11 +106,11 @@
                                     </connections>
                                 </button>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_home_tab" highlightedImage="ic_home_tab" translatesAutoresizingMaskIntoConstraints="NO" id="szx-5P-8co">
-                                    <rect key="frame" x="25" y="12" width="25" height="25"/>
+                                    <rect key="frame" x="22.5" y="9.5" width="30" height="30"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="11r-W3-EGx"/>
-                                        <constraint firstAttribute="width" constant="25" id="uKL-JE-nSc"/>
+                                        <constraint firstAttribute="height" constant="30" id="11r-W3-EGx"/>
+                                        <constraint firstAttribute="width" constant="30" id="uKL-JE-nSc"/>
                                     </constraints>
                                 </imageView>
                             </subviews>
@@ -138,12 +138,12 @@
                                         <action selector="onBtnTab:" destination="iN0-l3-epB" eventType="touchUpInside" id="L1M-Lg-Out"/>
                                     </connections>
                                 </button>
-                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender_tab" highlightedImage="ic_calender_tab" translatesAutoresizingMaskIntoConstraints="NO" id="mCg-iK-vGd">
-                                    <rect key="frame" x="25" y="12" width="25" height="25"/>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_calender_tab2" highlightedImage="ic_calender_tab2" translatesAutoresizingMaskIntoConstraints="NO" id="mCg-iK-vGd">
+                                    <rect key="frame" x="22.5" y="9.5" width="30" height="30"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="dja-9L-uLX"/>
-                                        <constraint firstAttribute="width" constant="25" id="gP4-eY-GWA"/>
+                                        <constraint firstAttribute="height" constant="30" id="dja-9L-uLX"/>
+                                        <constraint firstAttribute="width" constant="30" id="gP4-eY-GWA"/>
                                     </constraints>
                                 </imageView>
                             </subviews>
@@ -172,11 +172,11 @@
                                     </connections>
                                 </button>
                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="4" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_profile_tab" highlightedImage="ic_profile_tab" translatesAutoresizingMaskIntoConstraints="NO" id="2NH-gi-vya">
-                                    <rect key="frame" x="25" y="12" width="25" height="25"/>
+                                    <rect key="frame" x="22.5" y="9.5" width="30" height="30"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="25" id="6yq-t6-Vbs"/>
-                                        <constraint firstAttribute="width" constant="25" id="fae-Ya-nlF"/>
+                                        <constraint firstAttribute="height" constant="30" id="6yq-t6-Vbs"/>
+                                        <constraint firstAttribute="width" constant="30" id="fae-Ya-nlF"/>
                                     </constraints>
                                 </imageView>
                             </subviews>
@@ -223,7 +223,7 @@
         </view>
     </objects>
     <resources>
-        <image name="ic_calender_tab" width="33.215999603271484" height="33.215999603271484"/>
+        <image name="ic_calender_tab2" width="78" height="60"/>
         <image name="ic_diet_tab" width="20.062999725341797" height="32.287998199462891"/>
         <image name="ic_home_tab" width="32.813999176025391" height="36.215999603271484"/>
         <image name="ic_profile_tab" width="32.5260009765625" height="35.823001861572266"/>

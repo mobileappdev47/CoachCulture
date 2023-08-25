@@ -651,15 +651,26 @@ extension LoginSignUpVc {
             }
         } failure: { error, statusCode in
             if let email = error?.errors?.email {
-                Utility.shared.showToast(email.first ?? "")
+//                Utility.shared.showToast(email.first ?? "")
+                self.showPopUpForAlready()
             }
             else if let phone = error?.errors?.phoneno {
-                Utility.shared.showToast(phone.first ?? "")
+//                Utility.shared.showToast(phone.first ?? "")
+                self.showPopUpForAlready()
             }
             else if let username = error?.errors?.username {
-                Utility.shared.showToast(username.first ?? "")
+//                Utility.shared.showToast(username.first ?? "")
+                self.showPopUpForAlready()
             }
         }
+    }
+    
+    func showPopUpForAlready() {
+        let vc = PopupViewController.viewcontroller()
+        vc.isHide = true
+        vc.titleTxt = "Already Signed Up"
+        vc.message = "Looks like you already have an account at CoachCulture.Having multiple accounts is currently not supported."
+        self.present(vc, animated: true, completion: nil)
     }
     
     func handleSignup(model: SignupUserModel) {

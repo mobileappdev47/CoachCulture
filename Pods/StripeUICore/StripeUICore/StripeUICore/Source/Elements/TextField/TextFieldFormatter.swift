@@ -3,15 +3,20 @@
 //  StripeUICore
 //
 //  Created by Mel Ludowise on 9/28/21.
+//  Copyright © 2021 Stripe, Inc. All rights reserved.
 //
 
 import Foundation
 
 struct TextFieldFormatter {
-    
+
     // NOTE(mludowise): If we ever have a case where we need to display `#` or `*`
     // inside a formatted string, we should probably change `format` to something
     // more structured other than a `String`.
+
+    static let redactedNumberCharacter: Character = "•"
+    static let digitPatternCharacter: Character = "#"
+    static let letterPatternCharacter: Character = "*"
 
     private let format: String
 
@@ -22,7 +27,8 @@ struct TextFieldFormatter {
      - Note: Returns nil if the given format is invalid and doesn't contain any `#` or `*` characters.
      */
     init?(format: String) {
-        guard format.contains("*") || format.contains("#") else {
+        guard format.contains(TextFieldFormatter.letterPatternCharacter) ||
+                format.contains(TextFieldFormatter.digitPatternCharacter) else {
             return nil
         }
         self.format = format
@@ -38,10 +44,11 @@ struct TextFieldFormatter {
 
      - Parameters:
        - input: Content to be formatted.
+       - appendRemaining: Set to true if any remaining characters in input after filling the pattern should be added as a suffix
 
      - Returns: The resulting formatted string.
      */
-    func applyFormat(to input: String) -> String {
+    func applyFormat(to input: String, shouldAppendRemaining: Bool = false) -> String {
         var result: [Character] = []
 
         var cursor = input.startIndex
@@ -62,10 +69,12 @@ struct TextFieldFormatter {
 
             repeat {
                 var consumeInput = false
-                if token == "#" && input[cursor].isNumber {
+                if token == TextFieldFormatter.digitPatternCharacter,
+                    (input[cursor].isNumber || input[cursor] == TextFieldFormatter.redactedNumberCharacter) {
                     consumeInput = true
                     resultBuffer.append(input[cursor])
-                } else if token == "*" && input[cursor].isLetter {
+                } else if token == TextFieldFormatter.letterPatternCharacter,
+                            input[cursor].isLetter {
                     consumeInput = true
                     resultBuffer.append(input[cursor])
                 }
@@ -78,14 +87,20 @@ struct TextFieldFormatter {
                     break
                 }
 
-                if (token == "#" || token == "*") {
+                if token == TextFieldFormatter.digitPatternCharacter ||
+                        token == TextFieldFormatter.letterPatternCharacter {
                     // Discard unmatched token
                     cursor = input.index(after: cursor)
                 } else {
                     resultBuffer.append(token)
                     break
                 }
-            } while cursor < input.endIndex;
+            } while cursor < input.endIndex
+        }
+
+        if shouldAppendRemaining,
+           cursor < input.endIndex {
+            result += " " + String(input[cursor...])
         }
 
         return String(result)

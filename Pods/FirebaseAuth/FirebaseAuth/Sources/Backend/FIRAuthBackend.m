@@ -25,7 +25,10 @@
 
 #import "FirebaseAuth/Sources/Public/FirebaseAuth/FirebaseAuth.h"
 
+#import "FirebaseAppCheck/Interop/FIRAppCheckInterop.h"
+#import "FirebaseAppCheck/Interop/FIRAppCheckTokenResultInterop.h"
 #import "FirebaseAuth/Sources/Auth/FIRAuthGlobalWorkQueue.h"
+#import "FirebaseAuth/Sources/Auth/FIRAuth_Internal.h"
 #import "FirebaseAuth/Sources/AuthProvider/OAuth/FIROAuthCredential_Internal.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRCreateAuthURIRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRCreateAuthURIResponse.h"
@@ -41,6 +44,8 @@
 #import "FirebaseAuth/Sources/Backend/RPC/FIRGetProjectConfigResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRResetPasswordRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRResetPasswordResponse.h"
+#import "FirebaseAuth/Sources/Backend/RPC/FIRRevokeTokenRequest.h"
+#import "FirebaseAuth/Sources/Backend/RPC/FIRRevokeTokenResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRSecureTokenRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRSecureTokenResponse.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRSendVerificationCodeRequest.h"
@@ -62,13 +67,15 @@
 #import "FirebaseAuth/Sources/Backend/RPC/FIRVerifyPhoneNumberRequest.h"
 #import "FirebaseAuth/Sources/Backend/RPC/FIRVerifyPhoneNumberResponse.h"
 #import "FirebaseAuth/Sources/Utilities/FIRAuthErrorUtils.h"
-#import "FirebaseCore/Sources/Private/FirebaseCoreInternal.h"
+#import "FirebaseCore/Extension/FirebaseCoreInternal.h"
 
 #if TARGET_OS_IOS
 #import "FirebaseAuth/Sources/Public/FirebaseAuth/FIRPhoneAuthProvider.h"
 
 #import "FirebaseAuth/Sources/AuthProvider/Phone/FIRPhoneAuthCredential_Internal.h"
 #import "FirebaseAuth/Sources/MultiFactor/Phone/FIRPhoneMultiFactorInfo+Internal.h"
+#import "FirebaseAuth/Sources/MultiFactor/TOTP/FIRTOTPMultiFactorInfo.h"
+
 #endif
 
 NS_ASSUME_NONNULL_BEGIN
@@ -87,6 +94,16 @@ static NSString *const kIosBundleIdentifierHeader = @"X-Ios-Bundle-Identifier";
     @brief HTTP header name for the firebase locale.
  */
 static NSString *const kFirebaseLocalHeader = @"X-Firebase-Locale";
+
+/** @var kFirebaseAppIDHeader
+    @brief HTTP header name for the Firebase app ID.
+ */
+static NSString *const kFirebaseAppIDHeader = @"X-Firebase-GMPID";
+
+/** @var kFirebaseHeartbeatHeader
+    @brief HTTP header name for a Firebase heartbeats payload.
+ */
+static NSString *const kFirebaseHeartbeatHeader = @"X-Firebase-Client";
 
 /** @var kFirebaseAuthCoreFrameworkMarker
     @brief The marker in the HTTP header that indicates the request comes from Firebase Auth Core.
@@ -458,6 +475,11 @@ static NSString *const kSecondFactorLimitExceededErrorMessage = @"SECOND_FACTOR_
  */
 static NSString *const kUnsupportedFirstFactorErrorMessage = @"UNSUPPORTED_FIRST_FACTOR";
 
+/** @var kBlockingCloudFunctionErrorResponse
+ @brief This is the error message blocking Cloud Functions.
+ */
+static NSString *const kBlockingCloudFunctionErrorResponse = @"BLOCKING_FUNCTION_ERROR_RESPONSE";
+
 /** @var kEmailChangeNeedsVerificationErrorMessage
  @brief This is the error message the server will respond with if changing an unverified email.
  */
@@ -588,7 +610,13 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 + (void)verifyClient:(id)request callback:(FIRVerifyClientResponseCallback)callback {
   [[self implementation] verifyClient:request callback:callback];
 }
+
 #endif
+
++ (void)revokeToken:(FIRRevokeTokenRequest *)request
+           callback:(FIRRevokeTokenResponseCallback)callback {
+  [[self implementation] revokeToken:request callback:callback];
+}
 
 + (void)resetPassword:(FIRResetPasswordRequest *)request
              callback:(FIRResetPasswordCallback)callback {
@@ -598,6 +626,52 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 + (NSString *)authUserAgent {
   return [NSString stringWithFormat:@"FirebaseAuth.iOS/%@ %@", FIRFirebaseVersion(),
                                     GTMFetcherStandardUserAgentString(nil)];
+}
+
++ (void)requestWithURL:(NSURL *)URL
+             contentType:(NSString *)contentType
+    requestConfiguration:(FIRAuthRequestConfiguration *)requestConfiguration
+       completionHandler:(void (^)(NSMutableURLRequest *_Nullable))completionHandler {
+  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
+  [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
+  NSString *additionalFrameworkMarker =
+      requestConfiguration.additionalFrameworkMarker ?: kFirebaseAuthCoreFrameworkMarker;
+  NSString *clientVersion = [NSString
+      stringWithFormat:@"iOS/FirebaseSDK/%@/%@", FIRFirebaseVersion(), additionalFrameworkMarker];
+  [request setValue:clientVersion forHTTPHeaderField:kClientVersionHeader];
+  NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
+  [request setValue:bundleID forHTTPHeaderField:kIosBundleIdentifierHeader];
+  NSString *appID = requestConfiguration.appID;
+  [request setValue:appID forHTTPHeaderField:kFirebaseAppIDHeader];
+  [request setValue:FIRHeaderValueFromHeartbeatsPayload(
+                        [requestConfiguration.heartbeatLogger flushHeartbeatsIntoPayload])
+      forHTTPHeaderField:kFirebaseHeartbeatHeader];
+  NSArray<NSString *> *preferredLocalizations = [NSBundle mainBundle].preferredLocalizations;
+  if (preferredLocalizations.count) {
+    NSString *acceptLanguage = preferredLocalizations.firstObject;
+    [request setValue:acceptLanguage forHTTPHeaderField:@"Accept-Language"];
+  }
+  NSString *languageCode = requestConfiguration.languageCode;
+  if (languageCode.length) {
+    [request setValue:languageCode forHTTPHeaderField:kFirebaseLocalHeader];
+  }
+  if (requestConfiguration.appCheck) {
+    [requestConfiguration.appCheck
+        getTokenForcingRefresh:false
+                    completion:^(id<FIRAppCheckTokenResultInterop> _Nonnull tokenResult) {
+                      if (tokenResult.error) {
+                        FIRLogWarning(kFIRLoggerAuth, @"I-AUT000018",
+                                      @"Error getting App Check token; using placeholder token "
+                                      @"instead. Error: %@",
+                                      tokenResult.error);
+                      }
+                      [request setValue:tokenResult.token
+                          forHTTPHeaderField:@"X-Firebase-AppCheck"];
+                      completionHandler(request);
+                    }];
+  } else {
+    completionHandler(request);
+  }
 }
 
 @end
@@ -631,33 +705,19 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                                    contentType:(NSString *)contentType
                              completionHandler:
                                  (void (^)(NSData *_Nullable, NSError *_Nullable))handler {
-  NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:URL];
-  [request setValue:contentType forHTTPHeaderField:@"Content-Type"];
-  NSString *additionalFrameworkMarker =
-      requestConfiguration.additionalFrameworkMarker ?: kFirebaseAuthCoreFrameworkMarker;
-  NSString *clientVersion = [NSString
-      stringWithFormat:@"iOS/FirebaseSDK/%@/%@", FIRFirebaseVersion(), additionalFrameworkMarker];
-  [request setValue:clientVersion forHTTPHeaderField:kClientVersionHeader];
-  NSString *bundleID = [[NSBundle mainBundle] bundleIdentifier];
-  [request setValue:bundleID forHTTPHeaderField:kIosBundleIdentifierHeader];
-
-  NSArray<NSString *> *preferredLocalizations = [NSBundle mainBundle].preferredLocalizations;
-  if (preferredLocalizations.count) {
-    NSString *acceptLanguage = preferredLocalizations.firstObject;
-    [request setValue:acceptLanguage forHTTPHeaderField:@"Accept-Language"];
-  }
-  NSString *languageCode = requestConfiguration.languageCode;
-  if (languageCode.length) {
-    [request setValue:languageCode forHTTPHeaderField:kFirebaseLocalHeader];
-  }
-  GTMSessionFetcher *fetcher = [_fetcherService fetcherWithRequest:request];
-  NSString *emulatorHostAndPort = requestConfiguration.emulatorHostAndPort;
-  if (emulatorHostAndPort) {
-    fetcher.allowLocalhostRequest = YES;
-    fetcher.allowedInsecureSchemes = @[ @"http" ];
-  }
-  fetcher.bodyData = body;
-  [fetcher beginFetchWithCompletionHandler:handler];
+  [FIRAuthBackend requestWithURL:URL
+                     contentType:contentType
+            requestConfiguration:requestConfiguration
+               completionHandler:^(NSMutableURLRequest *request) {
+                 GTMSessionFetcher *fetcher = [self->_fetcherService fetcherWithRequest:request];
+                 NSString *emulatorHostAndPort = requestConfiguration.emulatorHostAndPort;
+                 if (emulatorHostAndPort) {
+                   fetcher.allowLocalhostRequest = YES;
+                   fetcher.allowedInsecureSchemes = @[ @"http" ];
+                 }
+                 fetcher.bodyData = body;
+                 [fetcher beginFetchWithCompletionHandler:handler];
+               }];
 }
 
 @end
@@ -740,15 +800,27 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                } else {
                  if (!response.IDToken && response.MFAInfo) {
 #if TARGET_OS_IOS
-                   NSMutableArray<FIRMultiFactorInfo *> *multiFactorInfo = [NSMutableArray array];
+                   NSMutableArray<FIRMultiFactorInfo *> *multiFactorInfoArray =
+                       [[NSMutableArray alloc] init];
                    for (FIRAuthProtoMFAEnrollment *MFAEnrollment in response.MFAInfo) {
-                     FIRPhoneMultiFactorInfo *info =
-                         [[FIRPhoneMultiFactorInfo alloc] initWithProto:MFAEnrollment];
-                     [multiFactorInfo addObject:info];
+                     if (MFAEnrollment.phoneInfo) {
+                       FIRMultiFactorInfo *multiFactorInfo =
+                           [[FIRPhoneMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+                       [multiFactorInfoArray addObject:multiFactorInfo];
+                     } else if (MFAEnrollment.TOTPInfo) {
+                       FIRMultiFactorInfo *multiFactorInfo =
+                           [[FIRTOTPMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+                       [multiFactorInfoArray addObject:multiFactorInfo];
+                     } else {
+                       FIRLogError(kFIRLoggerAuth, @"I-AUT000020",
+                                   @"Multifactor type is not supported");
+                     }
                    }
                    NSError *multiFactorRequiredError = [FIRAuthErrorUtils
                        secondFactorRequiredErrorWithPendingCredential:response.MFAPendingCredential
-                                                                hints:multiFactorInfo];
+                                                                hints:multiFactorInfoArray
+                                                                 auth:request.requestConfiguration
+                                                                          .auth];
                    callback(nil, multiFactorRequiredError);
 #endif
                  } else {
@@ -786,13 +858,25 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 #if TARGET_OS_IOS
                    NSMutableArray<FIRMultiFactorInfo *> *multiFactorInfo = [NSMutableArray array];
                    for (FIRAuthProtoMFAEnrollment *MFAEnrollment in response.MFAInfo) {
-                     FIRPhoneMultiFactorInfo *info =
-                         [[FIRPhoneMultiFactorInfo alloc] initWithProto:MFAEnrollment];
-                     [multiFactorInfo addObject:info];
+                     // check which MFA factors are enabled.
+                     if (MFAEnrollment.phoneInfo != nil) {
+                       FIRPhoneMultiFactorInfo *info =
+                           [[FIRPhoneMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+                       [multiFactorInfo addObject:info];
+                     } else if (MFAEnrollment.TOTPInfo != nil) {
+                       FIRTOTPMultiFactorInfo *info =
+                           [[FIRTOTPMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+                       [multiFactorInfo addObject:info];
+                     } else {
+                       FIRLogError(kFIRLoggerAuth, @"I-AUT000021",
+                                   @"Multifactor type is not supported");
+                     }
                    }
                    NSError *multiFactorRequiredError = [FIRAuthErrorUtils
                        secondFactorRequiredErrorWithPendingCredential:response.MFAPendingCredential
-                                                                hints:multiFactorInfo];
+                                                                hints:multiFactorInfo
+                                                                 auth:request.requestConfiguration
+                                                                          .auth];
                    callback(nil, multiFactorRequiredError);
 #endif
                  } else {
@@ -805,15 +889,43 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 - (void)emailLinkSignin:(FIREmailLinkSignInRequest *)request
                callback:(FIREmailLinkSigninResponseCallback)callback {
   FIREmailLinkSignInResponse *response = [[FIREmailLinkSignInResponse alloc] init];
-  [self postWithRequest:request
-               response:response
-               callback:^(NSError *error) {
-                 if (error) {
-                   callback(nil, error);
+  [self
+      postWithRequest:request
+             response:response
+             callback:^(NSError *error) {
+               if (error) {
+                 callback(nil, error);
+               } else {
+                 if (!response.IDToken && response.MFAInfo) {
+#if TARGET_OS_IOS
+                   NSMutableArray<FIRMultiFactorInfo *> *multiFactorInfoArray =
+                       [[NSMutableArray alloc] init];
+                   for (FIRAuthProtoMFAEnrollment *MFAEnrollment in response.MFAInfo) {
+                     if (MFAEnrollment.phoneInfo) {
+                       FIRMultiFactorInfo *multiFactorInfo =
+                           [[FIRPhoneMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+                       [multiFactorInfoArray addObject:multiFactorInfo];
+                     } else if (MFAEnrollment.TOTPInfo) {
+                       FIRMultiFactorInfo *multiFactorInfo =
+                           [[FIRTOTPMultiFactorInfo alloc] initWithProto:MFAEnrollment];
+                       [multiFactorInfoArray addObject:multiFactorInfo];
+                     } else {
+                       FIRLogError(kFIRLoggerAuth, @"I-AUT000022",
+                                   @"Multifactor type is not supported");
+                     }
+                   }
+                   NSError *multiFactorRequiredError = [FIRAuthErrorUtils
+                       secondFactorRequiredErrorWithPendingCredential:response.MFAPendingCredential
+                                                                hints:multiFactorInfoArray
+                                                                 auth:request.requestConfiguration
+                                                                          .auth];
+                   callback(nil, multiFactorRequiredError);
+#endif
                  } else {
                    callback(response, nil);
                  }
-               }];
+               }
+             }];
 }
 
 - (void)secureToken:(FIRSecureTokenRequest *)request
@@ -917,7 +1029,24 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
                  callback(response, nil);
                }];
 }
+
 #endif
+
+- (void)revokeToken:(FIRRevokeTokenRequest *)request
+           callback:(FIRRevokeTokenResponseCallback)callback {
+  FIRRevokeTokenResponse *response = [[FIRRevokeTokenResponse alloc] init];
+  [self
+      postWithRequest:request
+             response:response
+             callback:^(NSError *error) {
+               if (error) {
+                 callback(nil, [FIRAuthErrorUtils
+                                   invalidCredentialErrorWithMessage:[error localizedDescription]]);
+                 return;
+               }
+               callback(response, nil);
+             }];
+}
 
 - (void)resetPassword:(FIRResetPasswordRequest *)request
              callback:(FIRResetPasswordCallback)callback {
@@ -1003,123 +1132,127 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
   }
 
   [_RPCIssuer
-    asyncPostToURLWithRequestConfiguration:[request requestConfiguration]
-                                       URL:[request requestURL]
-                                      body:bodyData
-                               contentType:kJSONContentType
-                         completionHandler:^(NSData *data, NSError *error) {
-                           // If there is an error with no body data at all, then this must be a
-                           // network error.
-                           if (error && !data) {
-                             callback([FIRAuthErrorUtils networkErrorWithUnderlyingError:error]);
-                             return;
-                           }
-
-                           // Try to decode the HTTP response data which may contain either a
-                           // successful response or error message.
-                           NSError *jsonError;
-                           NSDictionary *dictionary =
-                               [NSJSONSerialization JSONObjectWithData:data
-                                                               options:NSJSONReadingMutableLeaves
-                                                                 error:&jsonError];
-                           if (!dictionary) {
-                             if (error) {
-                               // We have an error, but we couldn't decode the body, so we have no
-                               // additional information other than the raw response and the
-                               // original NSError (the jsonError is infered by the error code
-                               // (FIRAuthErrorCodeUnexpectedHTTPResponse, and is irrelevant.)
-                               callback([FIRAuthErrorUtils unexpectedErrorResponseWithData:data
-                                                                           underlyingError:error]);
-                             } else {
-                               // This is supposed to be a "successful" response, but we couldn't
-                               // deserialize the body.
-                               callback([FIRAuthErrorUtils unexpectedResponseWithData:data
-                                                                      underlyingError:jsonError]);
+      asyncPostToURLWithRequestConfiguration:[request requestConfiguration]
+                                         URL:[request requestURL]
+                                        body:bodyData
+                                 contentType:kJSONContentType
+                           completionHandler:^(NSData *data, NSError *error) {
+                             // If there is an error with no body data at all, then this must be a
+                             // network error.
+                             if (error && !data) {
+                               callback([FIRAuthErrorUtils networkErrorWithUnderlyingError:error]);
+                               return;
                              }
-                             return;
-                           }
-                           if (![dictionary isKindOfClass:[NSDictionary class]]) {
-                             if (error) {
-                               callback([FIRAuthErrorUtils
-                                   unexpectedErrorResponseWithDeserializedResponse:dictionary]);
-                             } else {
-                               callback([FIRAuthErrorUtils
-                                   unexpectedResponseWithDeserializedResponse:dictionary]);
+
+                             // Try to decode the HTTP response data which may contain either a
+                             // successful response or error message.
+                             NSError *jsonError;
+                             NSDictionary *dictionary =
+                                 [NSJSONSerialization JSONObjectWithData:data
+                                                                 options:NSJSONReadingMutableLeaves
+                                                                   error:&jsonError];
+                             if (!dictionary) {
+                               if (error) {
+                                 // We have an error, but we couldn't decode the body, so we have no
+                                 // additional information other than the raw response and the
+                                 // original NSError (the jsonError is infered by the error code
+                                 // (FIRAuthErrorCodeUnexpectedHTTPResponse, and is irrelevant.)
+                                 callback([FIRAuthErrorUtils
+                                     unexpectedErrorResponseWithData:data
+                                                     underlyingError:error]);
+                               } else {
+                                 // This is supposed to be a "successful" response, but we couldn't
+                                 // deserialize the body.
+                                 callback([FIRAuthErrorUtils unexpectedResponseWithData:data
+                                                                        underlyingError:jsonError]);
+                               }
+                               return;
                              }
-                             return;
-                           }
+                             if (![dictionary isKindOfClass:[NSDictionary class]]) {
+                               if (error) {
+                                 callback([FIRAuthErrorUtils
+                                     unexpectedErrorResponseWithDeserializedResponse:dictionary
+                                                                     underlyingError:error]);
+                               } else {
+                                 callback([FIRAuthErrorUtils
+                                     unexpectedResponseWithDeserializedResponse:dictionary]);
+                               }
+                               return;
+                             }
 
-                           // At this point we either have an error with successfully decoded
-                           // details in the body, or we have a response which must pass further
-                           // validation before we know it's truly successful. We deal with the
-                           // case where we have an error with successfully decoded error details
-                           // first:
-                           if (error) {
-                             NSDictionary *errorDictionary = dictionary[kErrorKey];
-                             if ([errorDictionary isKindOfClass:[NSDictionary class]]) {
-                               id<NSObject> errorMessage = errorDictionary[kErrorMessageKey];
-                               if ([errorMessage isKindOfClass:[NSString class]]) {
-                                 NSString *errorMessageString = (NSString *)errorMessage;
+                             // At this point we either have an error with successfully decoded
+                             // details in the body, or we have a response which must pass further
+                             // validation before we know it's truly successful. We deal with the
+                             // case where we have an error with successfully decoded error details
+                             // first:
+                             if (error) {
+                               NSDictionary *errorDictionary = dictionary[kErrorKey];
+                               if ([errorDictionary isKindOfClass:[NSDictionary class]]) {
+                                 id<NSObject> errorMessage = errorDictionary[kErrorMessageKey];
+                                 if ([errorMessage isKindOfClass:[NSString class]]) {
+                                   NSString *errorMessageString = (NSString *)errorMessage;
 
-                                 // Contruct client error.
-                                 NSError *clientError = [[self class]
-                                     clientErrorWithServerErrorMessage:errorMessageString
-                                                       errorDictionary:errorDictionary
-                                                              response:response];
-                                 if (clientError) {
-                                   callback(clientError);
+                                   // Contruct client error.
+                                   NSError *clientError = [[self class]
+                                       clientErrorWithServerErrorMessage:errorMessageString
+                                                         errorDictionary:errorDictionary
+                                                                response:response];
+                                   if (clientError) {
+                                     callback(clientError);
+                                     return;
+                                   }
+                                 }
+                                 // Not a message we know, return the message directly.
+                                 if (errorMessage) {
+                                   NSError *unexpecterErrorResponse = [FIRAuthErrorUtils
+                                       unexpectedErrorResponseWithDeserializedResponse:
+                                           errorDictionary
+                                                                       underlyingError:error];
+                                   callback(unexpecterErrorResponse);
                                    return;
                                  }
                                }
-                               // Not a message we know, return the message directly.
-                               if (errorMessage) {
-                                 NSError *unexpecterErrorResponse = [FIRAuthErrorUtils
-                                     unexpectedErrorResponseWithDeserializedResponse:
-                                         errorDictionary];
-                                 callback(unexpecterErrorResponse);
-                                 return;
-                               }
+                               // No error message at all, return the decoded response.
+                               callback([FIRAuthErrorUtils
+                                   unexpectedErrorResponseWithDeserializedResponse:dictionary
+                                                                   underlyingError:error]);
+                               return;
                              }
-                             // No error message at all, return the decoded response.
-                             callback([FIRAuthErrorUtils
-                                 unexpectedErrorResponseWithDeserializedResponse:dictionary]);
-                             return;
-                           }
 
-                           // Finally, we try to populate the response object with the JSON
-                           // values.
-                           if (![response setWithDictionary:dictionary error:&error]) {
-                             callback([FIRAuthErrorUtils
-                                 RPCResponseDecodingErrorWithDeserializedResponse:dictionary
-                                                                  underlyingError:error]);
-                             return;
-                           }
-                           // In case returnIDPCredential of a verifyAssertion request is set to
-                           // @YES, the server may return a 200 with a response that may contain a
-                           // server error.
-                           if ([request isKindOfClass:[FIRVerifyAssertionRequest class]]) {
-                             FIRVerifyAssertionRequest *verifyAssertionRequest =
-                                 (FIRVerifyAssertionRequest *)request;
-                             if (verifyAssertionRequest.returnIDPCredential) {
-                               NSString *errorMessage =
-                                   dictionary[kReturnIDPCredentialErrorMessageKey];
-                               if ([errorMessage isKindOfClass:[NSString class]]) {
-                                 NSString *errorString = (NSString *)errorMessage;
-                                 NSError *clientError =
-                                     [[self class] clientErrorWithServerErrorMessage:errorString
-                                                                     errorDictionary:@{}
-                                                                            response:response];
-                                 if (clientError) {
-                                   callback(clientError);
-                                   return;
+                             // Finally, we try to populate the response object with the JSON
+                             // values.
+                             if (![response setWithDictionary:dictionary error:&error]) {
+                               callback([FIRAuthErrorUtils
+                                   RPCResponseDecodingErrorWithDeserializedResponse:dictionary
+                                                                    underlyingError:error]);
+                               return;
+                             }
+                             // In case returnIDPCredential of a verifyAssertion request is set to
+                             // @YES, the server may return a 200 with a response that may contain a
+                             // server error.
+                             if ([request isKindOfClass:[FIRVerifyAssertionRequest class]]) {
+                               FIRVerifyAssertionRequest *verifyAssertionRequest =
+                                   (FIRVerifyAssertionRequest *)request;
+                               if (verifyAssertionRequest.returnIDPCredential) {
+                                 NSString *errorMessage =
+                                     dictionary[kReturnIDPCredentialErrorMessageKey];
+                                 if ([errorMessage isKindOfClass:[NSString class]]) {
+                                   NSString *errorString = (NSString *)errorMessage;
+                                   NSError *clientError =
+                                       [[self class] clientErrorWithServerErrorMessage:errorString
+                                                                       errorDictionary:@{}
+                                                                              response:response];
+                                   if (clientError) {
+                                     callback(clientError);
+                                     return;
+                                   }
                                  }
                                }
                              }
-                           }
-                           // Success! The response object originally passed in can be used by the
-                           // caller.
-                           callback(nil);
-                         }];
+                             // Success! The response object originally passed in can be used by the
+                             // caller.
+                             callback(nil);
+                           }];
 }
 
 /** @fn clientErrorWithServerErrorMessage:errorDictionary:
@@ -1402,6 +1535,11 @@ static id<FIRAuthBackendImplementation> gBackendImplementation;
 
   if ([shortErrorMessage isEqualToString:kUnsupportedTenantOperation]) {
     return [FIRAuthErrorUtils unsupportedTenantOperationError];
+  }
+
+  if ([shortErrorMessage isEqualToString:kBlockingCloudFunctionErrorResponse]) {
+    return
+        [FIRAuthErrorUtils blockingCloudFunctionServerResponseWithMessage:serverDetailErrorMessage];
   }
 
   // In this case we handle an error that might be specified in the underlying errors dictionary,

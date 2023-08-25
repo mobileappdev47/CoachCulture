@@ -3,6 +3,7 @@
 //  StripeUICore
 //
 //  Created by Mel Ludowise on 10/11/21.
+//  Copyright © 2021 Stripe, Inc. All rights reserved.
 //
 
 import UIKit
@@ -11,6 +12,8 @@ import UIKit
     func didTapDone(_ toolbar: DoneButtonToolbar)
 }
 
+/// For internal SDK use only
+@objc(STP_Internal_DoneButtonToolbar)
 @_spi(STP) public final class DoneButtonToolbar: UIToolbar {
 
     public weak var doneButtonToolbarDelegate: DoneButtonToolbarDelegate?
